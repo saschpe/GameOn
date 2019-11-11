@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Script to create a test keystore to allow automated tests
+#
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+. "${SCRIPT_DIR}/../inc.functions.sh"
+
+# Constants
+KEYSTORE=test.jks
+
+# Functions
+function clean_up {
+    rm -rf ${KEYSTORE}
+}
+
+# Checks
+if [[ -f ${KEYSTORE} ]] ; then
+    die "Keystore '${KEYSTORE}' already exists!"
+fi
+
+# Let's roll
+trap clean_up INT EXIT
+safe keytool -genkey -v \
+    -keystore ${KEYSTORE} \
+    -keyalg RSA \
+    -keysize 2048 \
+    -validity 10000 \
+    -alias test \
+    -storepass test132 \
+    -keypass test123 \
+    -dname "cn=test"

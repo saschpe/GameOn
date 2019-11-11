@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/privacyPolicy"
+        android:icon="@drawable/ic_info_24dp"
+        android:orderInCategory="100"
+        android:title="@string/privacy_policy"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/termsOfService"
+        android:icon="@drawable/ic_info_24dp"
+        android:orderInCategory="101"
+        android:title="@string/terms_of_service"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/openSourceLicenses"
+        android:icon="@drawable/ic_info_24dp"
+        android:orderInCategory="102"
+        android:title="@string/open_source_licenses"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/version_info"
+        android:icon="@drawable/ic_info_24dp"
+        android:orderInCategory="103"
+        android:title="@string/version_info"
+        app:showAsAction="never" />
+
+</menu>

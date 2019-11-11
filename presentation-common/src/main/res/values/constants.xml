@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">GameSale</string>
+
+    <!-- Dummy constants -->
+    <string name="lorem_ipsum_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="lorem_ipsum_short" translatable="false">Lorem ipsum</string>
+    <string name="user_email_default" translatable="false">sascha@peilicke.de</string>
+    <string name="user_name_default" translatable="false">Sascha Peilicke</string>
+
+    <string name="theme_light" translatable="false">1</string>
+    <string name="theme_dark" translatable="false">2</string>
+    <string name="theme_system_default" translatable="false">-1</string> <!-- Actually AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -->
+
+    <!-- Developer strings -->
+    <string name="on_boarding_finished" translatable="false">On-boarding finished</string>
+
+</resources>

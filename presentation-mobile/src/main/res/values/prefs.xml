@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default values -->
+    <string name="pref_theme_default" translatable="false">@string/theme_system_default</string>
+    <bool name="pref_on_boarding_finished_default">false</bool>
+
+    <!-- Preference keys -->
+    <string name="pref_appearance_key" translatable="false">appearance</string>
+    <string name="pref_developer_key" translatable="false">developer</string>
+    <string name="pref_help_and_feedback_key" translatable="false">help_and_feedback</string>
+    <string name="pref_notification_key" translatable="false">notification</string>
+    <string name="pref_on_boarding_finished_key" translatable="false">on_boarding_finished</string>
+    <string name="pref_theme_key" translatable="false">theme</string>
+
+</resources>

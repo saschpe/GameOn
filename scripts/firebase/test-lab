@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+#
+# Script to run integration test on devices on Firebase Test Lab
+#
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+. "${SCRIPT_DIR}/../inc.functions.sh"
+
+# Constants
+FIREBASE_PROJECT_ID="lunchup-1"
+FIREBASE_TEST_DEVICES=(
+  model=walleye,version=28,locale=en,orientation=portrait
+)
+# Note: We can add more devices going forward to test more API versions,
+# locales and landscape vs portrait once we're on the proper billing plan.
+#model=OnePlus5,version=21,locale=de,orientation=landscape
+
+DEFAULT_APP=$(ls */build/outputs/apk/debug/*.apk | sort | tail -n1)
+DEFAULT_FIREBASE_TEST_TYPE="robo"
+DEFAULT_TEST_APP=$(ls */build/outputs/apk/androidTest/debug/*-androidTest.apk | sort | tail -n1)
+DEFAULT_SERVICE_ACCOUNT_KEY="config/firebase-test-lab-ci.json"
+
+# Functions
+function usage {
+    echo -e "Usage: ${0} [OPTIONS1]"
+    echo -e "Options:"
+    echo -e "  --service-account KEY_FILE (default: ${DEFAULT_SERVICE_ACCOUNT_KEY})"
+    echo -e "  --type [robo|instrumentation] (default: ${DEFAULT_FIREBASE_TEST_TYPE})"
+    echo -e "  --app  APK (default: ${DEFAULT_APP})"
+    echo -e "  --test APK (default: ${DEFAULT_TEST_APP})"
+    echo -e "Example: $0 --type robo --app io.lunchup.android.apk"
+    exit 1
+}
+
+# Command-line arguments
+app=${DEFAULT_APP}
+service_account=
+test_app=${DEFAULT_TEST_APP}
+test_type=${DEFAULT_FIREBASE_TEST_TYPE}
+while [[ $# -gt 0 ]] ; do
+    key="$1"
+    case ${key} in
+    --app)
+        app="$2"
+        shift # past argument
+        ;;
+    --service-account)
+        service_account="$2"
+        shift # past argument
+        ;;
+    --test)
+        test_app="$2"
+        shift # past argument
+        ;;
+    --type)
+        test_type="$2"
+        shift # past argument
+        ;;
+    -h|--help)
+        usage
+        ;;
+    *)
+        warn "Unknown option: ${key}"
+        usage
+        ;;
+    esac
+    shift # past argument or value
+done
+
+# Checks
+command -v gcloud > /dev/null || die "Install Google Cloud SDK and add the 'gcloud' binary to ${PATH}"
+[[ -f "${app}" ]] || die "App to test is invalid: ${app}"
+if [[ "${test_type}" = "instrumentation" ]] ; then
+    [[ -f "${test_app}" ]] || die "Instrumentation testing needs a valid test app: ${test_app}"
+fi
+
+
+# Let's roll
+if [[ -n "${service_account}" ]] ; then
+    gcloud auth activate-service-account --key-file=${service_account}
+elif gcloud auth list 2>&1 | grep -1 "No credentialed accounts" ; then
+    gcloud auth login
+fi
+
+if [[ "${test_type}" = "instrumentation" ]] ; then
+    extra_options="${extra_options} \
+    --test ${test_app}"
+fi
+for device in ${FIREBASE_TEST_DEVICES[@]} ; do
+    device_options="${device_options} \
+    --device ${device}"
+done
+
+safe gcloud config set project ${FIREBASE_PROJECT_ID}
+safe gcloud firebase test android run \
+  --type ${test_type} \
+  --app ${app} \
+  ${device_options} \
+  ${extra_options} \
+  --timeout 90s

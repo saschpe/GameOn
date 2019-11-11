@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="keyline_0">2dp</dimen>
+    <dimen name="keyline_1">4dp</dimen>
+    <dimen name="keyline_2">8dp</dimen>
+    <dimen name="keyline_4">16dp</dimen>
+    <dimen name="keyline_6">24dp</dimen>
+    <dimen name="keyline_8">32dp</dimen>
+    <dimen name="keyline_10">40dp</dimen>
+
+    <dimen name="profile_image_3">48dp</dimen>
+    <dimen name="profile_image_4">64dp</dimen>
+    <dimen name="profile_image_6">96dp</dimen>
+
+    <dimen name="recycler_spacing">@dimen/keyline_1</dimen>
+    <!-- Combined with recycler_spacing adds up to keyline_8 used in plenty of places-->
+    <dimen name="recycler_padding_top">28dp</dimen>
+
+</resources>
