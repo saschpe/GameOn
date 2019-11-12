@@ -25,6 +25,7 @@
                 android:layout_marginTop="@dimen/keyline_8"
                 android:layout_marginBottom="@dimen/keyline_4"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.App.Headline4"
                 tools:text="@string/lorem_ipsum_short" />
 
         </com.google.android.material.appbar.MaterialToolbar>
