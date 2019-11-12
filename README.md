@@ -34,6 +34,11 @@ running Android Emulator instance:
 ./gradlew connectedTest
 ```
 
+# IsThereAnyDeal API
+See: https://itad.docs.apiary.io/
+App: https://isthereanydeal.com/dev/app/501/
+
+
 # License
 
     Copyright (C) 2019 Sascha Peilicke. All rights reserved.

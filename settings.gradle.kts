@@ -1,7 +1,8 @@
-rootProject.name = "GameSale"
+rootProject.name = "GameBoy"
 
-include(":data-remote")
-include(":data-local")
+include(":data:core")
+include(":data:local")
+include(":data:remote")
 include(":domain")
-include(":presentation-common")
-include(":presentation-mobile")
+include(":presentation:common")
+include(":presentation:mobile")

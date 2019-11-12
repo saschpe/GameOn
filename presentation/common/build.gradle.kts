@@ -16,7 +16,10 @@ android {
         minSdkVersion(21)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
+
+    lintOptions.isAbortOnError = false
 
     sourceSets {
         // Increase Android Studio Kotlin compatibility
@@ -24,15 +27,15 @@ android {
         named("main") { java.srcDirs("src/main/kotlin") }
         named("test") { java.srcDirs("src/test/kotlin") }
     }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8", "1.3.50"))
+    implementation("androidx.preference:preference-ktx:1.1.0")
+    implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
-    // TODO: Consider domain-specific models to hide underlying layers. Currently considered overkill
-    api(project(":data:core"))
-    implementation(project(":data:local"))
-    implementation(project(":data:remote"))
 
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
