@@ -22,6 +22,13 @@
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+
     </fragment>
 
     <fragment
@@ -38,7 +45,17 @@
     <fragment
         android:id="@+id/gameDetailFragment"
         android:name="saschpe.gamesale.mobile.detail.GameDetailFragment"
-        tools:layout="@layout/fragment_game_detail" />
+        tools:layout="@layout/fragment_game_detail">
+
+        <argument
+            android:name="slug"
+            app:argType="string" />
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/helpFragment"
@@ -67,6 +84,17 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="lunchup://settings/" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="saschpe.gamesale.mobile.search.SearchFragment"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_searchFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
 
     </fragment>
 

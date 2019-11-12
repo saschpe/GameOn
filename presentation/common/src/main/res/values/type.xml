@@ -68,7 +68,7 @@
 
     <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/nunito_bold</item>
-        <!--<item name="android:textColor">@color/color_secondary</item>-->
+        <item name="android:textColor">@color/color_secondary</item>
     </style>
 
     <style name="TextAppearance.App.Overline" parent="TextAppearance.MaterialComponents.Overline">

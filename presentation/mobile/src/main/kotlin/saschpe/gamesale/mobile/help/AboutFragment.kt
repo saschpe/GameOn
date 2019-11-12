@@ -7,11 +7,11 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import kotlinx.android.synthetic.main.fragment_about.*
+import kotlinx.android.synthetic.main.fragment_help_about.*
 import saschpe.gamesale.mobile.R
 import saschpe.gamesale.mobile.base.customtabs.CustomTabs
 
-class AboutFragment : Fragment(R.layout.fragment_about) {
+class AboutFragment : Fragment(R.layout.fragment_help_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

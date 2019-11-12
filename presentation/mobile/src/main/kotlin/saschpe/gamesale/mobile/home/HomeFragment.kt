@@ -1,74 +1,84 @@
 package saschpe.gamesale.mobile.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import androidx.core.widget.doAfterTextChanged
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import saschpe.gamesale.common.app.appNameTitle
 import saschpe.gamesale.common.recyclerview.SpacingItemDecoration
 import saschpe.gamesale.mobile.R
+import saschpe.gamesale.mobile.detail.GameDetailFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var offerAdapter: OfferAdapter
-
-    @SuppressLint("HandlerLeak")
-    private val delayedSearchHandler: Handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            if (msg.what == MESSAGE_UPDATE_SEARCH) {
-                updateSearch()
-            }
-        }
-    }
+    private lateinit var dealsAdapter: DealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        offerAdapter = OfferAdapter(requireContext())
+        setHasOptionsMenu(true)
+
+        dealsAdapter = DealsAdapter(requireContext())
         viewModel.getDeals()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        setupWithNavController(toolbar, findNavController())
 
-        viewModel.dealLiveData.observe(this, Observer { offers ->
+        viewModel.dealLiveData.observe(this, Observer { deals ->
             progressBar.visibility = View.GONE
-            offerAdapter.submitList(offers.map { offer ->
-                OfferAdapter.ViewModel.OfferViewModel(
-                    offer = offer,
+            dealsAdapter.submitList(deals.map { deal ->
+                DealsAdapter.ViewModel.DealViewModel(
+                    deal = deal,
                     onClick = {
-                        // TODO: Enter detail view and fire detail query
+                        findNavController().navigate(
+                            R.id.action_homeFragment_to_gameDetailFragment,
+                            bundleOf(
+                                GameDetailFragment.ARG_SLUG to deal.plain,
+                                GameDetailFragment.ARG_TITLE to deal.title
+                            )
+                        )
                     }
                 )
             })
         })
 
         recyclerView.apply {
-            adapter = offerAdapter
+            adapter = dealsAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
 
-        searchQuery.doAfterTextChanged { text ->
-            if (text?.count() ?: 0 > 2) {
-                delayedSearchHandler.removeMessages(MESSAGE_UPDATE_SEARCH)
-                delayedSearchHandler.sendEmptyMessageDelayed(MESSAGE_UPDATE_SEARCH, 300)
-            }
+        searchQuery.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
     }
 
-    private fun updateSearch() {
-        progressBar?.visibility = View.VISIBLE
-        viewModel.search(searchQuery.text.toString())
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).appNameTitle(appName)
     }
 
-    companion object {
-        private const val MESSAGE_UPDATE_SEARCH = 123
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
+        inflater.inflate(R.menu.menu_home, menu)
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.helpFragment -> findNavController().navigate(R.id.action_homeFragment_to_helpFragment)
+            R.id.settingsFragment -> findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+        }
+        return false
     }
 }

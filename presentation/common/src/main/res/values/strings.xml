@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="deal_pricing_template"><![CDATA[<font color="%4$d"><b>%1$.2f EUR</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
     <string name="about">About</string>
     <string name="about_you">About you</string>
     <string name="accept">Accept</string>
@@ -17,6 +18,7 @@
     <string name="add_site">Add a site</string>
     <string name="address">Address</string>
     <string name="anything_goes">Anything goes</string>
+    <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">Sales</font>]]></string>
     <string name="appearance">Appearance</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="around_noon">Around noon</string>
@@ -36,6 +38,7 @@
     <string name="choose_theme">Choose theme</string>
     <string name="confirm">Confirm</string>
     <string name="optional_but_helps_finding">Optional but helps people finding you…</string>
+    <string name="deals">Deals</string>
     <string name="how_do_you_join">How do you join the fun?</string>
     <string name="organize_and_confirm">Organize &amp; confirm</string>
     <string name="coming_soon">Coming soon…</string>
@@ -72,6 +75,7 @@
     <string name="friends">Friends</string>
     <string name="full_name">Full name</string>
     <string name="gamer">Gamer</string>
+    <string name="game">Game</string>
     <string name="general">General</string>
     <string name="get_started">Get started</string>
     <string name="get_support">Get support and reach out to us</string>
@@ -93,7 +97,6 @@
     <string name="location">Location</string>
     <string name="location_access_hint">Location access helps us finding your lunch-up.</string>
     <string name="location_permission_hint">Accessing the device location helps us propose lunch-ups around you.</string>
-    <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">Sales</font>]]></string>
     <string name="monthly">Monthly</string>
     <string name="next">Next</string>
     <string name="night_mode">Night mode</string>

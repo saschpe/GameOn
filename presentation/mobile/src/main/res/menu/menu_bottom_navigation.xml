@@ -3,12 +3,17 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home_24dp"
-        android:title="@string/home" />
+        android:icon="@drawable/ic_whatshot_24dp"
+        android:title="@string/deals" />
 
     <item
         android:id="@+id/watchListFragment"
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/watchlist" />
+
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/ic_account_circle_24dp"
+        android:title="@string/account" />
 
 </menu>

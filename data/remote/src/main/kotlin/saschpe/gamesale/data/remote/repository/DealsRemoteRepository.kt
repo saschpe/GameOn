@@ -15,7 +15,7 @@ class DealsRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shops: List<String> = listOf("steam"),
-        limit: Int = 20,
+        limit: Int = 150,
         offset: Int = 0,
         sort: String = "price:asc"
     ): Result<DealResponse> = asResult {

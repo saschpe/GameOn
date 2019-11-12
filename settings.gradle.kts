@@ -1,4 +1,4 @@
-rootProject.name = "GameBoy"
+rootProject.name = "GameSales"
 
 include(":data:core")
 include(":data:local")

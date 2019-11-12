@@ -21,6 +21,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private val viewModel: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
 
@@ -39,8 +40,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     // Workaround for https://issuetracker.google.com/issues/139995974
     private fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference) {
         val fragment = childFragmentManager.fragmentFactory.instantiate(
-            requireContext().classLoader,
-            pref.fragment
+            requireContext().classLoader, pref.fragment
         ).apply {
             arguments = pref.extras
             setTargetFragment(caller, 0)

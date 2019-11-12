@@ -7,7 +7,7 @@ import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.gamesale.mobile.BuildConfig
 import saschpe.gamesale.mobile.R
 
-class ContactFragment : Fragment(R.layout.fragment_contact) {
+class ContactFragment : Fragment(R.layout.fragment_help_contact) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
