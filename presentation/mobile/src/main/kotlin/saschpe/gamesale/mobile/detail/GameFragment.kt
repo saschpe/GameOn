@@ -62,8 +62,6 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             val green = ContextCompat.getColor(requireContext(), R.color.deal_green)
             val red = ContextCompat.getColor(requireContext(), R.color.deal_red)
 
-
-
             currentBest.text = HtmlCompat.fromHtml(
                 getString(
                     R.string.pricing_template,
