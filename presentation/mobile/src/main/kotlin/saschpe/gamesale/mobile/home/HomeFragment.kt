@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gamesale.common.app.appNameTitle
 import saschpe.gamesale.common.recyclerview.SpacingItemDecoration
 import saschpe.gamesale.mobile.R
-import saschpe.gamesale.mobile.detail.GameDetailFragment
+import saschpe.gamesale.mobile.detail.GameFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
@@ -43,10 +43,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     deal = deal,
                     onClick = {
                         findNavController().navigate(
-                            R.id.action_homeFragment_to_gameDetailFragment,
+                            R.id.action_homeFragment_to_gameFragment,
                             bundleOf(
-                                GameDetailFragment.ARG_SLUG to deal.plain,
-                                GameDetailFragment.ARG_TITLE to deal.title
+                                GameFragment.ARG_PLAIN to deal.plain,
+                                GameFragment.ARG_TITLE to deal.title
                             )
                         )
                     }

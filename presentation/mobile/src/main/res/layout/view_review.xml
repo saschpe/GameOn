@@ -9,21 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image"
+        <TextView
+            android:id="@+id/rating"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/account_icon"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:singleLine="true"
+            android:textAppearance="?textAppearanceHeadline4"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="w,460:215"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:text="73" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/store"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -32,15 +31,13 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textAppearance="?textAppearanceBody1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/pricing"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/rating"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/full_names" />
+            tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/pricing"
+            android:id="@+id/details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -51,9 +48,9 @@
             android:textAppearance="?textAppearanceBody2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="@tools:sample/full_names" />
+            app:layout_constraintStart_toEndOf="@+id/rating"
+            app:layout_constraintTop_toBottomOf="@+id/store"
+            tools:text="@tools:sample/lorem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

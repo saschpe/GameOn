@@ -11,8 +11,8 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_homeFragment_to_gameDetailFragment"
-            app:destination="@id/gameDetailFragment" />
+            android:id="@+id/action_homeFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
 
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
@@ -21,6 +21,7 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
@@ -33,18 +34,18 @@
         tools:layout="@layout/fragment_watchlist">
 
         <action
-            android:id="@+id/action_watchListFragment_to_gameDetailFragment"
-            app:destination="@id/gameDetailFragment" />
+            android:id="@+id/action_watchListFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/gameDetailFragment"
-        android:name="saschpe.gamesale.mobile.detail.GameDetailFragment"
-        tools:layout="@layout/fragment_game_detail">
+        android:id="@+id/gameFragment"
+        android:name="saschpe.gamesale.mobile.detail.GameFragment"
+        tools:layout="@layout/fragment_game">
 
         <argument
-            android:name="slug"
+            android:name="plain"
             app:argType="string" />
 
         <argument
@@ -89,8 +90,8 @@
         tools:layout="@layout/fragment_search">
 
         <action
-            android:id="@+id/action_searchFragment_to_gameDetailFragment"
-            app:destination="@id/gameDetailFragment" />
+            android:id="@+id/action_searchFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
 
     </fragment>
 

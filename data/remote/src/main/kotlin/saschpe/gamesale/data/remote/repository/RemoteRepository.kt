@@ -1,6 +1,7 @@
 package saschpe.gamesale.data.remote.repository
 
 import io.ktor.client.features.ResponseException
+import kotlinx.serialization.json.JsonDecodingException
 import saschpe.gamesale.data.core.Result
 
 interface RemoteRepository {
@@ -11,6 +12,8 @@ interface RemoteRepository {
      */
     suspend fun <T : Any> asResult(lambda: suspend () -> T): Result<T> = try {
         Result.Success(lambda())
+    } catch (exception: JsonDecodingException) {
+        Result.Error.withCause(exception.message, exception)
     } catch (exception: ResponseException) {
         Result.Error.withCause(exception.message, exception)
     }

@@ -6,7 +6,7 @@
     <!--The same color values are defined for dark theme, but with values more appropriate for -->
     <!--low-luminance UIs. These colors will be used by night/themes.xml.-->
 
-    <color name="color_background">#000000</color>
+    <color name="color_background">#263238</color>
     <color name="color_surface">#121212</color>
     <color name="color_error">#cf6679</color>
 

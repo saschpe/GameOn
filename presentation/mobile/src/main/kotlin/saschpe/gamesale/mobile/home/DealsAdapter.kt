@@ -59,17 +59,13 @@ class DealsAdapter(
 
             pricing.text = HtmlCompat.fromHtml(
                 clickSurface.context.getString(
-                    R.string.deal_pricing_template,
+                    R.string.pricing_template,
                     viewModel.deal.price_new,
                     viewModel.deal.shop.name,
                     viewModel.deal.price_cut.roundToInt(),
                     green, red
-                ),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
-
-            /*pricing.text =
-                "${viewModel.deal.price_new} on ${viewModel.deal.shop.name} (-${viewModel.deal.price_cut.roundToInt()}%)"*/
         }
     }
 

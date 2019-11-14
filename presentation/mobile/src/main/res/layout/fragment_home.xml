@@ -10,6 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:liftOnScroll="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.App.Headline3"
+                    android:textAppearance="?textAppearanceHeadline3"
                     tools:text="@string/lorem_ipsum_short" />
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -69,8 +70,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:mpb_progressStyle="horizontal"
-                app:mpb_useIntrinsicPadding="false"
-                tools:visibility="visible" />
+                app:mpb_useIntrinsicPadding="false" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

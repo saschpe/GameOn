@@ -18,13 +18,11 @@ class SearchViewModel : ViewModel() {
     fun search(query: String) {
         currentSearchJob?.cancel() // Only have one, i.e. the latest, running...
         currentSearchJob = viewModelScope.launch(Dispatchers.IO) {
-            when (val searchResult = searchUseCase(query)) {
-                is Result.Success<List<Offer>> -> {
-                    launch(Dispatchers.Main) {
-                        searchLiveData.value = searchResult.data.sortedBy { it.plain }
-                    }
+            when (val result = searchUseCase(query)) {
+                is Result.Success<List<Offer>> -> launch(Dispatchers.Main) {
+                    searchLiveData.value = result.data.sortedBy { it.plain }
                 }
-                is Result.Error -> TODO("Implement")
+                is Result.Error -> throw result.throwable
             }
         }
     }

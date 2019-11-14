@@ -9,9 +9,10 @@
     <dimen name="keyline_8">32dp</dimen>
     <dimen name="keyline_10">40dp</dimen>
 
-    <dimen name="profile_image_3">48dp</dimen>
-    <dimen name="profile_image_4">64dp</dimen>
-    <dimen name="profile_image_6">96dp</dimen>
+    <dimen name="image_3">48dp</dimen>
+    <dimen name="image_4">64dp</dimen>
+    <dimen name="image_6">96dp</dimen>
+    <dimen name="image_8">128dp</dimen>
 
     <dimen name="recycler_spacing">@dimen/keyline_1</dimen>
     <!-- Combined with recycler_spacing adds up to keyline_8 used in plenty of places-->
