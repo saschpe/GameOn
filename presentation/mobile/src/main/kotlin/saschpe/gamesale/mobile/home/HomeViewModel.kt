@@ -12,14 +12,12 @@ import saschpe.gamesale.domain.Model.getDealsUseCase
 class HomeViewModel : ViewModel() {
     val dealLiveData = MutableLiveData<List<Offer>>()
 
-    fun getDeals() {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val result = getDealsUseCase()) {
-                is Result.Success<List<Offer>> -> launch(Dispatchers.Main) {
-                    dealLiveData.value = result.data.sortedBy { it.added }
-                }
-                is Result.Error -> throw result.throwable
+    fun getDeals() = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = getDealsUseCase()) {
+            is Result.Success<List<Offer>> -> launch(Dispatchers.Main) {
+                dealLiveData.value = result.data.sortedBy { it.added }
             }
+            is Result.Error -> throw result.throwable
         }
     }
 

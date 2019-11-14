@@ -17,9 +17,9 @@
     <string name="buy">Buy</string>
     <string name="cancel">Cancel</string>
     <string name="choose_theme">Choose theme</string>
+    <string name="colored_number_template"><![CDATA[<font color="%2$d">%1$d</font>]]></string>
     <string name="confirm">Confirm</string>
     <string name="current_best">Current best</string>
-    <string name="deals">Deals</string>
     <string name="coming_soon">Coming soon…</string>
     <string name="contact">Contact</string>
     <string name="contact_support">Contact support</string>
@@ -28,7 +28,7 @@
     <string name="create_account">Create account</string>
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
-    <string name="date">Date</string>
+    <string name="deals">Deals</string>
     <string name="pricing_template"><![CDATA[<font color="%4$d"><b>%1$.2f EUR</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
@@ -61,6 +61,7 @@
     <string name="night_mode">Night mode</string>
     <string name="no">No</string>
     <string name="no_account_yet">No account yet? Create one</string>
+    <string name="no_reviews_yet">No reviews yet.</string>
     <string name="notifications">Notifications</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="or">or</string>
@@ -92,7 +93,13 @@
     <string name="version_info">Version info</string>
     <string name="watchlist">Watchlist</string>
     <string name="whats_this">What\'s this?</string>
+    <string name="write_a_steam_review">Write a Steam review</string>
     <string name="yes">Yes</string>
     <string name="your_profile">Your profile</string>
+
+    <plurals name="review_detail">
+        <item quantity="one">%1$s, %2$d review</item>
+        <item quantity="other">%1$s, %2$d reviews</item>
+    </plurals>
 
 </resources>

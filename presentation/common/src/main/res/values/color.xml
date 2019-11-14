@@ -42,8 +42,10 @@
     <color name="color_on_error">#ffffff</color>
 
     <!--CUSTOM COLORS-->
-    <color name="deal_green">#4caf50</color>
-    <color name="deal_red">#f44336</color>
+    <color name="amber">#ffc107</color>
+    <color name="green">#4caf50</color>
+    <color name="red">#f44336</color>
+
     <color name="facebook_blue">#1565C0</color>
     <color name="google_red">#D32F2F</color>
 

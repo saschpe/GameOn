@@ -6,7 +6,9 @@ import kotlinx.serialization.Serializable
 import saschpe.gamesale.data.core.Result
 import saschpe.gamesale.data.core.model.GameInfo
 import saschpe.gamesale.data.core.model.GameOverview
+import saschpe.gamesale.data.core.model.GamePrice
 import saschpe.gamesale.data.remote.Api
+import saschpe.gamesale.data.remote.model.Meta
 
 class GameRemoteRepository(
     private val api: Api
@@ -21,7 +23,7 @@ class GameRemoteRepository(
     }
 
     /**
-     * Get game price overview.
+     * Get basic information about game's prices: best current price, historical lowest price, and bundles in which the game is included.
      */
     suspend fun overview(
         plains: List<String>,
@@ -36,6 +38,25 @@ class GameRemoteRepository(
             parameter("country", country)
             parameter("shops", shops.joinToString(separator = ","))
             parameter("allowed", allowed.joinToString(separator = ","))
+        }
+    }
+
+    /**
+     * Get all current prices for one or more selected games. Use region and country to get more accurate results.
+     */
+    suspend fun prices(
+        plains: List<String>,
+        region: String = "eu1",
+        country: String = "de",
+        shops: List<String> = listOf("steam"),
+        added: Long = 0
+    ): Result<GamePricesResponse> = asResult {
+        api.get<GamePricesResponse>("game/prices") {
+            parameter("plains", plains.joinToString(separator = ","))
+            parameter("region", region)
+            parameter("country", country)
+            parameter("shops", shops.joinToString(separator = ","))
+            parameter("added", added)
         }
     }
 
@@ -55,7 +76,11 @@ class GameRemoteRepository(
             val country: String,
             val currency: String
         )
-
     }
 
+    @Serializable
+    data class GamePricesResponse(
+        @SerialName(".meta") val meta: Meta,
+        val data: HashMap<String, GamePrice>
+    )
 }

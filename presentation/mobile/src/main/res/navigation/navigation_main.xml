@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/gameFragment"
-        android:name="saschpe.gamesale.mobile.detail.GameFragment"
+        android:name="saschpe.gamesale.mobile.game.GameFragment"
         tools:layout="@layout/fragment_game">
 
         <argument

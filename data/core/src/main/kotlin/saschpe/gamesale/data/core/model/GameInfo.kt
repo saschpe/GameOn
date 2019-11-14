@@ -19,7 +19,7 @@ data class GameInfo(
         val perc_positive: Int,
         val total: Int,
         val text: String,
-        val timestamp: Int
+        val timestamp: Long
     )
 
     @Serializable

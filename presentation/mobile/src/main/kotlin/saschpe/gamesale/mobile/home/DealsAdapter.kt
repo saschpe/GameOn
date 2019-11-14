@@ -18,14 +18,14 @@ import kotlin.math.roundToInt
 class DealsAdapter(
     context: Context
 ) : ListAdapter<DealsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_DEAL -> DealViewHolder(
-                inflater.inflate(R.layout.view_deal, parent, false)
+                inflater.inflate(R.layout.view_deal_card, parent, false)
             )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
@@ -54,8 +54,8 @@ class DealsAdapter(
 
             // TODO: Currency, template, image load
 
-            val green = ContextCompat.getColor(clickSurface.context, R.color.deal_green)
-            val red = ContextCompat.getColor(clickSurface.context, R.color.deal_red)
+            val green = ContextCompat.getColor(clickSurface.context, R.color.green)
+            val red = ContextCompat.getColor(clickSurface.context, R.color.red)
 
             pricing.text = HtmlCompat.fromHtml(
                 clickSurface.context.getString(

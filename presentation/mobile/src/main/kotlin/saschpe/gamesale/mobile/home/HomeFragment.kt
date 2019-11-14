@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gamesale.common.app.appNameTitle
 import saschpe.gamesale.common.recyclerview.SpacingItemDecoration
 import saschpe.gamesale.mobile.R
-import saschpe.gamesale.mobile.detail.GameFragment
+import saschpe.gamesale.mobile.game.GameFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()

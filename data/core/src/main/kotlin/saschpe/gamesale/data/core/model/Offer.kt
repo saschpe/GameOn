@@ -9,7 +9,7 @@ data class Offer(
     val price_new: Float,
     val price_old: Float,
     val price_cut: Float,
-    val added: Int,
+    val added: Long,
     val shop: Shop,
     val drm: Set<String>,
     val urls: Urls

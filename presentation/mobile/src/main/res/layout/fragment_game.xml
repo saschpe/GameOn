@@ -61,7 +61,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
@@ -97,7 +97,7 @@
                 <View
                     android:id="@+id/divider"
                     android:layout_width="0dp"
-                    android:layout_height="1px"
+                    android:layout_height="@dimen/divider_width"
                     android:layout_marginTop="8dp"
                     android:background="?attr/dividerHorizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:textAppearance="?textAppearanceBody1"
                     android:textStyle="bold"
@@ -202,11 +202,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reviewsRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_height="128dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -329,7 +329,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/offersRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="256dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
@@ -340,7 +340,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/pricesCaption"
                     tools:itemCount="5"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/view_offer" />
+                    tools:listitem="@layout/view_offer_card" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
