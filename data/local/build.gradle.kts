@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.3.50"))
+    implementation(kotlin("stdlib-jdk8", "1.3.60"))
     implementation(project(":data:core"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 
