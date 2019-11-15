@@ -1,6 +1,9 @@
 package saschpe.gameon.mobile.watchlist
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -18,6 +21,7 @@ class WatchListFragment : Fragment(R.layout.fragment_watchlist) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
         watchlistAdapter = WatchlistAdapter(requireContext())
     }
@@ -35,5 +39,16 @@ class WatchListFragment : Fragment(R.layout.fragment_watchlist) {
         }
 
         // TODO
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
+        inflater.inflate(R.menu.menu_home, menu)
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.helpFragment -> findNavController().navigate(R.id.action_watchListFragment_to_helpFragment)
+            R.id.settingsFragment -> findNavController().navigate(R.id.action_watchListFragment_to_settingsFragment)
+        }
+        return false
     }
 }

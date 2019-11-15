@@ -340,7 +340,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/pricesCaption"
                     tools:itemCount="5"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/view_offer_card" />
+                    tools:listitem="@layout/view_offer_list_card" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,13 +21,13 @@ import saschpe.gameon.mobile.game.GameFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var dealsAdapter: DealsAdapter
+    private lateinit var offerAdapter: OfferAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        dealsAdapter = DealsAdapter(requireContext())
+        offerAdapter = OfferAdapter(requireContext())
         viewModel.getDeals()
     }
 
@@ -38,9 +38,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.dealLiveData.observe(this, Observer { deals ->
             progressBar.visibility = View.GONE
-            dealsAdapter.submitList(deals.map { deal ->
-                DealsAdapter.ViewModel.DealViewModel(
-                    deal = deal,
+            offerAdapter.submitList(deals.map { deal ->
+                OfferAdapter.ViewModel.OfferViewModel(
+                    offer = deal,
                     onClick = {
                         findNavController().navigate(
                             R.id.action_homeFragment_to_gameFragment,
@@ -55,7 +55,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
 
         recyclerView.apply {
-            adapter = dealsAdapter
+            adapter = offerAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)

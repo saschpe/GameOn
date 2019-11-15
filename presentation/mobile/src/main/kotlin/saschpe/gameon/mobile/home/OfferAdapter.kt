@@ -23,40 +23,40 @@ import saschpe.gameon.domain.Model.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import kotlin.math.roundToInt
 
-class DealsAdapter(
+class OfferAdapter(
     context: Context
-) : ListAdapter<DealsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            VIEW_TYPE_DEAL -> DealViewHolder(
-                inflater.inflate(R.layout.view_deal_card, parent, false)
+            VIEW_TYPE_OFFER -> OfferViewHolder(
+                inflater.inflate(R.layout.view_offer_list_card, parent, false)
             )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = getItem(position)) {
-            is ViewModel.DealViewModel -> (holder as DealViewHolder).bind(item)
+            is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
         }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
-            is DealViewHolder -> holder.detach()
+            is OfferViewHolder -> holder.detach()
         }
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class DealViewModel(
-            val deal: Offer,
+        data class OfferViewModel(
+            val offer: Offer,
             val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_DEAL)
+        ) : ViewModel(VIEW_TYPE_OFFER)
     }
 
-    private class DealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
         private val title: TextView = view.findViewById(R.id.title)
         private val pricing: TextView = view.findViewById(R.id.pricing)
@@ -72,25 +72,25 @@ class DealsAdapter(
             }
         }
 
-        fun bind(viewModel: ViewModel.DealViewModel) {
+        fun bind(viewModel: ViewModel.OfferViewModel) {
             clickSurface.setOnClickListener { viewModel.onClick.invoke() }
-            title.text = viewModel.deal.title
+            title.text = viewModel.offer.title
 
             // TODO: Currency
             pricing.text = HtmlCompat.fromHtml(
                 clickSurface.context.getString(
                     R.string.pricing_template,
-                    viewModel.deal.price_new,
-                    viewModel.deal.shop.name,
-                    viewModel.deal.price_cut.roundToInt(),
+                    viewModel.offer.price_new,
+                    viewModel.offer.shop.name,
+                    viewModel.offer.price_cut.roundToInt(),
                     GREEN_COLOR_INT, RED_COLOR_INT
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
 
             gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
-                when (val result = getGameInfoUseCase(viewModel.deal.plain)) {
+                when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
-                        result.data[viewModel.deal.plain]?.image?.let {
+                        result.data[viewModel.offer.plain]?.image?.let {
                             image.load(it) { crossfade(true) }
                         }
                     }
@@ -110,6 +110,6 @@ class DealsAdapter(
     }
 
     companion object {
-        private const val VIEW_TYPE_DEAL = 1
+        private const val VIEW_TYPE_OFFER = 1
     }
 }
