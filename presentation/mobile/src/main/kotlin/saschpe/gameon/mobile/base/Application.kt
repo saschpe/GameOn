@@ -3,7 +3,6 @@ package saschpe.gameon.mobile.base
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.multidex.MultiDexApplication
-import java.text.DateFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,6 +10,9 @@ import kotlinx.coroutines.withContext
 import saschpe.gameon.common.content.defaultPreferences
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.R
+import saschpe.log4k.ConsoleLogger
+import saschpe.log4k.Log
+import java.text.DateFormat
 
 class Application : MultiDexApplication() {
     override fun onCreate() {
@@ -28,14 +30,11 @@ class Application : MultiDexApplication() {
                 )?.toInt() ?: -1
             })
         }
-    }
 
-    companion object {
-        /**
-         * Any application-specific intent should use this scheme.
-         */
-        const val INTENT_SCHEME = "gameon"
-
-        val DATE_FORMAT: DateFormat = DateFormat.getDateInstance()
+        Log.loggers.add(ConsoleLogger().apply {
+            if (!BuildConfig.DEBUG) {
+                minimumLogLevel = Log.Level.Info
+            }
+        })
     }
 }
