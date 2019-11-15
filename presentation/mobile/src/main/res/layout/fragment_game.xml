@@ -214,7 +214,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/reviewsCaption"
                     tools:itemCount="2"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/view_review" />
+                    tools:listitem="@layout/view_game_review_item" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

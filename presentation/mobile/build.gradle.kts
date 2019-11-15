@@ -17,7 +17,7 @@ android {
     compileSdkVersion(29)
 
     defaultConfig {
-        applicationId = "saschpe.gamesale"
+        applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
         versionCode = 210000101

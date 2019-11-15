@@ -2,26 +2,26 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        app:fragment="saschpe.gamesale.mobile.settings.preferences.AppearancePreferenceFragment"
+        app:fragment="saschpe.gameon.mobile.settings.preferences.AppearancePreferenceFragment"
         app:icon="@drawable/ic_color_lens_24dp"
         app:key="@string/pref_appearance_key"
         app:title="@string/appearance" />
 
     <Preference
-        app:fragment="saschpe.gamesale.mobile.settings.preferences.NotificationPreferenceFragment"
+        app:fragment="saschpe.gameon.mobile.settings.preferences.NotificationPreferenceFragment"
         app:icon="@drawable/ic_notifications_24dp"
         app:key="@string/pref_notification_key"
         app:title="@string/notifications" />
 
     <Preference
-        app:fragment="saschpe.gamesale.mobile.help.HelpFragment"
+        app:fragment="saschpe.gameon.mobile.help.HelpFragment"
         app:icon="@drawable/ic_help_24dp"
         app:key="@string/pref_help_and_feedback_key"
         app:summary="@string/get_support"
         app:title="@string/help_and_feedback" />
 
     <Preference
-        app:fragment="saschpe.gamesale.mobile.settings.preferences.DeveloperPreferenceFragment"
+        app:fragment="saschpe.gameon.mobile.settings.preferences.DeveloperPreferenceFragment"
         app:icon="@drawable/ic_settings_24dp"
         app:key="@string/pref_developer_key"
         app:title="@string/developer" />

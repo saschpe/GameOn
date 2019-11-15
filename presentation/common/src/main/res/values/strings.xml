@@ -10,7 +10,7 @@
     <string name="account_setup">Account setup</string>
     <string name="account_setup_description">In order to display calendars, you have to add at least on account with calendar support. If in doubt, add your Google account.</string>
     <string name="add_account">Add account</string>
-    <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">Sales</font>]]></string>
+    <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">On</font>]]></string>
     <string name="appearance">Appearance</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="back">Back</string>
