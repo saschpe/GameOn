@@ -10,8 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import saschpe.gameon.common.recyclerview.DiffCallback
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer
+import saschpe.gameon.domain.Model.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import kotlin.math.roundToInt
 
@@ -35,6 +43,12 @@ class DealsAdapter(
             is ViewModel.DealViewModel -> (holder as DealViewHolder).bind(item)
         }
 
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        when (holder) {
+            is DealViewHolder -> holder.detach()
+        }
+    }
+
     sealed class ViewModel(val viewType: Int) {
         data class DealViewModel(
             val deal: Offer,
@@ -47,25 +61,51 @@ class DealsAdapter(
         private val title: TextView = view.findViewById(R.id.title)
         private val pricing: TextView = view.findViewById(R.id.pricing)
         private val clickSurface: View = view
+        private var gameInfoJob: Job? = null
+
+        init {
+            if (GREEN_COLOR_INT == null) {
+                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
+            }
+            if (RED_COLOR_INT == null) {
+                RED_COLOR_INT = ContextCompat.getColor(view.context, R.color.red)
+            }
+        }
 
         fun bind(viewModel: ViewModel.DealViewModel) {
             clickSurface.setOnClickListener { viewModel.onClick.invoke() }
             title.text = viewModel.deal.title
 
-            // TODO: Currency, template, image load
-
-            val green = ContextCompat.getColor(clickSurface.context, R.color.green)
-            val red = ContextCompat.getColor(clickSurface.context, R.color.red)
-
+            // TODO: Currency
             pricing.text = HtmlCompat.fromHtml(
                 clickSurface.context.getString(
                     R.string.pricing_template,
                     viewModel.deal.price_new,
                     viewModel.deal.shop.name,
                     viewModel.deal.price_cut.roundToInt(),
-                    green, red
+                    GREEN_COLOR_INT, RED_COLOR_INT
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+
+            gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
+                when (val result = getGameInfoUseCase(viewModel.deal.plain)) {
+                    is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
+                        result.data[viewModel.deal.plain]?.image?.let {
+                            image.load(it) { crossfade(true) }
+                        }
+                    }
+                    is Result.Error -> throw result.throwable
+                }
+            }
+        }
+
+        fun detach() {
+            gameInfoJob?.cancel()
+        }
+
+        companion object {
+            private var GREEN_COLOR_INT: Int? = null
+            private var RED_COLOR_INT: Int? = null
         }
     }
 

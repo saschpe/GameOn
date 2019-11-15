@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GameInfo(
     val title: String,
-    val image: String,
+    val image: String?,
     val is_package: Boolean,
     val is_dlc: Boolean,
     val achievements: Boolean,
