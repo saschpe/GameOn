@@ -28,7 +28,7 @@ android {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8", "1.3.60"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
     // TODO: Consider domain-specific models to hide underlying layers. Currently considered overkill
     api(project(":data:core"))
     implementation(project(":data:local"))
