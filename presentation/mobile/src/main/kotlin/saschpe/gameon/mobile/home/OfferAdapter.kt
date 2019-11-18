@@ -19,7 +19,7 @@ import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer
-import saschpe.gameon.domain.Model.getGameInfoUseCase
+import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import kotlin.math.roundToInt
 
