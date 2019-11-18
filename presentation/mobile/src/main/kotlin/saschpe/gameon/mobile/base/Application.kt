@@ -12,7 +12,6 @@ import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.R
 import saschpe.log4k.ConsoleLogger
 import saschpe.log4k.Log
-import java.text.DateFormat
 
 class Application : MultiDexApplication() {
     override fun onCreate() {
