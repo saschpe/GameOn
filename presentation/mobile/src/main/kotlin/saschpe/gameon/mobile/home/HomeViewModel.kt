@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
-import saschpe.gameon.domain.Model.getDealsUseCase
+import saschpe.gameon.domain.Module.getDealsUseCase
 
 class HomeViewModel : ViewModel() {
     val dealLiveData = MutableLiveData<List<Offer>>()

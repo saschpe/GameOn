@@ -1,1 +1,13 @@
-<manifest package="saschpe.gameon.data.local" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="saschpe.gameon.data.local">
+
+    <application>
+
+        <provider
+            android:name=".DataContentProvider"
+            android:authorities="${applicationId}.data_content_provider"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

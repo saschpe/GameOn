@@ -8,7 +8,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
-import saschpe.gameon.domain.Model.searchUseCase
+import saschpe.gameon.domain.Module.searchUseCase
 
 class SearchViewModel : ViewModel() {
     private var currentSearchJob: Job? = null

@@ -9,9 +9,9 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.data.core.model.GamePrice
-import saschpe.gameon.domain.Model.getGameInfoUseCase
-import saschpe.gameon.domain.Model.getGameOverviewUseCase
-import saschpe.gameon.domain.Model.getGamePricesUseCase
+import saschpe.gameon.domain.Module.getGameInfoUseCase
+import saschpe.gameon.domain.Module.getGameOverviewUseCase
+import saschpe.gameon.domain.Module.getGamePricesUseCase
 
 class GameViewModel : ViewModel() {
     val gameInfoLiveData = MutableLiveData<GameInfo>()
