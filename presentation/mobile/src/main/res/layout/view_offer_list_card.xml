@@ -15,7 +15,7 @@
             android:layout_height="0dp"
             android:contentDescription="@string/account_icon"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/placeholder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="w,460:215"
             app:layout_constraintStart_toStartOf="parent"
