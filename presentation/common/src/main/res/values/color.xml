@@ -18,12 +18,12 @@
     <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
     <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
     <!--selection controls.-->
-    <color name="color_primary">#2e7d32</color>
-    <color name="color_primary_dark">#005005</color>
-    <color name="color_primary_light">#60ad5e</color>
-    <color name="color_secondary">#004d40</color>
-    <color name="color_secondary_dark">#00251a</color>
-    <color name="color_secondary_light">#39796b</color>
+    <color name="color_primary">#f44336</color>
+    <color name="color_primary_dark">#ba000d</color>
+    <color name="color_primary_light">#ff7961</color>
+    <color name="color_secondary">#00838f</color>
+    <color name="color_secondary_dark">#005662</color>
+    <color name="color_secondary_light">#4fb3bf</color>
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
     <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
