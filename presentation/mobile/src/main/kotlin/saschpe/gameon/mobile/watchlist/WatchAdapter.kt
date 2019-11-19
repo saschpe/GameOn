@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import saschpe.gameon.common.recyclerview.DiffCallback
+import saschpe.gameon.data.core.model.Watch
 import saschpe.gameon.mobile.R
 
-class WatchlistAdapter(
+class WatchAdapter(
     context: Context
-) : ListAdapter<WatchlistAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+) : ListAdapter<WatchAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -31,12 +32,15 @@ class WatchlistAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class WatchViewModel(
+            val watch: Watch,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_WATCH)
     }
 
     private class WatchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(viewModel: ViewModel.WatchViewModel) {}
+        fun bind(viewModel: ViewModel.WatchViewModel) {
+            // TODO:
+        }
     }
 
     companion object {

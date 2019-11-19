@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9c898be5d966fc8d017553858b652a41",
+    "identityHash": "982811ad8fb9d471a0b5fbfd727e5947",
     "entities": [
       {
         "tableName": "watchlist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `plain` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `created_at` INTEGER NOT NULL, `plain` TEXT NOT NULL, `title` TEXT NOT NULL, `price_threshold` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,9 +15,27 @@
             "notNull": true
           },
           {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "plain",
             "columnName": "plain",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priceThreshold",
+            "columnName": "price_threshold",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -34,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c898be5d966fc8d017553858b652a41')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '982811ad8fb9d471a0b5fbfd727e5947')"
     ]
   }
 }

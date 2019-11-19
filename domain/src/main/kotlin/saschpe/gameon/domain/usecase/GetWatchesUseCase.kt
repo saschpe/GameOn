@@ -15,7 +15,12 @@ class GetWatchesUseCase(
         return when (val result = watchlistLocalRepository.getAll()) {
             is Result.Success<List<WatchEntity>> -> {
                 Result.Success(result.data.map { watchEntity ->
-                    Watch(plain = watchEntity.plain)
+                    Watch(
+                        createdAt = watchEntity.createdAt,
+                        plain = watchEntity.plain,
+                        title = watchEntity.title,
+                        priceThreshold = watchEntity.priceThreshold
+                    )
                 })
             }
             is Result.Error -> result

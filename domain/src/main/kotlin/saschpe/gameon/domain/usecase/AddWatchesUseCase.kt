@@ -15,7 +15,12 @@ class AddWatchesUseCase(
 
         arguments.forEach { watch ->
             when (val result = watchlistLocalRepository.insert(
-                WatchEntity(plain = watch.plain)
+                WatchEntity(
+                    createdAt = watch.createdAt,
+                    plain = watch.plain,
+                    title = watch.title,
+                    priceThreshold = watch.priceThreshold
+                )
             )) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)
