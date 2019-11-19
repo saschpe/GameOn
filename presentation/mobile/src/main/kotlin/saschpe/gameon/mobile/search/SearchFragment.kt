@@ -51,7 +51,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     offer = offer,
                     onClick = {
                         findNavController().navigate(
-                            R.id.action_homeFragment_to_gameFragment,
+                            R.id.action_searchFragment_to_gameFragment,
                             bundleOf(
                                 GameFragment.ARG_PLAIN to offer.plain,
                                 GameFragment.ARG_TITLE to offer.title
