@@ -1,19 +1,18 @@
 package saschpe.gameon.domain.usecase
 
 import saschpe.gameon.data.core.Result
-import saschpe.gameon.data.core.model.Watch
-import saschpe.gameon.data.local.repository.WatchlistLocalRepository
+import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
 
-class RemoveWatchesUseCase(
-    private val watchlistLocalRepository: WatchlistLocalRepository
-) : UseCase<Watch, Unit> {
-    override suspend fun invoke(vararg arguments: Watch): Result<Unit> {
+class RemoveFavoritesUseCase(
+    private val favoritesLocalRepository: FavoritesLocalRepository
+) : UseCase<String, Unit> {
+    override suspend fun invoke(vararg arguments: String): Result<Unit> {
         require(arguments.isNotEmpty())
         val exceptions = mutableListOf<Throwable>()
 
-        arguments.forEach { watch ->
-            when (val result = watchlistLocalRepository.deleteByPlain(watch.plain)) {
+        arguments.forEach { plain ->
+            when (val result = favoritesLocalRepository.deleteByPlain(plain)) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)
             }

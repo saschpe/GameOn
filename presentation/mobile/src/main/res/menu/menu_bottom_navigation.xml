@@ -7,9 +7,9 @@
         android:title="@string/deals" />
 
     <item
-        android:id="@+id/watchListFragment"
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorite_24dp"
-        android:title="@string/watchlist" />
+        android:title="@string/favorite" />
 
     <item
         android:id="@+id/accountFragment"

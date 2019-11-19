@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/watchlist" />
+            app:title="@string/favorites" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
