@@ -76,7 +76,6 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                     layoutParams.height = height
                     appBarLayout.layoutParams = layoutParams
                 })
-                placeholder(R.mipmap.ic_launcher)
             }
 
             val viewModelList = gameInfo.reviews?.map { review ->
