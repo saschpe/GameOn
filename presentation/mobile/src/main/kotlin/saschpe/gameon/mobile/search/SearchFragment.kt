@@ -13,7 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
 import saschpe.gameon.mobile.home.OfferAdapter
@@ -60,10 +62,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             })
         })
 
+        recyclerView.apply {
+            adapter = offerAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
+            setHasFixedSize(true)
+        }
+
         searchQuery.doAfterTextChanged { text ->
             if (text?.count() ?: 0 > 2) {
                 delayedSearchHandler.removeMessages(MESSAGE_UPDATE_SEARCH)
-                delayedSearchHandler.sendEmptyMessageDelayed(MESSAGE_UPDATE_SEARCH, 300)
+                delayedSearchHandler.sendEmptyMessageDelayed(MESSAGE_UPDATE_SEARCH, 100)
             }
         }
     }
