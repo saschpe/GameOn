@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.watchlist
+package saschpe.gameon.mobile.favorites
 
 import android.os.Bundle
 import android.view.Menu
@@ -18,17 +18,17 @@ import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
 
-class WatchListFragment : Fragment(R.layout.fragment_watchlist) {
-    private val viewModel: WatchListViewModel by viewModels()
-    private lateinit var watchAdapter: WatchAdapter
+class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+    private val viewModel: FavoritesViewModel by viewModels()
+    private lateinit var favoritesAdapter: FavoritesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        watchAdapter = WatchAdapter(requireContext())
+        favoritesAdapter = FavoritesAdapter(requireContext())
 
-        viewModel.getWatches()
+        viewModel.getFavorites()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,22 +37,22 @@ class WatchListFragment : Fragment(R.layout.fragment_watchlist) {
         setupWithNavController(toolbar, findNavController())
 
         recyclerView.apply {
-            adapter = watchAdapter
+            adapter = favoritesAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
 
-        viewModel.watchesLiveData.observe(this, Observer { watchList ->
-            watchAdapter.submitList(watchList.map { watch ->
-                WatchAdapter.ViewModel.WatchViewModel(
-                    watch = watch,
+        viewModel.favoritesLiveData.observe(this, Observer { favorites ->
+            favoritesAdapter.submitList(favorites.map { favorite ->
+                FavoritesAdapter.ViewModel.FavoriteViewModel(
+                    favorite = favorite,
                     onClick = {
                         findNavController().navigate(
-                            R.id.action_watchListFragment_to_gameFragment,
+                            R.id.action_favoritesFragment_to_gameFragment,
                             bundleOf(
-                                GameFragment.ARG_PLAIN to watch.plain,
-                                GameFragment.ARG_TITLE to watch.title
+                                GameFragment.ARG_PLAIN to favorite.plain,
+                                GameFragment.ARG_TITLE to favorite.title
                             )
                         )
                     }
@@ -66,8 +66,8 @@ class WatchListFragment : Fragment(R.layout.fragment_watchlist) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.helpFragment -> findNavController().navigate(R.id.action_watchListFragment_to_helpFragment)
-            R.id.settingsFragment -> findNavController().navigate(R.id.action_watchListFragment_to_settingsFragment)
+            R.id.helpFragment -> findNavController().navigate(R.id.action_favoritesFragment_to_helpFragment)
+            R.id.settingsFragment -> findNavController().navigate(R.id.action_favoritesFragment_to_settingsFragment)
         }
         return false
     }

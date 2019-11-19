@@ -4,11 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "watchlist")
-data class WatchEntity(
+@Entity(tableName = "favorites")
+data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "plain") var plain: String,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "price_threshold") val priceThreshold: Long
+    @ColumnInfo(name = "price_threshold") val priceThreshold: Long?
 )

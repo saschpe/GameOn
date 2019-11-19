@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "982811ad8fb9d471a0b5fbfd727e5947",
+    "identityHash": "b76329f4fedbf936ef23d8ace8e29696",
     "entities": [
       {
-        "tableName": "watchlist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `created_at` INTEGER NOT NULL, `plain` TEXT NOT NULL, `title` TEXT NOT NULL, `price_threshold` INTEGER NOT NULL)",
+        "tableName": "favorites",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `created_at` INTEGER NOT NULL, `plain` TEXT NOT NULL, `title` TEXT NOT NULL, `price_threshold` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -36,7 +36,7 @@
             "fieldPath": "priceThreshold",
             "columnName": "price_threshold",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '982811ad8fb9d471a0b5fbfd727e5947')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b76329f4fedbf936ef23d8ace8e29696')"
     ]
   }
 }

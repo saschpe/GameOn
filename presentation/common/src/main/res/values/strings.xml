@@ -37,6 +37,8 @@
     <string name="early_access">Early access</string>
     <string name="email_address">E-mail address</string>
     <string name="enable">Enable</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorites">Favorites</string>
     <string name="find_out_more">Find out more…</string>
     <string name="first_name">First name</string>
     <string name="first_name_last_name_template">%1$s %2$s</string>
@@ -75,6 +77,7 @@
     <string name="proceed">Proceed</string>
     <string name="redo">Redo</string>
     <string name="refresh">Refresh</string>
+    <string name="remove">Remove</string>
     <string name="reviews">Reviews</string>
     <string name="search_for_your_game">Search for your game</string>
     <string name="settings">Settings</string>
@@ -91,7 +94,6 @@
     <string name="trading_cards">Trading cards</string>
     <string name="username">Username</string>
     <string name="version_info">Version info</string>
-    <string name="watchlist">Watchlist</string>
     <string name="whats_this">What\'s this?</string>
     <string name="write_a_steam_review">Write a Steam review</string>
     <string name="yes">Yes</string>

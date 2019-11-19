@@ -19,6 +19,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.customtabs.CustomTabs
 import kotlin.math.roundToInt
 
 class GameFragment : Fragment(R.layout.fragment_game) {
@@ -45,6 +46,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             viewModel.getGameInfo(it)
             viewModel.getGameOverview(it)
             viewModel.getGamePrice(it)
+            viewModel.getFavorite(it)
         }
     }
 
@@ -64,10 +66,12 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
 
         viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
-            progressBar.visibility =
-                View.GONE // TODO: Only hide once all observers triggered once...
+            // TODO: Only hide once all observers triggered once...
+            progressBar.visibility = View.GONE
 
+            paramTitle = gameInfo.title
             name.text = gameInfo.title
+
             image.load(gameInfo.image) {
                 crossfade(true)
                 listener(onSuccess = { _: Any, _: DataSource ->
@@ -121,6 +125,10 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                     green, red
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+
+            buyButton.setOnClickListener {
+                CustomTabs.openUrl(requireContext(), gameOverview.price.url)
+            }
         })
 
         viewModel.gamePriceLiveData.observe(this, Observer { gamePrice ->
@@ -134,6 +142,18 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                         // TODO: Add onClick handler to open purchase page..
                     )
                 })
+            }
+        })
+
+        viewModel.favoriteLiveData.observe(this, Observer { favorite ->
+            if (favorite != null) {
+                favoriteButton.icon = requireContext().getDrawable(R.drawable.ic_favorite_24dp)
+                favoriteButton.text = requireContext().getString(R.string.remove)
+                favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
+            } else {
+                favoriteButton.icon = requireContext().getDrawable(R.drawable.ic_favorite_border_24dp)
+                favoriteButton.text = requireContext().getString(R.string.favorite)
+                favoriteButton.setOnClickListener { viewModel.addFavorite(paramPlain!!, paramTitle!!) }
             }
         })
     }

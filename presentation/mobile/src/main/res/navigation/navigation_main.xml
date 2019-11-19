@@ -29,18 +29,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/watchListFragment"
-        android:name="saschpe.gameon.mobile.watchlist.WatchListFragment"
-        tools:layout="@layout/fragment_watchlist">
+        android:id="@+id/favoritesFragment"
+        android:name="saschpe.gameon.mobile.favorites.FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
 
         <action
-            android:id="@+id/action_watchListFragment_to_gameFragment"
+            android:id="@+id/action_favoritesFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
         <action
-            android:id="@+id/action_watchListFragment_to_settingsFragment"
+            android:id="@+id/action_favoritesFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_watchListFragment_to_helpFragment"
+            android:id="@+id/action_favoritesFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
 
     </fragment>

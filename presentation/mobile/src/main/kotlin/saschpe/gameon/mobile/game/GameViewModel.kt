@@ -9,14 +9,19 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.data.core.model.GamePrice
+import saschpe.gameon.data.core.model.Favorite
+import saschpe.gameon.domain.Module.addFavoritesUseCase
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.domain.Module.getGamePricesUseCase
+import saschpe.gameon.domain.Module.getFavoriteUseCase
+import saschpe.gameon.domain.Module.removeFavoritesUseCase
 
 class GameViewModel : ViewModel() {
     val gameInfoLiveData = MutableLiveData<GameInfo>()
     val gameOverviewLiveData = MutableLiveData<GameOverview>()
     val gamePriceLiveData = MutableLiveData<GamePrice>()
+    val favoriteLiveData = MutableLiveData<Favorite?>()
 
     fun getGameInfo(plain: String) = viewModelScope.launch(Dispatchers.IO) {
         when (val result = getGameInfoUseCase(plain)) {
@@ -41,6 +46,32 @@ class GameViewModel : ViewModel() {
             is Result.Success<HashMap<String, GamePrice>> -> launch(Dispatchers.Main) {
                 gamePriceLiveData.value = result.data[plain]
             }
+            is Result.Error -> throw result.throwable
+        }
+    }
+
+    fun getFavorite(plain: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = getFavoriteUseCase(plain)) {
+            is Result.Success<Favorite> -> launch(Dispatchers.Main) {
+                favoriteLiveData.value = result.data
+            }
+            is Result.Error -> launch(Dispatchers.Main) { favoriteLiveData.value = null }
+        }
+    }
+
+    fun addFavorite(plain: String, title: String, priceThreshold: Long? = null) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val favorite = Favorite(plain = plain, title = title, priceThreshold = priceThreshold)
+
+            when (val result = addFavoritesUseCase(favorite)) {
+                is Result.Success<Unit> -> launch(Dispatchers.Main) { favoriteLiveData.value = favorite }
+                is Result.Error -> throw result.throwable
+            }
+        }
+
+    fun removeFavorite(plain: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = removeFavoritesUseCase(plain)) {
+            is Result.Success<Unit> -> launch(Dispatchers.Main) { favoriteLiveData.value = null }
             is Result.Error -> throw result.throwable
         }
     }
