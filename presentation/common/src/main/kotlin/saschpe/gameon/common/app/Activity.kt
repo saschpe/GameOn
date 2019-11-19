@@ -22,8 +22,8 @@ fun Activity.hideSoftInputFromWindow() {
 }
 
 fun AppCompatActivity.appNameTitle(textView: TextView) {
-    val firstColor = ContextCompat.getColor(this, R.color.color_primary_light)
-    val secondColor = ContextCompat.getColor(this, R.color.color_primary)
+    val firstColor = ContextCompat.getColor(this, R.color.color_primary)
+    val secondColor = ContextCompat.getColor(this, R.color.color_secondary)
 
     title = ""
     textView.text = HtmlCompat.fromHtml(
