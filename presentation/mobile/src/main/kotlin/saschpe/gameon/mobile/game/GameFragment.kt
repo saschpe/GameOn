@@ -151,9 +151,12 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                 favoriteButton.text = requireContext().getString(R.string.remove)
                 favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
             } else {
-                favoriteButton.icon = requireContext().getDrawable(R.drawable.ic_favorite_border_24dp)
+                favoriteButton.icon =
+                    requireContext().getDrawable(R.drawable.ic_favorite_border_24dp)
                 favoriteButton.text = requireContext().getString(R.string.favorite)
-                favoriteButton.setOnClickListener { viewModel.addFavorite(paramPlain!!, paramTitle!!) }
+                favoriteButton.setOnClickListener {
+                    viewModel.addFavorite(paramPlain!!, paramTitle!!)
+                }
             }
         })
     }
