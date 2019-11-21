@@ -102,7 +102,6 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("de.hdodenhof:circleimageview:3.0.1")
     implementation("io.coil-kt:coil:0.8.0")
-    implementation("io.github.jupf.staticlog:staticlog:2.2.0")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
     implementation("saschpe.android:customtabs:2.0.3")

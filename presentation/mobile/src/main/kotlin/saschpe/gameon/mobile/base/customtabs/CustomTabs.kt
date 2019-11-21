@@ -7,10 +7,10 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
-import de.jupf.staticlog.Log
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
 import saschpe.gameon.mobile.R
+import saschpe.log4k.Log
 
 object CustomTabs {
     private const val HOMEPAGE_URL = "https://www.lunchup.io"
