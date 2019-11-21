@@ -45,10 +45,7 @@ android {
         named("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("default")
         }
     }
@@ -60,11 +57,12 @@ android {
 
     jacoco.version = "0.8.4"
 
+    kotlinOptions.jvmTarget = "1.8"
+
     // https://youtrack.jetbrains.com/issue/KT-9770
     packagingOptions.exclude("**/*.kotlin_*")
 
     sourceSets {
-        // Increase Android Studio Kotlin compatibility
         named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
         named("main") { java.srcDirs("src/main/kotlin") }
         named("test") { java.srcDirs("src/test/kotlin") }
@@ -140,5 +138,3 @@ play {
     defaultToAppBundles = true
     serviceAccountCredentials = file("$rootDir/config/play-publishing-api.json")
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> { kotlinOptions.jvmTarget = "1.8" }

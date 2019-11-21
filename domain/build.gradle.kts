@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
 }
 
 repositories {
@@ -19,7 +18,6 @@ android {
     }
 
     sourceSets {
-        // Increase Android Studio Kotlin compatibility
         named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
         named("main") { java.srcDirs("src/main/kotlin") }
         named("test") { java.srcDirs("src/test/kotlin") }
@@ -29,7 +27,7 @@ android {
 dependencies {
     implementation(kotlin("stdlib-jdk8", "1.3.60"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
-    // TODO: Consider domain-specific models to hide underlying layers. Currently considered overkill
+    // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
     api(project(":data:core"))
     implementation(project(":data:local"))
     implementation(project(":data:remote"))
