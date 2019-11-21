@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
 }
 
 repositories {
@@ -19,10 +18,7 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    lintOptions.isAbortOnError = false
-
     sourceSets {
-        // Increase Android Studio Kotlin compatibility
         named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
         named("main") { java.srcDirs("src/main/kotlin") }
         named("test") { java.srcDirs("src/test/kotlin") }

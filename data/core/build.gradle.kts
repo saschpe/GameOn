@@ -8,6 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.3.60"))
+    implementation(kotlin("stdlib", "1.3.60"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0")
 }

@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
 }
 
@@ -25,7 +24,6 @@ android {
     }
 
     sourceSets {
-        // Increase Android Studio Kotlin compatibility
         named("androidTest") {
             java.srcDirs("src/androidTest/kotlin")
             assets.srcDirs("src/main/schemas")
