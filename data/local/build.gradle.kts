@@ -34,16 +34,16 @@ android {
 }
 
 dependencies {
-    kapt("androidx.room:room-compiler:2.2.1")
+    kapt("androidx.room:room-compiler:2.2.2")
 
     implementation(kotlin("stdlib-jdk8", "1.3.60"))
     implementation(project(":data:core"))
-    implementation("androidx.room:room-runtime:2.2.1")
-    implementation("androidx.room:room-ktx:2.2.1")
+    implementation("androidx.room:room-runtime:2.2.2")
+    implementation("androidx.room:room-ktx:2.2.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
-    testImplementation("androidx.room:room-testing:2.2.1")
+    testImplementation("androidx.room:room-testing:2.2.2")
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
     testImplementation("io.mockk:mockk:1.9.3")
