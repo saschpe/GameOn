@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.5.0"
+    id("com.github.triplet.play") version "2.6.1"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
     kotlin("android")
