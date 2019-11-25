@@ -97,7 +97,8 @@
 
         <action
             android:id="@+id/action_searchFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@+id/searchFragment" />
 
     </fragment>
 
