@@ -95,7 +95,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-ads:18.3.0")
-    implementation("com.google.firebase:firebase-auth:19.1.0")
+    implementation("com.google.firebase:firebase-auth:19.2.0")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("de.hdodenhof:circleimageview:3.0.1")
@@ -105,7 +105,7 @@ dependencies {
     implementation("saschpe.android:customtabs:2.0.3")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
-    implementation("saschpe.log4k:log4k:0.1.1")
+    implementation("saschpe.log4k:log4k:0.1.2")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
     constraints {
         implementation("androidx.test:core:1.2.0")

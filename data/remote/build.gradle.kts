@@ -10,9 +10,9 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib", "1.3.60"))
     implementation(project(":data:core"))
-    implementation("io.ktor:ktor-client-android:1.2.5")
-    implementation("io.ktor:ktor-client-logging-jvm:1.2.5")
-    implementation("io.ktor:ktor-client-serialization-jvm:1.2.5")
+    implementation("io.ktor:ktor-client-android:1.2.6")
+    implementation("io.ktor:ktor-client-logging-jvm:1.2.6")
+    implementation("io.ktor:ktor-client-serialization-jvm:1.2.6")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 
