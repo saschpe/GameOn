@@ -15,16 +15,20 @@ android {
         minSdkVersion(21)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions.jvmTarget = "1.8"
 
     sourceSets {
         named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
         named("main") { java.srcDirs("src/main/kotlin") }
         named("test") { java.srcDirs("src/test/kotlin") }
     }
-
-    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
