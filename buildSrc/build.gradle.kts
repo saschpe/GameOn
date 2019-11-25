@@ -12,9 +12,10 @@ dependencies {
 
 tasks {
     val ensureSecretsExist by registering {
-        val secretFile = File("$rootDir/src/main/kotlin/Secrets.kt")
+        val secretFile = File("$projectDir/src/main/kotlin/Secrets.kt")
+        description = "Ensures that '$secretFile' exists"
 
-        description = "Ensures that $secretFile exists"
+        outputs.file(secretFile)
         doFirst {
             if (!secretFile.exists()) {
                 secretFile.writeText(

@@ -25,7 +25,6 @@ android {
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
 
     signingConfigs {
@@ -40,7 +39,6 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
-            isTestCoverageEnabled = true
         }
         named("release") {
             isMinifyEnabled = true
@@ -51,11 +49,9 @@ android {
     }
 
     compileOptions {
-        setSourceCompatibility(1.8)
-        setTargetCompatibility(1.8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-
-    jacoco.version = "0.8.4"
 
     kotlinOptions.jvmTarget = "1.8"
 
@@ -78,7 +74,6 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", "1.3.60"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.browser:browser:1.0.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.core:core-ktx:1.1.0")
@@ -90,7 +85,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.1.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.1.0")
     implementation("androidx.preference:preference-ktx:1.1.0")
-    implementation("androidx.vectordrawable:vectordrawable:1.1.0")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
