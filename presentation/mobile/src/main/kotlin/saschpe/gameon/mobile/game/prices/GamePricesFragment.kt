@@ -18,8 +18,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        paramPlain = arguments?.getString(ARG_PLAIN)
-            ?: throw IllegalArgumentException("Argument 'plain' is null")
+        paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
 
         pricesAdapter = GamePricesAdapter(requireContext())
 

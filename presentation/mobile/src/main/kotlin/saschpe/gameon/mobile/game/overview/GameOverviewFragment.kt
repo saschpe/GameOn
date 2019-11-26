@@ -17,8 +17,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        paramPlain = arguments?.getString(ARG_PLAIN)
-            ?: throw IllegalArgumentException("Argument 'plain' is null")
+        paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
 
         viewModel.getGameInfo(paramPlain)
         viewModel.getGameOverview(paramPlain)
@@ -36,7 +35,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             val green = ContextCompat.getColor(requireContext(), R.color.green)
             val red = ContextCompat.getColor(requireContext(), R.color.red)
 
-            gameOverview.price.run {
+            gameOverview.price?.run {
                 val priceString = if (cut == 0) {
                     getString(R.string.price_on_store_template, price, store, green)
                 } else {
