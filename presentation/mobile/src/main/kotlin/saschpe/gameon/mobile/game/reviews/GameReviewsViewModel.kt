@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.game
+package saschpe.gameon.mobile.game.reviews
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,7 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 
-class GameViewModel : ViewModel() {
+class GameReviewsViewModel : ViewModel() {
     val gameInfoLiveData = MutableLiveData<GameInfo>()
 
     fun getGameInfo(plain: String) = viewModelScope.launch(Dispatchers.IO) {

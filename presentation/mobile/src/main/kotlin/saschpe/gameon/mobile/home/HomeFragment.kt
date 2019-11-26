@@ -44,10 +44,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     onClick = {
                         findNavController().navigate(
                             R.id.action_homeFragment_to_gameFragment,
-                            bundleOf(
-                                GameFragment.ARG_PLAIN to deal.plain,
-                                GameFragment.ARG_TITLE to deal.title
-                            )
+                            bundleOf(GameFragment.ARG_PLAIN to deal.plain)
                         )
                     }
                 )

@@ -54,10 +54,6 @@
             android:name="plain"
             app:argType="string" />
 
-        <argument
-            android:name="title"
-            app:argType="string" />
-
     </fragment>
 
     <fragment

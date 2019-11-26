@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.game
+package saschpe.gameon.mobile.game.prices
 
 
 import android.content.Context
@@ -12,9 +12,9 @@ import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.mobile.R
 
-class GamePriceAdapter(
+class GamePricesAdapter(
     context: Context
-) : ListAdapter<GamePriceAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+) : ListAdapter<GamePricesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -22,7 +22,7 @@ class GamePriceAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_PRICE -> PriceViewHolder(
-                inflater.inflate(R.layout.view_game_review_item, parent, false)
+                inflater.inflate(R.layout.view_price_list_item, parent, false)
             )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }

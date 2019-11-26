@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.game
+package saschpe.gameon.mobile.game.reviews
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,9 +13,9 @@ import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.mobile.R
 
-class GameReviewAdapter(
+class GameReviewsAdapter(
     context: Context
-) : ListAdapter<GameReviewAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+) : ListAdapter<GameReviewsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -23,10 +23,10 @@ class GameReviewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_REVIEW_CREATE -> CreateReviewViewHolder(
-                inflater.inflate(R.layout.view_game_review_create_item, parent, false)
+                inflater.inflate(R.layout.view_review_create_item, parent, false)
             )
             VIEW_TYPE_REVIEW -> ReviewViewHolder(
-                inflater.inflate(R.layout.view_game_review_item, parent, false)
+                inflater.inflate(R.layout.view_review_list_item, parent, false)
             )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
