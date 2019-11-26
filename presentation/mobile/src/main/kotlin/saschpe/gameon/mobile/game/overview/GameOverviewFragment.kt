@@ -29,6 +29,14 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
         viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
             name.text = gameInfo.title
+
+            dlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
+            achievementsChip.visibility = if (gameInfo.achievements) View.VISIBLE else View.GONE
+            tradingCardsChip.visibility = if (gameInfo.trading_cards) View.VISIBLE else View.GONE
+            earlyAccessChip.visibility = if (gameInfo.early_access) View.VISIBLE else View.GONE
+            if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access) {
+                divider3.visibility = View.GONE
+            }
         })
 
         viewModel.gameOverviewLiveData.observe(this, Observer { gameOverview ->

@@ -137,6 +137,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:text="@string/dlc" />
 
                     <com.google.android.material.chip.Chip
@@ -145,6 +147,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:text="@string/achievements" />
 
                     <com.google.android.material.chip.Chip
@@ -152,6 +156,9 @@
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:text="@string/trading_cards" />
 
                     <com.google.android.material.chip.Chip
@@ -160,6 +167,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:text="@string/early_access" />
 
                 </com.google.android.material.chip.ChipGroup>
