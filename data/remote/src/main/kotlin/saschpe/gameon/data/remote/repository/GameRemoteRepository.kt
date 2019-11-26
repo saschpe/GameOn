@@ -29,7 +29,7 @@ class GameRemoteRepository(
         plains: List<String>,
         region: String = "eu1",
         country: String = "de",
-        shops: List<String> = listOf("steam"),
+        shops: List<String> = listOf(),
         allowed: List<String> = listOf("steam", "gog")
     ): Result<GameOverviewResponse> = asResult {
         api.get<GameOverviewResponse>("game/overview") {
@@ -48,7 +48,7 @@ class GameRemoteRepository(
         plains: List<String>,
         region: String = "eu1",
         country: String = "de",
-        shops: List<String> = listOf("steam"),
+        shops: List<String> = listOf(),
         added: Long = 0
     ): Result<GamePricesResponse> = asResult {
         api.get<GamePricesResponse>("game/prices") {

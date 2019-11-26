@@ -15,7 +15,7 @@ class SearchRemoteRepository(
         query: String,
         region: String = "eu1",
         country: String = "de",
-        shops: List<String> = listOf("steam"),
+        shops: List<String> = DEFAULT_STORES,
         limit: Int = 50,
         offset: Int = 0
     ): Result<SearchResponse> = asResult {
@@ -36,5 +36,9 @@ class SearchRemoteRepository(
     ) {
         @Serializable
         data class Data(val list: List<Offer>)
+    }
+
+    companion object {
+        val DEFAULT_STORES = listOf("steam")
     }
 }
