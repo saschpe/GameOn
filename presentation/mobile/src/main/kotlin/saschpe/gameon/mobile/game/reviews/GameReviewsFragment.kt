@@ -5,17 +5,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game_reviews.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
+import saschpe.log4k.Log
 
 class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
-    private lateinit var adapter: GameReviewsAdapter
+    private lateinit var reviewsAdapter: GameReviewsAdapter
     private lateinit var paramPlain: String
     private val viewModel: GameReviewsViewModel by viewModels()
 
@@ -24,23 +21,24 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
         paramPlain = arguments?.getString(ARG_PLAIN)
             ?: throw IllegalArgumentException("Argument 'plain' is null")
 
-        adapter = GameReviewsAdapter(requireContext())
+        reviewsAdapter = GameReviewsAdapter(requireContext())
 
         viewModel.getGameInfo(paramPlain)
+        Log.debug("XXX")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView.apply {
-            adapter = adapter
+            adapter = reviewsAdapter
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
         }
 
         viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
             // TODO: Only hide once all observers triggered once...
+            Log.debug("XXX")
 
             val viewModelList = gameInfo.reviews?.map { review ->
                 GameReviewsAdapter.ViewModel.ReviewViewModel(
@@ -49,17 +47,13 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
                     // TODO: Add onClick handler to open steam page..
                 )
             } ?: listOf(
-                GameReviewsAdapter.ViewModel.CreateReviewViewModel(
+                GameReviewsAdapter.ViewModel.NoResultsViewModel(
                     // TODO: Add onClick handler to add steam review
                 )
             )
 
-            lifecycleScope.launch {
-                // Wait a little to ensure the recycler is measured and drawn as the job is super-fast
-                // Also looks cool...
-                delay(200)
-                adapter.submitList(viewModelList)
-            }
+            Log.debug("XXX")
+            reviewsAdapter.submitList(viewModelList)
         })
     }
 

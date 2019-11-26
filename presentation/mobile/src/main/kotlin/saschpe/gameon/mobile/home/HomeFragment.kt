@@ -29,6 +29,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setHasOptionsMenu(true)
 
         offerAdapter = OfferAdapter(requireContext())
+
         viewModel.getDeals()
     }
 
@@ -36,6 +37,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
+
+        recyclerView.apply {
+            adapter = offerAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
+            setHasFixedSize(true)
+        }
+
+        searchQuery.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
 
         viewModel.dealLiveData.observe(this, Observer { deals ->
             progressBar.visibility = View.GONE
@@ -51,17 +63,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
             })
         })
-
-        recyclerView.apply {
-            adapter = offerAdapter
-            layoutManager = LinearLayoutManager(context)
-            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
-            setHasFixedSize(true)
-        }
-
-        searchQuery.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
-        }
     }
 
     override fun onResume() {

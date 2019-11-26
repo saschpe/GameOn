@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.mobile.R
@@ -22,31 +22,29 @@ class GameReviewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            VIEW_TYPE_REVIEW_CREATE -> CreateReviewViewHolder(
-                inflater.inflate(R.layout.view_review_no_results, parent, false)
-            )
             VIEW_TYPE_REVIEW -> ReviewViewHolder(
                 inflater.inflate(R.layout.view_review_list_item, parent, false)
+            )
+            VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
+                inflater.inflate(R.layout.view_review_no_results, parent, false)
             )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is ViewModel.CreateReviewViewModel -> (holder as CreateReviewViewHolder).bind(item)
             is ViewModel.ReviewViewModel -> (holder as ReviewViewHolder).bind(item)
         }
+    }
 
     sealed class ViewModel(val viewType: Int) {
-        data class CreateReviewViewModel(
-            val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_REVIEW_CREATE)
-
         data class ReviewViewModel(
             val store: String,
             val review: GameInfo.Review,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_REVIEW)
+
+        class NoResultsViewModel : ViewModel(VIEW_TYPE_NO_RESULTS)
     }
 
     private class ReviewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -54,6 +52,18 @@ class GameReviewsAdapter(
         private val store: TextView = view.findViewById(R.id.store)
         private val details: TextView = view.findViewById(R.id.details)
         private val clickSurface: View = view
+
+        init {
+            if (AMBER_COLOR_INT == null) {
+                AMBER_COLOR_INT = ContextCompat.getColor(view.context, R.color.amber)
+            }
+            if (GREEN_COLOR_INT == null) {
+                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
+            }
+            if (RED_COLOR_INT == null) {
+                RED_COLOR_INT = ContextCompat.getColor(view.context, R.color.red)
+            }
+        }
 
         fun bind(viewModel: ViewModel.ReviewViewModel) {
             clickSurface.setOnClickListener { viewModel.onClick.invoke() }
@@ -63,35 +73,37 @@ class GameReviewsAdapter(
                     R.plurals.review_detail, it.total, it.text, it.total
                 )
 
-                rating.text = rating.context.getString(
-                    R.string.colored_number_template,
-                    it.perc_positive,
-                    when {
-                        it.perc_positive > POSITIVE_REVIEW_THRESHOLD ->
-                            ContextCompat.getColor(rating.context, R.color.green)
-                        it.perc_positive > NEUTRAL_REVIEW_THRESHOLD ->
-                            ContextCompat.getColor(rating.context, R.color.amber)
-                        else -> ContextCompat.getColor(rating.context, R.color.red)
-                    }
+                val ratingColorInt = when {
+                    it.perc_positive > POSITIVE_REVIEW_THRESHOLD -> GREEN_COLOR_INT
+                    it.perc_positive > NEUTRAL_REVIEW_THRESHOLD -> AMBER_COLOR_INT
+                    else -> RED_COLOR_INT
+                }
+
+                rating.text = HtmlCompat.fromHtml(
+                    rating.context.getString(
+                        R.string.colored_number_template,
+                        it.perc_positive,
+                        ratingColorInt
+                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 
-            store.text = viewModel.store
+            store.text =  store.context.getString(R.string.on_template, viewModel.store)
+        }
+
+        companion object {
+            private var AMBER_COLOR_INT: Int? = null
+            private var GREEN_COLOR_INT: Int? = null
+            private var RED_COLOR_INT: Int? = null
         }
     }
 
-    private class CreateReviewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val reviewButton: MaterialButton = view.findViewById(R.id.reviewButton)
-
-        fun bind(viewModel: ViewModel.CreateReviewViewModel) {
-            reviewButton.setOnClickListener { viewModel.onClick.invoke() }
-        }
-    }
+    private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     companion object {
         private const val NEUTRAL_REVIEW_THRESHOLD = 60
         private const val POSITIVE_REVIEW_THRESHOLD = 80
-        private const val VIEW_TYPE_REVIEW_CREATE = 1
-        private const val VIEW_TYPE_REVIEW = 2
+        private const val VIEW_TYPE_REVIEW = 1
+        private const val VIEW_TYPE_NO_RESULTS = 2
     }
 }
