@@ -35,30 +35,43 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             val green = ContextCompat.getColor(requireContext(), R.color.green)
             val red = ContextCompat.getColor(requireContext(), R.color.red)
 
-            gameOverview.price?.run {
-                val priceString = if (cut == 0) {
-                    getString(R.string.price_on_store_template, price, store, green)
-                } else {
-                    getString(
-                        R.string.price_on_store_with_rebate_template,
-                        price, store, cut, green, red
-                    )
-                }
-                currentBest.text =
-                    HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            if (gameOverview.price != null) {
+                gameOverview.price?.run {
+                    val priceString = if (cut == 0) {
+                        getString(R.string.price_on_store_template, price, store, green)
+                    } else {
+                        getString(
+                            R.string.price_on_store_with_rebate_template,
+                            price, store, cut, green, red
+                        )
+                    }
+                    currentBest.text =
+                        HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                storeButton.setOnClickListener { openUrl(requireContext(), url) }
+                    storeButton.setOnClickListener { openUrl(requireContext(), url) }
+                }
+            } else {
+                currentBest.visibility = View.GONE
+                currentBestText.visibility = View.GONE
             }
 
-            historicalLow.text = HtmlCompat.fromHtml(
-                getString(
-                    R.string.price_on_store_with_rebate_template,
-                    gameOverview.lowest.price,
-                    gameOverview.lowest.store,
-                    gameOverview.lowest.cut,
-                    green, red
-                ), HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            if (gameOverview.lowest != null) {
+                gameOverview.lowest?.apply {
+                    historicalLow.text = HtmlCompat.fromHtml(
+                        getString(
+                            R.string.price_on_store_with_rebate_template,
+                            price, store, cut, green, red
+                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                }
+            } else {
+                historicalLow.visibility = View.GONE
+                historicalLowText.visibility = View.GONE
+            }
+
+            if (gameOverview.price == null && gameOverview.lowest == null) {
+                divider.visibility = View.GONE
+            }
         })
 
         viewModel.favoriteLiveData.observe(this, Observer { favorite ->
