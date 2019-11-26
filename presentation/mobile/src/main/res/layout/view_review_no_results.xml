@@ -11,26 +11,12 @@
         android:layout_marginStart="@dimen/keyline_4"
         android:layout_marginTop="@dimen/keyline_4"
         android:layout_marginEnd="@dimen/keyline_4"
-        android:text="@string/no_reviews_yet"
-        android:textAppearance="?textAppearanceBody1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/reviewButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/keyline_4"
-        android:layout_marginTop="@dimen/keyline_4"
-        android:layout_marginEnd="@dimen/keyline_4"
         android:layout_marginBottom="@dimen/keyline_4"
-        android:text="@string/write_a_steam_review"
-        app:icon="@drawable/ic_public_24dp"
+        android:text="@string/no_reviews_yet"
+        android:textAppearance="?textAppearanceHeadline5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
