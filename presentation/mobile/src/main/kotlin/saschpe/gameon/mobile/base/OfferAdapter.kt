@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.home
+package saschpe.gameon.mobile.base
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -35,12 +36,16 @@ class OfferAdapter(
             VIEW_TYPE_OFFER -> OfferViewHolder(
                 inflater.inflate(R.layout.view_offer_list_card, parent, false)
             )
+            VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
+                inflater.inflate(R.layout.view_offer_no_results, parent, false)
+            )
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = getItem(position)) {
             is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
+            is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind(item)
         }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
@@ -54,6 +59,10 @@ class OfferAdapter(
             val offer: Offer,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_OFFER)
+
+        data class NoResultsViewModel(
+            val onClick: () -> Unit = {}
+        ) : ViewModel(VIEW_TYPE_NO_RESULTS)
     }
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -83,7 +92,8 @@ class OfferAdapter(
                     viewModel.offer.price_new,
                     viewModel.offer.shop.name,
                     viewModel.offer.price_cut.roundToInt(),
-                    GREEN_COLOR_INT, RED_COLOR_INT
+                    GREEN_COLOR_INT,
+                    RED_COLOR_INT
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
 
@@ -109,7 +119,16 @@ class OfferAdapter(
         }
     }
 
+    private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val clearButton: MaterialButton = view.findViewById(R.id.clearButton)
+
+        fun bind(viewModel: ViewModel.NoResultsViewModel) {
+            clearButton.setOnClickListener { viewModel.onClick.invoke() }
+        }
+    }
+
     companion object {
         private const val VIEW_TYPE_OFFER = 1
+        private const val VIEW_TYPE_NO_RESULTS = 2
     }
 }

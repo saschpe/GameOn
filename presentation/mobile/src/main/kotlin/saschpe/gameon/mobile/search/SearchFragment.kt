@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
-import saschpe.gameon.mobile.home.OfferAdapter
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels()
@@ -44,21 +44,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
 
-        viewModel.searchLiveData.observe(this, Observer { offers ->
-            progressBar.visibility = View.GONE
-            offerAdapter.submitList(offers.map { offer ->
-                OfferAdapter.ViewModel.OfferViewModel(
-                    offer = offer,
-                    onClick = {
-                        findNavController().navigate(
-                            R.id.action_searchFragment_to_gameFragment,
-                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                        )
-                    }
-                )
-            })
-        })
-
         recyclerView.apply {
             adapter = offerAdapter
             layoutManager = LinearLayoutManager(context)
@@ -72,6 +57,32 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 delayedSearchHandler.sendEmptyMessageDelayed(MESSAGE_UPDATE_SEARCH, 100)
             }
         }
+
+        viewModel.searchLiveData.observe(this, Observer { offers ->
+            if (offers.isNotEmpty()) {
+                offerAdapter.submitList(offers.map { offer ->
+                    OfferAdapter.ViewModel.OfferViewModel(
+                        offer = offer,
+                        onClick = {
+                            findNavController().navigate(
+                                R.id.action_searchFragment_to_gameFragment,
+                                bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                            )
+                        }
+                    )
+                })
+            } else {
+                offerAdapter.submitList(listOf(
+                    OfferAdapter.ViewModel.NoResultsViewModel(
+                        onClick = {
+                            searchQuery.text?.clear()
+                            offerAdapter.submitList(listOf())
+                        }
+                    )
+                ))
+            }
+            progressBar.visibility = View.GONE
+        })
     }
 
     private fun updateSearch() {

@@ -35,7 +35,11 @@
                 android:id="@+id/searchQuery"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text" />
+                android:inputType="text">
+
+                <requestFocus />
+
+            </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
 

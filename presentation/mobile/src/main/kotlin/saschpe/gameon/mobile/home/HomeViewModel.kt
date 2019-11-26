@@ -20,10 +20,4 @@ class HomeViewModel : ViewModel() {
             is Result.Error -> throw result.throwable
         }
     }
-
-    /*fun getGameInfo(): Result<List<GameInfo>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            getGameInfoUseCase()
-        }
-    }*/
 }
