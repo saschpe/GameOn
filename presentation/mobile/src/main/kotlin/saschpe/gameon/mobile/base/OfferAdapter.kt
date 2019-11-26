@@ -85,17 +85,20 @@ class OfferAdapter(
             layout.setOnClickListener { viewModel.onClick.invoke() }
             title.text = viewModel.offer.title
 
-            // TODO: Currency
-            pricing.text = HtmlCompat.fromHtml(
-                pricing.context.getString(
-                    R.string.pricing_template,
-                    viewModel.offer.price_new,
-                    viewModel.offer.shop.name,
-                    viewModel.offer.price_cut.roundToInt(),
-                    GREEN_COLOR_INT,
-                    RED_COLOR_INT
-                ), HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            viewModel.offer.run {
+                val priceString = if (price_cut == 0f) {
+                    pricing.context.getString(
+                        R.string.price_on_store_template,
+                        price_new, shop.name, GREEN_COLOR_INT
+                    )
+                } else {
+                    pricing.context.getString(
+                        R.string.price_on_store_with_rebate_template,
+                        price_new, shop.name, price_cut.roundToInt(), GREEN_COLOR_INT, RED_COLOR_INT
+                    )
+                }
+                pricing.text = HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            }
 
             gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {

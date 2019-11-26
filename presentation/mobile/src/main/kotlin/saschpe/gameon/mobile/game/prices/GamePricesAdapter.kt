@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GamePrice
+import saschpe.gameon.data.core.model.GamePrice.Companion.GOOD_PRICE_CUT_THRESHOLD
 import saschpe.gameon.mobile.R
 
 class GamePricesAdapter(
@@ -43,14 +46,41 @@ class GamePricesAdapter(
         private val store: TextView = view.findViewById(R.id.store)
         private val price: TextView = view.findViewById(R.id.price)
         private val drm: TextView = view.findViewById(R.id.drm)
-        private val clickSurface: View = view
+        private val layout: View = view.findViewById(R.id.constraintLayout)
+
+        init {
+            if (NEUTRAL_COLOR_INT == null) {
+                NEUTRAL_COLOR_INT = ContextCompat.getColor(view.context, R.color.color_on_surface)
+            }
+            if (GREEN_COLOR_INT == null) {
+                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
+            }
+        }
 
         fun bind(viewModel: ViewModel.PriceViewModel) {
-            clickSurface.setOnClickListener { viewModel.onClick.invoke() }
+            layout.setOnClickListener { viewModel.onClick.invoke() }
+
+            val priceColorInt = if (viewModel.price.price_cut > GOOD_PRICE_CUT_THRESHOLD) {
+                GREEN_COLOR_INT
+            } else {
+                NEUTRAL_COLOR_INT
+            }
 
             store.text = viewModel.price.shop.name
-            price.text = viewModel.price.price_new.toString()
+            price.text = HtmlCompat.fromHtml(
+                price.context.getString(
+                    R.string.price_template,
+                    viewModel.price.price_new,
+                    priceColorInt
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+
             drm.text = viewModel.price.drm.joinToString(separator = ", ")
+        }
+
+        companion object {
+            private var NEUTRAL_COLOR_INT: Int? = null
+            private var GREEN_COLOR_INT: Int? = null
         }
     }
 

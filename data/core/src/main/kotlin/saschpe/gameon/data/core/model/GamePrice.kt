@@ -25,4 +25,8 @@ data class GamePrice(
 
     @Serializable
     data class Urls(val game: String)
+
+    companion object {
+        const val GOOD_PRICE_CUT_THRESHOLD = 0.5f
+    }
 }

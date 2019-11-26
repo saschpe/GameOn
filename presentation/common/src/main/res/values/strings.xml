@@ -32,7 +32,9 @@
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
     <string name="deals">Deals</string>
-    <string name="pricing_template"><![CDATA[<font color="%4$d"><b>%1$.2f EUR</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
+    <string name="price_template"><![CDATA[<font color="%2$d"><b>%1$.2f</b></font>]]></string>
+    <string name="price_on_store_template"><![CDATA[<font color="%3$d"><b>%1$.2f</b></font>]]> on %2$s</string>
+    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d"><b>%1$.2f</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="dlc">DLC</string>

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GameInfo
+import saschpe.gameon.data.core.model.GameInfo.Review.Companion.NEUTRAL_REVIEW_THRESHOLD
+import saschpe.gameon.data.core.model.GameInfo.Review.Companion.POSITIVE_REVIEW_THRESHOLD
 import saschpe.gameon.mobile.R
 
 class GameReviewsAdapter(
@@ -101,8 +103,6 @@ class GameReviewsAdapter(
     private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     companion object {
-        private const val NEUTRAL_REVIEW_THRESHOLD = 60
-        private const val POSITIVE_REVIEW_THRESHOLD = 80
         private const val VIEW_TYPE_REVIEW = 1
         private const val VIEW_TYPE_NO_RESULTS = 2
     }
