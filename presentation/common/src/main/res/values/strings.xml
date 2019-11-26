@@ -37,7 +37,6 @@
     <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d"><b>%1$.2f</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
-    <string name="dlc">DLC</string>
     <string name="done">Done</string>
     <string name="early_access">Early access</string>
     <string name="email_address">E-mail address</string>
@@ -60,6 +59,8 @@
     <string name="invalid_display_name">Invalid username (too short)</string>
     <string name="invalid_email_address">Invalid e-mail address</string>
     <string name="invalid_password">Invalid password (too short)</string>
+    <string name="is_dlc">Is DLC</string>
+    <string name="is_package">Is package</string>
     <string name="last_name">Last name</string>
     <string name="legal">Legal</string>
     <string name="light">Light</string>
