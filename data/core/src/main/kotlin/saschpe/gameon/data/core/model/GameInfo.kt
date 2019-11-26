@@ -20,7 +20,12 @@ data class GameInfo(
         val total: Int,
         val text: String,
         val timestamp: Long
-    )
+    ) {
+        companion object {
+            const val NEUTRAL_REVIEW_THRESHOLD = 60
+            const val POSITIVE_REVIEW_THRESHOLD = 80
+        }
+    }
 
     @Serializable
     data class Urls(

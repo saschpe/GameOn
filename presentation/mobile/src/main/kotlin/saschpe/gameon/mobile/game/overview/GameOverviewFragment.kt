@@ -36,26 +36,30 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             val green = ContextCompat.getColor(requireContext(), R.color.green)
             val red = ContextCompat.getColor(requireContext(), R.color.red)
 
-            currentBest.text = HtmlCompat.fromHtml(
-                getString(
-                    R.string.pricing_template,
-                    gameOverview.price.price,
-                    gameOverview.price.store,
-                    gameOverview.price.cut,
-                    green, red
-                ), HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            gameOverview.price.run {
+                val priceString = if (cut == 0) {
+                    getString(R.string.price_on_store_template, price, store, green)
+                } else {
+                    getString(
+                        R.string.price_on_store_with_rebate_template,
+                        price, store, cut, green, red
+                    )
+                }
+                currentBest.text =
+                    HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+                storeButton.setOnClickListener { openUrl(requireContext(), url) }
+            }
+
             historicalLow.text = HtmlCompat.fromHtml(
                 getString(
-                    R.string.pricing_template,
+                    R.string.price_on_store_with_rebate_template,
                     gameOverview.lowest.price,
                     gameOverview.lowest.store,
                     gameOverview.lowest.cut,
                     green, red
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
-
-            storeButton.setOnClickListener { openUrl(requireContext(), gameOverview.price.url) }
         })
 
         viewModel.favoriteLiveData.observe(this, Observer { favorite ->
