@@ -50,6 +50,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
     }
 
+    @ExperimentalStdlibApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
@@ -84,7 +85,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
             val viewModelList = gameInfo.reviews?.map { review ->
                 GameReviewAdapter.ViewModel.ReviewViewModel(
-                    store = review.key.capitalize(), // TODO: Read from stores instead later..
+                    store = review.key, // TODO: Read from stores instead later
                     review = review.value
                     // TODO: Add onClick handler to open steam page..
                 )
