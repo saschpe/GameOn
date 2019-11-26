@@ -74,6 +74,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", "1.3.60"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
+    implementation("androidx.browser:browser:1.2.0-beta01")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.core:core-ktx:1.1.0")

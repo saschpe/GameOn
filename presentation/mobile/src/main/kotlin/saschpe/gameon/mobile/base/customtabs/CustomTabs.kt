@@ -13,9 +13,9 @@ import saschpe.gameon.mobile.R
 import saschpe.log4k.Log
 
 object CustomTabs {
-    private const val HOMEPAGE_URL = "https://www.lunchup.io"
-    private const val PRIVACY_POLICY_URL = "https://www.lunchup.io/legal/privacy"
-    private const val TERMS_OF_SERVICE_URL = "https://www.lunchup.io/legal/terms"
+    private const val HOMEPAGE_URL = "https://sites.google.com/view/gameon-2"
+    private const val PRIVACY_POLICY_URL = "https://sites.google.com/view/gameon-2/legal/privacy"
+    private const val TERMS_OF_SERVICE_URL = "https://sites.google.com/view/gameon-2/legal/terms"
 
     private val defaultCustomTabsIntentBuilder = CustomTabsIntent.Builder()
         .addDefaultShareMenuItem()
@@ -29,6 +29,7 @@ object CustomTabs {
         Log.info("Opening URL '$url'...")
         defaultCustomTabsIntentBuilder
             .setToolbarColor(ContextCompat.getColor(context, R.color.color_surface))
+            .setNavigationBarColor(ContextCompat.getColor(context, R.color.color_surface))
             .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
             .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
 
@@ -38,8 +39,7 @@ object CustomTabs {
             defaultCustomTabsIntentBuilder.setCloseButtonIcon(it.toBitmap())
         }
 
-        val customTabsIntent = defaultCustomTabsIntentBuilder
-            .build()
+        val customTabsIntent = defaultCustomTabsIntentBuilder.build()
 
         CustomTabsHelper.addKeepAliveExtra(context, customTabsIntent.intent)
         CustomTabsHelper.openCustomTab(context, customTabsIntent, Uri.parse(url), WebViewFallback())
