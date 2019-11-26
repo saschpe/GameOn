@@ -69,7 +69,7 @@ class OfferAdapter(
         private val image: ImageView = view.findViewById(R.id.image)
         private val title: TextView = view.findViewById(R.id.title)
         private val pricing: TextView = view.findViewById(R.id.pricing)
-        private val clickSurface: View = view
+        private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
 
         init {
@@ -82,12 +82,12 @@ class OfferAdapter(
         }
 
         fun bind(viewModel: ViewModel.OfferViewModel) {
-            clickSurface.setOnClickListener { viewModel.onClick.invoke() }
+            layout.setOnClickListener { viewModel.onClick.invoke() }
             title.text = viewModel.offer.title
 
             // TODO: Currency
             pricing.text = HtmlCompat.fromHtml(
-                clickSurface.context.getString(
+                pricing.context.getString(
                     R.string.pricing_template,
                     viewModel.offer.price_new,
                     viewModel.offer.shop.name,

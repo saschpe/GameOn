@@ -51,7 +51,7 @@ class GameReviewsAdapter(
         private val rating: TextView = view.findViewById(R.id.rating)
         private val store: TextView = view.findViewById(R.id.store)
         private val details: TextView = view.findViewById(R.id.details)
-        private val clickSurface: View = view
+        private val layout: View = view.findViewById(R.id.constraintLayout)
 
         init {
             if (AMBER_COLOR_INT == null) {
@@ -66,7 +66,7 @@ class GameReviewsAdapter(
         }
 
         fun bind(viewModel: ViewModel.ReviewViewModel) {
-            clickSurface.setOnClickListener { viewModel.onClick.invoke() }
+            layout.setOnClickListener { viewModel.onClick.invoke() }
 
             viewModel.review.let {
                 details.text = details.resources.getQuantityString(
