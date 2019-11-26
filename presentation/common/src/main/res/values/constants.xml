@@ -9,6 +9,8 @@
     <string name="user_email_default" translatable="false">sascha@peilicke.de</string>
     <string name="user_name_default" translatable="false">Sascha Peilicke</string>
 
+    <string name="steam" translatable="false">Steam</string>
+
     <string name="theme_light" translatable="false">1</string>
     <string name="theme_dark" translatable="false">2</string>
     <string name="theme_system_default" translatable="false">-1</string> <!-- Actually AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -->

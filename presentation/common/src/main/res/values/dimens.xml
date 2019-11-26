@@ -13,6 +13,7 @@
     <dimen name="image_4">64dp</dimen>
     <dimen name="image_6">96dp</dimen>
     <dimen name="image_8">128dp</dimen>
+    <dimen name="image_10">160dp</dimen>
 
     <dimen name="recycler_spacing">@dimen/keyline_0</dimen>
 

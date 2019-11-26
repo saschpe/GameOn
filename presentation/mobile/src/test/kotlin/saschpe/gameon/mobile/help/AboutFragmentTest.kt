@@ -19,6 +19,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs
+import saschpe.gameon.mobile.help.about.AboutFragment
 
 @RunWith(AndroidJUnit4::class)
 class AboutFragmentTest {

@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.help
+package saschpe.gameon.mobile.help.contact
 
 import android.os.Bundle
 import android.view.View

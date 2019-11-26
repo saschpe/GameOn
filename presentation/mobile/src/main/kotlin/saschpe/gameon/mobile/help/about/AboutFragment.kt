@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.help
+package saschpe.gameon.mobile.help.about
 
 import android.content.Intent
 import android.os.Bundle

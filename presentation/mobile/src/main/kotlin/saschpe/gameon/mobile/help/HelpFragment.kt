@@ -20,6 +20,8 @@ import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs
+import saschpe.gameon.mobile.help.about.AboutFragment
+import saschpe.gameon.mobile.help.contact.ContactFragment
 
 class HelpFragment : Fragment(R.layout.fragment_help) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +87,7 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
             else -> ContactFragment()
         }
 
-        override fun getPageTitle(position: Int): CharSequence? = when (position) {
+        override fun getPageTitle(position: Int) = when (position) {
             0 -> context.getString(R.string.about)
             else -> context.getString(R.string.contact)
         }

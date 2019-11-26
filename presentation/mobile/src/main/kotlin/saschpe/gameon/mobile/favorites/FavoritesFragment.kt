@@ -50,10 +50,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                     onClick = {
                         findNavController().navigate(
                             R.id.action_favoritesFragment_to_gameFragment,
-                            bundleOf(
-                                GameFragment.ARG_PLAIN to favorite.plain,
-                                GameFragment.ARG_TITLE to favorite.title
-                            )
+                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
                         )
                     }
                 )
