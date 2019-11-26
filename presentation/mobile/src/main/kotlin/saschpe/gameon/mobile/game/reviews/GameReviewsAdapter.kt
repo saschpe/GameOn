@@ -23,7 +23,7 @@ class GameReviewsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_REVIEW_CREATE -> CreateReviewViewHolder(
-                inflater.inflate(R.layout.view_review_create_item, parent, false)
+                inflater.inflate(R.layout.view_review_no_results, parent, false)
             )
             VIEW_TYPE_REVIEW -> ReviewViewHolder(
                 inflater.inflate(R.layout.view_review_list_item, parent, false)

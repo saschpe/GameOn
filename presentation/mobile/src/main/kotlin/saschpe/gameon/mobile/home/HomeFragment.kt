@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {

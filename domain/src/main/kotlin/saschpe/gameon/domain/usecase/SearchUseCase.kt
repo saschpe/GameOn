@@ -13,14 +13,7 @@ class SearchUseCase(
         // TODO: Pass down region, country, etc.
 
         return when (val result = searchRemoteRepository.search(arguments[0])) {
-            is Result.Success<SearchRemoteRepository.SearchResponse> -> {
-                val offerResponses = result.data.data.list
-                if (offerResponses.isEmpty()) {
-                    Result.Error.withMessage("No offers for search '$arguments'")
-                } else {
-                    Result.Success(offerResponses)
-                }
-            }
+            is Result.Success<SearchRemoteRepository.SearchResponse> -> Result.Success(result.data.data.list)
             is Result.Error -> result
         }
     }
