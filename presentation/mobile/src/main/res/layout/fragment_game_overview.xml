@@ -132,14 +132,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider3">
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/dlcChip"
+                        android:id="@+id/isDlcChip"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:clickable="false"
                         android:focusable="false"
-                        android:text="@string/dlc" />
+                        android:text="@string/is_dlc" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/achievementsChip"
@@ -170,6 +170,16 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:text="@string/early_access" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/isPackageChip"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:text="@string/is_package" />
 
                 </com.google.android.material.chip.ChipGroup>
 
