@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/favorites" />
 
-    <item
+    <!--<item
         android:id="@+id/accountFragment"
         android:icon="@drawable/ic_account_circle_24dp"
-        android:title="@string/account" />
+        android:title="@string/account" />-->
 
 </menu>
