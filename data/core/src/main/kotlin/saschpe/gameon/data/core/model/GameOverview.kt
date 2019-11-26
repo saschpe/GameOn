@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GameOverview(
-    val price: Price,
+    val price: Price?,
     val lowest: Lowest,
     val bundles: Bundles,
     val urls: Urls
