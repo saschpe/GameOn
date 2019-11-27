@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game_reviews.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
 
 class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
@@ -36,7 +35,7 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
         }
 
         viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
-            val viewModelList = gameInfo.reviews?.map { review ->
+            val viewModels = gameInfo.reviews?.map { review ->
                 GameReviewsAdapter.ViewModel.ReviewViewModel(
                     store = review.key,
                     review = review.value,
@@ -47,7 +46,7 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
                 )
             } ?: listOf(GameReviewsAdapter.ViewModel.NoResultsViewModel())
 
-            reviewsAdapter.submitList(viewModelList)
+            reviewsAdapter.submitList(viewModels)
         })
     }
 

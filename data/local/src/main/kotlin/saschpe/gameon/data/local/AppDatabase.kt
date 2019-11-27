@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import saschpe.gameon.data.local.dao.FavoritesDao
 import saschpe.gameon.data.local.model.FavoriteEntity
 
-@Database(entities = [FavoriteEntity::class], version = 1)
+@Database(entities = [FavoriteEntity::class], version = 2)
 internal abstract class AppDatabase : RoomDatabase() {
     abstract fun favoritesDao(): FavoritesDao
 
