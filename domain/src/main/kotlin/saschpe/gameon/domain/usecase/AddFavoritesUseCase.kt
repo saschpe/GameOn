@@ -18,7 +18,6 @@ class AddFavoritesUseCase(
                 FavoriteEntity(
                     createdAt = favorite.createdAt,
                     plain = favorite.plain,
-                    title = favorite.title,
                     priceThreshold = favorite.priceThreshold
                 )
             )) {

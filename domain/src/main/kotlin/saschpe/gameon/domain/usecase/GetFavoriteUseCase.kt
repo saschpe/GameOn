@@ -18,7 +18,6 @@ class GetFavoriteUseCase(
                     Favorite(
                         createdAt = result.data.createdAt,
                         plain = result.data.plain,
-                        title = result.data.title,
                         priceThreshold = result.data.priceThreshold
                     )
                 )

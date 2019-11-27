@@ -22,7 +22,6 @@ class GetFavoritesUseCase(
                     Favorite(
                         createdAt = favoriteEntity.createdAt,
                         plain = favoriteEntity.plain,
-                        title = favoriteEntity.title,
                         priceThreshold = favoriteEntity.priceThreshold
                     )
                 })

@@ -84,16 +84,15 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         })
 
         viewModel.favoriteLiveData.observe(this, Observer { favorite ->
-            if (favorite != null) {
-                favoriteButton.icon = requireContext().getDrawable(R.drawable.ic_favorite_24dp)
-                favoriteButton.text = requireContext().getString(R.string.remove_from_favorites)
-                favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
-            } else {
-                favoriteButton.icon =
-                    requireContext().getDrawable(R.drawable.ic_favorite_border_24dp)
-                favoriteButton.text = requireContext().getString(R.string.add_to_favorites)
-                favoriteButton.setOnClickListener {
-                    // TODO: viewModel.addFavorite(paramPlain, paramTitle)
+            requireContext().run {
+                if (favorite != null) {
+                    favoriteButton.icon = getDrawable(R.drawable.ic_favorite_24dp)
+                    favoriteButton.text = getString(R.string.remove_from_favorites)
+                    favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
+                } else {
+                    favoriteButton.icon = getDrawable(R.drawable.ic_favorite_border_24dp)
+                    favoriteButton.text = getString(R.string.add_to_favorites)
+                    favoriteButton.setOnClickListener { viewModel.addFavorite(paramPlain) }
                 }
             }
         })

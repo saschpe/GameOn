@@ -6,15 +6,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
-import saschpe.gameon.data.core.model.GamePrice
-import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.domain.Module.addFavoritesUseCase
+import saschpe.gameon.domain.Module.getFavoriteUseCase
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
-import saschpe.gameon.domain.Module.getGamePricesUseCase
-import saschpe.gameon.domain.Module.getFavoriteUseCase
 import saschpe.gameon.domain.Module.removeFavoritesUseCase
 
 class GameOverviewViewModel : ViewModel() {
@@ -49,12 +47,17 @@ class GameOverviewViewModel : ViewModel() {
         }
     }
 
-    fun addFavorite(plain: String, title: String, priceThreshold: Long? = null) =
+    fun addFavorite(plain: String, priceThreshold: Long? = null) =
         viewModelScope.launch(Dispatchers.IO) {
-            val favorite = Favorite(plain = plain, title = title, priceThreshold = priceThreshold)
+            val favorite = Favorite(
+                plain = plain,
+                priceThreshold = priceThreshold
+            )
 
             when (val result = addFavoritesUseCase(favorite)) {
-                is Result.Success<Unit> -> launch(Dispatchers.Main) { favoriteLiveData.value = favorite }
+                is Result.Success<Unit> -> launch(Dispatchers.Main) {
+                    favoriteLiveData.value = favorite
+                }
                 is Result.Error -> throw result.throwable
             }
         }

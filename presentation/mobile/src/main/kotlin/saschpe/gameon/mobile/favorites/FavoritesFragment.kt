@@ -44,17 +44,23 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
 
         viewModel.favoritesLiveData.observe(this, Observer { favorites ->
-            favoritesAdapter.submitList(favorites.map { favorite ->
-                FavoritesAdapter.ViewModel.FavoriteViewModel(
-                    favorite = favorite,
-                    onClick = {
-                        findNavController().navigate(
-                            R.id.action_favoritesFragment_to_gameFragment,
-                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
-                        )
-                    }
-                )
-            })
+            val viewModels = if (favorites.isNotEmpty()) {
+                favorites.map { favorite ->
+                    FavoritesAdapter.ViewModel.FavoriteViewModel(
+                        favorite = favorite,
+                        onClick = {
+                            findNavController().navigate(
+                                R.id.action_favoritesFragment_to_gameFragment,
+                                bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                            )
+                        }
+                    )
+                }
+            } else {
+                listOf(FavoritesAdapter.ViewModel.NoResultViewModel())
+            }
+
+            favoritesAdapter.submitList(viewModels)
         })
     }
 
