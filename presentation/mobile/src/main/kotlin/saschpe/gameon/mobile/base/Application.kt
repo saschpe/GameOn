@@ -3,6 +3,9 @@ package saschpe.gameon.mobile.base
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.multidex.MultiDexApplication
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.CrashlyticsCore
+import io.fabric.sdk.android.Fabric
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,5 +38,10 @@ class Application : MultiDexApplication() {
                 minimumLogLevel = Log.Level.Info
             }
         })
+
+        // See https://developer.android.com/studio/build/optimize-your-build#disable_crashlytics
+        Crashlytics.Builder()
+            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build()
+            .also { Fabric.with(this, it) }
     }
 }

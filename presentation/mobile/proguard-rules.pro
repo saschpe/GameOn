@@ -1,4 +1,5 @@
-# https://github.com/Kotlin/kotlinx.serialization#androidjvm
+# KotlinX.Serialization
+# See https://github.com/Kotlin/kotlinx.serialization#androidjvm
 -keepattributes *Annotation*, InnerClasses
 -dontnote kotlinx.serialization.SerializationKt
 
@@ -21,3 +22,10 @@
 
 # Fragments refrenced in XML headers
 -keep class saschpe.gameon.mobile.settings.preferences.** { *; }
+
+
+# Crashlytics
+# See https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
