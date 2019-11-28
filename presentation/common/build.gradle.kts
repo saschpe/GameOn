@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.3.60"))
+    implementation(kotlin("stdlib-jdk8", "1.3.61"))
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
 
