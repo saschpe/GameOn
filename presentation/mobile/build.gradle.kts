@@ -3,6 +3,7 @@ plugins {
     id("com.github.triplet.play") version "2.6.1"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
+    id("io.fabric")
     kotlin("android")
     kotlin("android.extensions")
 }
@@ -39,6 +40,7 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
+            extra.set("enableCrashlytics", false)
         }
         named("release") {
             isMinifyEnabled = true
@@ -89,11 +91,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.1.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.1.0")
     implementation("androidx.preference:preference-ktx:1.1.0")
+    implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-ads:18.3.0")
-    implementation("com.google.firebase:firebase-auth:19.2.0")
+    implementation("com.google.firebase:firebase-analytics:17.2.1")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("de.hdodenhof:circleimageview:3.0.1")
