@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import coil.Coil
 import coil.api.load
-import coil.decode.DataSource
 import kotlinx.android.synthetic.main.fragment_game.*
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.overview.GameOverviewFragment
@@ -58,21 +57,19 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     private class GameFragmentPagerAdapter(
-        val context: Context,
-        val plain: String,
-        fragmentManager: FragmentManager
+        val context: Context, val plain: String, fragmentManager: FragmentManager
     ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = 3
 
         override fun getItem(position: Int) = when (position) {
             0 -> GameOverviewFragment().apply {
-                arguments = bundleOf(GamePricesFragment.ARG_PLAIN to plain)
+                arguments = bundleOf(GameOverviewFragment.ARG_PLAIN to plain)
             }
             1 -> GamePricesFragment().apply {
-                arguments = bundleOf(GameReviewsFragment.ARG_PLAIN to plain)
+                arguments = bundleOf(GamePricesFragment.ARG_PLAIN to plain)
             }
             else -> GameReviewsFragment().apply {
-                arguments = bundleOf(GameOverviewFragment.ARG_PLAIN to plain)
+                arguments = bundleOf(GameReviewsFragment.ARG_PLAIN to plain)
             }
         }
 
