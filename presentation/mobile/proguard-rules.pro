@@ -17,3 +17,7 @@
 -keepclasseswithmembers class saschpe.gameon.data.remote.repository.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
+
+
+# Fragments refrenced in XML headers
+-keep class saschpe.gameon.mobile.settings.preferences.** { *; }
