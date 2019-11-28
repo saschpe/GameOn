@@ -16,6 +16,7 @@ class GetFavoriteUseCase(
             is Result.Success<FavoriteEntity> -> {
                 Result.Success(
                     Favorite(
+                        id = result.data.id,
                         createdAt = result.data.createdAt,
                         plain = result.data.plain,
                         priceThreshold = result.data.priceThreshold
