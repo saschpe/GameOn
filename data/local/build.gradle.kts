@@ -44,7 +44,7 @@ android {
 dependencies {
     kapt("androidx.room:room-compiler:2.2.2")
 
-    implementation(kotlin("stdlib-jdk8", "1.3.60"))
+    implementation(kotlin("stdlib-jdk8", "1.3.61"))
     implementation(project(":data:core"))
     implementation("androidx.room:room-runtime:2.2.2")
     implementation("androidx.room:room-ktx:2.2.2")

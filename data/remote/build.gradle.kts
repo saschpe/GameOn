@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.3.60"
+    kotlin("plugin.serialization") version "1.3.61"
 }
 
 repositories {
@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib", "1.3.60"))
+    implementation(kotlin("stdlib", "1.3.61"))
     implementation(project(":data:core"))
     implementation("io.ktor:ktor-client-android:1.2.6")
     implementation("io.ktor:ktor-client-logging-jvm:1.2.6")
