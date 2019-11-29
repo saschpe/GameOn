@@ -24,9 +24,7 @@ fun mockHttpClient(block: MockEngineConfig.() -> Unit = {}) = HttpClient(MockEng
 
 private fun HttpClientConfig<MockEngineConfig>.installDefaultFeatures() {
     install(JsonFeature) {
-        serializer = KotlinxSerializer(
-            Json.nonstrict
-        )
+        serializer = KotlinxSerializer(Json.nonstrict)
     }
     install(Logging) {
         logger = Logger.DEFAULT
@@ -34,5 +32,6 @@ private fun HttpClientConfig<MockEngineConfig>.installDefaultFeatures() {
     }
 }
 
-val headersContentTypeJson =
-    headersOf(HttpHeaders.ContentType to listOf(ContentType.Application.Json.toString()))
+val headersContentTypeJson = headersOf(
+    HttpHeaders.ContentType to listOf(ContentType.Application.Json.toString())
+)

@@ -13,7 +13,7 @@ class GetDealsUseCase(
 
         return when (val result = dealsRemoteRepository.list()) {
             is Result.Success<DealsRemoteRepository.DealResponse> -> {
-                val dealResponses = result.data.data.list
+                val dealResponses = result.data.data.offers
                 if (dealResponses.isEmpty()) {
                     Result.Error.withMessage("No deals for search '$arguments'")
                 } else {
