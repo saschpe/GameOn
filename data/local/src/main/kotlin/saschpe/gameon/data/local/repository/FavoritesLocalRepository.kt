@@ -7,15 +7,10 @@ import saschpe.gameon.data.local.model.FavoriteEntity
 class FavoritesLocalRepository(
     private val favoritesDao: FavoritesDao
 ) {
-    suspend fun getAll(): Result<List<FavoriteEntity>> {
-        val result = favoritesDao.getAll()
-        return Result.Success(result)
-    }
+    suspend fun getAll(): Result<List<FavoriteEntity>> = Result.Success(favoritesDao.getAll())
 
-    suspend fun getAllByPlains(plains: List<String>): Result<List<FavoriteEntity>> {
-        val result = favoritesDao.getAllByPlains(plains)
-        return Result.Success(result)
-    }
+    suspend fun getAllByPlains(plains: List<String>): Result<List<FavoriteEntity>> =
+        Result.Success(favoritesDao.getAllByPlains(plains))
 
     suspend fun getByPlain(plain: String): Result<FavoriteEntity> {
         val result = favoritesDao.getByPlain(plain)

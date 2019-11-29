@@ -50,9 +50,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.2.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.room:room-testing:2.2.2")
-    testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.robolectric:robolectric:4.3.1") {
