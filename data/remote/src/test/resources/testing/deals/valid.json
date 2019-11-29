@@ -1,0 +1,53 @@
+{
+  ".meta": {
+    "currency": "USD"
+  },
+  "data": {
+    "count": 82239,
+    "list": [
+      {
+        "plain": "quantumleaper",
+        "title": "Quantumleaper",
+        "price_new": 8.99,
+        "price_old": 9.99,
+        "price_cut": 10,
+        "added": 1575030073,
+        "expiry": 1575655200,
+        "shop": {
+          "id": "steam",
+          "name": "Steam"
+        },
+        "drm": [
+          "steam"
+        ],
+        "urls": {
+          "buy": "https://store.steampowered.com/app/1159880/",
+          "game": "https://isthereanydeal.com/game/quantumleaper/info/"
+        }
+      },
+      {
+        "plain": "iiixiiiminishogi",
+        "title": "3x3 mini-Shogi",
+        "price_new": 0.63,
+        "price_old": 0.99,
+        "price_cut": 36,
+        "added": 1575030073,
+        "expiry": 1575396000,
+        "shop": {
+          "id": "steam",
+          "name": "Steam"
+        },
+        "drm": [
+          "steam"
+        ],
+        "urls": {
+          "buy": "https://store.steampowered.com/app/1056660/",
+          "game": "https://isthereanydeal.com/game/iiixiiiminishogi/info/"
+        }
+      }
+    ],
+    "urls": {
+      "deals": "https://isthereanydeal.com/"
+    }
+  }
+}

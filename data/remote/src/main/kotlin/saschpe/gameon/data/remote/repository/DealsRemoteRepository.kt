@@ -37,7 +37,7 @@ class DealsRemoteRepository(
         @Serializable
         data class Data(
             val count: Int,
-            val list: List<Offer>
+            @SerialName("list") val offers: List<Offer>
         )
     }
 
