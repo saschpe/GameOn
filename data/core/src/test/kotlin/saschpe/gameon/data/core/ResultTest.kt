@@ -1,8 +1,10 @@
 package saschpe.gameon.data.core
 
+import kotlinx.coroutines.runBlocking
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
-import kotlin.test.Test
+import kotlin.test.fail
 
 class ResultTest {
     @Test
@@ -47,5 +49,33 @@ class ResultTest {
         assertEquals("raised", result.throwable.localizedMessage)
         assertEquals(NullPointerException::class, result.throwable.cause!!::class)
         assertEquals("gah", result.throwable.cause!!.localizedMessage)
+    }
+
+    @Test
+    fun asResult_withSuccess() = runBlocking {
+        // Arrange
+        suspend fun successfulFunction(): Result<String> = asResult { "Hello" }
+
+        // Act, assert
+        when (val result = successfulFunction()) {
+            is Result.Success<String> -> assertEquals("Hello", result.data)
+            is Result.Error -> fail()
+        }
+    }
+
+    @Test
+    fun asResult_withError() = runBlocking {
+        // Arrange
+        suspend fun throwingFunction(): Result<String> =
+            asResult { throw ArithmeticException("Oops") }
+
+        // Act, assert
+        when (val result = throwingFunction()) {
+            is Result.Success<String> -> fail()
+            is Result.Error -> {
+                assertEquals(ArithmeticException::class, result.throwable.cause!!::class)
+                assertEquals("Oops", result.throwable.localizedMessage)
+            }
+        }
     }
 }

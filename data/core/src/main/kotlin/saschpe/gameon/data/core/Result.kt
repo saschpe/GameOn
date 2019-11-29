@@ -4,9 +4,10 @@ package saschpe.gameon.data.core
  * Wraps any computational result with compile-time type safety
  *
  * Suitable to catch and deliver exceptions across thread and process
- * boundaries (e.g. when an exception happened on a networking thread
- * and needs to be delivered to the UI thread). Works perfectly with
- * coroutines.
+ * boundaries (e.g. when an exception happened on a networking thread and needs
+ * to be delivered to the UI thread). Works perfectly with coroutines.
+ *
+ * Very similar to [kotlin.Result] but as a sealed class (with it's benefits).
  */
 sealed class Result<out T : Any> {
     /**
@@ -35,4 +36,15 @@ sealed class Result<out T : Any> {
                 Error(Throwable(message, throwable))
         }
     }
+}
+
+/**
+ * Wraps a return type in [Result.Success].
+ *
+ * Any [Exception] thrown is converted to [Result.Error].
+ */
+suspend fun <T : Any> asResult(lambda: suspend () -> T): Result<T> = try {
+    Result.Success(lambda())
+} catch (exception: Exception) {
+    Result.Error.withCause(exception.message, exception)
 }

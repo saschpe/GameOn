@@ -12,4 +12,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 
     testImplementation(kotlin("test-junit", "1.3.61"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 }

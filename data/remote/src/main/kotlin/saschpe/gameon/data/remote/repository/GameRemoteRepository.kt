@@ -3,7 +3,7 @@ package saschpe.gameon.data.remote.repository
 import io.ktor.client.request.parameter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.data.core.model.GamePrice
@@ -12,11 +12,11 @@ import saschpe.gameon.data.remote.model.Meta
 
 class GameRemoteRepository(
     private val api: Api
-) : RemoteRepository {
+) {
     /**
      * Get info about game.
      */
-    suspend fun info(plains: List<String>): Result<GameInfoResponse> = asResult {
+    suspend fun info(plains: List<String>) = asResult {
         api.get<GameInfoResponse>("game/info") {
             parameter("plains", plains.joinToString(separator = ","))
         }
@@ -31,7 +31,7 @@ class GameRemoteRepository(
         country: String = "de",
         shops: List<String> = listOf(),
         allowed: List<String> = listOf("steam", "gog")
-    ): Result<GameOverviewResponse> = asResult {
+    ) = asResult {
         api.get<GameOverviewResponse>("game/overview") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
@@ -50,7 +50,7 @@ class GameRemoteRepository(
         country: String = "de",
         shops: List<String> = listOf(),
         added: Long = 0
-    ): Result<GamePricesResponse> = asResult {
+    ) = asResult {
         api.get<GamePricesResponse>("game/prices") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)

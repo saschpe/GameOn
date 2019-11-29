@@ -3,14 +3,14 @@ package saschpe.gameon.data.remote.repository
 import io.ktor.client.request.parameter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.data.remote.Api
 import saschpe.gameon.data.remote.model.Meta
 
 class SearchRemoteRepository(
     private val api: Api
-) : RemoteRepository {
+) {
     suspend fun search(
         query: String,
         region: String = "eu1",
@@ -18,7 +18,7 @@ class SearchRemoteRepository(
         shops: List<String> = DEFAULT_STORES,
         limit: Int = 50,
         offset: Int = 0
-    ): Result<SearchResponse> = asResult {
+    ) = asResult {
         api.get<SearchResponse>("search/search/") {
             parameter("q", query)
             parameter("offset", offset)

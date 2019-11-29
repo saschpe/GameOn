@@ -3,14 +3,14 @@ package saschpe.gameon.data.remote.repository
 import io.ktor.client.request.parameter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.data.remote.Api
 import saschpe.gameon.data.remote.model.Meta
 
 class DealsRemoteRepository(
     private val api: Api
-) : RemoteRepository {
+) {
     suspend fun list(
         region: String = "eu1",
         country: String = "de",
@@ -18,7 +18,7 @@ class DealsRemoteRepository(
         limit: Int = 150,
         offset: Int = 0,
         sort: String = "price:asc"
-    ): Result<DealResponse> = asResult {
+    ) = asResult {
         api.get<DealResponse>("deals/list") {
             parameter("offset", offset)
             parameter("limit", limit)
