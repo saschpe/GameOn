@@ -1,0 +1,31 @@
+{
+  ".meta": {
+    "currency": "USD"
+  },
+  "data": {
+    "list": [
+      {
+        "plain": "stellaris",
+        "title": "Stellaris",
+        "price_new": 6.95,
+        "price_old": 9.99,
+        "price_cut": 30,
+        "added": 1575007969,
+        "shop": {
+          "id": "steam",
+          "name": "Steam"
+        },
+        "drm": [
+          "steam"
+        ],
+        "urls": {
+          "buy": "https://www.macgamestore.com/product-goto/10504/Stellaris-Ancient-Relics-Story-Pack/?ars=itad",
+          "game": "https://isthereanydeal.com/game/stellarisancientrelicsstorypack/info/"
+        }
+      }
+    ],
+    "urls": {
+      "deals": "https://isthereanydeal.com/"
+    }
+  }
+}

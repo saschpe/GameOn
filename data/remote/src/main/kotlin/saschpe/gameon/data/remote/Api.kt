@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 
 class Api(
     userAgent: String,
-    val apiKey: String = "d1ac7e96fdeb83528a7489be031597272430d922"
+    val apiKey: String
 ) {
     val client = HttpClient {
         install(JsonFeature) {
@@ -28,7 +28,7 @@ class Api(
         install(UserAgent) { agent = userAgent }
     }
 
-    fun fullUrl(path: String) = "${API_BASE_URL}$path"
+    fun fullUrl(path: String) = "${API_URL}${API_BASE_PATH}$path"
 
     suspend inline fun <reified T> get(
         path: String,
@@ -51,7 +51,8 @@ class Api(
     ): T = client.delete(fullUrl(path)) { parameter("key", apiKey); block() }
 
     companion object {
-        private const val API_BASE_URL = "https://api.isthereanydeal.com/v01/"
+        private const val API_URL = "https://api.isthereanydeal.com/"
+        private const val API_BASE_PATH = "v01/"
     }
 }
 

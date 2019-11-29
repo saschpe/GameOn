@@ -13,7 +13,7 @@ class SearchUseCase(
         // TODO: Pass down region, country, etc.
 
         return when (val result = searchRemoteRepository.search(arguments[0])) {
-            is Result.Success<SearchRemoteRepository.SearchResponse> -> Result.Success(result.data.data.list)
+            is Result.Success<SearchRemoteRepository.SearchResponse> -> Result.Success(result.data.data.offers)
             is Result.Error -> result
         }
     }
