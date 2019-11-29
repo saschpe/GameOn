@@ -17,4 +17,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 
     testImplementation(kotlin("test-junit", "1.3.61"))
+    testImplementation("io.ktor:ktor-client-mock-jvm:1.2.6")
+    testImplementation("io.mockk:mockk:1.9.3")
+    testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
 }

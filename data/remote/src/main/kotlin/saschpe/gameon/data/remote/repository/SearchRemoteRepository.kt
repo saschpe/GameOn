@@ -19,7 +19,7 @@ class SearchRemoteRepository(
         limit: Int = 50,
         offset: Int = 0
     ) = asResult {
-        api.get<SearchResponse>("search/search/") {
+        api.get<SearchResponse>("search/search") {
             parameter("q", query)
             parameter("offset", offset)
             parameter("limit", limit)
@@ -35,7 +35,9 @@ class SearchRemoteRepository(
         val data: Data
     ) {
         @Serializable
-        data class Data(val list: List<Offer>)
+        data class Data(
+            @SerialName("list") val offers: List<Offer>
+        )
     }
 
     companion object {

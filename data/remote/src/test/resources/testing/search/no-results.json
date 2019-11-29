@@ -1,0 +1,11 @@
+{
+  ".meta": {
+    "currency": "USD"
+  },
+  "data": {
+    "list": [],
+    "urls": {
+      "deals": "https://isthereanydeal.com/"
+    }
+  }
+}
