@@ -20,7 +20,7 @@ class DataContentProvider : ContentProvider() {
      * Called exactly once before Application.onCreate()
      */
     override fun onCreate(): Boolean {
-        applicationContext = context ?: throw Exception("Need the context")
+        applicationContext = context?.applicationContext ?: throw Exception("Need the context")
 
         // Fetch those important directories as they cause disk access, which is bad...
         filesDir = applicationContext.filesDir
