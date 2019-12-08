@@ -23,16 +23,9 @@ android {
         }
     }
 
-    sourceSets {
-        named("androidTest") {
-            java.srcDirs("src/androidTest/kotlin")
-            assets.srcDirs("src/main/schemas")
-        }
-        named("main") { java.srcDirs("src/main/kotlin") }
-        named("test") {
-            java.srcDirs("src/test/kotlin")
-            assets.srcDirs("src/main/schemas")
-        }
+    sourceSets.forEach {
+        it.java.srcDir("src/${it.name}/kotlin")
+        it.assets.srcDir("src/${it.name}/schemas")
     }
 
     testOptions {

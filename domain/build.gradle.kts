@@ -17,11 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    sourceSets {
-        named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
-        named("main") { java.srcDirs("src/main/kotlin") }
-        named("test") { java.srcDirs("src/test/kotlin") }
-    }
+    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
 dependencies {
