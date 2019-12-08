@@ -63,11 +63,7 @@ android {
     // https://youtrack.jetbrains.com/issue/KT-9770
     packagingOptions.exclude("**/*.kotlin_*")
 
-    sourceSets {
-        named("androidTest") { java.srcDirs("src/androidTest/kotlin") }
-        named("main") { java.srcDirs("src/main/kotlin") }
-        named("test") { java.srcDirs("src/test/kotlin") }
-    }
+    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 
     testOptions {
         animationsDisabled = true
