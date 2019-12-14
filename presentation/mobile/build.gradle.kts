@@ -97,7 +97,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.0.1")
     implementation("io.coil-kt:coil:0.8.0")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
     implementation("saschpe.android:customtabs:2.0.3")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
