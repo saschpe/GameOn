@@ -36,6 +36,17 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <provider
+            android:name=".base.AppContentProvider"
+            android:authorities="${applicationId}.app_content_provider"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

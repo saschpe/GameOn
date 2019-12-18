@@ -80,6 +80,10 @@
     <string name="past">Past</string>
     <string name="personal">Personal</string>
     <string name="phone_number">Phone number</string>
+    <string name="price_alert">Price alert</string>
+    <string name="price_alerts">Price alerts</string>
+    <string name="price_alerts_description">Get notified when a favorite game reached it\'s price threshold.</string>
+    <string name="price_alerts_template">%1$d price alerts</string>
     <string name="prices">Prices</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="proceed">Proceed</string>
