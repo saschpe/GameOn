@@ -49,10 +49,7 @@ class GameOverviewViewModel : ViewModel() {
 
     fun addFavorite(plain: String, priceThreshold: Long? = null) =
         viewModelScope.launch(Dispatchers.IO) {
-            val favorite = Favorite(
-                plain = plain,
-                priceThreshold = priceThreshold
-            )
+            val favorite = Favorite(plain = plain, priceThreshold = priceThreshold)
 
             when (val result = addFavoritesUseCase(favorite)) {
                 is Result.Success<Unit> -> launch(Dispatchers.Main) {
