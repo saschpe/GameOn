@@ -34,7 +34,7 @@ class OfferAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_OFFER -> OfferViewHolder(
-                inflater.inflate(R.layout.view_offer_list_card, parent, false)
+                inflater.inflate(R.layout.view_offer_card, parent, false)
             )
             VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
                 inflater.inflate(R.layout.view_offer_no_results, parent, false)
@@ -67,7 +67,6 @@ class OfferAdapter(
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
-        private val title: TextView = view.findViewById(R.id.title)
         private val pricing: TextView = view.findViewById(R.id.pricing)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
@@ -83,7 +82,6 @@ class OfferAdapter(
 
         fun bind(viewModel: ViewModel.OfferViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
-            title.text = viewModel.offer.title
 
             viewModel.offer.run {
                 val priceString = if (price_cut == 0f) {

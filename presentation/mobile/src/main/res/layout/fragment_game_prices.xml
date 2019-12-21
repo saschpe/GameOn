@@ -23,8 +23,8 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/recycler_spacing"
             tools:itemCount="5"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/view_offer_list_card" />
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/view_offer_card" />
 
     </com.google.android.material.card.MaterialCardView>
 

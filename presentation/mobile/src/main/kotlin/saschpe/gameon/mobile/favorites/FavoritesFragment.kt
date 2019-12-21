@@ -12,8 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
@@ -21,6 +22,12 @@ import saschpe.gameon.mobile.game.GameFragment
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private val viewModel: FavoritesViewModel by viewModels()
     private lateinit var favoritesAdapter: FavoritesAdapter
+    private val gridLayoutSpanCount
+        get() = when {
+            requireContext().hasScreenWidth(720) -> 3
+            requireContext().hasScreenWidth(600) -> 2
+            else -> 1
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +45,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         recyclerView.apply {
             adapter = favoritesAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, gridLayoutSpanCount)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }

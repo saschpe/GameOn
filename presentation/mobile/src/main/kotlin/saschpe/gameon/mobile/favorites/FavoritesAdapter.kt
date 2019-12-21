@@ -30,7 +30,7 @@ class FavoritesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_FAVORITE -> FavoriteViewHolder(
-                inflater.inflate(R.layout.view_favorite_list_card, parent, false)
+                inflater.inflate(R.layout.view_favorite_card, parent, false)
             )
             VIEW_TYPE_NO_RESULT -> NoResultViewHolder(
                 inflater.inflate(R.layout.view_favorite_no_results, parent, false)
@@ -61,7 +61,6 @@ class FavoritesAdapter(
 
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
-        private val title: TextView = view.findViewById(R.id.title)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
 
@@ -72,7 +71,6 @@ class FavoritesAdapter(
                     is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
                         result.data[viewModel.favorite.plain]?.let { gameInfo ->
                             gameInfo.image.let { image.load(it) { crossfade(true) } }
-                            title.text = gameInfo.title
                         }
                     }
                     is Result.Error -> throw result.throwable
