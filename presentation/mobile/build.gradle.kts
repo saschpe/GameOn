@@ -94,7 +94,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics:17.2.1")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
-    implementation("com.google.android.material:material:1.1.0-beta02")
+    implementation("com.google.android.material:material:1.1.0-rc01")
     implementation("de.hdodenhof:circleimageview:3.0.1")
     implementation("io.coil-kt:coil:0.8.0")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
