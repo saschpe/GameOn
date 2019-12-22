@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -66,13 +64,12 @@ class FavoritesAdapter(
 
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
-            gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
+            gameInfoJob = GlobalScope.launch {
                 when (val result = Module.getGameInfoUseCase(viewModel.favorite.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.favorite.plain]?.let { gameInfo ->
                             gameInfo.image.let { image.load(it) { crossfade(true) } }
                         }
-                    }
                     is Result.Error -> throw result.throwable
                 }
             }

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -98,13 +97,12 @@ class OfferAdapter(
                 pricing.text = HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
             }
 
-            gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
+            gameInfoJob = GlobalScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
                             image.load(it) { crossfade(true) }
                         }
-                    }
                     is Result.Error -> throw result.throwable
                 }
             }
