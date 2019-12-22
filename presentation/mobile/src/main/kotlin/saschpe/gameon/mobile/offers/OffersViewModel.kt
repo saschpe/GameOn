@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.home
+package saschpe.gameon.mobile.offers
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.domain.Module.getDealsUseCase
 
-class HomeViewModel : ViewModel() {
+class OffersViewModel : ViewModel() {
     val dealLiveData = MutableLiveData<List<Offer>>()
 
     fun getDeals() = viewModelScope.launch {
