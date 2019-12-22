@@ -9,10 +9,8 @@ import saschpe.gameon.mobile.favorites.PriceAlertsNotification
 object Module {
     val priceAlertsNotification = PriceAlertsNotification(applicationContext)
     val workManager: WorkManager by lazy {
-        WorkManager.initialize(
-            applicationContext,
-            Configuration.Builder().setWorkerFactory(AppWorkerFactory()).build()
-        )
+        val configuration = Configuration.Builder().setWorkerFactory(AppWorkerFactory()).build()
+        WorkManager.initialize(applicationContext, configuration)
         WorkManager.getInstance(applicationContext)
     }
 }
