@@ -15,7 +15,7 @@ class PriceAlertsWorker(
     private val getPriceAlertsUseCase: GetPriceAlertsUseCase,
     private val priceAlertsNotification: PriceAlertsNotification
 ) : CoroutineWorker(appContext, params) {
-    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+    override suspend fun doWork() = withContext(Dispatchers.IO) {
         when (val results = getPriceAlertsUseCase()) {
             is CoreResult.Success<FavoritePriceAlerts> -> {
                 Log.debug("Successfully loaded new price alerts: ${results.data.alerts}")
@@ -31,8 +31,8 @@ class PriceAlertsWorker(
 
     companion object {
         private const val WORK_TAG = "favorites"
-        private const val WORK_REPEAT_INTERVAL = 30L
-        private const val WORK_UNIQUE_NAME = "price-alerts"
+        internal const val WORK_REPEAT_INTERVAL = 30L
+        internal const val WORK_UNIQUE_NAME = "price-alerts"
 
         fun enqueue(workManager: WorkManager) = workManager.enqueueUniquePeriodicWork(
             WORK_UNIQUE_NAME,
