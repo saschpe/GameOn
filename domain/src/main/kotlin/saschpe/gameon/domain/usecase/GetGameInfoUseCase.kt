@@ -1,5 +1,7 @@
 package saschpe.gameon.domain.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.remote.repository.GameRemoteRepository
@@ -11,7 +13,9 @@ class GetGameInfoUseCase(
     override suspend fun invoke(vararg arguments: String): Result<HashMap<String, GameInfo>> {
         // TODO: Persistence, check local cache first...
 
-        return when (val result = gameRemoteRepository.info(arguments.toList())) {
+        return when (val result = withContext(Dispatchers.IO) {
+            gameRemoteRepository.info(arguments.toList())
+        }) {
             is Result.Success<GameRemoteRepository.GameInfoResponse> -> {
                 val gameInfos = result.data.data
                 if (gameInfos.isEmpty()) {
