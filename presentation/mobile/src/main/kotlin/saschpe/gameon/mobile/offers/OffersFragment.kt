@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.home
+package saschpe.gameon.mobile.offers
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,17 +12,25 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.app.appNameTitle
+import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
-    private val viewModel: HomeViewModel by viewModels()
+class OffersFragment : Fragment(R.layout.fragment_home) {
+    private val viewModel: OffersViewModel by viewModels()
     private lateinit var offerAdapter: OfferAdapter
+    private val gridLayoutSpanCount
+        get() = when {
+            requireContext().hasScreenWidth(720) -> 4
+            requireContext().hasScreenWidth(600) -> 3
+            requireContext().hasScreenWidth(360) -> 2
+            else -> 1
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +48,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         recyclerView.apply {
             adapter = offerAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, gridLayoutSpanCount)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
 
         searchQuery.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+            findNavController().navigate(R.id.action_offersFragment_to_searchFragment)
         }
 
         viewModel.dealLiveData.observe(this, Observer { deals ->
@@ -56,7 +64,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     offer = deal,
                     onClick = {
                         findNavController().navigate(
-                            R.id.action_homeFragment_to_gameFragment,
+                            R.id.action_offersFragment_to_gameFragment,
                             bundleOf(GameFragment.ARG_PLAIN to deal.plain)
                         )
                     }
@@ -75,8 +83,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.helpFragment -> findNavController().navigate(R.id.action_homeFragment_to_helpFragment)
-            R.id.settingsFragment -> findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+            R.id.helpFragment -> findNavController().navigate(R.id.action_offersFragment_to_helpFragment)
+            R.id.settingsFragment -> findNavController().navigate(R.id.action_offersFragment_to_settingsFragment)
         }
         return false
     }

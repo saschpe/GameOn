@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/offersFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="saschpe.gameon.mobile.home.HomeFragment"
+        android:id="@+id/offersFragment"
+        android:name="saschpe.gameon.mobile.offers.OffersFragment"
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_homeFragment_to_gameFragment"
+            android:id="@+id/action_offersFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
 
         <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
+            android:id="@+id/action_offersFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
 
         <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
+            android:id="@+id/action_offersFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
 
         <action
-            android:id="@+id/action_homeFragment_to_helpFragment"
+            android:id="@+id/action_offersFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
 
     </fragment>
