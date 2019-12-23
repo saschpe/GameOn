@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/offersFragment"
         android:icon="@drawable/ic_whatshot_24dp"
-        android:title="@string/deals" />
+        android:title="@string/offers" />
 
     <item
         android:id="@+id/favoritesFragment"

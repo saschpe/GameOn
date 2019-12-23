@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -34,7 +33,7 @@ class OfferAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_OFFER -> OfferViewHolder(
-                inflater.inflate(R.layout.view_offer_list_card, parent, false)
+                inflater.inflate(R.layout.view_offer_card, parent, false)
             )
             VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
                 inflater.inflate(R.layout.view_offer_no_results, parent, false)
@@ -67,7 +66,6 @@ class OfferAdapter(
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
-        private val title: TextView = view.findViewById(R.id.title)
         private val pricing: TextView = view.findViewById(R.id.pricing)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
@@ -83,7 +81,6 @@ class OfferAdapter(
 
         fun bind(viewModel: ViewModel.OfferViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
-            title.text = viewModel.offer.title
 
             viewModel.offer.run {
                 val priceString = if (price_cut == 0f) {
@@ -100,13 +97,12 @@ class OfferAdapter(
                 pricing.text = HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
             }
 
-            gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
+            gameInfoJob = GlobalScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
                             image.load(it) { crossfade(true) }
                         }
-                    }
                     is Result.Error -> throw result.throwable
                 }
             }

@@ -1,5 +1,7 @@
 package saschpe.gameon.domain.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.local.model.FavoriteEntity
@@ -12,7 +14,9 @@ class GetFavoriteUseCase(
     override suspend fun invoke(vararg arguments: String): Result<Favorite> {
         require(arguments.size == 1)
 
-        return when (val result = favoritesLocalRepository.getByPlain(arguments.first())) {
+        return when (val result = withContext(Dispatchers.IO) {
+            favoritesLocalRepository.getByPlain(arguments.first())
+        }) {
             is Result.Success<FavoriteEntity> -> {
                 Result.Success(
                     Favorite(

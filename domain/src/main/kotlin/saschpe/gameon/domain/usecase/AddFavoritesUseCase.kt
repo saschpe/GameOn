@@ -1,5 +1,7 @@
 package saschpe.gameon.domain.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.local.model.FavoriteEntity
@@ -14,13 +16,15 @@ class AddFavoritesUseCase(
         val exceptions = mutableListOf<Throwable>()
 
         arguments.forEach { favorite ->
-            when (val result = favoritesLocalRepository.insert(
-                FavoriteEntity(
-                    createdAt = favorite.createdAt,
-                    plain = favorite.plain,
-                    priceThreshold = favorite.priceThreshold
+            when (val result = withContext(Dispatchers.IO) {
+                favoritesLocalRepository.insert(
+                    FavoriteEntity(
+                        createdAt = favorite.createdAt,
+                        plain = favorite.plain,
+                        priceThreshold = favorite.priceThreshold
+                    )
                 )
-            )) {
+            }) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)
             }

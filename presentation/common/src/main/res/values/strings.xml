@@ -31,7 +31,6 @@
     <string name="create_account">Create account</string>
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
-    <string name="deals">Deals</string>
     <string name="price_template"><![CDATA[<font color="%2$d"><b>%1$.2f</b></font>]]></string>
     <string name="price_on_store_template"><![CDATA[<font color="%3$d"><b>%1$.2f</b></font>]]> on %2$s</string>
     <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d"><b>%1$.2f</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
@@ -72,6 +71,7 @@
     <string name="no_results">No results</string>
     <string name="no_reviews_yet">No reviews yet.</string>
     <string name="notifications">Notifications</string>
+    <string name="offers">Offers</string>
     <string name="on_template">On %1$s</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="or">or</string>

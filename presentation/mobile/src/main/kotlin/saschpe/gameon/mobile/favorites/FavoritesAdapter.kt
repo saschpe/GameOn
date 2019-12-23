@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -30,7 +28,7 @@ class FavoritesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             VIEW_TYPE_FAVORITE -> FavoriteViewHolder(
-                inflater.inflate(R.layout.view_favorite_list_card, parent, false)
+                inflater.inflate(R.layout.view_favorite_card, parent, false)
             )
             VIEW_TYPE_NO_RESULT -> NoResultViewHolder(
                 inflater.inflate(R.layout.view_favorite_no_results, parent, false)
@@ -61,20 +59,17 @@ class FavoritesAdapter(
 
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
-        private val title: TextView = view.findViewById(R.id.title)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
 
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
-            gameInfoJob = GlobalScope.launch(Dispatchers.IO) {
+            gameInfoJob = GlobalScope.launch {
                 when (val result = Module.getGameInfoUseCase(viewModel.favorite.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> -> launch(Dispatchers.Main) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.favorite.plain]?.let { gameInfo ->
                             gameInfo.image.let { image.load(it) { crossfade(true) } }
-                            title.text = gameInfo.title
                         }
-                    }
                     is Result.Error -> throw result.throwable
                 }
             }
