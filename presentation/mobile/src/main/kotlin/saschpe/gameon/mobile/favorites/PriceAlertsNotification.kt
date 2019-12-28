@@ -85,7 +85,7 @@ class PriceAlertsNotification(
                 context.getString(R.string.price_alerts),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = context.getString(R.string.price_alerts_description)
+                description = context.getString(R.string.price_alert_description)
             })
         }
     }

@@ -16,6 +16,7 @@ object Module {
     val getPriceAlertsUseCase =
         GetPriceAlertsUseCase(favoritesLocalRepository, gameRemoteRepository)
     val getFavoriteUseCase = GetFavoriteUseCase(favoritesLocalRepository)
+    val updateFavoritesUseCase = UpdateFavoritesUseCase(favoritesLocalRepository)
     val removeFavoritesUseCase = RemoveFavoritesUseCase(favoritesLocalRepository)
     val searchUseCase = SearchUseCase(searchRemoteRepository)
 }
