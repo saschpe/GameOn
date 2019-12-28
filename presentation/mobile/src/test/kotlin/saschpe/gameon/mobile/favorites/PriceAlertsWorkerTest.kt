@@ -81,7 +81,7 @@ class PriceAlertsWorkerTest {
         every { mockWorkManager.enqueueUniquePeriodicWork(any(), any(), any()) } returns mockk()
 
         // Act
-        PriceAlertsWorker.enqueue(mockWorkManager)
+        PriceAlertsWorker.enqueuePeriodic(mockWorkManager)
 
         // Assert
         verify(exactly = 1) {
@@ -122,7 +122,7 @@ class PriceAlertsWorkerTest {
         val testDriver = WorkManagerTestInitHelper.getTestDriver(context)
 
         // Act
-        PriceAlertsWorker.enqueue(testWorkManager).result.await()
+        PriceAlertsWorker.enqueuePeriodic(testWorkManager).result.await()
         testDriver?.setPeriodDelayMet(request.id)
 
         // Assert

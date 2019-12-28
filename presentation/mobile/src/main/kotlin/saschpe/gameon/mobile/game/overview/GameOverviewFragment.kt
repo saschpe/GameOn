@@ -77,7 +77,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             if (gameOverview.price != null) {
                 gameOverview.price?.run {
                     val priceString = if (cut == 0) {
-                        getString(R.string.price_on_store_template, price, store, green)
+                        getString(R.string.price_on_store_colored_template, price, store, green)
                     } else {
                         getString(
                             R.string.price_on_store_with_rebate_template,

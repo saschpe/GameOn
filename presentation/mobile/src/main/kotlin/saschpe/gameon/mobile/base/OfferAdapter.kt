@@ -85,7 +85,7 @@ class OfferAdapter(
             viewModel.offer.run {
                 val priceString = if (price_cut == 0f) {
                     pricing.context.getString(
-                        R.string.price_on_store_template,
+                        R.string.price_on_store_colored_template,
                         price_new, shop.name, GREEN_COLOR_INT
                     )
                 } else {
