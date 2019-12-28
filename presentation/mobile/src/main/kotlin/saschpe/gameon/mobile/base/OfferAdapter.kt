@@ -86,12 +86,12 @@ class OfferAdapter(
                 val priceString = if (price_cut == 0f) {
                     pricing.context.getString(
                         R.string.price_on_store_colored_template,
-                        price_new, shop.name, GREEN_COLOR_INT
+                        price_new.toString(), shop.name, GREEN_COLOR_INT
                     )
                 } else {
                     pricing.context.getString(
                         R.string.price_on_store_with_rebate_template,
-                        price_new, shop.name, price_cut.roundToInt(), GREEN_COLOR_INT, RED_COLOR_INT
+                        price_new.toString(), shop.name, price_cut.roundToInt(), GREEN_COLOR_INT, RED_COLOR_INT
                     )
                 }
                 pricing.text = HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
