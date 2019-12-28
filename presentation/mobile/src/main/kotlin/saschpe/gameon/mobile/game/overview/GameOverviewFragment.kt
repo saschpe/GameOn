@@ -77,11 +77,11 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             if (gameOverview.price != null) {
                 gameOverview.price?.run {
                     val priceString = if (cut == 0) {
-                        getString(R.string.price_on_store_colored_template, price, store, green)
+                        getString(R.string.price_on_store_colored_template, price_formatted, store, green)
                     } else {
                         getString(
                             R.string.price_on_store_with_rebate_template,
-                            price, store, cut, green, red
+                            price_formatted, store, cut, green, red
                         )
                     }
                     currentBest.text =
@@ -99,7 +99,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     historicalLow.text = HtmlCompat.fromHtml(
                         getString(
                             R.string.price_on_store_with_rebate_template,
-                            price, store, cut, green, red
+                            price_formatted, store, cut, green, red
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                 }

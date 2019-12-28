@@ -32,9 +32,9 @@
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
     <string name="get_it_for_template">Reached your desired price. Get it for %1$s on %2$s</string>
-    <string name="price_colored_template"><![CDATA[<font color="%2$d"><b>%1$.2f</b></font>]]></string>
-    <string name="price_on_store_colored_template"><![CDATA[<font color="%3$d"><b>%1$.2f</b></font>]]> on %2$s</string>
-    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d"><b>%1$.2f</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
+    <string name="price_colored_template"><![CDATA[<font color="%2$d">%1$.2f</font>]]></string>
+    <string name="price_on_store_colored_template"><![CDATA[<font color="%3$d">%1$s</font>]]> on %2$s</string>
+    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d">%1$s</font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="done">Done</string>
