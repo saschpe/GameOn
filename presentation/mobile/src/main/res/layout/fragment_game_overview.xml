@@ -124,15 +124,71 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/historicalLow" />
 
-                <View
-                    android:id="@+id/divider3"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/favoriteButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/divider_width"
-                    android:layout_marginTop="@dimen/keyline_2"
-                    android:background="?attr/dividerHorizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginEnd="@dimen/keyline_4"
+                    android:text="@string/add_to_favorites"
+                    app:icon="@drawable/ic_favorite_border_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/storeButton" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceAlertInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginEnd="@dimen/keyline_4"
+                    android:hint="@string/set_price_alert"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/favoriteButton"
+                    app:startIconCheckable="true"
+                    app:startIconDrawable="@drawable/ic_alarm_24dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/priceAlertInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/priceAlertDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginTop="@dimen/keyline_1"
+                    android:layout_marginEnd="@dimen/keyline_4"
+                    android:text="@string/price_alert_description"
+                    android:textAppearance="?textAppearanceCaption"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceAlertInputLayout" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/priceAlertGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="priceAlertInputLayout,priceAlertDescription"
+                    tools:visibility="visible" />
+
+                <View
+                    android:id="@+id/perksDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_width"
+                    android:layout_marginTop="@dimen/keyline_4"
+                    android:background="?attr/dividerHorizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceAlertDescription" />
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/perksChipGroup"
@@ -141,9 +197,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider3">
+                    app:layout_constraintTop_toBottomOf="@+id/perksDivider">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/isDlcChip"
@@ -196,76 +254,6 @@
                         android:text="@string/is_package" />
 
                 </com.google.android.material.chip.ChipGroup>
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/divider_width"
-                    android:layout_marginTop="@dimen/keyline_2"
-                    android:background="?attr/dividerHorizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/perksChipGroup" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/favoriteButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_4"
-                    android:layout_marginTop="@dimen/keyline_2"
-                    android:layout_marginEnd="@dimen/keyline_4"
-                    android:text="@string/add_to_favorites"
-                    app:icon="@drawable/ic_favorite_border_24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/priceAlertInputLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_4"
-                    android:layout_marginTop="@dimen/keyline_1"
-                    android:layout_marginEnd="@dimen/keyline_4"
-                    android:hint="@string/set_price_alert"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/favoriteButton"
-                    app:startIconCheckable="true"
-                    app:startIconDrawable="@drawable/ic_alarm_24dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/priceAlertInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/priceAlertDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_4"
-                    android:layout_marginTop="@dimen/keyline_1"
-                    android:layout_marginEnd="@dimen/keyline_4"
-                    android:layout_marginBottom="@dimen/keyline_4"
-                    android:text="@string/price_alert_description"
-                    android:textAppearance="?textAppearanceCaption"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceAlertInputLayout" />
-
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/priceAlertGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:constraint_referenced_ids="priceAlertInputLayout,priceAlertDescription"
-                    tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
