@@ -34,8 +34,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         setHasOptionsMenu(true)
 
         favoritesAdapter = FavoritesAdapter(requireContext())
-
-        viewModel.getFavorites()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,6 +67,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
             favoritesAdapter.submitList(viewModels)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavorites()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
