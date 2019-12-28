@@ -66,7 +66,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             earlyAccessChip.visibility = if (gameInfo.early_access) View.VISIBLE else View.GONE
             isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
             if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
-                divider3.visibility = View.GONE
+                perksDivider.visibility = View.GONE
             }
         })
 
