@@ -7,6 +7,7 @@ import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.local.model.FavoriteEntity
 import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
+import saschpe.gameon.domain.mapper.toFavorite
 
 class GetFavoritesUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository
@@ -21,16 +22,7 @@ class GetFavoritesUseCase(
         }
 
         return when (result) {
-            is Result.Success<List<FavoriteEntity>> -> {
-                Result.Success(result.data.map { favoriteEntity ->
-                    Favorite(
-                        id = favoriteEntity.id,
-                        createdAt = favoriteEntity.createdAt,
-                        plain = favoriteEntity.plain,
-                        priceThreshold = favoriteEntity.priceThreshold
-                    )
-                })
-            }
+            is Result.Success<List<FavoriteEntity>> -> Result.Success(result.data.map { it.toFavorite() })
             is Result.Error -> result
         }
     }

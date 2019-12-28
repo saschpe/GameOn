@@ -43,9 +43,8 @@ class GameOverviewViewModel : ViewModel() {
         }
     }
 
-    fun addFavorite(plain: String, priceThreshold: Long? = null) = viewModelScope.launch {
-        when (val result =
-            addFavoritesUseCase(Favorite(plain = plain, priceThreshold = priceThreshold))) {
+    fun addFavorite(plain: String) = viewModelScope.launch {
+        when (val result = addFavoritesUseCase(Favorite(plain = plain))) {
             is Result.Success<Unit> -> getFavorite(plain)
             is Result.Error -> throw result.throwable
         }
@@ -53,7 +52,7 @@ class GameOverviewViewModel : ViewModel() {
 
     fun updateFavorite(favorite: Favorite) = viewModelScope.launch {
         when (val result = updateFavoritesUseCase(favorite)) {
-            is Result.Success<Unit> -> favoriteLiveData.value = favorite
+            is Result.Success<Unit> -> getFavorite(favorite.plain)
             is Result.Error -> throw result.throwable
         }
     }

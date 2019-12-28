@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -107,7 +106,11 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     override fun onPause() {
         super.onPause()
         viewModel.favoriteLiveData.value?.let {
-            viewModel.updateFavorite(it.copy(priceThreshold = priceAlertInput.text?.toString()?.toLong()))
+            var priceAlertString = priceAlertInput.text?.toString()
+            if (priceAlertString?.isBlank() == true) {
+                priceAlertString = null
+            }
+            viewModel.updateFavorite(it.copy(priceThreshold = priceAlertString?.toDouble()))
         }
     }
 

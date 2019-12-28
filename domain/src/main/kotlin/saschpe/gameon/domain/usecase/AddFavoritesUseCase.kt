@@ -4,9 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
-import saschpe.gameon.data.local.model.FavoriteEntity
 import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
+import saschpe.gameon.domain.mapper.toFavoriteEntity
 
 class AddFavoritesUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository
@@ -17,13 +17,7 @@ class AddFavoritesUseCase(
 
         arguments.forEach { favorite ->
             when (val result = withContext(Dispatchers.IO) {
-                favoritesLocalRepository.insert(
-                    FavoriteEntity(
-                        createdAt = favorite.createdAt,
-                        plain = favorite.plain,
-                        priceThreshold = favorite.priceThreshold
-                    )
-                )
+                favoritesLocalRepository.insert(favorite.toFavoriteEntity())
             }) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)
