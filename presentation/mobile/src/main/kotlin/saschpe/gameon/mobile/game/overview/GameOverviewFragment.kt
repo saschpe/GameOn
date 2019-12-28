@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -89,13 +90,25 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_24dp)
                     favoriteButton.text = getString(R.string.remove_from_favorites)
                     favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
+
+                    priceAlertGroup.visibility = View.VISIBLE
+                    favorite.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
                 } else {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_border_24dp)
                     favoriteButton.text = getString(R.string.add_to_favorites)
                     favoriteButton.setOnClickListener { viewModel.addFavorite(paramPlain) }
+
+                    priceAlertGroup.visibility = View.GONE
                 }
             }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.favoriteLiveData.value?.let {
+            viewModel.updateFavorite(it.copy(priceThreshold = priceAlertInput.text?.toString()?.toLong()))
+        }
     }
 
     companion object {

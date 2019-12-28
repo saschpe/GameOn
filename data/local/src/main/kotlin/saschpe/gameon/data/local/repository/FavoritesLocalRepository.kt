@@ -26,6 +26,11 @@ class FavoritesLocalRepository(
         return Result.Success(Unit)
     }
 
+    suspend fun update(entity: FavoriteEntity): Result<Unit> {
+        favoritesDao.update(entity)
+        return Result.Success(Unit)
+    }
+
     suspend fun delete(entity: FavoriteEntity): Result<Unit> {
         favoritesDao.delete(entity)
         return Result.Success(Unit)
