@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.data.core.model.GamePrice.Companion.GOOD_PRICE_CUT_THRESHOLD
@@ -48,22 +48,13 @@ class GamePricesAdapter(
         private val drm: TextView = view.findViewById(R.id.drm)
         private val layout: View = view.findViewById(R.id.constraintLayout)
 
-        init {
-            if (NEUTRAL_COLOR_INT == null) {
-                NEUTRAL_COLOR_INT = ContextCompat.getColor(view.context, R.color.color_on_surface)
-            }
-            if (GREEN_COLOR_INT == null) {
-                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
-            }
-        }
-
         fun bind(viewModel: ViewModel.PriceViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
             val priceColorInt = if (viewModel.price.price_cut > GOOD_PRICE_CUT_THRESHOLD) {
-                GREEN_COLOR_INT
+                colors.green
             } else {
-                NEUTRAL_COLOR_INT
+                colors.onSurface
             }
 
             store.text = viewModel.price.shop.name
@@ -74,11 +65,6 @@ class GamePricesAdapter(
             )
 
             drm.text = viewModel.price.drm.joinToString(separator = ", ")
-        }
-
-        companion object {
-            private var NEUTRAL_COLOR_INT: Int? = null
-            private var GREEN_COLOR_INT: Int? = null
         }
     }
 
