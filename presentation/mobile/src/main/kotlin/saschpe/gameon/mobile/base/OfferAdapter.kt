@@ -117,7 +117,7 @@ class OfferAdapter(
     }
 
     companion object {
-        private const val VIEW_TYPE_OFFER = 1
-        private const val VIEW_TYPE_NO_RESULTS = 2
+        internal const val VIEW_TYPE_OFFER = 1
+        internal const val VIEW_TYPE_NO_RESULTS = 2
     }
 }
