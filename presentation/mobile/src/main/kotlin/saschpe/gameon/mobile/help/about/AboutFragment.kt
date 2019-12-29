@@ -22,7 +22,7 @@ class AboutFragment : Fragment(R.layout.fragment_help_about) {
         }
 
         disclaimer.text = HtmlCompat.fromHtml(
-            getString(R.string.lorem_ipsum_long), HtmlCompat.FROM_HTML_MODE_LEGACY
+            getString(R.string.disclaimer_text), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
         disclaimer.movementMethod = LinkMovementMethod()
     }
