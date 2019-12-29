@@ -14,7 +14,7 @@ class ContactFragment : Fragment(R.layout.fragment_help_contact) {
         val socialFragment = SocialFragment.Builder()
             .setApplicationId(BuildConfig.APPLICATION_ID)
             .setApplicationName(context?.getString(R.string.app_name))
-            .setContactEmailAddress("sascha+gp@peilicke.de")
+            .setContactEmailAddress("sascha+gameon@peilicke.de")
             .setHeaderTextAppearance(R.style.TextAppearance_App_Headline5)
             .setIconTint(R.color.color_secondary)
             .build()
