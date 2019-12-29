@@ -16,7 +16,7 @@ class SearchRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shops: List<String> = DEFAULT_STORES,
-        limit: Int = 50,
+        limit: Int = 150,
         offset: Int = 0
     ) = asResult {
         api.get<SearchResponse>("search/search") {

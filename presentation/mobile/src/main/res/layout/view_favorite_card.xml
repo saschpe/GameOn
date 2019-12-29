@@ -27,6 +27,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_top_right_cornered"
+            android:paddingLeft="@dimen/keyline_2"
+            android:paddingTop="@dimen/keyline_1"
+            android:paddingRight="@dimen/keyline_2"
+            android:paddingBottom="@dimen/keyline_1"
+            android:textAppearance="?textAppearanceBody2"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@tools:sample/full_names"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

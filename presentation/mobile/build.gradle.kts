@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000206
-        versionName = "0.2.6"
+        versionCode = 210000300
+        versionName = "0.3.0"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameInfo.Review.Companion.NEUTRAL_REVIEW_THRESHOLD
@@ -55,18 +55,6 @@ class GameReviewsAdapter(
         private val details: TextView = view.findViewById(R.id.priceAlertDescription)
         private val layout: View = view.findViewById(R.id.constraintLayout)
 
-        init {
-            if (AMBER_COLOR_INT == null) {
-                AMBER_COLOR_INT = ContextCompat.getColor(view.context, R.color.amber)
-            }
-            if (GREEN_COLOR_INT == null) {
-                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
-            }
-            if (RED_COLOR_INT == null) {
-                RED_COLOR_INT = ContextCompat.getColor(view.context, R.color.red)
-            }
-        }
-
         fun bind(viewModel: ViewModel.ReviewViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
@@ -75,28 +63,22 @@ class GameReviewsAdapter(
                     R.plurals.review_detail, it.total, it.text, it.total
                 )
 
-                val ratingColorInt = when {
-                    it.perc_positive > POSITIVE_REVIEW_THRESHOLD -> GREEN_COLOR_INT
-                    it.perc_positive > NEUTRAL_REVIEW_THRESHOLD -> AMBER_COLOR_INT
-                    else -> RED_COLOR_INT
+                val ratingColor = when {
+                    it.perc_positive > POSITIVE_REVIEW_THRESHOLD -> colors.green
+                    it.perc_positive > NEUTRAL_REVIEW_THRESHOLD -> colors.amber
+                    else -> colors.red
                 }
 
                 rating.text = HtmlCompat.fromHtml(
                     rating.context.getString(
                         R.string.colored_number_template,
                         it.perc_positive,
-                        ratingColorInt
+                        ratingColor
                     ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 
-            store.text =  store.context.getString(R.string.on_template, viewModel.store)
-        }
-
-        companion object {
-            private var AMBER_COLOR_INT: Int? = null
-            private var GREEN_COLOR_INT: Int? = null
-            private var RED_COLOR_INT: Int? = null
+            store.text = store.context.getString(R.string.on_template, viewModel.store)
         }
     }
 

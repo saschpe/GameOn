@@ -4,11 +4,11 @@ import android.content.Context
 import android.net.Uri
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.mobile.R
 import saschpe.log4k.Log
 
@@ -28,13 +28,13 @@ object CustomTabs {
     fun openUrl(context: Context, url: String) {
         Log.info("Opening URL '$url'...")
         defaultCustomTabsIntentBuilder
-            .setToolbarColor(ContextCompat.getColor(context, R.color.color_surface))
-            .setNavigationBarColor(ContextCompat.getColor(context, R.color.color_surface))
+            .setToolbarColor(colors.surface)
+            .setNavigationBarColor(colors.surface)
             .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
             .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
 
         AppCompatResources.getDrawable(context, R.drawable.ic_arrow_back_24dp)?.mutate()?.let {
-            DrawableCompat.setTint(it, ContextCompat.getColor(context, R.color.color_on_surface))
+            DrawableCompat.setTint(it, colors.onSurface)
             R.styleable.SignInButton_colorScheme
             defaultCustomTabsIntentBuilder.setCloseButtonIcon(it.toBitmap())
         }

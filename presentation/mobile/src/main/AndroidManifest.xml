@@ -37,7 +37,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <provider
-            android:name=".base.AppContentProvider"
+            android:name="saschpe.gameon.common.content.AppContentProvider"
             android:authorities="${applicationId}.app_content_provider"
             android:exported="false" />
 
