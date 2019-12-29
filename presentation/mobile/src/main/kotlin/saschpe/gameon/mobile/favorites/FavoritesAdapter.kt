@@ -16,6 +16,7 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.domain.Module
+import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 
 class FavoritesAdapter(
@@ -65,7 +66,7 @@ class FavoritesAdapter(
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
             gameInfoJob = GlobalScope.launch {
-                when (val result = Module.getGameInfoUseCase(viewModel.favorite.plain)) {
+                when (val result = getGameInfoUseCase(viewModel.favorite.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.favorite.plain]?.let { gameInfo ->
                             gameInfo.image.let { image.load(it) { crossfade(true) } }
