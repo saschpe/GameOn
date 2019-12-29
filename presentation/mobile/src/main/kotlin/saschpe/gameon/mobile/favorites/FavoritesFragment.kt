@@ -43,7 +43,15 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         recyclerView.apply {
             adapter = favoritesAdapter
-            layoutManager = GridLayoutManager(context, gridLayoutSpanCount)
+            layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int) =
+                        when (favoritesAdapter.getItemViewType(position)) {
+                            FavoritesAdapter.VIEW_TYPE_NO_RESULT -> gridLayoutSpanCount
+                            else -> 1
+                        }
+                }
+            }
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
