@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
@@ -70,12 +70,6 @@ class FavoritesAdapter(
         private var gameInfoJob: Job? = null
         private var gameOverviewJob: Job? = null
 
-        init {
-            if (GREEN_COLOR_INT == null) {
-                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
-            }
-        }
-
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
@@ -100,7 +94,7 @@ class FavoritesAdapter(
                                         price.context.getString(
                                             R.string.formatted_price_colored_template,
                                             gamePrice.price_formatted,
-                                            GREEN_COLOR_INT
+                                            colors.green
                                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                                     )
                                 } else {
@@ -118,10 +112,6 @@ class FavoritesAdapter(
         fun detach() {
             gameInfoJob?.cancel()
             gameOverviewJob?.cancel()
-        }
-
-        companion object {
-            private var GREEN_COLOR_INT: Int? = null
         }
     }
 
