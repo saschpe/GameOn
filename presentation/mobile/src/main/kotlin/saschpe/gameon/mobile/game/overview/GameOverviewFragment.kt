@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
 
@@ -71,17 +71,19 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         })
 
         viewModel.gameOverviewLiveData.observe(this, Observer { gameOverview ->
-            val green = ContextCompat.getColor(requireContext(), R.color.green)
-            val red = ContextCompat.getColor(requireContext(), R.color.red)
-
             if (gameOverview.price != null) {
                 gameOverview.price?.run {
                     val priceString = if (cut == 0) {
-                        getString(R.string.price_on_store_colored_template, price_formatted, store, green)
+                        getString(
+                            R.string.price_on_store_colored_template,
+                            price_formatted,
+                            store,
+                            colors.green
+                        )
                     } else {
                         getString(
                             R.string.price_on_store_with_rebate_template,
-                            price_formatted, store, cut, green, red
+                            price_formatted, store, cut, colors.green, colors.red
                         )
                     }
                     currentBest.text =
@@ -99,7 +101,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     historicalLow.text = HtmlCompat.fromHtml(
                         getString(
                             R.string.price_on_store_with_rebate_template,
-                            price_formatted, store, cut, green, red
+                            price_formatted, store, cut, colors.green, colors.red
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                 }

@@ -7,13 +7,13 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavDeepLinkBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
@@ -58,7 +58,7 @@ class PriceAlertsNotification(
             NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setAutoCancel(true)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                .setColor(ContextCompat.getColor(context, R.color.color_primary))
+                .setColor(colors.primary)
                 .setColorized(true)
                 .setContentIntent(showGamePendingIntent(plain))
                 .setContentText(
@@ -80,7 +80,7 @@ class PriceAlertsNotification(
         Build.VERSION.SDK_INT < Build.VERSION_CODES.N || count <= 1 -> null
         else -> NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setAutoCancel(true)
-            .setColor(ContextCompat.getColor(context, R.color.color_primary))
+            .setColor(colors.primary)
             .setColorized(true)
             .setContentIntent(showFavoritesPendingIntent())
             .setGroup(NOTIFICATION_GROUP_KEY)

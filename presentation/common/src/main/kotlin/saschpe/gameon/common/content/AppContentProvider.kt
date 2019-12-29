@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.base
+package saschpe.gameon.common.content
 
 import android.annotation.SuppressLint
 import android.content.ContentProvider
@@ -46,12 +46,12 @@ class AppContentProvider : ContentProvider() {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        internal lateinit var applicationContext: Context
+        lateinit var applicationContext: Context
 
         @SuppressLint("StaticFieldLeak")
-        internal lateinit var filesDir: File
+        lateinit var filesDir: File
 
         @SuppressLint("StaticFieldLeak")
-        internal lateinit var cacheDir: File
+        lateinit var cacheDir: File
     }
 }

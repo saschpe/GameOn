@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
@@ -70,29 +70,30 @@ class OfferAdapter(
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
 
-        init {
-            if (GREEN_COLOR_INT == null) {
-                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
-            }
-            if (RED_COLOR_INT == null) {
-                RED_COLOR_INT = ContextCompat.getColor(view.context, R.color.red)
-            }
-        }
-
         fun bind(viewModel: ViewModel.OfferViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
+
+            gameInfoJob = GlobalScope.launch {
+                when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
+                        result.data[viewModel.offer.plain]?.image?.let {
+                            image.load(it) { crossfade(true) }
+                        }
+                    is Result.Error -> throw result.throwable
+                }
+            }
 
             viewModel.offer.run {
                 if (price_cut > 0f) {
                     price.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.price_colored_template, price_new, GREEN_COLOR_INT
+                            R.string.price_colored_template, price_new, colors.green
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
 
                     rebate.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.rebate_colored_template, price_cut, RED_COLOR_INT
+                            R.string.rebate_colored_template, price_cut, colors.red
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     rebate.visibility = View.VISIBLE
@@ -100,23 +101,10 @@ class OfferAdapter(
                     price.text = price.context.getString(R.string.price_template, price_new)
                 }
             }
-
-            gameInfoJob = GlobalScope.launch {
-                when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> ->
-                        result.data[viewModel.offer.plain]?.image?.let { image.load(it) }
-                    is Result.Error -> throw result.throwable
-                }
-            }
         }
 
         fun detach() {
             gameInfoJob?.cancel()
-        }
-
-        companion object {
-            private var GREEN_COLOR_INT: Int? = null
-            private var RED_COLOR_INT: Int? = null
         }
     }
 
