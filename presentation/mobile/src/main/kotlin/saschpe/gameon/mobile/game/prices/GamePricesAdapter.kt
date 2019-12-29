@@ -69,9 +69,7 @@ class GamePricesAdapter(
             store.text = viewModel.price.shop.name
             price.text = HtmlCompat.fromHtml(
                 price.context.getString(
-                    R.string.price_template,
-                    viewModel.price.price_new,
-                    priceColorInt
+                    R.string.price_colored_template, viewModel.price.price_new, priceColorInt
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
 

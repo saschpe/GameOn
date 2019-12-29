@@ -34,13 +34,19 @@ class PriceAlertsWorker(
         internal const val WORK_REPEAT_INTERVAL = 30L
         internal const val WORK_UNIQUE_NAME = "price-alerts"
 
-        fun enqueue(workManager: WorkManager) = workManager.enqueueUniquePeriodicWork(
-            WORK_UNIQUE_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
+        private val constraints: Constraints by lazy {
+            Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        }
+
+        fun enqueueOnce(workManager: WorkManager) = workManager.enqueue(
+            OneTimeWorkRequestBuilder<PriceAlertsWorker>()
+                .setConstraints(constraints).addTag(WORK_TAG).build()
+        )
+
+        fun enqueuePeriodic(workManager: WorkManager) = workManager.enqueueUniquePeriodicWork(
+            WORK_UNIQUE_NAME, ExistingPeriodicWorkPolicy.KEEP,
             PeriodicWorkRequestBuilder<PriceAlertsWorker>(WORK_REPEAT_INTERVAL, TimeUnit.MINUTES)
-                .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-                .addTag(WORK_TAG)
-                .build()
+                .setConstraints(constraints).addTag(WORK_TAG).build()
         )
     }
 }

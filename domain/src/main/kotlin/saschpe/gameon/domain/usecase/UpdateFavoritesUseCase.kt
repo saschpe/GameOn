@@ -8,7 +8,7 @@ import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
 import saschpe.gameon.domain.mapper.toFavoriteEntity
 
-class AddFavoritesUseCase(
+class UpdateFavoritesUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository
 ) : UseCase<Favorite, Unit> {
     override suspend fun invoke(vararg arguments: Favorite): Result<Unit> {
@@ -17,7 +17,7 @@ class AddFavoritesUseCase(
 
         arguments.forEach { favorite ->
             when (val result = withContext(Dispatchers.IO) {
-                favoritesLocalRepository.insert(favorite.toFavoriteEntity())
+                favoritesLocalRepository.update(favorite.toFavoriteEntity())
             }) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)

@@ -21,7 +21,6 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
-import kotlin.math.roundToInt
 
 class OfferAdapter(
     context: Context
@@ -66,7 +65,8 @@ class OfferAdapter(
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
-        private val pricing: TextView = view.findViewById(R.id.pricing)
+        private val price: TextView = view.findViewById(R.id.price)
+        private val rebate: TextView = view.findViewById(R.id.rebate)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private var gameInfoJob: Job? = null
 
@@ -83,26 +83,28 @@ class OfferAdapter(
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
             viewModel.offer.run {
-                val priceString = if (price_cut == 0f) {
-                    pricing.context.getString(
-                        R.string.price_on_store_template,
-                        price_new, shop.name, GREEN_COLOR_INT
+                if (price_cut > 0f) {
+                    price.text = HtmlCompat.fromHtml(
+                        price.context.getString(
+                            R.string.price_colored_template, price_new, GREEN_COLOR_INT
+                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
+
+                    rebate.text = HtmlCompat.fromHtml(
+                        price.context.getString(
+                            R.string.rebate_colored_template, price_cut, RED_COLOR_INT
+                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                    rebate.visibility = View.VISIBLE
                 } else {
-                    pricing.context.getString(
-                        R.string.price_on_store_with_rebate_template,
-                        price_new, shop.name, price_cut.roundToInt(), GREEN_COLOR_INT, RED_COLOR_INT
-                    )
+                    price.text = price.context.getString(R.string.price_template, price_new)
                 }
-                pricing.text = HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
             }
 
             gameInfoJob = GlobalScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
-                        result.data[viewModel.offer.plain]?.image?.let {
-                            image.load(it) { crossfade(true) }
-                        }
+                        result.data[viewModel.offer.plain]?.image?.let { image.load(it) }
                     is Result.Error -> throw result.throwable
                 }
             }

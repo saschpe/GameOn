@@ -31,9 +31,11 @@
     <string name="create_account">Create account</string>
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
-    <string name="price_template"><![CDATA[<font color="%2$d"><b>%1$.2f</b></font>]]></string>
-    <string name="price_on_store_template"><![CDATA[<font color="%3$d"><b>%1$.2f</b></font>]]> on %2$s</string>
-    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d"><b>%1$.2f</b></font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
+    <string name="get_it_for_template">Reached your desired price. Get it for %1$s on %2$s</string>
+    <string name="price_colored_template"><![CDATA[<font color="%2$d">%1$.2f</font>]]></string>
+    <string name="price_on_store_colored_template"><![CDATA[<font color="%3$d">%1$s</font>]]> on %2$s</string>
+    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d">%1$s</font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
+    <string name="price_template">%1$.2f</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="done">Done</string>
@@ -80,19 +82,19 @@
     <string name="past">Past</string>
     <string name="personal">Personal</string>
     <string name="phone_number">Phone number</string>
-    <string name="price_alert">Price alert</string>
+    <string name="price_alert_description">Get notified when the game reaches your price threshold.</string>
     <string name="price_alerts">Price alerts</string>
-    <string name="price_alerts_description">Get notified when a favorite game reached it\'s price threshold.</string>
-    <string name="price_alerts_template">%1$d price alerts</string>
     <string name="prices">Prices</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="proceed">Proceed</string>
+    <string name="rebate_colored_template"><![CDATA[<font color="%2$d">-%1$.0f%%</font>]]></string>
     <string name="redo">Redo</string>
     <string name="refresh">Refresh</string>
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="reviews">Reviews</string>
     <string name="search_for_your_game">Search for your game</string>
     <string name="settings">Settings</string>
+    <string name="set_price_alert">Set a price alert</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_email">Sign in with e-mail</string>
     <string name="sign_in_with_google">Sign in with Google</string>
