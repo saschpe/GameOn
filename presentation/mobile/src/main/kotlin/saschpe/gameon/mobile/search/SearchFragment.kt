@@ -1,9 +1,6 @@
 package saschpe.gameon.mobile.search
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -11,10 +8,14 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
@@ -22,8 +23,7 @@ import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
-    private val viewModel: SearchViewModel by viewModels()
-    private lateinit var offerAdapter: OfferAdapter
+    private var currentSearchJob: Job? = null
     private val gridLayoutSpanCount
         get() = when {
             requireContext().hasScreenWidth(720) -> 4
@@ -31,15 +31,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             requireContext().hasScreenWidth(360) -> 2
             else -> 1
         }
-
-    @SuppressLint("HandlerLeak")
-    private val delayedSearchHandler = object : Handler() {
-        override fun handleMessage(message: Message) {
-            if (message.what == MESSAGE_UPDATE_SEARCH) {
-                updateSearch()
-            }
-        }
-    }
+    private lateinit var offerAdapter: OfferAdapter
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +61,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         searchQuery.doAfterTextChanged { text ->
-            if (text?.count() ?: 0 > 2) {
-                delayedSearchHandler.removeMessages(MESSAGE_UPDATE_SEARCH)
-                delayedSearchHandler.sendEmptyMessageDelayed(MESSAGE_UPDATE_SEARCH, 100)
+            if (text?.isNotBlank() == true && text.count() > 2) {
+                currentSearchJob?.cancel()
+                currentSearchJob = viewLifecycleOwner.lifecycleScope.launch {
+                    delay(100L) // Rate-limit to avoid an update on every key press...
+                    progressBar.visibility = View.VISIBLE
+                    viewModel.search(text.toString())
+                }
             }
         }
 
@@ -101,12 +98,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         })
     }
 
-    private fun updateSearch() {
-        progressBar.visibility = View.VISIBLE
-        viewModel.search(searchQuery.text.toString())
-    }
-
-    companion object {
-        private const val MESSAGE_UPDATE_SEARCH = 123
-    }
 }
