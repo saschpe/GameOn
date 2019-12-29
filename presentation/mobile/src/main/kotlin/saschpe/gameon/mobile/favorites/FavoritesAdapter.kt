@@ -118,8 +118,8 @@ class FavoritesAdapter(
     private class NoResultViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     companion object {
-        private const val VIEW_TYPE_FAVORITE = 1
-        private const val VIEW_TYPE_NO_RESULT = 2
+        internal const val VIEW_TYPE_FAVORITE = 1
+        internal const val VIEW_TYPE_NO_RESULT = 2
     }
 }
 

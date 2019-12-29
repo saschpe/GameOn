@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
@@ -55,7 +54,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         recyclerView.apply {
             adapter = offerAdapter
-            layoutManager = GridLayoutManager(context, gridLayoutSpanCount)
+            layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int) =
+                        when (offerAdapter.getItemViewType(position)) {
+                            OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
+                            else -> 1
+                        }
+                }
+            }
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
