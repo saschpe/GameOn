@@ -31,11 +31,6 @@
     <string name="create_account">Create account</string>
     <string name="dark">Dark</string>
     <string name="data_sync">Data &amp; sync</string>
-    <string name="get_it_for_template">Reached your desired price. Get it for %1$s on %2$s</string>
-    <string name="price_colored_template"><![CDATA[<font color="%2$d">%1$.2f</font>]]></string>
-    <string name="price_on_store_colored_template"><![CDATA[<font color="%3$d">%1$s</font>]]> on %2$s</string>
-    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d">%1$s</font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
-    <string name="price_template">%1$.2f</string>
     <string name="developer">Developer</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="done">Done</string>
@@ -48,8 +43,10 @@
     <string name="first_name_last_name_template">%1$s %2$s</string>
     <string name="focused">Focused</string>
     <string name="follow">Follow</string>
+    <string name="formatted_price_colored_template"><![CDATA[<font color="%2$d">%1$s</font>]]></string>
     <string name="full_name">Full name</string>
     <string name="general">General</string>
+    <string name="get_it_for_template">Reached your desired price. Get it for %1$s on %2$s</string>
     <string name="get_started">Get started</string>
     <string name="get_support">Get support and reach out to us</string>
     <string name="help">Help</string>
@@ -84,6 +81,10 @@
     <string name="phone_number">Phone number</string>
     <string name="price_alert_description">Get notified when the game reaches your price threshold.</string>
     <string name="price_alerts">Price alerts</string>
+    <string name="price_colored_template"><![CDATA[<font color="%2$d">%1$.2f</font>]]></string>
+    <string name="price_on_store_colored_template"><![CDATA[<font color="%3$d">%1$s</font>]]> on %2$s</string>
+    <string name="price_on_store_with_rebate_template"><![CDATA[<font color="%4$d">%1$s</font>]]> on %2$s (<![CDATA[<font color="%5$d">-%3$d%%</font>]]>)</string>
+    <string name="price_template">%1$.2f</string>
     <string name="prices">Prices</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="proceed">Proceed</string>

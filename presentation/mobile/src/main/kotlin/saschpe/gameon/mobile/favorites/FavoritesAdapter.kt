@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -15,8 +19,9 @@ import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
-import saschpe.gameon.domain.Module
+import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
+import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
 
 class FavoritesAdapter(
@@ -61,15 +66,49 @@ class FavoritesAdapter(
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView = view.findViewById(R.id.image)
         private val layout: View = view.findViewById(R.id.constraintLayout)
+        private val price: TextView = view.findViewById(R.id.price)
         private var gameInfoJob: Job? = null
+        private var gameOverviewJob: Job? = null
+
+        init {
+            if (GREEN_COLOR_INT == null) {
+                GREEN_COLOR_INT = ContextCompat.getColor(view.context, R.color.green)
+            }
+        }
 
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
-            gameInfoJob = GlobalScope.launch {
-                when (val result = getGameInfoUseCase(viewModel.favorite.plain)) {
+
+            val plain = viewModel.favorite.plain
+            gameInfoJob = GlobalScope.launch(Dispatchers.Main) {
+                when (val result = getGameInfoUseCase(plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
-                        result.data[viewModel.favorite.plain]?.let { gameInfo ->
+                        result.data[plain]?.let { gameInfo ->
                             gameInfo.image.let { image.load(it) { crossfade(true) } }
+                        }
+                    is Result.Error -> throw result.throwable
+                }
+            }
+            gameOverviewJob = GlobalScope.launch(Dispatchers.Main) {
+                when (val result = getGameOverviewUseCase(plain)) {
+                    is Result.Success<HashMap<String, GameOverview>> ->
+                        result.data[plain]?.let { gameOverview ->
+                            gameOverview.price?.let { gamePrice ->
+                                price.visibility = View.VISIBLE
+                                if (gamePrice.cut > 0f) {
+                                    price.text = HtmlCompat.fromHtml(
+                                        price.context.getString(
+                                            R.string.formatted_price_colored_template,
+                                            gamePrice.price_formatted,
+                                            GREEN_COLOR_INT
+                                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                                    )
+                                } else {
+                                    price.text = HtmlCompat.fromHtml(
+                                        gamePrice.price_formatted, HtmlCompat.FROM_HTML_MODE_LEGACY
+                                    )
+                                }
+                            }
                         }
                     is Result.Error -> throw result.throwable
                 }
@@ -78,6 +117,11 @@ class FavoritesAdapter(
 
         fun detach() {
             gameInfoJob?.cancel()
+            gameOverviewJob?.cancel()
+        }
+
+        companion object {
+            private var GREEN_COLOR_INT: Int? = null
         }
     }
 
