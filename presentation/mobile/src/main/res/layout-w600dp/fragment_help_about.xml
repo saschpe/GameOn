@@ -44,7 +44,7 @@
                     android:layout_marginStart="@dimen/keyline_4"
                     android:layout_marginTop="@dimen/keyline_2"
                     android:layout_marginEnd="@dimen/keyline_4"
-                    android:text="@string/lorem_ipsum_long"
+                    android:text="@string/disclaimer_text"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/disclaimerTitle" />
