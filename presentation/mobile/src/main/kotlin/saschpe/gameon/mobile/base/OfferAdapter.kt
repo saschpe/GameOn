@@ -104,7 +104,9 @@ class OfferAdapter(
             gameInfoJob = GlobalScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
-                        result.data[viewModel.offer.plain]?.image?.let { image.load(it) }
+                        result.data[viewModel.offer.plain]?.image?.let {
+                            image.load(it) { crossfade(true) }
+                        }
                     is Result.Error -> throw result.throwable
                 }
             }
