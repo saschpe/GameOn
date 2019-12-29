@@ -13,6 +13,7 @@ import saschpe.gameon.domain.Module.getFavoriteUseCase
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.domain.Module.removeFavoritesUseCase
+import saschpe.gameon.domain.Module.updateFavoritesUseCase
 
 class GameOverviewViewModel : ViewModel() {
     val gameInfoLiveData = MutableLiveData<GameInfo>()
@@ -42,11 +43,16 @@ class GameOverviewViewModel : ViewModel() {
         }
     }
 
-    fun addFavorite(plain: String, priceThreshold: Long? = null) = viewModelScope.launch {
-        val favorite = Favorite(plain = plain, priceThreshold = priceThreshold)
+    fun addFavorite(plain: String) = viewModelScope.launch {
+        when (val result = addFavoritesUseCase(Favorite(plain = plain))) {
+            is Result.Success<Unit> -> getFavorite(plain)
+            is Result.Error -> throw result.throwable
+        }
+    }
 
-        when (val result = addFavoritesUseCase(favorite)) {
-            is Result.Success<Unit> -> favoriteLiveData.value = favorite
+    fun updateFavorite(favorite: Favorite) = viewModelScope.launch {
+        when (val result = updateFavoritesUseCase(favorite)) {
+            is Result.Success<Unit> -> getFavorite(favorite.plain)
             is Result.Error -> throw result.throwable
         }
     }

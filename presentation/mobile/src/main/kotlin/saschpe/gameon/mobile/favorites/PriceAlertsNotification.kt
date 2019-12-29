@@ -7,12 +7,17 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import androidx.navigation.NavDeepLinkBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
+import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
 
@@ -39,17 +44,33 @@ class PriceAlertsNotification(
             }
         }
 
-    private fun buildNotifications(alerts: Map<String, GameOverview.Lowest>): MutableList<Notification> =
+    private suspend fun buildNotifications(alerts: Map<String, GameOverview.Lowest>) =
         alerts.mapTo(mutableListOf()) {
             val plain = it.key
             val lowest = it.value
+            val gameInfo: GameInfo? = withContext(Dispatchers.IO) {
+                when (val result = getGameInfoUseCase(plain)) {
+                    is Result.Success<HashMap<String, GameInfo>> -> result.data[plain]
+                    is Result.Error -> null
+                }
+            }
 
             NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setAutoCancel(true)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setColor(ContextCompat.getColor(context, R.color.color_primary))
+                .setColorized(true)
                 .setContentIntent(showGamePendingIntent(plain))
-                .setContentTitle(context.getString(R.string.price_alert))
-                .setContentText(lowest.price_formatted)
+                .setContentText(
+                    HtmlCompat.fromHtml(
+                        context.getString(
+                            R.string.get_it_for_template,
+                            lowest.price_formatted,
+                            lowest.store
+                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                )
+                .setContentTitle(gameInfo?.title ?: plain)
                 .setGroup(NOTIFICATION_GROUP_KEY)
                 .setSmallIcon(R.drawable.ic_notification)
                 .build()
@@ -59,10 +80,11 @@ class PriceAlertsNotification(
         Build.VERSION.SDK_INT < Build.VERSION_CODES.N || count <= 1 -> null
         else -> NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setAutoCancel(true)
+            .setColor(ContextCompat.getColor(context, R.color.color_primary))
+            .setColorized(true)
+            .setContentIntent(showFavoritesPendingIntent())
             .setGroup(NOTIFICATION_GROUP_KEY)
             .setGroupSummary(true)
-            .setContentIntent(showFavoritesPendingIntent())
-            .setContentTitle(context.getString(R.string.price_alerts_template, count))
             .setSmallIcon(R.drawable.ic_notification)
             .build()
     }
@@ -85,7 +107,7 @@ class PriceAlertsNotification(
                 context.getString(R.string.price_alerts),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = context.getString(R.string.price_alerts_description)
+                description = context.getString(R.string.price_alert_description)
             })
         }
     }

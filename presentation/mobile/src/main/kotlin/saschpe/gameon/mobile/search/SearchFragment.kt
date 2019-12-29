@@ -34,7 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
     @SuppressLint("HandlerLeak")
-    private val delayedSearchHandler: Handler = object : Handler() {
+    private val delayedSearchHandler = object : Handler() {
         override fun handleMessage(message: Message) {
             if (message.what == MESSAGE_UPDATE_SEARCH) {
                 updateSearch()

@@ -1,9 +1,6 @@
 package saschpe.gameon.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import saschpe.gameon.data.local.model.FavoriteEntity
 
 @Dao
@@ -19,6 +16,9 @@ interface FavoritesDao {
 
     @Insert
     suspend fun insert(entity: FavoriteEntity)
+
+    @Update
+    suspend fun update(entity: FavoriteEntity)
 
     @Delete
     suspend fun delete(entity: FavoriteEntity)

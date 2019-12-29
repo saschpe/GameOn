@@ -54,5 +54,8 @@ class Application : MultiDexApplication() {
         })
     }
 
-    private fun initWorkManager() = PriceAlertsWorker.enqueue(workManager)
+    private fun initWorkManager(): Unit {
+        PriceAlertsWorker.enqueueOnce(workManager)
+        PriceAlertsWorker.enqueuePeriodic(workManager)
+    }
 }
