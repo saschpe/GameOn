@@ -82,6 +82,16 @@ class OfferAdapter(
         fun bind(viewModel: ViewModel.OfferViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
+            gameInfoJob = GlobalScope.launch {
+                when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
+                    is Result.Success<HashMap<String, GameInfo>> ->
+                        result.data[viewModel.offer.plain]?.image?.let {
+                            image.load(it) { crossfade(true) }
+                        }
+                    is Result.Error -> throw result.throwable
+                }
+            }
+
             viewModel.offer.run {
                 if (price_cut > 0f) {
                     price.text = HtmlCompat.fromHtml(
@@ -98,16 +108,6 @@ class OfferAdapter(
                     rebate.visibility = View.VISIBLE
                 } else {
                     price.text = price.context.getString(R.string.price_template, price_new)
-                }
-            }
-
-            gameInfoJob = GlobalScope.launch {
-                when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> ->
-                        result.data[viewModel.offer.plain]?.image?.let {
-                            image.load(it) { crossfade(true) }
-                        }
-                    is Result.Error -> throw result.throwable
                 }
             }
         }

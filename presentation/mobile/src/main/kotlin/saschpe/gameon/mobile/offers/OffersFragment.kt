@@ -59,13 +59,13 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.dealLiveData.observe(this, Observer { deals ->
             progressBar.visibility = View.GONE
-            offerAdapter.submitList(deals.map { deal ->
+            offerAdapter.submitList(deals.map { offer ->
                 OfferAdapter.ViewModel.OfferViewModel(
-                    offer = deal,
+                    offer = offer,
                     onClick = {
                         findNavController().navigate(
                             R.id.action_offersFragment_to_gameFragment,
-                            bundleOf(GameFragment.ARG_PLAIN to deal.plain)
+                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
                         )
                     }
                 )
