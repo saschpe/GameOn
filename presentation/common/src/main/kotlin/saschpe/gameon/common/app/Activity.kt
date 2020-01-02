@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.R
@@ -21,7 +20,7 @@ fun Activity.hideSoftInputFromWindow() {
     }
 }
 
-fun AppCompatActivity.appNameTitle(textView: TextView) {
+fun Activity.appNameTitle(textView: TextView) {
     title = ""
     textView.text = HtmlCompat.fromHtml(
         getString(R.string.app_name_template, colors.primary, colors.secondary),
