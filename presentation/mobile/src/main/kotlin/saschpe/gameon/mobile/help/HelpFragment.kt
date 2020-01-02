@@ -50,7 +50,7 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
 
     override fun onResume() {
         super.onResume()
-        (activity as AppCompatActivity).appNameTitle(appName)
+        requireActivity().appNameTitle(appName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
