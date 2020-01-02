@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.6.1"
+    id("com.github.triplet.play") version "2.6.2"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
     id("io.fabric")
@@ -95,7 +95,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:17.2.1")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.android.material:material:1.1.0-rc01")
-    implementation("io.coil-kt:coil:0.8.0")
+    implementation("io.coil-kt:coil:0.9.1")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
     implementation("saschpe.android:customtabs:3.0.1")
