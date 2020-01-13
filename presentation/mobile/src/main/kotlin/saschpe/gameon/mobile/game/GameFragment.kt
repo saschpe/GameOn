@@ -3,7 +3,6 @@ package saschpe.gameon.mobile.game
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -28,13 +27,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
-
         viewModel.getGameInfo(paramPlain)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
 
         tabLayout.setupWithViewPager(viewPager)
