@@ -3,11 +3,7 @@ package saschpe.gameon.mobile.help
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -23,10 +19,9 @@ import saschpe.gameon.mobile.base.customtabs.CustomTabs
 import saschpe.gameon.mobile.help.about.AboutFragment
 import saschpe.gameon.mobile.help.contact.ContactFragment
 
-class HelpFragment : Fragment(R.layout.fragment_help) {
+open class HelpFragment : Fragment(R.layout.fragment_help) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         arguments?.run {
             // Compare with deep-links defined in navigation_main.xml
             val page = getString("page") ?: ""
@@ -41,8 +36,26 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
+        toolbar.inflateMenu(R.menu.menu_help)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.version_info -> {
+                    VersionInfoDialogFragment.newInstance(
+                        getString(R.string.app_name),
+                        BuildConfig.VERSION_NAME,
+                        "Sascha Peilicke",
+                        R.mipmap.ic_launcher
+                    ).show(childFragmentManager, "version_info")
+                }
+                R.id.privacyPolicy -> CustomTabs.openPrivacyPolicy(requireContext())
+                R.id.termsOfService -> CustomTabs.openTermsOfService(requireContext())
+                R.id.openSourceLicenses -> startActivity(
+                    Intent(requireActivity(), OssLicensesMenuActivity::class.java)
+                )
+            }
+            true
+        }
 
         viewPager.adapter = HelpFragmentPagerAdapter(requireContext(), childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
@@ -51,29 +64,6 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
     override fun onResume() {
         super.onResume()
         requireActivity().appNameTitle(appName)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-        inflater.inflate(R.menu.menu_help, menu)
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.version_info -> {
-                VersionInfoDialogFragment.newInstance(
-                    getString(R.string.app_name),
-                    BuildConfig.VERSION_NAME,
-                    "Sascha Peilicke",
-                    R.mipmap.ic_launcher
-                ).show(childFragmentManager, "version_info")
-                return true
-            }
-            R.id.privacyPolicy -> CustomTabs.openPrivacyPolicy(requireContext())
-            R.id.termsOfService -> CustomTabs.openTermsOfService(requireContext())
-            R.id.openSourceLicenses -> startActivity(
-                Intent(requireActivity(), OssLicensesMenuActivity::class.java)
-            )
-        }
-        return false
     }
 
     private class HelpFragmentPagerAdapter(

@@ -1,11 +1,7 @@
 package saschpe.gameon.mobile.offers
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -34,17 +30,21 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
         offerAdapter = OfferAdapter(requireContext())
-
         viewModel.getDeals()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
+        toolbar.inflateMenu(R.menu.menu_home)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.helpFragment -> findNavController().navigate(R.id.action_offersFragment_to_helpFragment)
+                R.id.settingsFragment -> findNavController().navigate(R.id.action_offersFragment_to_settingsFragment)
+            }
+            true
+        }
 
         recyclerView.apply {
             adapter = offerAdapter
@@ -76,16 +76,5 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
         requireActivity().appNameTitle(appName)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-        inflater.inflate(R.menu.menu_home, menu)
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.helpFragment -> findNavController().navigate(R.id.action_offersFragment_to_helpFragment)
-            R.id.settingsFragment -> findNavController().navigate(R.id.action_offersFragment_to_settingsFragment)
-        }
-        return false
     }
 }
