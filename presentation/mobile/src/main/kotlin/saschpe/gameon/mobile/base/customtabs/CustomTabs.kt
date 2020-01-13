@@ -2,7 +2,6 @@ package saschpe.gameon.mobile.base.customtabs
 
 import android.content.Context
 import android.net.Uri
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -33,7 +32,7 @@ object CustomTabs {
             .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
             .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
 
-        AppCompatResources.getDrawable(context, R.drawable.ic_arrow_back_24dp)?.mutate()?.let {
+        context.resources.getDrawable(R.drawable.ic_arrow_back_24dp, null)?.mutate()?.let {
             DrawableCompat.setTint(it, colors.onSurface)
             R.styleable.SignInButton_colorScheme
             defaultCustomTabsIntentBuilder.setCloseButtonIcon(it.toBitmap())
