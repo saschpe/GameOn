@@ -9,9 +9,8 @@ plugins {
 }
 
 repositories {
-    google()
     jcenter()
-    mavenCentral()
+    google()
 }
 
 android {
