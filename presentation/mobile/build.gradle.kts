@@ -91,7 +91,7 @@ dependencies {
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics:17.2.1")
+    implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.android.material:material:1.1.0-rc02")
     implementation("io.coil-kt:coil:0.9.1")
