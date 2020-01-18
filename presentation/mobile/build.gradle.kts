@@ -133,4 +133,5 @@ dependencies {
 play {
     defaultToAppBundles = true
     serviceAccountCredentials = file("$rootDir/config/play-publishing-api.json")
+    track = "alpha"
 }
