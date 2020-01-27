@@ -40,14 +40,12 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
         toolbar.inflateMenu(R.menu.menu_help)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.version_info -> {
-                    VersionInfoDialogFragment.newInstance(
-                        getString(R.string.app_name),
-                        BuildConfig.VERSION_NAME,
-                        "Sascha Peilicke",
-                        R.mipmap.ic_launcher
-                    ).show(childFragmentManager, "version_info")
-                }
+                R.id.version_info -> VersionInfoDialogFragment.newInstance(
+                    getString(R.string.app_name),
+                    BuildConfig.VERSION_NAME,
+                    "Sascha Peilicke",
+                    R.mipmap.ic_launcher
+                ).show(childFragmentManager, "version_info")
                 R.id.privacyPolicy -> CustomTabs.openPrivacyPolicy(requireContext())
                 R.id.termsOfService -> CustomTabs.openTermsOfService(requireContext())
                 R.id.openSourceLicenses -> startActivity(
@@ -67,8 +65,7 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
     }
 
     private class HelpFragmentPagerAdapter(
-        val context: Context,
-        fragmentManager: FragmentManager
+        val context: Context, fragmentManager: FragmentManager
     ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = 2
 
