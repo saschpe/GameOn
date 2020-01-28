@@ -39,7 +39,7 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
-            extra.set("enableCrashlytics", false)
+            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
         }
         named("release") {
             isMinifyEnabled = true
