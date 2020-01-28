@@ -57,7 +57,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             setHasFixedSize(true)
         }
 
-        viewModel.favoritesLiveData.observe(this, Observer { favorites ->
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
             val viewModels = if (favorites.isNotEmpty()) {
                 favorites.map { favorite ->
                     FavoritesAdapter.ViewModel.FavoriteViewModel(

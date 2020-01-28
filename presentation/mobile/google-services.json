@@ -30,6 +30,13 @@
             {
               "client_id": "320532699917-iebun15qt3803j98ls1eg8j4o09d4pdk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "320532699917-q4pmdfos6b3pljmml7rl3k48i0c0e5p0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "foo"
+              }
             }
           ]
         }
@@ -37,7 +44,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320532699917:android:8ea6cb3616ee68289fee44",
+        "mobilesdk_app_id": "1:320532699917:android:61999f64bc9676239fee44",
         "android_client_info": {
           "package_name": "saschpe.gameon.debug"
         }
@@ -59,6 +66,13 @@
             {
               "client_id": "320532699917-iebun15qt3803j98ls1eg8j4o09d4pdk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "320532699917-q4pmdfos6b3pljmml7rl3k48i0c0e5p0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "foo"
+              }
             }
           ]
         }

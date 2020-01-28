@@ -12,7 +12,7 @@ class GetGameOverviewUseCase(
 ) : UseCase<String, HashMap<String, GameOverview>> {
     override suspend fun invoke(vararg arguments: String) =
         when (val result = withContext(Dispatchers.IO) {
-            gameRemoteRepository.overview(arguments.toList())
+            gameRemoteRepository.overview(plains = arguments.toList())
         }) {
             is Result.Success<GameRemoteRepository.GameOverviewResponse> -> {
                 val gameOverviews = result.data.data

@@ -38,7 +38,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         viewPager.adapter =
             GameFragmentPagerAdapter(requireContext(), paramPlain, childFragmentManager)
 
-        viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             progressBar.visibility = View.GONE
             Coil.loader().load(requireContext(), gameInfo.image) {
                 crossfade(true)
