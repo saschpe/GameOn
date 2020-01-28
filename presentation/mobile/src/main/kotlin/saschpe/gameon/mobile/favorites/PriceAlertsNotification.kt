@@ -28,7 +28,7 @@ class PriceAlertsNotification(
         NotificationManagerCompat.from(context).apply { createNotificationChannel() }
     }
 
-    suspend fun notify(alerts: Map<String, GameOverview.Lowest>) =
+    suspend fun notify(alerts: Map<String, GameOverview.Price>) =
         withContext(Dispatchers.Default) {
             if (alerts.isNotEmpty()) {
                 val notifications = buildNotifications(alerts)
@@ -44,7 +44,7 @@ class PriceAlertsNotification(
             }
         }
 
-    private suspend fun buildNotifications(alerts: Map<String, GameOverview.Lowest>) =
+    private suspend fun buildNotifications(alerts: Map<String, GameOverview.Price>) =
         alerts.mapTo(mutableListOf()) {
             val plain = it.key
             val lowest = it.value
