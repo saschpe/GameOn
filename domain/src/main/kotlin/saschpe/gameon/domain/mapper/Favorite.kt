@@ -17,4 +17,4 @@ fun Favorite.toFavoriteEntity() = FavoriteEntity(
     priceThreshold = priceThreshold?.let { (it * PRICE_CONVERSION_FACTOR).toLong() }
 )
 
-private const val PRICE_CONVERSION_FACTOR = 100
+const val PRICE_CONVERSION_FACTOR = 100
