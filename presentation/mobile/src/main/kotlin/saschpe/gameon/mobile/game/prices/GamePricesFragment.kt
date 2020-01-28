@@ -35,7 +35,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
             setHasFixedSize(true)
         }
 
-        viewModel.gamePriceLiveData.observe(this, Observer { gamePrice ->
+        viewModel.gamePriceLiveData.observe(viewLifecycleOwner, Observer { gamePrice ->
             pricesAdapter.submitList(gamePrice.list.map {
                 GamePricesAdapter.ViewModel.PriceViewModel(
                     price = it,

@@ -68,7 +68,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
-        viewModel.searchLiveData.observe(this, Observer { offers ->
+        viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { offers ->
             if (offers.isNotEmpty()) {
                 offerAdapter.submitList(offers.map { offer ->
                     OfferAdapter.ViewModel.OfferViewModel(

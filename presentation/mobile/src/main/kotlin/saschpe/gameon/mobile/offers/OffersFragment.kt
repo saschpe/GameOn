@@ -57,7 +57,7 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(R.id.action_offersFragment_to_searchFragment)
         }
 
-        viewModel.dealLiveData.observe(this, Observer { deals ->
+        viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
             progressBar.visibility = View.GONE
             offerAdapter.submitList(deals.map { offer ->
                 OfferAdapter.ViewModel.OfferViewModel(
