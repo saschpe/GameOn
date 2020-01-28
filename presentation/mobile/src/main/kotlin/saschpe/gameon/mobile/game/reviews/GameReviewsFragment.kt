@@ -34,7 +34,7 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
             setHasFixedSize(true)
         }
 
-        viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             val viewModels = gameInfo.reviews?.map { review ->
                 GameReviewsAdapter.ViewModel.ReviewViewModel(
                     store = review.key,

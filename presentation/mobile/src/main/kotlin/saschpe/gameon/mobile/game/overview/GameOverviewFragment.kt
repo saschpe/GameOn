@@ -57,7 +57,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.gameInfoLiveData.observe(this, Observer { gameInfo ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             name.text = gameInfo.title
 
             isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
@@ -70,7 +70,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         })
 
-        viewModel.gameOverviewLiveData.observe(this, Observer { gameOverview ->
+        viewModel.gameOverviewLiveData.observe(viewLifecycleOwner, Observer { gameOverview ->
             if (gameOverview.price != null) {
                 gameOverview.price?.run {
                     val priceString = if (cut == 0) {
@@ -115,7 +115,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         })
 
-        viewModel.favoriteLiveData.observe(this, Observer { favorite ->
+        viewModel.favoriteLiveData.observe(viewLifecycleOwner, Observer { favorite ->
             requireContext().run {
                 if (favorite != null) {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_24dp)
