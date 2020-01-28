@@ -1,13 +1,12 @@
 buildscript {
     repositories {
         google()
-        maven { setUrl("https://maven.fabric.io/public") }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.5.3")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.1")
         classpath("com.google.gms:google-services:4.3.3")
-        classpath("io.fabric.tools:gradle:1.31.2")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta01")
     }
 }
 
