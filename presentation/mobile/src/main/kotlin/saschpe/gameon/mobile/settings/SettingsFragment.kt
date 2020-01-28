@@ -30,7 +30,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             childFragmentManager.commit { replace(R.id.detailContainer, detailPreferenceFragment) }
         }
 
-        viewModel.selectedPreference.observe(this, Observer {
+        viewModel.selectedPreference.observe(viewLifecycleOwner, Observer {
             onPreferenceStartFragment(mainPreferenceFragment, it)
         })
     }
