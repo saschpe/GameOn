@@ -9,6 +9,7 @@ import saschpe.gameon.data.local.model.FavoriteEntity
 import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.data.remote.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
+import saschpe.gameon.domain.mapper.PRICE_CONVERSION_FACTOR
 
 class GetPriceAlertsUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository,
@@ -23,7 +24,7 @@ class GetPriceAlertsUseCase(
         }) {
             is Result.Success<List<FavoriteEntity>> -> {
                 val favorites = getFavoritesResult.data
-                val priceAlerts = mutableMapOf<String, GameOverview.Lowest>()
+                val priceAlerts = mutableMapOf<String, GameOverview.Price>()
 
                 val plains = favorites.map { it.plain }
 
@@ -37,10 +38,10 @@ class GetPriceAlertsUseCase(
                         // Add to result if the fresh lowest price is below the user's price threshold..
                         favorites.forEach { favoriteEntity ->
                             val overview = overviews[favoriteEntity.plain]
-                            overview?.lowest?.let { lowest ->
+                            overview?.price?.let { price ->
                                 favoriteEntity.priceThreshold?.let { priceThreshold ->
-                                    if (lowest.price < priceThreshold) {
-                                        priceAlerts[favoriteEntity.plain] = lowest
+                                    if (price.price < priceThreshold / PRICE_CONVERSION_FACTOR) {
+                                        priceAlerts[favoriteEntity.plain] = price
                                     }
                                 }
                             }

@@ -4,10 +4,10 @@ data class FavoritePriceAlerts(
     /**
      * Favorite *plain* to lowest price map.
      */
-    val alerts: Map<String, GameOverview.Lowest> = mapOf()
+    val alerts: Map<String, GameOverview.Price> = mapOf()
 ) {
     data class PriceAlert(
         val favorite: Favorite,
-        val lowest: GameOverview.Lowest
+        val price: GameOverview.Price
     )
 }
