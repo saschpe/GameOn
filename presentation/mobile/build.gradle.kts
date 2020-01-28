@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "2.6.2"
     id("com.google.android.gms.oss-licenses-plugin")
+    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
-    id("io.fabric")
     kotlin("android")
     kotlin("android.extensions")
 }
@@ -39,7 +39,6 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
-            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
         }
         named("release") {
             isMinifyEnabled = true
@@ -87,12 +86,12 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.2.0")
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.work:work-runtime-ktx:2.3.0")
-    implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
     implementation("com.google.android.material:material:1.1.0-rc02")
     implementation("io.coil-kt:coil:0.9.2")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
