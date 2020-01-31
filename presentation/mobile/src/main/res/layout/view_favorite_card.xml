@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
