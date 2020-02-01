@@ -16,6 +16,9 @@ fun Context.dpToPx(dp: Int) = TypedValue.applyDimension(
 
 fun Context.hasScreenWidth(widthInDP: Int) = resources.configuration.screenWidthDp >= widthInDP
 
+val Context.sharedPreferences: SharedPreferences
+    get() = getSharedPreferences(this::class.java.name, Context.MODE_PRIVATE)
+
 val Context.defaultPreferences: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(this)
 
