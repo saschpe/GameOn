@@ -77,7 +77,10 @@ class OfferAdapter(
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
-                            image.load(it) { crossfade(true) }
+                            image.load(it) {
+                                placeholder(R.drawable.placeholder)
+                                crossfade(true)
+                            }
                         }
                     is Result.Error -> throw result.throwable
                 }

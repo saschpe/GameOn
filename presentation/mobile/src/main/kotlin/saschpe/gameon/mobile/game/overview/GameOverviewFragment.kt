@@ -59,9 +59,9 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
-            Coil.loader().load(requireContext(), gameInfo.image) {
+            cover.load(gameInfo.image) {
+                placeholder(R.drawable.placeholder)
                 crossfade(true)
-                target(onSuccess = { cover.setImageDrawable(it) })
             }
         })
 
