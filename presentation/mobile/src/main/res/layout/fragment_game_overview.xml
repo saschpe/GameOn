@@ -115,7 +115,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/priceAlertInputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
                     android:layout_marginTop="@dimen/keyline_4"
