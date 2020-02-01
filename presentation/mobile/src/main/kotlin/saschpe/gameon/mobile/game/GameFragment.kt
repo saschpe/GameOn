@@ -11,14 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import coil.Coil
-import coil.api.load
 import kotlinx.android.synthetic.main.fragment_game.*
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.overview.GameOverviewFragment
 import saschpe.gameon.mobile.game.prices.GamePricesFragment
-import saschpe.gameon.mobile.game.reviews.GameReviewsFragment
-import kotlin.math.roundToInt
+import saschpe.gameon.mobile.game.reviews.GameOtherFragment
 
 class GameFragment : Fragment(R.layout.fragment_game) {
     private lateinit var paramPlain: String
@@ -39,17 +36,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             GameFragmentPagerAdapter(requireContext(), paramPlain, childFragmentManager)
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
-            progressBar.visibility = View.GONE
-            Coil.loader().load(requireContext(), gameInfo.image) {
-                crossfade(true)
-                target(onSuccess = {
-                    toolbar.background = it
-                    val height = (toolbar.width * IMAGE_ASPECT_RATIO).roundToInt()
-                    val layoutParams = toolbar.layoutParams
-                    layoutParams.height = height
-                    toolbar.layoutParams = layoutParams
-                })
-            }
+            toolbar.title = gameInfo.title
         })
     }
 
@@ -65,24 +52,19 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             1 -> GamePricesFragment().apply {
                 arguments = bundleOf(GamePricesFragment.ARG_PLAIN to plain)
             }
-            else -> GameReviewsFragment().apply {
-                arguments = bundleOf(GameReviewsFragment.ARG_PLAIN to plain)
+            else -> GameOtherFragment().apply {
+                arguments = bundleOf(GameOtherFragment.ARG_PLAIN to plain)
             }
         }
 
         override fun getPageTitle(position: Int) = when (position) {
             0 -> context.getString(R.string.overview)
             1 -> context.getString(R.string.prices)
-            else -> context.getString(R.string.reviews)
+            else -> context.getString(R.string.other)
         }
     }
 
     companion object {
         const val ARG_PLAIN = "plain"
-
-        /**
-         * Based on what the IsThereAnyDeal API delivers.
-         */
-        private const val IMAGE_ASPECT_RATIO = 215 / 460.0
     }
 }

@@ -6,14 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_game_reviews.*
+import kotlinx.android.synthetic.main.fragment_game_misc.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.R
 
-class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
+class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
     private lateinit var paramPlain: String
-    private val viewModel: GameReviewsViewModel by viewModels()
+    private val viewModel: GameOtherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,6 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
             adapter = reviewsAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
-            setHasFixedSize(true)
         }
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
@@ -47,6 +46,16 @@ class GameReviewsFragment : Fragment(R.layout.fragment_game_reviews) {
             } ?: listOf(GameReviewsAdapter.ViewModel.NoResultsViewModel())
 
             reviewsAdapter.submitList(viewModels)
+
+            isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
+            achievementsChip.visibility = if (gameInfo.achievements) View.VISIBLE else View.GONE
+            tradingCardsChip.visibility = if (gameInfo.trading_cards) View.VISIBLE else View.GONE
+            earlyAccessChip.visibility = if (gameInfo.early_access) View.VISIBLE else View.GONE
+            isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
+            if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
+                perksDivider.visibility = View.GONE
+                perksText.visibility = View.GONE
+            }
         })
     }
 
