@@ -7,6 +7,11 @@
         android:title="@string/offers" />
 
     <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/search" />
+
+    <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/favorites" />
