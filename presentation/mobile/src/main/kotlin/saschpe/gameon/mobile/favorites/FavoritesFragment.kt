@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.log4k.Log
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private val viewModel: FavoritesViewModel by viewModels()
@@ -81,8 +84,10 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             setHasFixedSize(true)
         }
 
+        var viewModels: MutableList<FavoritesAdapter.ViewModel>? = null
+
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
-            val viewModels = if (favorites.isNotEmpty()) {
+            viewModels = if (favorites.isNotEmpty()) {
                 favorites.map { favorite ->
                     FavoritesAdapter.ViewModel.FavoriteViewModel(
                         favorite = favorite,
@@ -93,9 +98,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                             )
                         }
                     )
-                }
+                }.toMutableList()
             } else {
-                listOf(FavoritesAdapter.ViewModel.NoResultViewModel(
+                mutableListOf(FavoritesAdapter.ViewModel.NoResultViewModel(
                     onClick = {
                         navController.navigate(R.id.action_favorites_to_search)
                     }
@@ -104,6 +109,34 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
             favoritesAdapter.submitList(viewModels)
         })
+
+        fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
+            val tmp = this[index1] // 'this' corresponds to the list
+            this[index1] = this[index2]
+            this[index2] = tmp
+        }
+
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
+            0
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPos: Int = viewHolder.adapterPosition
+                val toPos: Int = target.adapterPosition
+                Log.debug("XXX $fromPos to $toPos in ${viewModels?.map { (it as FavoritesAdapter.ViewModel.FavoriteViewModel).favorite.plain }}")
+                viewModels?.swap(fromPos, toPos)
+                Log.debug("XXX $fromPos to $toPos in ${viewModels?.map { (it as FavoritesAdapter.ViewModel.FavoriteViewModel).favorite.plain }}")
+                favoritesAdapter.submitList(viewModels)
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
+        }
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recyclerView)
     }
 
     override fun onResume() {

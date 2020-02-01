@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.domain.Module.getFavoritesUseCase
+import saschpe.gameon.domain.Module.updateFavoritesUseCase
 
 class FavoritesViewModel : ViewModel() {
     val favoritesLiveData = MutableLiveData<List<Favorite>>()
@@ -16,5 +17,9 @@ class FavoritesViewModel : ViewModel() {
             is Result.Success<List<Favorite>> -> favoritesLiveData.value = result.data
             is Result.Error -> throw result.throwable
         }
+    }
+
+    fun updateFavorites() {
+        updateFavoritesUseCase
     }
 }
