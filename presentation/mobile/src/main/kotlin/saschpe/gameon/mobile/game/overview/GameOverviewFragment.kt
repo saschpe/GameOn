@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import coil.Coil
+import coil.api.load
 import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -56,9 +58,11 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
-            name.text = gameInfo.title
+            Coil.loader().load(requireContext(), gameInfo.image) {
+                crossfade(true)
+                target(onSuccess = { cover.setImageDrawable(it) })
+            }
 
             isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
             achievementsChip.visibility = if (gameInfo.achievements) View.VISIBLE else View.GONE
@@ -108,10 +112,6 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             } else {
                 historicalLow.visibility = View.GONE
                 historicalLowText.visibility = View.GONE
-            }
-
-            if (gameOverview.price == null && gameOverview.lowest == null) {
-                divider.visibility = View.GONE
             }
         })
 

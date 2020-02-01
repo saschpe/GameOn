@@ -15,27 +15,13 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/image_10"
-            android:background="@drawable/placeholder"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true" />
-
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/keyline_1"
-            android:layout_gravity="bottom"
-            android:indeterminate="true"
-            app:mpb_progressStyle="horizontal"
-            app:mpb_useIntrinsicPadding="false" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/overviewTabItem"
