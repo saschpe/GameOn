@@ -78,7 +78,10 @@ class FavoritesAdapter(
                 when (val result = getGameInfoUseCase(plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->
-                            gameInfo.image.let { image.load(it) { crossfade(true) } }
+                            image.load(gameInfo.image) {
+                                placeholder(R.drawable.placeholder)
+                                crossfade(true)
+                            }
                         }
                     is Result.Error -> throw result.throwable
                 }
