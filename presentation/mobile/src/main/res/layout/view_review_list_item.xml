@@ -12,17 +12,17 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/rating"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/keyline_2"
-        android:layout_marginTop="@dimen/keyline_2"
+        android:layout_marginTop="@dimen/keyline_1"
         android:layout_marginEnd="@dimen/keyline_2"
+        android:layout_marginBottom="@dimen/keyline_1"
         android:textAlignment="textEnd"
         android:textAppearance="?textAppearanceHeadline4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:text="73" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyline_2"
-        android:layout_marginTop="@dimen/keyline_2"
+        android:layout_marginTop="@dimen/keyline_1"
         android:layout_marginEnd="@dimen/keyline_4"
         android:textAppearance="?textAppearanceHeadline6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyline_2"
         android:layout_marginEnd="@dimen/keyline_4"
-        android:layout_marginBottom="@dimen/keyline_2"
+        android:layout_marginBottom="@dimen/keyline_1"
         android:textAppearance="?textAppearanceCaption"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

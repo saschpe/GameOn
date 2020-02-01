@@ -41,60 +41,49 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginTop="@dimen/keyline_4"
+                    android:layout_marginEnd="@dimen/keyline_4"
                     android:text="@string/current_best"
-                    android:textAppearance="?textAppearanceBody2"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/currentBest"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    android:textAppearance="?textAppearanceCaption"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/currentBest" />
+                    app:layout_constraintTop_toBottomOf="@+id/cover" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/currentBest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_2"
-                    android:layout_marginTop="@dimen/keyline_4"
+                    android:layout_marginStart="@dimen/keyline_4"
                     android:layout_marginEnd="@dimen/keyline_4"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:textStyle="bold"
+                    android:textAppearance="?textAppearanceHeadline6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toBottomOf="@+id/cover"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/currentBestText"
                     tools:text="@tools:sample/full_names" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.3" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/historicalLowText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginTop="@dimen/keyline_4"
+                    android:layout_marginEnd="@dimen/keyline_4"
                     android:text="@string/historical_low"
-                    android:textAppearance="?textAppearanceBody2"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/historicalLow"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    android:textAppearance="?textAppearanceCaption"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/historicalLow" />
+                    app:layout_constraintTop_toBottomOf="@+id/currentBest" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/historicalLow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_2"
-                    android:layout_marginTop="@dimen/keyline_1"
+                    android:layout_marginStart="@dimen/keyline_4"
                     android:layout_marginEnd="@dimen/keyline_4"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:textStyle="bold"
+                    android:textAppearance="?textAppearanceHeadline6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toBottomOf="@+id/currentBest"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/historicalLowText"
                     tools:text="@tools:sample/full_names" />
 
                 <com.google.android.material.button.MaterialButton
@@ -154,8 +143,10 @@
                     android:layout_marginStart="@dimen/keyline_4"
                     android:layout_marginTop="@dimen/keyline_1"
                     android:layout_marginEnd="@dimen/keyline_4"
+                    android:layout_marginBottom="@dimen/keyline_4"
                     android:text="@string/price_alert_description"
                     android:textAppearance="?textAppearanceCaption"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/priceAlertInputLayout" />
@@ -167,81 +158,6 @@
                     android:visibility="gone"
                     app:constraint_referenced_ids="priceAlertInputLayout,priceAlertDescription"
                     tools:visibility="visible" />
-
-                <View
-                    android:id="@+id/perksDivider"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/divider_width"
-                    android:layout_marginTop="@dimen/keyline_4"
-                    android:background="?attr/dividerHorizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceAlertDescription" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/perksChipGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/keyline_4"
-                    android:layout_marginTop="@dimen/keyline_2"
-                    android:layout_marginEnd="@dimen/keyline_4"
-                    android:layout_marginBottom="@dimen/keyline_4"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/perksDivider">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/isDlcChip"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="@string/is_dlc" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/achievementsChip"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="@string/achievements" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/tradingCardsChip"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="@string/trading_cards" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/earlyAccessChip"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="@string/early_access" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/isPackageChip"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="@string/is_package" />
-
-                </com.google.android.material.chip.ChipGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
