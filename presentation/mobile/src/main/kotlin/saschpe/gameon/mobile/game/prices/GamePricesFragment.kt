@@ -19,7 +19,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
     private val viewModel: GamePricesViewModel by viewModels()
     private val gridLayoutSpanCount
         get() = when {
-            requireContext().hasScreenWidth(720) -> 2
+            requireContext().hasScreenWidth(600) -> 2
             else -> 1
         }
 
