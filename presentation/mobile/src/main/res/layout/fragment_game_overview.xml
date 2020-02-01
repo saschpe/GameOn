@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/currentBestText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/currentBest" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/currentBest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.3" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/historicalLowText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/historicalLow" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/historicalLow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/priceAlertDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

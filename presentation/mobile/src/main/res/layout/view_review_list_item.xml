@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/rating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="73" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/store"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/priceAlertDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

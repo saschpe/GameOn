@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/disclaimerTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/disclaimer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/disclaimerTitle" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/legalTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/termsOfService" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/supportTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/openSourceLicenses" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/copyrightText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
