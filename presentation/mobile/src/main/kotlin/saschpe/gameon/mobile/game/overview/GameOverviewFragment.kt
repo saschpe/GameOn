@@ -63,15 +63,6 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                 crossfade(true)
                 target(onSuccess = { cover.setImageDrawable(it) })
             }
-
-            isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
-            achievementsChip.visibility = if (gameInfo.achievements) View.VISIBLE else View.GONE
-            tradingCardsChip.visibility = if (gameInfo.trading_cards) View.VISIBLE else View.GONE
-            earlyAccessChip.visibility = if (gameInfo.early_access) View.VISIBLE else View.GONE
-            isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
-            if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
-                perksDivider.visibility = View.GONE
-            }
         })
 
         viewModel.gameOverviewLiveData.observe(viewLifecycleOwner, Observer { gameOverview ->

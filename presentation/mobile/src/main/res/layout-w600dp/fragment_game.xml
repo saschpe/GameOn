@@ -37,10 +37,10 @@
                     android:text="@string/prices" />
 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/reviewsTabItem"
+                    android:id="@+id/otherTabItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/reviews" />
+                    android:text="@string/other" />
 
             </com.google.android.material.tabs.TabLayout>
 
