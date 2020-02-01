@@ -46,7 +46,9 @@
     <string name="offers">Offers</string>
     <string name="on_template">On %1$s</string>
     <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="other">Other</string>
     <string name="overview">Overview</string>
+    <string name="perks">Perks</string>
     <string name="price_alert_description">Get notified when the game reaches your price threshold.</string>
     <string name="price_alerts">Price alerts</string>
     <string name="price_colored_template"><![CDATA[<font color="%2$d">%1$.2f</font>]]></string>
@@ -58,6 +60,7 @@
     <string name="rebate_colored_template"><![CDATA[<font color="%2$d">-%1$.0f%%</font>]]></string>
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="reviews">Reviews</string>
+    <string name="search">Search</string>
     <string name="search_for_your_game">Search for your game</string>
     <string name="settings">Settings</string>
     <string name="set_price_alert">Set a price alert</string>

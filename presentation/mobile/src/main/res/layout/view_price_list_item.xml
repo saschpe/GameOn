@@ -12,34 +12,36 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/price"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="4dp"
-        android:textAppearance="?textAppearanceSubtitle1"
-        app:layout_constraintBottom_toTopOf="@+id/drm"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/keyline_2"
+        android:layout_marginTop="@dimen/keyline_1"
+        android:layout_marginEnd="@dimen/keyline_2"
+        android:layout_marginBottom="@dimen/keyline_1"
+        android:textAlignment="textEnd"
+        android:textAppearance="?textAppearanceHeadline5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/store"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="19.99" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/store"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="?textAppearanceBody1"
+        android:layout_marginStart="@dimen/keyline_2"
+        android:layout_marginTop="@dimen/keyline_1"
+        android:layout_marginEnd="@dimen/keyline_4"
+        android:textAppearance="?textAppearanceHeadline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />
 
@@ -47,12 +49,13 @@
         android:id="@+id/drm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="@dimen/keyline_2"
+        android:layout_marginEnd="@dimen/keyline_4"
+        android:layout_marginBottom="@dimen/keyline_1"
         android:textAppearance="?textAppearanceCaption"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/store"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/store"
         tools:text="@tools:sample/lorem" />
 
