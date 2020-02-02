@@ -64,7 +64,7 @@ class OfferAdapter(
     }
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val image: ImageView = view.findViewById(R.id.image)
+        private val cover: ImageView = view.findViewById(R.id.cover)
         private val price: TextView = view.findViewById(R.id.price)
         private val rebate: TextView = view.findViewById(R.id.rebate)
         private val layout: View = view.findViewById(R.id.constraintLayout)
@@ -77,7 +77,7 @@ class OfferAdapter(
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
-                            image.load(it) {
+                            cover.load(it) {
                                 placeholder(R.drawable.placeholder)
                                 crossfade(true)
                             }
