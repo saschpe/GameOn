@@ -64,7 +64,7 @@ class FavoritesAdapter(
     }
 
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val image: ImageView = view.findViewById(R.id.image)
+        private val cover: ImageView = view.findViewById(R.id.cover)
         private val layout: View = view.findViewById(R.id.constraintLayout)
         private val price: TextView = view.findViewById(R.id.price)
         private var gameInfoJob: Job? = null
@@ -78,7 +78,7 @@ class FavoritesAdapter(
                 when (val result = getGameInfoUseCase(plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->
-                            image.load(gameInfo.image) {
+                            cover.load(gameInfo.image) {
                                 placeholder(R.drawable.placeholder)
                                 crossfade(true)
                             }
