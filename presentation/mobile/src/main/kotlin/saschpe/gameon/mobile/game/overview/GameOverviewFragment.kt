@@ -3,7 +3,10 @@ package saschpe.gameon.mobile.game.overview
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -22,8 +25,10 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.game.GameFragment
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
+    private var argOnViewCreated: GameFragment.ViewCreated? = null
     private lateinit var argPlain: String
     private val viewModel: GameOverviewViewModel by viewModels()
     private var priceAlertTextWatcher = object : TextWatcher {
@@ -59,10 +64,22 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
+        arguments?.getSerializable(ARG_ON_VIEW_CREATED)?.let {
+            argOnViewCreated = it as GameFragment.ViewCreated
+        }
 
         viewModel.getGameInfo(argPlain)
         viewModel.getGameOverview(argPlain)
         viewModel.getFavorite(argPlain)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        view?.findViewById<ImageView>(R.id.cover)?.transitionName = argPlain
+        argOnViewCreated?.invoke()
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,6 +180,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     }
 
     companion object {
+        const val ARG_ON_VIEW_CREATED = "on_view_created"
         const val ARG_PLAIN = "plain"
     }
 }

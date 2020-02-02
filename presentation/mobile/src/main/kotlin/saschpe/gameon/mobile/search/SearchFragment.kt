@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -89,10 +90,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             val viewModels = when {
                 offers.isNotEmpty() -> offers.map { offer ->
-                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) { transitionView ->
+                        val transitionName = offer.plain
+                        transitionView.transitionName = transitionName
                         findNavController().navigate(
                             R.id.action_search_to_game,
-                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                            bundleOf(GameFragment.ARG_PLAIN to offer.plain),
+                            null,
+                            FragmentNavigatorExtras(transitionView to transitionName)
                         )
                     }
                 }

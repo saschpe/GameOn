@@ -73,7 +73,7 @@ class OfferAdapter(
         data class OfferViewModel(
             val coroutineScope: CoroutineScope,
             val offer: Offer,
-            val onClick: () -> Unit = {}
+            val onClick: (transitionView: ImageView) -> Unit = {}
         ) : ViewModel(VIEW_TYPE_OFFER)
     }
 
@@ -132,7 +132,7 @@ class OfferAdapter(
         private var gameInfoJob: Job? = null
 
         fun bind(viewModel: ViewModel.OfferViewModel) {
-            layout.setOnClickListener { viewModel.onClick.invoke() }
+            layout.setOnClickListener { viewModel.onClick.invoke(cover) }
 
             gameInfoJob = viewModel.coroutineScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {

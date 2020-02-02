@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -94,10 +95,16 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
             if (favorites.isNotEmpty()) {
                 favoriteViewModels = favorites.map { favorite ->
-                    FavoritesAdapter.ViewModel.FavoriteViewModel(lifecycleScope, favorite) {
-                        navController.navigate(
+                    FavoritesAdapter.ViewModel.FavoriteViewModel(
+                        lifecycleScope, favorite
+                    ) { transitionView ->
+                        val transitionName = favorite.plain
+                        transitionView.transitionName = transitionName
+                        findNavController().navigate(
                             R.id.action_favorites_to_game,
-                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain),
+                            null,
+                            FragmentNavigatorExtras(transitionView to transitionName)
                         )
                     }
                 }

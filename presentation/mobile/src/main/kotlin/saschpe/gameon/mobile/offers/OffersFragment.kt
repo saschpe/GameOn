@@ -7,11 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
@@ -78,10 +77,14 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
             progressBar.visibility = View.GONE
             offerAdapter.submitList(deals.map { offer ->
-                OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) { transitionView ->
+                    val transitionName = offer.plain
+                    transitionView.transitionName = transitionName
                     findNavController().navigate(
                         R.id.action_offers_to_game,
-                        bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                        bundleOf(GameFragment.ARG_PLAIN to offer.plain),
+                        null,
+                        FragmentNavigatorExtras(transitionView to transitionName)
                     )
                 }
             })

@@ -68,7 +68,7 @@ class FavoritesAdapter(
         data class FavoriteViewModel(
             val coroutineScope: CoroutineScope,
             val favorite: Favorite,
-            val onClick: () -> Unit = {}
+            val onClick: (transitionView: ImageView) -> Unit = {}
         ) : ViewModel(VIEW_TYPE_FAVORITE)
 
         data class NoResultViewModel(
@@ -108,7 +108,7 @@ class FavoritesAdapter(
         private var gameOverviewJob: Job? = null
 
         fun bind(viewModel: ViewModel.FavoriteViewModel) {
-            layout.setOnClickListener { viewModel.onClick.invoke() }
+            layout.setOnClickListener { viewModel.onClick.invoke(cover) }
 
             val plain = viewModel.favorite.plain
             gameInfoJob = viewModel.coroutineScope.launch(Dispatchers.Main) {

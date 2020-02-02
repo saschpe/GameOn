@@ -2,7 +2,9 @@ package saschpe.gameon.mobile.game
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.transition.TransitionInflater
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game.*
@@ -19,6 +22,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.overview.GameOverviewFragment
 import saschpe.gameon.mobile.game.prices.GamePricesFragment
 import saschpe.gameon.mobile.game.reviews.GameOtherFragment
+import java.io.Serializable
 
 class GameFragment : Fragment(R.layout.fragment_game) {
     private lateinit var argPlain: String
@@ -30,13 +34,27 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         viewModel.getGameInfo(argPlain)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        val transition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
+        postponeEnterTransition()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupWithNavController(toolbar, findNavController())
 
         tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter =
-            GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager)
+            GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager,
+                object : ViewCreated {
+                    override fun invoke() = startPostponedEnterTransition()
+                })
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             toolbar.title = gameInfo.title
@@ -49,13 +67,17 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     private class GameFragmentPagerAdapter(
-        val context: Context, val plain: String, fragmentManager: FragmentManager
+        val context: Context, val plain: String, fragmentManager: FragmentManager,
+        val viewCreated: ViewCreated
     ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = 3
 
         override fun getItem(position: Int) = when (position) {
             0 -> GameOverviewFragment().apply {
-                arguments = bundleOf(GameOverviewFragment.ARG_PLAIN to plain)
+                arguments = bundleOf(
+                    GameOverviewFragment.ARG_PLAIN to plain,
+                    GameOverviewFragment.ARG_ON_VIEW_CREATED to viewCreated
+                )
             }
             1 -> GamePricesFragment().apply {
                 arguments = bundleOf(GamePricesFragment.ARG_PLAIN to plain)
@@ -75,6 +97,10 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onResume() {
         super.onResume()
         firebaseAnalytics.setCurrentScreen(requireActivity(), "Game", "GameFragment")
+    }
+
+    interface ViewCreated : Serializable {
+        fun invoke()
     }
 
     companion object {
