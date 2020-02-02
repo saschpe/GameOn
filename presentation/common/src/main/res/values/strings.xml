@@ -31,6 +31,7 @@
     <string name="general">General</string>
     <string name="get_it_for_template">Reached your desired price. Get it for %1$s on %2$s</string>
     <string name="get_support">Get support and reach out to us</string>
+    <string name="grid">Grid</string>
     <string name="help">Help</string>
     <string name="help_and_feedback">Help &amp; feedback</string>
     <string name="historical_low">Historical low</string>
@@ -38,6 +39,7 @@
     <string name="is_package">Is package</string>
     <string name="legal">Legal</string>
     <string name="light">Light</string>
+    <string name="list">List</string>
     <string name="night_mode">Night mode</string>
     <string name="no_favorites_yet">No favorites yet.</string>
     <string name="no_results">No results</string>
