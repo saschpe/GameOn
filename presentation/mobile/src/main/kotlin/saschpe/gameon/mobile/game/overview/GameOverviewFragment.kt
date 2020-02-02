@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import coil.Coil
 import coil.api.load
 import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
@@ -21,7 +20,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
-    private lateinit var paramPlain: String
+    private lateinit var argPlain: String
     private val viewModel: GameOverviewViewModel by viewModels()
     private var priceAlertTextWatcher = object : TextWatcher {
         private var currentJob: Job? = null
@@ -49,11 +48,11 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
+        argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
 
-        viewModel.getGameInfo(paramPlain)
-        viewModel.getGameOverview(paramPlain)
-        viewModel.getFavorite(paramPlain)
+        viewModel.getGameInfo(argPlain)
+        viewModel.getGameOverview(argPlain)
+        viewModel.getFavorite(argPlain)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -122,7 +121,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                 } else {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_border_24dp)
                     favoriteButton.text = getString(R.string.add_to_favorites)
-                    favoriteButton.setOnClickListener { viewModel.addFavorite(paramPlain) }
+                    favoriteButton.setOnClickListener { viewModel.addFavorite(argPlain) }
 
                     priceAlertGroup.visibility = View.GONE
                 }

@@ -12,16 +12,16 @@ import saschpe.gameon.mobile.R
 
 class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
-    private lateinit var paramPlain: String
+    private lateinit var argPlain: String
     private val viewModel: GameOtherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
+        argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
 
         reviewsAdapter = GameReviewsAdapter(requireContext())
 
-        viewModel.getGameInfo(paramPlain)
+        viewModel.getGameInfo(argPlain)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

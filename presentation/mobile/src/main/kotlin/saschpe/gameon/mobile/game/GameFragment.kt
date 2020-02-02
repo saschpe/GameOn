@@ -18,13 +18,13 @@ import saschpe.gameon.mobile.game.prices.GamePricesFragment
 import saschpe.gameon.mobile.game.reviews.GameOtherFragment
 
 class GameFragment : Fragment(R.layout.fragment_game) {
-    private lateinit var paramPlain: String
+    private lateinit var argPlain: String
     private val viewModel: GameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        paramPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
-        viewModel.getGameInfo(paramPlain)
+        argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
+        viewModel.getGameInfo(argPlain)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
         tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter =
-            GameFragmentPagerAdapter(requireContext(), paramPlain, childFragmentManager)
+            GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager)
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             toolbar.title = gameInfo.title

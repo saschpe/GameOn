@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/view_module"
+        android:icon="@drawable/ic_view_module_24"
+        android:title="@string/list"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/view_comfy"
+        android:icon="@drawable/ic_view_comfy_24"
+        android:title="@string/grid"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/helpFragment"
+        android:icon="@drawable/ic_help_24dp"
+        android:title="@string/help_and_feedback"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings_24dp"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+</menu>
