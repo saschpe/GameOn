@@ -92,7 +92,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
-    implementation("com.google.android.material:material:1.1.0-rc02")
+    implementation("com.google.android.material:material:1.1.0")
     implementation("io.coil-kt:coil:0.9.2")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
