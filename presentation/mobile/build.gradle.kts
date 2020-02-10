@@ -76,7 +76,7 @@ dependencies {
     implementation("androidx.browser:browser:1.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.core:core-ktx:1.1.0")
+    implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.fragment:fragment-ktx:1.2.0")
     implementation("androidx.fragment:fragment-testing:1.2.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
