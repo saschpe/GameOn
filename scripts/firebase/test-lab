@@ -7,7 +7,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 . "${SCRIPT_DIR}/../inc.functions.sh"
 
 # Constants
-FIREBASE_PROJECT_ID="lunchup-1"
+FIREBASE_PROJECT_ID="gameon-2"
 FIREBASE_TEST_DEVICES=(
   model=walleye,version=28,locale=en,orientation=portrait
 )
@@ -28,7 +28,7 @@ function usage {
     echo -e "  --type [robo|instrumentation] (default: ${DEFAULT_FIREBASE_TEST_TYPE})"
     echo -e "  --app  APK (default: ${DEFAULT_APP})"
     echo -e "  --test APK (default: ${DEFAULT_TEST_APP})"
-    echo -e "Example: $0 --type robo --app io.lunchup.android.apk"
+    echo -e "Example: $0 --type robo --app saschpe.gameon-mobile-0.3.7-debug.apk"
     exit 1
 }
 
