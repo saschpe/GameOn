@@ -63,11 +63,11 @@
 
         <deepLink
             android:id="@+id/aboutDeepLink"
-            app:uri="lunchup://about/" />
+            app:uri="gameon://about/" />
 
         <deepLink
             android:id="@+id/aboutPageDeepLink"
-            app:uri="lunchup://about/{page}" />
+            app:uri="gameon://about/{page}" />
 
     </fragment>
 
@@ -81,8 +81,8 @@
             app:destination="@id/helpFragment" />
 
         <deepLink
-            android:id="@+id/deepLink"
-            app:uri="lunchup://settings/" />
+            android:id="@+id/settingsDeepLink"
+            app:uri="gameon://settings/" />
 
     </fragment>
 
