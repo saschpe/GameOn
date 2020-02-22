@@ -12,6 +12,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import kotlinx.android.synthetic.main.fragment_settings.*
 import saschpe.gameon.common.content.hasScreenWidth
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.settings.preferences.AppearancePreferenceFragment
 import saschpe.gameon.mobile.settings.preferences.MainPreferenceFragment
@@ -33,6 +34,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         viewModel.selectedPreference.observe(viewLifecycleOwner, Observer {
             onPreferenceStartFragment(mainPreferenceFragment, it)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Settings", null)
     }
 
     // Workaround for https://issuetracker.google.com/issues/139995974

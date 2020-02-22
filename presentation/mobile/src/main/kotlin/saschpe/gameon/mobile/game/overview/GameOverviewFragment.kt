@@ -5,18 +5,22 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.res.ResourcesCompat.getDrawable
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import coil.api.load
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
@@ -40,6 +44,12 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     if (priceAlertString?.isBlank() == true) {
                         priceAlertString = null
                     }
+                    firebaseAnalytics.logEvent(
+                        Analytics.Event.UPDATE_ON_WISHLIST, bundleOf(
+                            FirebaseAnalytics.Param.ITEM_ID to argPlain,
+                            FirebaseAnalytics.Param.PRICE to priceAlertString
+                        )
+                    )
                     viewModel.updateFavorite(it.copy(priceThreshold = priceAlertString?.toDouble()))
                 }
             }
@@ -110,7 +120,12 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                 if (favorite != null) {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_24dp)
                     favoriteButton.text = getString(R.string.remove_from_favorites)
-                    favoriteButton.setOnClickListener { viewModel.removeFavorite(favorite.plain) }
+                    favoriteButton.setOnClickListener {
+                        firebaseAnalytics.logEvent(
+                            Analytics.Event.REMOVE_FROM_WISHLIST, bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
+                        )
+                        viewModel.removeFavorite(favorite.plain)
+                    }
 
                     priceAlertGroup.visibility = View.VISIBLE
                     if (!priceAlertInput.hasFocus()) {
@@ -121,12 +136,23 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                 } else {
                     favoriteButton.icon = getDrawable(R.drawable.ic_favorite_border_24dp)
                     favoriteButton.text = getString(R.string.add_to_favorites)
-                    favoriteButton.setOnClickListener { viewModel.addFavorite(argPlain) }
+                    favoriteButton.setOnClickListener {
+                        firebaseAnalytics.logEvent(
+                            FirebaseAnalytics.Event.ADD_TO_WISHLIST,
+                            bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
+                        )
+                        viewModel.addFavorite(argPlain)
+                    }
 
                     priceAlertGroup.visibility = View.GONE
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Overview", null)
     }
 
     private fun updatePriceAlertStartIcon() {
