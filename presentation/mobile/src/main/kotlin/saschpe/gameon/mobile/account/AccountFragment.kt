@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import kotlinx.android.synthetic.main.fragment_home.*
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
@@ -20,5 +21,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             }
             true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Account", null)
     }
 }

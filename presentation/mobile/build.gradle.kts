@@ -3,6 +3,7 @@ plugins {
     id("com.github.triplet.play") version "2.6.2"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
     id("com.google.gms.google-services")
     kotlin("android")
     kotlin("android.extensions")
@@ -20,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000308
-        versionName = "0.3.8"
+        versionCode = 210000309
+        versionName = "0.3.9"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -92,6 +93,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
+    implementation("com.google.firebase:firebase-perf:19.0.5")
     implementation("com.google.android.material:material:1.1.0")
     implementation("io.coil-kt:coil:0.9.5")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")

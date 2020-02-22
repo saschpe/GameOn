@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
@@ -75,6 +76,7 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
 
     override fun onResume() {
         super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Offers", null)
         requireActivity().appNameTitle(appName)
     }
 }

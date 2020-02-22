@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game_misc.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 
 class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
@@ -57,6 +58,11 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
                 perksText.visibility = View.GONE
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Other", null)
     }
 
     companion object {
