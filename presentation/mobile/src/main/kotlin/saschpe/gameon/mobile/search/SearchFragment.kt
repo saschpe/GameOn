@@ -11,12 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
@@ -32,6 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     private lateinit var offerAdapter: OfferAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private var lastSearch: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +66,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 currentSearchJob = viewLifecycleOwner.lifecycleScope.launch {
                     delay(100L) // Rate-limit to avoid an update on every key press...
                     progressBar.visibility = View.VISIBLE
+                    lastSearch = text.toString()
                     viewModel.search(text.toString())
                 }
             }
         }
 
         viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { offers ->
+            firebaseAnalytics.logEvent(
+                FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS, bundleOf(FirebaseAnalytics.Param.SEARCH_TERM to lastSearch)
+            )
             if (offers.isNotEmpty()) {
                 offerAdapter.submitList(offers.map { offer ->
                     OfferAdapter.ViewModel.OfferViewModel(
@@ -95,4 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Search", null)
+    }
 }

@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.content.sharedPreferences
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
 
@@ -92,6 +93,19 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Favorites", null)
+        viewModel.getFavorites()
+    }
+
+    override fun onStop() {
+        requireContext().sharedPreferences.edit {
+            putInt(PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, gridLayoutSpanCountIncrement)
+        }
+        super.onStop()
+    }
+
     private fun updateGridLayout(spanCountIncrement: Int) {
         gridLayoutSpanCountIncrement = spanCountIncrement
         gridLayoutManager.requestSimpleAnimationsInNextLayout()
@@ -102,18 +116,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             findItem(R.id.view_comfy).isVisible =
                 gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getFavorites()
-    }
-
-    override fun onStop() {
-        requireContext().sharedPreferences.edit {
-            putInt(PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, gridLayoutSpanCountIncrement)
-        }
-        super.onStop()
     }
 
     companion object {

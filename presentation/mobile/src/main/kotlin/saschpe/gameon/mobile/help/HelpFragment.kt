@@ -14,10 +14,11 @@ import kotlinx.android.synthetic.main.fragment_help.*
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
 import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.mobile.BuildConfig
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs
-import saschpe.gameon.mobile.help.about.AboutFragment
-import saschpe.gameon.mobile.help.contact.ContactFragment
+import saschpe.gameon.mobile.help.about.HelpAboutFragment
+import saschpe.gameon.mobile.help.contact.HelpContactFragment
 
 open class HelpFragment : Fragment(R.layout.fragment_help) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +62,7 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
 
     override fun onResume() {
         super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help", null)
         requireActivity().appNameTitle(appName)
     }
 
@@ -70,8 +72,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
         override fun getCount() = 2
 
         override fun getItem(position: Int) = when (position) {
-            0 -> AboutFragment()
-            else -> ContactFragment()
+            0 -> HelpAboutFragment()
+            else -> HelpContactFragment()
         }
 
         override fun getPageTitle(position: Int) = when (position) {
