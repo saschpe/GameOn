@@ -13,8 +13,8 @@ import saschpe.gameon.mobile.R
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         navController = findNavController(R.id.navHostFragment)
         setupWithNavController(bottomNavigationView, navController)
     }
