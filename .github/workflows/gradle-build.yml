@@ -1,6 +1,5 @@
-name: Main CI
-
-on: [push]
+name: Gradle Build
+on: [push, pull_request]
 
 jobs:
   build:
