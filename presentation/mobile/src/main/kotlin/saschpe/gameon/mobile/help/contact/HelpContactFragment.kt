@@ -5,9 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.gameon.mobile.BuildConfig
+import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 
-class ContactFragment : Fragment(R.layout.fragment_help_contact) {
+class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -22,5 +23,10 @@ class ContactFragment : Fragment(R.layout.fragment_help_contact) {
         childFragmentManager.beginTransaction()
             .replace(R.id.container, socialFragment)
             .commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help Contact", null)
     }
 }
