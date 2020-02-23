@@ -25,6 +25,6 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Account", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Account", "AccountFragment")
     }
 }

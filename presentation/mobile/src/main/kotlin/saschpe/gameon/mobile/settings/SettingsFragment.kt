@@ -38,7 +38,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Settings", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Settings", "SettingsFragment")
     }
 
     // Workaround for https://issuetracker.google.com/issues/139995974

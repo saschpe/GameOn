@@ -64,7 +64,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Prices", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Prices", "GamePricesFragment")
     }
 
     companion object {
