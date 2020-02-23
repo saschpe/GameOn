@@ -95,7 +95,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Favorites", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Favorites", "FavoritesFragment")
         viewModel.getFavorites()
     }
 

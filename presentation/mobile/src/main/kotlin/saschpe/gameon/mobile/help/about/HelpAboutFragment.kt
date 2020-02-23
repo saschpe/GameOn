@@ -30,6 +30,6 @@ class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help About", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help About", "HelpAboutFragment")
     }
 }
