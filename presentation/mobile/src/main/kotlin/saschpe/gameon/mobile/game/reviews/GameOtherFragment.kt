@@ -62,7 +62,7 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Other", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Other", "GameOtherFragment")
     }
 
     companion object {
