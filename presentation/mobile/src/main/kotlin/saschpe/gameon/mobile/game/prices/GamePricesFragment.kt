@@ -50,8 +50,9 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
                     price = it,
                     onClick = {
                         firebaseAnalytics.logEvent(
-                            Analytics.Event.VISIS_EXTERNAL_SHOP, bundleOf(
-                                Analytics.Param.SHOP_NAME to it.shop, Analytics.Param.SHOP_ITEM_URL to it.url
+                            Analytics.Event.VISIT_EXTERNAL_SHOP, bundleOf(
+                                Analytics.Param.SHOP_NAME to it.shop.name,
+                                Analytics.Param.SHOP_ITEM_URL to it.url
                             )
                         )
                         openUrl(requireContext(), it.url)
