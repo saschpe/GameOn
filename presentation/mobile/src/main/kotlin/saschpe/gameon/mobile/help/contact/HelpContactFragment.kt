@@ -27,6 +27,6 @@ class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help Contact", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help Contact", "HelpContactFragment")
     }
 }

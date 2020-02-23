@@ -62,7 +62,7 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help", "HelpFragment")
         requireActivity().appNameTitle(appName)
     }
 

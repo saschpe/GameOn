@@ -104,6 +104,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Search", null)
+        firebaseAnalytics.setCurrentScreen(requireActivity(), "Search", "SearchFragment")
     }
 }
