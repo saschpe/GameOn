@@ -17,18 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/appName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textAppearance="?textAppearanceHeadline3"
-                tools:text="@string/lorem_ipsum_short" />
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:title="@string/offers" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchQueryLayout"
