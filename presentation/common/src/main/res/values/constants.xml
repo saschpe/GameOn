@@ -15,6 +15,11 @@
     <string name="theme_dark" translatable="false">2</string>
     <string name="theme_system_default" translatable="false">-1</string> <!-- Actually AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -->
 
+    <!-- Shared element transitions -->
+    <string name="shared_element_email" translatable="false">shared_element_email</string>
+    <string name="shared_element_password" translatable="false">shared_element_password</string>
+    <string name="shared_element_signIn" translatable="false">shared_element_signIn</string>
+
     <!-- Developer strings -->
     <string name="on_boarding_finished" translatable="false">On-boarding finished</string>
 
