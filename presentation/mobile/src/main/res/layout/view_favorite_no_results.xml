@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/keyline_8"
+        android:layout_marginTop="@dimen/keyline_10"
+        android:layout_marginEnd="@dimen/keyline_8"
+        android:contentDescription="@string/favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_favorite_image_8" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/keyline_4"
-        android:layout_marginTop="@dimen/keyline_4"
-        android:layout_marginEnd="@dimen/keyline_4"
-        android:layout_marginBottom="@dimen/keyline_4"
-        android:text="@string/no_favorites_yet"
-        android:textAppearance="?textAppearanceHeadline5"
+        android:layout_marginStart="@dimen/keyline_8"
+        android:layout_marginTop="@dimen/keyline_6"
+        android:layout_marginEnd="@dimen/keyline_8"
+        android:text="@string/add_your_favorites"
+        android:textAppearance="?textAppearanceHeadline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/disclaimer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/keyline_8"
+        android:layout_marginTop="@dimen/keyline_1"
+        android:layout_marginEnd="@dimen/keyline_8"
+        android:justificationMode="inter_word"
+        android:text="@string/start_searching_for_games"
+        android:textAppearance="?textAppearanceBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:targetApi="o" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/searchNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/keyline_8"
+        android:layout_marginTop="@dimen/keyline_8"
+        android:layout_marginEnd="@dimen/keyline_8"
+        android:layout_marginBottom="@dimen/keyline_8"
+        android:text="@string/alright_lets_go"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         toolbar.inflateMenu(R.menu.menu_home)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.helpFragment -> findNavController().navigate(R.id.action_accountFragment_to_helpFragment)
-                R.id.settingsFragment -> findNavController().navigate(R.id.action_accountFragment_to_settingsFragment)
+                R.id.help -> findNavController().navigate(R.id.action_account_to_help)
+                R.id.settings -> findNavController().navigate(R.id.action_account_to_settings)
             }
             true
         }
