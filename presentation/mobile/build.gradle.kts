@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.6.2"
+    id("com.github.triplet.play") version "2.7.2"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -64,6 +64,8 @@ android {
 
     sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 
+    lintOptions.isAbortOnError = false
+
     testOptions {
         animationsDisabled = true
         unitTests.isIncludeAndroidResources = true
@@ -90,7 +92,7 @@ dependencies {
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics:17.2.2")
+    implementation("com.google.firebase:firebase-analytics:17.2.3")
     implementation("com.google.firebase:firebase-common-ktx:19.3.0")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
     implementation("com.google.firebase:firebase-perf:19.0.5")
