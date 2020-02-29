@@ -43,8 +43,15 @@ class Application : MultiDexApplication() {
         })
     }
 
-    private fun initWorkManager(): Unit {
+    private fun initWorkManager() {
         PriceAlertsWorker.enqueueOnce(workManager)
         PriceAlertsWorker.enqueuePeriodic(workManager)
+    }
+
+    companion object {
+        /**
+         * Any application-specific intent should use this scheme.
+         */
+        const val INTENT_SCHEME = "gameon"
     }
 }
