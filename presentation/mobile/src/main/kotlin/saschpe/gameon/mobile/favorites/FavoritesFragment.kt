@@ -7,11 +7,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.content.sharedPreferences
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
@@ -62,11 +66,13 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             }
         }
 
-        updateGridLayout(
-            requireContext().sharedPreferences.getInt(
-                PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
-            )
-        )
+        viewLifecycleOwner.lifecycleScope.launch {
+            updateGridLayout(withContext(Dispatchers.IO) {
+                requireContext().sharedPreferences.getInt(
+                    PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
+                )
+            })
+        }
 
         recyclerView.apply {
             adapter = favoritesAdapter
