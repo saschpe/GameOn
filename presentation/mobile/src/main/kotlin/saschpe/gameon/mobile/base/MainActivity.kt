@@ -24,25 +24,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         setupWithNavController(bottomNavigationView, navController)
     }
 
-    override fun onStart() {
-        super.onStart()
-        lifecycleScope.launch {
-            bottomNavigationView.selectedItemId = withContext(Dispatchers.IO) {
-                sharedPreferences.getInt(PREF_SELECTED_ITEM, R.id.favoritesFragment)
-            }
-        }
-    }
-
-    override fun onStop() {
-        sharedPreferences.edit {
-            putInt(PREF_SELECTED_ITEM, bottomNavigationView.selectedItemId)
-        }
-        super.onStop()
-    }
-
     override fun onSupportNavigateUp() = navController.navigateUp()
-
-    companion object {
-        private const val PREF_SELECTED_ITEM = "selected_item"
-    }
 }

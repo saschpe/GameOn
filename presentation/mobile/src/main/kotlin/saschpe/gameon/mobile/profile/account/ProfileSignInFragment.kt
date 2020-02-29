@@ -14,7 +14,6 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.transition.TransitionInflater
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
@@ -31,19 +30,7 @@ import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
 import saschpe.log4k.Log
 
 class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
-    // private val accountViewModel: AccountViewModel by activityViewModels()
     private var firebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var googleSignInClient: GoogleSignInClient
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        googleSignInClient = GoogleSignIn.getClient(
-            requireContext(), GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -59,13 +46,6 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
-
-        /*accountViewModel.accountLiveData.observe(this, Observer { account ->
-            // TODO: Replace with Email.isDefaultEmailDomain() from LunchUp.Core:
-            if (!account.email.endsWith("example.lunch.io")) {
-                email.setText(account.email)
-            }
-        })*/
 
         email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(emailLayout))
         passwordLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
@@ -89,7 +69,11 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             )
         }
         signInWithGoogle.setOnClickListener {
-            startActivityForResult(googleSignInClient.signInIntent, RESPONSE_CODE_GOOGLE_SIGN_IN)
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build()
+            val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+            startActivityForResult(googleSignInClient.signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
         }
     }
 
@@ -106,20 +90,16 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RESPONSE_CODE_GOOGLE_SIGN_IN) {
+        if (requestCode == REQUEST_CODE_GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-
             try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account)
+                firebaseAuthWithGoogle(task.getResult(ApiException::class.java))
             } catch (e: ApiException) {
-                // The ApiException status code indicates the detailed failure reason.
-                // Please refer to the GoogleSignInStatusCodes class reference for more information.
-                Log.warn("signInResult:failed code=${e.statusCode}")
+                Log.warn("failed $e")
                 Snackbar.make(
-                    coordinatorLayout, e.localizedMessage?.toString() ?: "", Snackbar.LENGTH_LONG
+                    coordinatorLayout,
+                    getString(R.string.unable_to_sign_in_with_google_template, e.message),
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }
@@ -148,15 +128,14 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
         if (!validateEmailAndPasswordForm()) {
             return
         }
-
         firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) {
-                if (it.isSuccessful) {
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
                     findNavController().popBackStack()
                 } else {
-                    Log.debug("error=${it.exception}")
+                    Log.debug("error=${task.exception}")
                     Snackbar.make(
-                        coordinatorLayout, it.exception?.message.toString(), Snackbar.LENGTH_LONG
+                        coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
                     ).show()
                 }
             }
@@ -165,23 +144,20 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         Log.debug("account id=${account?.id}")
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(requireActivity()) {
-            if (it.isSuccessful) {
-                // Sign in success, addOrUpdate UI with the signed-in userLiveData's information
-                findNavController().popBackStack()
-            } else {
-                // If sign in fails, display a message to the userLiveData.
-                Log.debug("error=${it.exception}")
-                Snackbar.make(
-                    coordinatorLayout,
-                    it.exception?.message.toString(),
-                    Snackbar.LENGTH_LONG
-                ).show()
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    findNavController().popBackStack()
+                } else {
+                    Log.debug("error=${task.exception}")
+                    Snackbar.make(
+                        coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
+                    ).show()
+                }
             }
-        }
     }
 
     companion object {
-        private const val RESPONSE_CODE_GOOGLE_SIGN_IN = 9001
+        private const val REQUEST_CODE_GOOGLE_SIGN_IN = 9001
     }
 }

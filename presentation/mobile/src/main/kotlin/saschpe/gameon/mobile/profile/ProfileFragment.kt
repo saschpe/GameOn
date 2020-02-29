@@ -41,6 +41,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             firebaseAuth.signOut()
             updateSignInState()
         }
+
+        connectToSteam.setOnClickListener {  }
+        connectToIsThereAnyDeals.setOnClickListener {  }
     }
 
     override fun onResume() {
