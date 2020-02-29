@@ -2,11 +2,13 @@ package saschpe.gameon.mobile.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.toolbar
 import kotlinx.android.synthetic.main.fragment_profile.*
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -14,6 +16,7 @@ import saschpe.gameon.mobile.R
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var navController: NavController
+    private var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,12 +38,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             )
         }
         signOut.setOnClickListener {
-            // TODO
+            firebaseAuth.signOut()
+            updateSignInState()
         }
     }
 
     override fun onResume() {
         super.onResume()
+        updateSignInState()
         firebaseAnalytics.setCurrentScreen(requireActivity(), "Profile", "ProfileFragment")
+    }
+
+    private fun updateSignInState() {
+        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous != true) {
+            signIn.isVisible = false
+            signOut.isVisible = true
+        } else {
+            signIn.isVisible = true
+            signOut.isVisible = false
+        }
     }
 }

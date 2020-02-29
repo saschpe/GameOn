@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.transition.TransitionInflater
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
 import saschpe.gameon.common.app.hideSoftInputFromWindow
 import saschpe.gameon.common.isValidEmail
@@ -100,27 +99,16 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         if (!validateForm()) {
             return
         }
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val user = it.result?.user
-                    if (user?.email != null) {
-                        user.updateProfile(
-                            UserProfileChangeRequest.Builder()
-                                // .setDisplayName(displayName)
-                                .build()
-                        )
-                    }
-                    findNavController().popBackStack()
-                } else {
-                    Log.debug("exception=${it.exception}")
-                    Snackbar.make(
-                        coordinator_layout,
-                        it.exception?.message.toString(),
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                findNavController().popBackStack()
+            } else {
+                Log.debug("exception=${task.exception}")
+                Snackbar.make(
+                    coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
+                ).show()
             }
+        }
     }
 
     companion object {
