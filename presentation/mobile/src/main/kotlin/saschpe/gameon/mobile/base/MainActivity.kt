@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onStart() {
         super.onStart()
         bottomNavigationView.selectedItemId =
-            sharedPreferences.getInt(PREF_SELECTED_ITEM, R.id.offersFragment)
+            sharedPreferences.getInt(PREF_SELECTED_ITEM, R.id.favoritesFragment)
     }
 
     override fun onStop() {

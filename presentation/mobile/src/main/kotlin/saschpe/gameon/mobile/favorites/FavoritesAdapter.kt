@@ -10,6 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -42,11 +43,11 @@ class FavoritesAdapter(
             else -> throw Exception("Unsupported view type '$viewType'!")
         }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = getItem(position)) {
             is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
+            is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
         }
-    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
@@ -60,7 +61,9 @@ class FavoritesAdapter(
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_FAVORITE)
 
-        class NoResultViewModel : ViewModel(VIEW_TYPE_NO_RESULT)
+        data class NoResultViewModel(
+            val onClick: () -> Unit = {}
+        ) : ViewModel(VIEW_TYPE_NO_RESULT)
     }
 
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -118,7 +121,13 @@ class FavoritesAdapter(
         }
     }
 
-    private class NoResultViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class NoResultViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val searchNow: MaterialButton = view.findViewById(R.id.searchNow)
+
+        fun bind(viewModel: ViewModel.NoResultViewModel) {
+            searchNow.setOnClickListener { viewModel.onClick.invoke() }
+        }
+    }
 
     companion object {
         internal const val VIEW_TYPE_FAVORITE = 1
