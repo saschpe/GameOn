@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,7 @@ import saschpe.gameon.mobile.game.GameFragment
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private val viewModel: FavoritesViewModel by viewModels()
+    private lateinit var navController: NavController
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var gridLayoutManager: GridLayoutManager
     private var gridLayoutSpanCountIncrement = GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
@@ -32,19 +34,20 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        navController = findNavController()
         favoritesAdapter = FavoritesAdapter(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupWithNavController(toolbar, findNavController())
+        setupWithNavController(toolbar, navController)
         toolbar.inflateMenu(R.menu.menu_favorites)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.view_module -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE)
                 R.id.view_comfy -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_ONE)
-                R.id.helpFragment -> findNavController().navigate(R.id.action_favoritesFragment_to_helpFragment)
-                R.id.settingsFragment -> findNavController().navigate(R.id.action_favoritesFragment_to_settingsFragment)
+                R.id.helpFragment -> navController.navigate(R.id.action_favoritesFragment_to_helpFragment)
+                R.id.settingsFragment -> navController.navigate(R.id.action_favoritesFragment_to_settingsFragment)
             }
             true
         }
@@ -78,7 +81,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                     FavoritesAdapter.ViewModel.FavoriteViewModel(
                         favorite = favorite,
                         onClick = {
-                            findNavController().navigate(
+                            navController.navigate(
                                 R.id.action_favoritesFragment_to_gameFragment,
                                 bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
                             )
@@ -86,7 +89,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                     )
                 }
             } else {
-                listOf(FavoritesAdapter.ViewModel.NoResultViewModel())
+                listOf(FavoritesAdapter.ViewModel.NoResultViewModel(
+                    onClick = {
+                        navController.navigate(R.id.action_favoritesFragment_to_searchFragment)
+                    }
+                ))
             }
 
             favoritesAdapter.submitList(viewModels)

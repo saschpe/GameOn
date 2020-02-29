@@ -5,6 +5,8 @@
     <string name="achievements">Achievements</string>
     <string name="account">Account</string>
     <string name="add_to_favorites">Add to favorites</string>
+    <string name="add_your_favorites">Add your favorites</string>
+    <string name="alright_lets_go">Alright, let\s go!</string>
     <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">On</font>]]></string>
     <string name="appearance">Appearance</string>
     <string name="clear_search">Clear search</string>
@@ -41,7 +43,6 @@
     <string name="light">Light</string>
     <string name="list">List</string>
     <string name="night_mode">Night mode</string>
-    <string name="no_favorites_yet">No favorites yet.</string>
     <string name="no_results">No results</string>
     <string name="no_reviews_yet">No reviews yet.</string>
     <string name="notifications">Notifications</string>
@@ -66,6 +67,7 @@
     <string name="search_for_your_game">Search for your game</string>
     <string name="settings">Settings</string>
     <string name="set_price_alert">Set a price alert</string>
+    <string name="start_searching_for_games">Start searching for games and save them to your favorites. Find offers and buy for cheap. Set a price alert to never miss a rebate.</string>
     <string name="system_default">System default</string>
     <string name="terms_of_service">Terms of Service</string>
     <string name="theme">Theme</string>
