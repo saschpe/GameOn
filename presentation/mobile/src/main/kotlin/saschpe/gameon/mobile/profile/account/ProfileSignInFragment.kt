@@ -89,10 +89,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             )
         }
         signInWithGoogle.setOnClickListener {
-            startActivityForResult(
-                googleSignInClient.signInIntent,
-                RESPONSE_CODE_GOOGLE_SIGN_IN
-            )
+            startActivityForResult(googleSignInClient.signInIntent, RESPONSE_CODE_GOOGLE_SIGN_IN)
         }
     }
 
@@ -122,9 +119,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.warn("signInResult:failed code=${e.statusCode}")
                 Snackbar.make(
-                    coordinator_layout,
-                    e.localizedMessage?.toString() ?: "",
-                    Snackbar.LENGTH_LONG
+                    coordinatorLayout, e.localizedMessage?.toString() ?: "", Snackbar.LENGTH_LONG
                 ).show()
             }
         }
@@ -161,9 +156,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
                 } else {
                     Log.debug("error=${it.exception}")
                     Snackbar.make(
-                        coordinator_layout,
-                        it.exception?.message.toString(),
-                        Snackbar.LENGTH_LONG
+                        coordinatorLayout, it.exception?.message.toString(), Snackbar.LENGTH_LONG
                     ).show()
                 }
             }
@@ -172,21 +165,20 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         Log.debug("account id=${account?.id}")
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) {
-                if (it.isSuccessful) {
-                    // Sign in success, addOrUpdate UI with the signed-in userLiveData's information
-                    findNavController().popBackStack()
-                } else {
-                    // If sign in fails, display a message to the userLiveData.
-                    Log.debug("error=${it.exception}")
-                    Snackbar.make(
-                        coordinator_layout,
-                        it.exception?.message.toString(),
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(requireActivity()) {
+            if (it.isSuccessful) {
+                // Sign in success, addOrUpdate UI with the signed-in userLiveData's information
+                findNavController().popBackStack()
+            } else {
+                // If sign in fails, display a message to the userLiveData.
+                Log.debug("error=${it.exception}")
+                Snackbar.make(
+                    coordinatorLayout,
+                    it.exception?.message.toString(),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
+        }
     }
 
     companion object {
