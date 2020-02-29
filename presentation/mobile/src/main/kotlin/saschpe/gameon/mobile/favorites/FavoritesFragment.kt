@@ -44,10 +44,10 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         toolbar.inflateMenu(R.menu.menu_favorites)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.view_module -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE)
+                R.id.help -> navController.navigate(R.id.action_favorites_to_help)
                 R.id.view_comfy -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_ONE)
-                R.id.helpFragment -> navController.navigate(R.id.action_favoritesFragment_to_helpFragment)
-                R.id.settingsFragment -> navController.navigate(R.id.action_favoritesFragment_to_settingsFragment)
+                R.id.view_module -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE)
+                R.id.settings -> navController.navigate(R.id.action_favorites_to_settings)
             }
             true
         }
@@ -82,7 +82,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                         favorite = favorite,
                         onClick = {
                             navController.navigate(
-                                R.id.action_favoritesFragment_to_gameFragment,
+                                R.id.action_favorites_to_game,
                                 bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
                             )
                         }
@@ -91,7 +91,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             } else {
                 listOf(FavoritesAdapter.ViewModel.NoResultViewModel(
                     onClick = {
-                        navController.navigate(R.id.action_favoritesFragment_to_searchFragment)
+                        navController.navigate(R.id.action_favorites_to_search)
                     }
                 ))
             }
