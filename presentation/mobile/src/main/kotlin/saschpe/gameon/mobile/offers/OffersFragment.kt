@@ -77,6 +77,5 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
         firebaseAnalytics.setCurrentScreen(requireActivity(), "Offers", "OffersFragment")
-        requireActivity().appNameTitle(appName)
     }
 }

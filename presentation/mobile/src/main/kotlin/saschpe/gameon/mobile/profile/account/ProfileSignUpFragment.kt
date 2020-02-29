@@ -14,7 +14,7 @@ import androidx.transition.TransitionInflater
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
-import saschpe.gameon.common.app.hideSoftInputFromWindow
+import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.isValidEmail
 import saschpe.gameon.common.isValidPassword
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -72,7 +72,7 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
     }
 
     private fun validateForm(): Boolean {
-        requireActivity().hideSoftInputFromWindow()
+        requireActivity().hideSoftInput()
         var isValidForm = true
         if (!email.text.toString().isValidEmail()) {
             emailLayout.error = getString(R.string.invalid_email_address)
