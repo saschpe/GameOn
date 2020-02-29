@@ -64,6 +64,8 @@ android {
 
     sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 
+    lintOptions.isAbortOnError = false
+
     testOptions {
         animationsDisabled = true
         unitTests.isIncludeAndroidResources = true
