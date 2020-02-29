@@ -27,8 +27,8 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/recycler_spacing"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:itemCount="5"
+        tools:itemCount="1"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/view_favorite_card" />
+        tools:listitem="@layout/view_favorite_no_results" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

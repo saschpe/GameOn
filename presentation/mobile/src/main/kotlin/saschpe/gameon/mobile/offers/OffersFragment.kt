@@ -41,8 +41,8 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
         toolbar.inflateMenu(R.menu.menu_home)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.helpFragment -> findNavController().navigate(R.id.action_offersFragment_to_helpFragment)
-                R.id.settingsFragment -> findNavController().navigate(R.id.action_offersFragment_to_settingsFragment)
+                R.id.help -> findNavController().navigate(R.id.action_offers_to_help)
+                R.id.settings -> findNavController().navigate(R.id.action_offers_to_settings)
             }
             true
         }
@@ -55,7 +55,7 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
         }
 
         searchQuery.setOnClickListener {
-            findNavController().navigate(R.id.action_offersFragment_to_searchFragment)
+            findNavController().navigate(R.id.action_offers_to_search)
         }
 
         viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
@@ -65,7 +65,7 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
                     offer = offer,
                     onClick = {
                         findNavController().navigate(
-                            R.id.action_offersFragment_to_gameFragment,
+                            R.id.action_offers_to_game,
                             bundleOf(GameFragment.ARG_PLAIN to offer.plain)
                         )
                     }

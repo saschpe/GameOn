@@ -30,7 +30,7 @@ class MainPreferenceFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>(getString(R.string.pref_help_and_feedback_key))?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_helpFragment)
+            findNavController().navigate(R.id.action_settings_to_help)
             true
         }
 
