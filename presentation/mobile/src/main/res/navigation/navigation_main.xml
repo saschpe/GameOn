@@ -11,20 +11,20 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_offersFragment_to_gameFragment"
+            android:id="@+id/action_offers_to_game"
             app:destination="@id/gameFragment" />
 
         <action
-            android:id="@+id/action_offersFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_offers_to_settings"
+            app:destination="@id/settings" />
 
         <action
-            android:id="@+id/action_offersFragment_to_searchFragment"
+            android:id="@+id/action_offers_to_search"
             app:destination="@id/searchFragment" />
 
         <action
-            android:id="@+id/action_offersFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
+            android:id="@+id/action_offers_to_help"
+            app:destination="@id/help" />
 
     </fragment>
 
@@ -34,20 +34,20 @@
         tools:layout="@layout/fragment_favorites">
 
         <action
-            android:id="@+id/action_favoritesFragment_to_gameFragment"
+            android:id="@+id/action_favorites_to_game"
             app:destination="@id/gameFragment" />
 
         <action
-            android:id="@+id/action_favoritesFragment_to_searchFragment"
+            android:id="@+id/action_favorites_to_search"
             app:destination="@+id/searchFragment" />
 
         <action
-            android:id="@+id/action_favoritesFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_favorites_to_settings"
+            app:destination="@id/settings" />
 
         <action
-            android:id="@+id/action_favoritesFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
+            android:id="@+id/action_favorites_to_help"
+            app:destination="@id/help" />
 
     </fragment>
 
@@ -63,7 +63,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/helpFragment"
+        android:id="@+id/help"
         android:name="saschpe.gameon.mobile.help.HelpFragment"
         tools:layout="@layout/fragment_help">
 
@@ -78,13 +78,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settings"
         android:name="saschpe.gameon.mobile.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings">
 
         <action
-            android:id="@+id/action_settingsFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
+            android:id="@+id/action_settings_to_help"
+            app:destination="@id/help" />
 
         <deepLink
             android:id="@+id/settingsDeepLink"
@@ -98,7 +98,7 @@
         tools:layout="@layout/fragment_search">
 
         <action
-            android:id="@+id/action_searchFragment_to_gameFragment"
+            android:id="@+id/action_search_to_game"
             app:destination="@id/gameFragment"
             app:popUpTo="@+id/searchFragment" />
 
@@ -110,11 +110,11 @@
         tools:layout="@layout/fragment_account">
 
         <action
-            android:id="@+id/action_accountFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_account_to_settings"
+            app:destination="@id/settings" />
         <action
-            android:id="@+id/action_accountFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
+            android:id="@+id/action_account_to_help"
+            app:destination="@id/help" />
 
     </fragment>
 

@@ -74,7 +74,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { offers ->
             firebaseAnalytics.logEvent(
-                FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS, bundleOf(FirebaseAnalytics.Param.SEARCH_TERM to lastSearch)
+                FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS,
+                bundleOf(FirebaseAnalytics.Param.SEARCH_TERM to lastSearch)
             )
             if (offers.isNotEmpty()) {
                 offerAdapter.submitList(offers.map { offer ->
@@ -82,7 +83,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         offer = offer,
                         onClick = {
                             findNavController().navigate(
-                                R.id.action_searchFragment_to_gameFragment,
+                                R.id.action_search_to_game,
                                 bundleOf(GameFragment.ARG_PLAIN to offer.plain)
                             )
                         }
