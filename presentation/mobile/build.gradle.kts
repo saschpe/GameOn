@@ -58,13 +58,10 @@ android {
     }
 
     kotlinOptions.jvmTarget = "1.8"
-
-    // https://youtrack.jetbrains.com/issue/KT-9770
-    packagingOptions.exclude("**/*.kotlin_*")
+    lintOptions.isAbortOnError = false
+    packagingOptions.exclude("**/*.kotlin_*") // https://youtrack.jetbrains.com/issue/KT-9770
 
     sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
-
-    lintOptions.isAbortOnError = false
 
     testOptions {
         animationsDisabled = true
