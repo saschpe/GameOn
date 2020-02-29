@@ -25,7 +25,5 @@ class UserRepository(
         firebaseAuth.signInWithCredential(credential).await()
     }
 
-    suspend fun signOut() = asResult {
-        firebaseAuth.signOut()
-    }
+    suspend fun signOut() = asResult { firebaseAuth.signOut() }
 }

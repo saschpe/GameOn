@@ -30,6 +30,7 @@ dependencies {
     api(project(":data:remote-firebase")) {
         // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
     }
+    implementation(project(":data:remote-firebase"))
     implementation(project(":data:remote-itad"))
 
     testImplementation("androidx.test:core-ktx:1.2.0")

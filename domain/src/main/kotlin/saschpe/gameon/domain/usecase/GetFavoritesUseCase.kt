@@ -6,11 +6,15 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.local.model.FavoriteEntity
 import saschpe.gameon.data.local.repository.FavoritesLocalRepository
+import saschpe.gameon.data.remote.firebase.repository.FavoritesRemoteRepository
+import saschpe.gameon.data.remote.firebase.repository.UserRepository
 import saschpe.gameon.domain.UseCase
 import saschpe.gameon.domain.mapper.toFavorite
 
 class GetFavoritesUseCase(
-    private val favoritesLocalRepository: FavoritesLocalRepository
+    private val favoritesLocalRepository: FavoritesLocalRepository,
+    private val favoritesRemoteRepository: FavoritesRemoteRepository,
+    private val userRepository: UserRepository
 ) : UseCase<String, List<Favorite>> {
     override suspend fun invoke(vararg arguments: String): Result<List<Favorite>> {
         val result = withContext(Dispatchers.IO) {

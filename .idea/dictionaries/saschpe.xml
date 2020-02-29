@@ -10,12 +10,15 @@
       <w>crashlytics</w>
       <w>customtabs</w>
       <w>diffplug</w>
+      <w>firestore</w>
       <w>gameon</w>
+      <w>itad</w>
       <w>jetbrains</w>
       <w>kapt</w>
       <w>keyline</w>
       <w>kotlinx</w>
       <w>ktor</w>
+      <w>listenablefuture</w>
       <w>livedata</w>
       <w>mockk</w>
       <w>multidex</w>
