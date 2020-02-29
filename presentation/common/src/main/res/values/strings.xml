@@ -17,8 +17,8 @@
     <string name="current_best">Current best</string>
     <string name="coming_soon">Coming soon…</string>
     <string name="connections">Connections</string>
-    <string name="connect_to_steam">Connect Steam</string>
-    <string name="connect_to_itad">Connect IsThereAnyDeal</string>
+    <string name="connect_to_steam">Connect to Steam</string>
+    <string name="connect_to_itad">Connect to IsThereAnyDeal</string>
     <string name="contact">Contact</string>
     <string name="contact_support">Contact support</string>
     <string name="copyright">Copyright</string>
@@ -90,6 +90,7 @@
     <string name="terms_of_service">Terms of Service</string>
     <string name="theme">Theme</string>
     <string name="trading_cards">Trading cards</string>
+    <string name="unable_to_sign_in_with_google_template">Unable to sign in with Google: %1$s</string>
     <string name="version_info">Version info</string>
     <string name="visit_store_page">Visit store page</string>
     <string name="write_a_steam_review">Write a Steam review</string>

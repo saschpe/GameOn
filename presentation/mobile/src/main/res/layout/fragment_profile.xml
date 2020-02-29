@@ -88,6 +88,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
+                    android:layout_marginTop="@dimen/keyline_2"
                     android:layout_marginEnd="@dimen/keyline_4"
                     android:layout_marginBottom="@dimen/keyline_4"
                     android:text="@string/sign_out"
@@ -137,7 +138,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/connectionsText" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/connectWithSteam"
+                    android:id="@+id/connectToSteam"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -150,7 +152,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/connectionsDescription" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/connectWithIsThereAnyDeals"
+                    android:id="@+id/connectToIsThereAnyDeals"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -160,7 +163,7 @@
                     android:text="@string/connect_to_itad"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/connectWithSteam" />
+                    app:layout_constraintTop_toBottomOf="@+id/connectToSteam" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -24,7 +24,6 @@ import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
 import saschpe.log4k.Log
 
 class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
-    // private val accountViewModel: AccountViewModel by activityViewModels()
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var paramEmail: String? = null
     private var paramPassword: String? = null
@@ -49,10 +48,6 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         setupWithNavController(toolbar, findNavController())
-
-        /*accountViewModel.accountLiveData.observe(this, Observer { account ->
-            email.setText(account.email)
-        })*/
 
         email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(emailLayout))
         paramEmail?.let { email.setText(it) }
