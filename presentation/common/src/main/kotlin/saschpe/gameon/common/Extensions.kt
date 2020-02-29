@@ -17,3 +17,10 @@ fun Drawable.tinted(@ColorInt tintColor: Int? = null, tintMode: PorterDuff.Mode 
     }
 
 fun Int.toColorStateList(): ColorStateList = ColorStateList.valueOf(this)
+
+
+private val EMAIL_REGEX =
+    Regex("""[a-zA-Z0-9\+\.\_\%\-\+]{1,256}\@[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}(\.[a-zA-Z0-9][a-zA-Z0-9\-]{0,25})+""")
+
+fun String.isValidEmail() = EMAIL_REGEX.matches(this)
+fun String.isValidPassword() = length > 7

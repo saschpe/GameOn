@@ -38,12 +38,12 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navController = findNavController()
         favoritesAdapter = FavoritesAdapter(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
         setupWithNavController(toolbar, navController)
         toolbar.inflateMenu(R.menu.menu_favorites)
         toolbar.setOnMenuItemClickListener {

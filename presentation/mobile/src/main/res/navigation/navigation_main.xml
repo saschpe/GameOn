@@ -16,7 +16,7 @@
 
         <action
             android:id="@+id/action_offers_to_settings"
-            app:destination="@id/settings" />
+            app:destination="@id/settingsFragment" />
 
         <action
             android:id="@+id/action_offers_to_search"
@@ -24,7 +24,7 @@
 
         <action
             android:id="@+id/action_offers_to_help"
-            app:destination="@id/help" />
+            app:destination="@id/helpFragment" />
 
     </fragment>
 
@@ -43,11 +43,11 @@
 
         <action
             android:id="@+id/action_favorites_to_settings"
-            app:destination="@id/settings" />
+            app:destination="@id/settingsFragment" />
 
         <action
             android:id="@+id/action_favorites_to_help"
-            app:destination="@id/help" />
+            app:destination="@id/helpFragment" />
 
     </fragment>
 
@@ -63,7 +63,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/help"
+        android:id="@+id/helpFragment"
         android:name="saschpe.gameon.mobile.help.HelpFragment"
         tools:layout="@layout/fragment_help">
 
@@ -78,13 +78,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/settings"
+        android:id="@+id/settingsFragment"
         android:name="saschpe.gameon.mobile.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings">
 
         <action
             android:id="@+id/action_settings_to_help"
-            app:destination="@id/help" />
+            app:destination="@id/helpFragment" />
 
         <deepLink
             android:id="@+id/settingsDeepLink"
@@ -105,16 +105,55 @@
     </fragment>
 
     <fragment
-        android:id="@+id/accountFragment"
-        android:name="saschpe.gameon.mobile.account.AccountFragment"
-        tools:layout="@layout/fragment_account">
+        android:id="@+id/profileFragment"
+        android:name="saschpe.gameon.mobile.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile">
 
         <action
-            android:id="@+id/action_account_to_settings"
-            app:destination="@id/settings" />
+            android:id="@+id/action_profile_to_settings"
+            app:destination="@id/settingsFragment" />
+
         <action
-            android:id="@+id/action_account_to_help"
-            app:destination="@id/help" />
+            android:id="@+id/action_profile_to_help"
+            app:destination="@id/helpFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_signIn"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="saschpe.gameon.mobile.profile.account.ProfileSignInFragment"
+        tools:layout="@layout/fragment_profile_sign_in">
+
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="saschpe.gameon.mobile.profile.account.ProfileSignUpFragment"
+        tools:layout="@layout/fragment_profile_sign_up">
+
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+        <argument
+            android:name="password"
+            app:argType="string" />
 
     </fragment>
 
