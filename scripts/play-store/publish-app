@@ -37,14 +37,14 @@ if [[ ${git_head_commit} == ${git_last_merge_commit} ]] ; then
             approve "Release commit found in branch at ${commit}, publishing app..."
             # Checkout release commit and build exactly that...
             git checkout ${commit}
-            ./gradlew publishReleaseBundle --artifact-dir mobile/build/outputs/bundle/release
+            ./gradlew publish
             git checkout ${git_head_commit}
             exit 0
         fi
     done
 elif is_release_commit ${git_head_commit} ; then
     approve "Release commit found at HEAD (${git_head_commit}), publishing app..."
-    ./gradlew publishReleaseBundle --artifact-dir mobile/build/outputs/bundle/release
+    ./gradlew publish
     exit 0
 fi
 
