@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.3.61"
+    kotlin("plugin.serialization") version "1.3.70"
 }
 
 repositories {
@@ -8,9 +8,9 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib", "1.3.61"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 
-    testImplementation(kotlin("test-junit", "1.3.61"))
+    testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
 }
