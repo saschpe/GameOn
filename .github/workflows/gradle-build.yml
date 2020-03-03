@@ -12,5 +12,18 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup Android problem matchers
+        uses: jonasb/android-problem-matchers-action@v1
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Publish to Play Store
+        if: github.ref == 'master'
+        run: |
+          ./scripts/secret decrypt --password ${SECRETS_KEY} --signing
+          ./scripts/play-store/publish-app

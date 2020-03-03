@@ -58,7 +58,11 @@ android {
     }
 
     kotlinOptions.jvmTarget = "1.8"
-    lintOptions.isAbortOnError = false
+    lintOptions {
+        isAbortOnError = false
+        textReport = project.hasProperty("isCI")
+        textOutput("stdout")
+    }
     packagingOptions.exclude("**/*.kotlin_*") // https://youtrack.jetbrains.com/issue/KT-9770
 
     sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
