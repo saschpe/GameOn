@@ -14,6 +14,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="App.DayNight.Splash">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
     <!--Base custom theme which will be shared between both light and dark theme variants-->
     <style name="Base.App" parent="Base.MaterialThemeBuilder">
         <!--Material color attributes -->

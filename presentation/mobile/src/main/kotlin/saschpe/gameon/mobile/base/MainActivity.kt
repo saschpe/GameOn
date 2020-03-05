@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.App_DayNight)
         super.onCreate(savedInstanceState)
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController
