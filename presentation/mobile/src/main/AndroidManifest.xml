@@ -17,6 +17,7 @@
         <activity
             android:name=".base.MainActivity"
             android:label="@string/app_name"
+            android:theme="@style/App.DayNight.Splash"
             android:windowSoftInputMode="adjustPan">
 
             <nav-graph android:value="@navigation/navigation_main" />

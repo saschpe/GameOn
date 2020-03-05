@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.toolbar
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -42,8 +43,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             updateSignInState()
         }
 
-        connectToSteam.setOnClickListener {  }
-        connectToIsThereAnyDeals.setOnClickListener {  }
+        connectToSteam.setOnClickListener {
+            Snackbar.make(
+                coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG
+            ).show()
+        }
+        connectToIsThereAnyDeals.setOnClickListener {
+            Snackbar.make(
+                coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun onResume() {
