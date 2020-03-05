@@ -74,7 +74,7 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.3.61"))
+    implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
     implementation("androidx.browser:browser:1.2.0")
