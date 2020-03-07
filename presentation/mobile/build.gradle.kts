@@ -89,7 +89,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.2.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.2.1")
     implementation("androidx.preference:preference-ktx:1.1.0")
-    implementation("androidx.work:work-runtime-ktx:2.3.2")
+    implementation("androidx.work:work-runtime-ktx:2.3.3")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
@@ -101,7 +101,7 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
     implementation("io.coil-kt:coil:0.9.5")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4")
     implementation("saschpe.android:customtabs:3.0.2")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
@@ -119,7 +119,7 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-intents:3.2.0")
     testImplementation("androidx.test.espresso:espresso-web:3.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    testImplementation("androidx.work:work-testing:2.3.2")
+    testImplementation("androidx.work:work-testing:2.3.3")
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
