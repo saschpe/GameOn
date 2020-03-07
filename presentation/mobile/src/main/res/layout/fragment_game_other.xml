@@ -30,7 +30,7 @@
                 android:layout_marginEnd="@dimen/keyline_4"
                 android:text="@string/reviews"
                 android:textAppearance="?textAppearanceHeadline6"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,31 +42,24 @@
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/keyline_2"
                 android:paddingBottom="@dimen/keyline_2"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reviewsText"
                 tools:itemCount="2"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/view_review_list_item" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
             <View
                 android:id="@+id/perksDivider"
-                android:layout_width="@dimen/divider_width"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/divider_width"
+                android:layout_marginStart="@dimen/keyline_2"
                 android:layout_marginTop="@dimen/keyline_2"
-                android:layout_marginBottom="@dimen/keyline_2"
-                android:background="?attr/dividerVertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guideline"
-                app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:background="?attr/dividerHorizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/perksText"
@@ -79,8 +72,8 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 app:layout_constraintBottom_toTopOf="@+id/perksChipGroup"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/perksDivider" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/perksChipGroup"
@@ -89,9 +82,8 @@
                 android:layout_marginStart="@dimen/keyline_4"
                 android:layout_marginTop="@dimen/keyline_2"
                 android:layout_marginEnd="@dimen/keyline_4"
-                android:layout_marginBottom="@dimen/keyline_4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/perksText">
 
                 <com.google.android.material.chip.Chip
@@ -145,6 +137,46 @@
                     android:text="@string/is_package" />
 
             </com.google.android.material.chip.ChipGroup>
+
+            <View
+                android:id="@+id/miscDivider"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/divider_width"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_4"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:background="?attr/dividerHorizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/perksChipGroup" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/miscText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_4"
+                android:layout_marginTop="@dimen/keyline_4"
+                android:layout_marginEnd="@dimen/keyline_4"
+                android:text="@string/miscellaneous"
+                android:textAppearance="?textAppearanceHeadline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/miscDivider" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/checkOnProtonDB"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_4"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_4"
+                android:layout_marginBottom="@dimen/keyline_4"
+                android:text="@string/check_on_protondb"
+                app:icon="@drawable/ic_react_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/miscText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
