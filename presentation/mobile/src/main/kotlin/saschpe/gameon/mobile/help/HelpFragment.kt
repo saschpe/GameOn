@@ -16,7 +16,8 @@ import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.customtabs.CustomTabs
+import saschpe.gameon.mobile.base.customtabs.openPrivacyPolicy
+import saschpe.gameon.mobile.base.customtabs.openTermsOfService
 import saschpe.gameon.mobile.help.about.HelpAboutFragment
 import saschpe.gameon.mobile.help.contact.HelpContactFragment
 
@@ -28,8 +29,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
             val page = getString("page") ?: ""
             if (page.isNotBlank()) {
                 when (page) {
-                    "privacy" -> CustomTabs.openPrivacyPolicy(requireContext())
-                    "tos" -> CustomTabs.openTermsOfService(requireContext())
+                    "privacy" -> openPrivacyPolicy()
+                    "tos" -> openTermsOfService()
                 }
             }
         }
@@ -47,8 +48,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
                     "Sascha Peilicke",
                     R.mipmap.ic_launcher
                 ).show(childFragmentManager, "version_info")
-                R.id.privacyPolicy -> CustomTabs.openPrivacyPolicy(requireContext())
-                R.id.termsOfService -> CustomTabs.openTermsOfService(requireContext())
+                R.id.privacyPolicy -> openPrivacyPolicy()
+                R.id.termsOfService -> openTermsOfService()
                 R.id.openSourceLicenses -> startActivity(
                     Intent(requireActivity(), OssLicensesMenuActivity::class.java)
                 )

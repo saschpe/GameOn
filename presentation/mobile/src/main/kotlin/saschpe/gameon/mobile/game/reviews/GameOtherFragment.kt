@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_game_misc.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.customtabs.openUrl
 
 class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
