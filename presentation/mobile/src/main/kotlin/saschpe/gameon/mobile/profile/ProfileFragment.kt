@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile.*
+import saschpe.gameon.data.core.Result
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+    private val viewModel: ProfileViewModel by viewModels()
     private lateinit var navController: NavController
-    private var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,10 +40,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 FragmentNavigatorExtras(signIn to getString(R.string.shared_element_signIn))
             )
         }
-        signOut.setOnClickListener {
-            firebaseAuth.signOut()
-            updateSignInState()
-        }
+        signOut.setOnClickListener { viewModel.signOut() }
 
         connectToSteam.setOnClickListener {
             Snackbar.make(
@@ -52,21 +52,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG
             ).show()
         }
+
+        viewModel.userLiveData.observe(viewLifecycleOwner, Observer { result ->
+            if (result is Result.Success<FirebaseUser> && !result.data.isAnonymous) {
+                signIn.isVisible = false
+                signOut.isVisible = true
+            } else {
+                signIn.isVisible = true
+                signOut.isVisible = false
+            }
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        updateSignInState()
+        viewModel.getUser()
         firebaseAnalytics.setCurrentScreen(requireActivity(), "Profile", "ProfileFragment")
-    }
-
-    private fun updateSignInState() {
-        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous != true) {
-            signIn.isVisible = false
-            signOut.isVisible = true
-        } else {
-            signIn.isVisible = true
-            signOut.isVisible = false
-        }
     }
 }

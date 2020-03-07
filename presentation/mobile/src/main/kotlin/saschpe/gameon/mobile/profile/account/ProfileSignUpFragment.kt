@@ -8,23 +8,25 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.transition.TransitionInflater
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
 import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.isValidEmail
 import saschpe.gameon.common.isValidPassword
+import saschpe.gameon.data.core.Result
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Application
 import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
-import saschpe.log4k.Log
 
 class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
-    private var firebaseAuth = FirebaseAuth.getInstance()
+    private val viewModel: ProfileSignUpViewModel by viewModels()
     private var paramEmail: String? = null
     private var paramPassword: String? = null
 
@@ -55,13 +57,26 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         paramPassword?.let { password.setText(it) }
 
         signUp.setOnClickListener {
-            signUp(email.text.toString(), password.text.toString())
+            if (validateForm()) {
+                viewModel.signUpWithEmail(this.email.text.toString(), password.text.toString())
+            }
         }
         signUpTerms.text = HtmlCompat.fromHtml(
             getString(R.string.sign_up_terms_notice_template, Application.INTENT_SCHEME),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
         signUpTerms.movementMethod = LinkMovementMethod()
+
+        viewModel.signUpLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
+                is Result.Error -> Snackbar.make(
+                    coordinatorLayout,
+                    getString(R.string.unable_to_sign_up_template, result.throwable.message),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onResume() {
@@ -87,23 +102,6 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
             passwordLayout.isErrorEnabled = false
         }
         return isValidForm
-    }
-
-    private fun signUp(email: String, password: String) {
-        Log.debug("email=$email")
-        if (!validateForm()) {
-            return
-        }
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                findNavController().popBackStack()
-            } else {
-                Log.debug("exception=${task.exception}")
-                Snackbar.make(
-                    coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
-                ).show()
-            }
-        }
     }
 
     companion object {
