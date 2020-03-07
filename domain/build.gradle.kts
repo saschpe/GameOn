@@ -23,10 +23,14 @@ android {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
-    // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
-    api(project(":data:core"))
+    api(project(":data:core")) {
+        // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
+    }
     implementation(project(":data:local"))
-    implementation(project(":data:remote"))
+    api(project(":data:remote-firebase")) {
+        // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
+    }
+    implementation(project(":data:remote-itad"))
 
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")

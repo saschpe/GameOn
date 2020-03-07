@@ -1,8 +1,11 @@
 rootProject.name = "GameOn"
 
-include(":data:core")
-include(":data:local")
-include(":data:remote")
-include(":domain")
-include(":presentation:common")
-include(":presentation:mobile")
+include(
+    ":data:core",
+    ":data:local",
+    ":data:remote-firebase",
+    ":data:remote-itad",
+    ":domain",
+    ":presentation:common",
+    ":presentation:mobile"
+)
