@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_game_misc.*
+import kotlinx.android.synthetic.main.fragment_game_other.*
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.customtabs.openUrl
 
-class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
+class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
     private lateinit var argPlain: String
     private val viewModel: GameOtherViewModel by viewModels()
@@ -57,6 +58,10 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
                 perksDivider.visibility = View.GONE
                 perksText.visibility = View.GONE
             }
+
+            checkOnProtonDB.setOnClickListener {
+                openUrl("$PROTON_DB_SEARCH_URL${gameInfo.title}")
+            }
         })
     }
 
@@ -67,5 +72,6 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_misc) {
 
     companion object {
         const val ARG_PLAIN = "plain"
+        private const val PROTON_DB_SEARCH_URL = "https://www.protondb.com/search?q="
     }
 }

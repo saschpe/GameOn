@@ -11,6 +11,7 @@
     <string name="app_name_template"><![CDATA[<font color="%1$d">Game</font>]]><![CDATA[<font color="%2$d">On</font>]]></string>
     <string name="appearance">Appearance</string>
     <string name="clear_search">Clear search</string>
+    <string name="check_on_protondb">Check on ProtonDB</string>
     <string name="choose_theme">Choose theme</string>
     <string name="colored_number_template"><![CDATA[<font color="%2$d">%1$d</font>]]></string>
     <string name="cover_image">Cover image</string>
@@ -50,6 +51,7 @@
     <string name="legal">Legal</string>
     <string name="light">Light</string>
     <string name="list">List</string>
+    <string name="miscellaneous">Miscellaneous</string>
     <string name="night_mode">Night mode</string>
     <string name="no_account_yet">No account yet? Create one</string>
     <string name="no_results">No results</string>
