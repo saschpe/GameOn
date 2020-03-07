@@ -13,7 +13,7 @@ import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
-import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
+import saschpe.gameon.mobile.base.customtabs.openUrl
 
 class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
     private lateinit var pricesAdapter: GamePricesAdapter
@@ -55,7 +55,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
                                 Analytics.Param.SHOP_ITEM_URL to it.url
                             )
                         )
-                        openUrl(requireContext(), it.url)
+                        openUrl(it.url)
                     }
                 )
             })

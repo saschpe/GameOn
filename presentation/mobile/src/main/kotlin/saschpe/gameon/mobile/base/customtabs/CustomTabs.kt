@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.Fragment
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
 import saschpe.gameon.common.Module.colors
@@ -44,3 +45,7 @@ object CustomTabs {
         CustomTabsHelper.openCustomTab(context, customTabsIntent, Uri.parse(url), WebViewFallback())
     }
 }
+
+fun Fragment.openUrl(url: String) = CustomTabs.openUrl(requireContext(), url)
+fun Fragment.openPrivacyPolicy() = CustomTabs.openPrivacyPolicy(requireContext())
+fun Fragment.openTermsOfService() = CustomTabs.openTermsOfService(requireContext())
