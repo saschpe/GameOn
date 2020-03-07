@@ -9,8 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_home.*
-import saschpe.gameon.common.app.appNameTitle
+import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -18,7 +17,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.game.GameFragment
 
-class OffersFragment : Fragment(R.layout.fragment_home) {
+class OffersFragment : Fragment(R.layout.fragment_offers) {
     private val viewModel: OffersViewModel by viewModels()
     private lateinit var offerAdapter: OfferAdapter
     private val gridLayoutSpanCount
@@ -38,9 +37,10 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupWithNavController(toolbar, findNavController())
-        toolbar.inflateMenu(R.menu.menu_home)
+        toolbar.inflateMenu(R.menu.menu_offers)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.search -> findNavController().navigate(R.id.action_offers_to_search)
                 R.id.help -> findNavController().navigate(R.id.action_offers_to_help)
                 R.id.settings -> findNavController().navigate(R.id.action_offers_to_settings)
             }
@@ -52,10 +52,6 @@ class OffersFragment : Fragment(R.layout.fragment_home) {
             layoutManager = GridLayoutManager(context, gridLayoutSpanCount)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
             setHasFixedSize(true)
-        }
-
-        searchQuery.setOnClickListener {
-            findNavController().navigate(R.id.action_offers_to_search)
         }
 
         viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
