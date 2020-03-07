@@ -8,29 +8,30 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.transition.TransitionInflater
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
 import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.isValidEmail
 import saschpe.gameon.common.isValidPassword
+import saschpe.gameon.data.core.Result
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
-import saschpe.log4k.Log
 
 class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
-    private var firebaseAuth = FirebaseAuth.getInstance()
+    private val viewModel: ProfileSignInViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -52,7 +53,9 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
         password.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(passwordLayout))
 
         signInWithEmail.setOnClickListener {
-            signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+            if (validateEmailAndPasswordForm()) {
+                viewModel.signInWithEmail(email.text.toString(), password.text.toString())
+            }
         }
         signUp.setOnClickListener {
             findNavController().navigate(
@@ -75,14 +78,27 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
             startActivityForResult(googleSignInClient.signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
         }
+
+        viewModel.userLiveData.observe(viewLifecycleOwner, Observer { result ->
+            if (result is Result.Success<FirebaseUser> && !result.data.isAnonymous) {
+                findNavController().popBackStack() // Already logged in
+            }
+        })
+        viewModel.signInLiveData.observe(viewLifecycleOwner, Observer
+        { result ->
+            when (result) {
+                is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
+                is Result.Error -> Snackbar.make(
+                    coordinatorLayout,
+                    getString(R.string.unable_to_sign_in_template, result.throwable.message),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        // Check if userLiveData is signed in (non-null)
-        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous != true) {
-            findNavController().popBackStack() // Already logged in
-        }
         firebaseAnalytics.setCurrentScreen(
             requireActivity(), "Profile Sign-In", "ProfileSignInFragment"
         )
@@ -93,9 +109,9 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
         if (requestCode == REQUEST_CODE_GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                firebaseAuthWithGoogle(task.getResult(ApiException::class.java))
+                val account = task.getResult(ApiException::class.java)
+                account?.idToken?.let { viewModel.signInWithGoogle(it) }
             } catch (e: ApiException) {
-                Log.warn("failed $e")
                 Snackbar.make(
                     coordinatorLayout,
                     getString(R.string.unable_to_sign_in_with_google_template, e.message),
@@ -121,40 +137,6 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             passwordLayout.isErrorEnabled = false
         }
         return isValidForm
-    }
-
-    private fun signInWithEmailAndPassword(email: String, password: String) {
-        Log.debug("email=$email")
-        if (!validateEmailAndPasswordForm()) {
-            return
-        }
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    findNavController().popBackStack()
-                } else {
-                    Log.debug("error=${task.exception}")
-                    Snackbar.make(
-                        coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            }
-    }
-
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-        Log.debug("account id=${account?.id}")
-        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    findNavController().popBackStack()
-                } else {
-                    Log.debug("error=${task.exception}")
-                    Snackbar.make(
-                        coordinatorLayout, task.exception?.message.toString(), Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            }
     }
 
     companion object {
