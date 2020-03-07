@@ -1,8 +1,9 @@
 # Custom ignore rules, update with:
-# { cat .gitignore-custom ; gibo dump Android Gradle JetBrains Kotlin macOS Node Vim Xcode } > .gitignore
+# { gibo dump Android Gradle JetBrains Kotlin macOS Node Vim Xcode ; cat .gitignore-custom } > .gitignore
 .idea/compiler.xml
 .idea/encodings.xml
 .idea/misc.xml
 .idea/modules.xml
+!.idea/dictionaries/saschpe.xml
 buildSrc/src/main/kotlin/Secrets.kt
 config/*.json
