@@ -107,10 +107,6 @@ dependencies {
     implementation("saschpe.android:versioninfo:2.1.2")
     implementation("saschpe.log4k:log4k:0.1.6")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
-    constraints {
-        implementation("androidx.test:core:1.2.0")
-        implementation("androidx.test:monitor:1.2.0")
-    }
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.2.0")
