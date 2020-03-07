@@ -1,6 +1,7 @@
 package saschpe.gameon.domain
 
 import saschpe.gameon.data.local.Module.favoritesLocalRepository
+import saschpe.gameon.data.remote.firebase.Module.userRepository
 import saschpe.gameon.data.remote.itad.Module.dealsRemoteRepository
 import saschpe.gameon.data.remote.itad.Module.gameRemoteRepository
 import saschpe.gameon.data.remote.itad.Module.searchRemoteRepository
@@ -16,7 +17,12 @@ object Module {
     val getPriceAlertsUseCase =
         GetPriceAlertsUseCase(favoritesLocalRepository, gameRemoteRepository)
     val getFavoriteUseCase = GetFavoriteUseCase(favoritesLocalRepository)
-    val updateFavoritesUseCase = UpdateFavoritesUseCase(favoritesLocalRepository)
+    val getUserUseCase = GetUserUseCase(userRepository)
     val removeFavoritesUseCase = RemoveFavoritesUseCase(favoritesLocalRepository)
     val searchUseCase = SearchUseCase(searchRemoteRepository)
+    val signInWithEmailUseCase = SignInWithEmailUseCase(userRepository)
+    val signInWithGoogleUseCase = SignInWithGoogleUseCase(userRepository)
+    val signOutUseCase = SignOutUseCase(userRepository)
+    val signUpWithEmailUseCase = SignUpWithEmailUseCase(userRepository)
+    val updateFavoritesUseCase = UpdateFavoritesUseCase(favoritesLocalRepository)
 }
