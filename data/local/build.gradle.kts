@@ -41,7 +41,7 @@ dependencies {
     implementation(project(":data:core"))
     implementation("androidx.room:room-runtime:2.2.4")
     implementation("androidx.room:room-ktx:2.2.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
 
     testImplementation("androidx.room:room-testing:2.2.4")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
