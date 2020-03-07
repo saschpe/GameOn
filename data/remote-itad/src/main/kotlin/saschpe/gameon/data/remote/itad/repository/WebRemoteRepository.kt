@@ -1,11 +1,11 @@
-package saschpe.gameon.data.remote.repository
+package saschpe.gameon.data.remote.itad.repository
 
 import io.ktor.client.request.parameter
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.Currency
 import saschpe.gameon.data.core.model.Store
-import saschpe.gameon.data.remote.Api
+import saschpe.gameon.data.remote.itad.Api
 
 class WebRemoteRepository(
     private val api: Api

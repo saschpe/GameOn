@@ -1,4 +1,4 @@
-package saschpe.gameon.data.remote.model
+package saschpe.gameon.data.remote.itad.model
 
 import kotlinx.serialization.Serializable
 

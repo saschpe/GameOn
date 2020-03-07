@@ -1,4 +1,4 @@
-package saschpe.gameon.data.remote.repository
+package saschpe.gameon.data.remote.itad.repository
 
 import io.ktor.client.engine.mock.MockEngineConfig
 import io.ktor.client.engine.mock.respond
@@ -7,7 +7,7 @@ import io.mockk.every
 import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
 import saschpe.gameon.data.core.Result
-import saschpe.gameon.data.remote.Api
+import saschpe.gameon.data.remote.itad.Api
 import testing.Resources.getResourceString
 import testing.headersContentTypeJson
 import testing.mockHttpClient
@@ -32,7 +32,12 @@ private fun MockEngineConfig.searchApiHandler() = addHandler {
 }
 
 class SearchRemoteRepositoryTest {
-    private val api = spyk(Api("GameOnTest", "123"))
+    private val api = spyk(
+        Api(
+            "GameOnTest",
+            "123"
+        )
+    )
     private val repository = SearchRemoteRepository(api)
 
     init {

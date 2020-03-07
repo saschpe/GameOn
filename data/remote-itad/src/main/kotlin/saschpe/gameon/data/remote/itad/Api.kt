@@ -1,4 +1,4 @@
-package saschpe.gameon.data.remote
+package saschpe.gameon.data.remote.itad
 
 import io.ktor.client.HttpClient
 import io.ktor.client.features.UserAgent
@@ -28,7 +28,7 @@ class Api(
         install(UserAgent) { agent = userAgent }
     }
 
-    fun fullUrl(path: String) = "${API_URL}${API_BASE_PATH}$path"
+    fun fullUrl(path: String) = "$API_URL$API_BASE_PATH$path"
 
     suspend inline fun <reified T> get(
         path: String,

@@ -1,9 +1,9 @@
 package saschpe.gameon.domain
 
 import saschpe.gameon.data.local.Module.favoritesLocalRepository
-import saschpe.gameon.data.remote.Module.dealsRemoteRepository
-import saschpe.gameon.data.remote.Module.gameRemoteRepository
-import saschpe.gameon.data.remote.Module.searchRemoteRepository
+import saschpe.gameon.data.remote.itad.Module.dealsRemoteRepository
+import saschpe.gameon.data.remote.itad.Module.gameRemoteRepository
+import saschpe.gameon.data.remote.itad.Module.searchRemoteRepository
 import saschpe.gameon.domain.usecase.*
 
 object Module {

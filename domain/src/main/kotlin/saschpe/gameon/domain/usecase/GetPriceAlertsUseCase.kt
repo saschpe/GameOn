@@ -7,7 +7,7 @@ import saschpe.gameon.data.core.model.FavoritePriceAlerts
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.data.local.model.FavoriteEntity
 import saschpe.gameon.data.local.repository.FavoritesLocalRepository
-import saschpe.gameon.data.remote.repository.GameRemoteRepository
+import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 import saschpe.gameon.domain.mapper.PRICE_CONVERSION_FACTOR
 

@@ -1,56 +1,51 @@
-package saschpe.gameon.data.remote.repository
+package saschpe.gameon.data.remote.itad.repository
 
 import io.ktor.client.request.parameter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.Offer
-import saschpe.gameon.data.remote.Api
-import saschpe.gameon.data.remote.model.Meta
+import saschpe.gameon.data.remote.itad.Api
+import saschpe.gameon.data.remote.itad.model.Meta
 
-class DealsRemoteRepository(
+class SearchRemoteRepository(
     private val api: Api
 ) {
-    suspend fun list(
+    /**
+     * Find games
+     *
+     * @see <a href="https://itad.docs.apiary.io/#reference/search/search/find-games">API documentation</a>
+     */
+    suspend fun search(
+        query: String,
         region: String = "eu1",
         country: String = "de",
         shops: List<String> = DEFAULT_STORES,
-        limit: Int = 500,
-        offset: Int = 0,
-        sort: String = "price:asc"
+        limit: Int = 150,
+        offset: Int = 0
     ) = asResult {
-        api.get<DealResponse>("deals/list") {
+        api.get<SearchResponse>("search/search") {
+            parameter("q", query)
             parameter("offset", offset)
             parameter("limit", limit)
             parameter("region", region)
             parameter("country", country)
             parameter("shops", shops.joinToString(separator = ","))
-            parameter("sort", sort)
         }
     }
 
     @Serializable
-    data class DealResponse(
+    data class SearchResponse(
         @SerialName(".meta") val meta: Meta,
         val data: Data
     ) {
         @Serializable
         data class Data(
-            val count: Int,
             @SerialName("list") val offers: List<Offer>
         )
     }
 
     companion object {
-        val DEFAULT_STORES = listOf(
-            "steam",
-            "gamersgate",
-            "gamesplanet",
-            "greenmangaming",
-            "gog",
-            "dotemu",
-            "amazonus",
-            "nuuvem"
-        )
+        val DEFAULT_STORES = listOf("steam")
     }
 }
