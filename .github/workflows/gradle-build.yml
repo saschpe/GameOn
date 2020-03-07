@@ -24,6 +24,8 @@ jobs:
         run: ./gradlew build
       - name: Publish to Play Store
         if: contains(github.ref, 'master')
+        env:
+          SECRETS_KEY: ${{ secrets.SECRETS_KEY }}
         run: |
           ./scripts/secret decrypt --password ${SECRETS_KEY} --signing
           ./scripts/play-store/publish-app
