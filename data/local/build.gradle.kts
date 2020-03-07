@@ -27,11 +27,6 @@ android {
         it.java.srcDir("src/${it.name}/kotlin")
         it.assets.srcDir("src/${it.name}/schemas")
     }
-
-    testOptions {
-        animationsDisabled = true
-        unitTests.isIncludeAndroidResources = true
-    }
 }
 
 dependencies {
