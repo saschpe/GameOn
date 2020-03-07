@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.app.showSoftInput
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
@@ -108,5 +109,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onResume()
         firebaseAnalytics.setCurrentScreen(requireActivity(), "Search", "SearchFragment")
         requireActivity().showSoftInput(searchQuery)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().hideSoftInput()
     }
 }

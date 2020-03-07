@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/offersFragment"
         android:name="saschpe.gameon.mobile.offers.OffersFragment"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_offers">
 
         <action
             android:id="@+id/action_offers_to_game"

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_home.toolbar
 import kotlinx.android.synthetic.main.fragment_profile.*
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
@@ -23,7 +22,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
         setupWithNavController(toolbar, navController)
-        toolbar.inflateMenu(R.menu.menu_home)
+        toolbar.inflateMenu(R.menu.menu_profile)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.help -> navController.navigate(R.id.action_profile_to_help)

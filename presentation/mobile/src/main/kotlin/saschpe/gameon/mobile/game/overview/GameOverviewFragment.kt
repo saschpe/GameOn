@@ -21,7 +21,7 @@ import saschpe.gameon.common.Module.colors
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
-import saschpe.gameon.mobile.base.customtabs.CustomTabs.openUrl
+import saschpe.gameon.mobile.base.customtabs.openUrl
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     private lateinit var argPlain: String
@@ -93,7 +93,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     currentBest.text =
                         HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                    storeButton.setOnClickListener { openUrl(requireContext(), url) }
+                    storeButton.setOnClickListener { openUrl(url) }
                 }
             } else {
                 currentBest.visibility = View.GONE
@@ -122,7 +122,8 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     favoriteButton.text = getString(R.string.remove_from_favorites)
                     favoriteButton.setOnClickListener {
                         firebaseAnalytics.logEvent(
-                            Analytics.Event.REMOVE_FROM_WISHLIST, bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
+                            Analytics.Event.REMOVE_FROM_WISHLIST,
+                            bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
                         )
                         viewModel.removeFavorite(favorite.plain)
                     }
@@ -152,7 +153,9 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Overview", "GameOverviewFragment")
+        firebaseAnalytics.setCurrentScreen(
+            requireActivity(), "Game Overview", "GameOverviewFragment"
+        )
     }
 
     private fun updatePriceAlertStartIcon() {

@@ -50,7 +50,7 @@
                     android:layout_marginEnd="@dimen/keyline_4"
                     android:text="@string/account"
                     android:textAppearance="?textAppearanceHeadline6"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                     android:layout_marginBottom="@dimen/keyline_4"
                     android:text="@string/account_description"
                     android:textAppearance="?textAppearanceCaption"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
 
@@ -78,7 +78,7 @@
                     android:layout_marginBottom="@dimen/keyline_4"
                     android:text="@string/sign_in"
                     android:transitionName="@string/shared_element_signIn"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/accountDescription" />
 
@@ -93,22 +93,29 @@
                     android:layout_marginBottom="@dimen/keyline_4"
                     android:text="@string/sign_out"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/signIn"
                     tools:visibility="visible" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
                 <View
-                    android:id="@+id/connectionsDivider"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/divider_width"
-                    android:layout_marginStart="@dimen/keyline_2"
-                    android:layout_marginTop="@dimen/keyline_4"
-                    android:layout_marginEnd="@dimen/keyline_2"
-                    android:background="?attr/dividerHorizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signOut" />
+                    android:id="@+id/divider"
+                    android:layout_width="@dimen/divider_width"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/keyline_2"
+                    android:layout_marginBottom="@dimen/keyline_2"
+                    android:background="?attr/dividerVertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/connectionsText"
@@ -120,8 +127,8 @@
                     android:text="@string/connections"
                     android:textAppearance="?textAppearanceHeadline6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/connectionsDivider" />
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/connectionsDescription"
@@ -134,7 +141,7 @@
                     android:text="@string/account_description"
                     android:textAppearance="?textAppearanceCaption"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/connectionsText" />
 
                 <com.google.android.material.button.MaterialButton
@@ -149,7 +156,7 @@
                     android:text="@string/connect_to_steam"
                     app:icon="@drawable/ic_steam_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/connectionsDescription" />
 
                 <com.google.android.material.button.MaterialButton
@@ -164,7 +171,7 @@
                     android:text="@string/connect_to_itad"
                     app:icon="@drawable/ic_rocket_outline_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/connectToSteam" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
