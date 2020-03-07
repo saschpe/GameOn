@@ -1,4 +1,4 @@
-package saschpe.gameon.data.remote.repository
+package saschpe.gameon.data.remote.itad.repository
 
 import io.ktor.client.request.parameter
 import kotlinx.serialization.SerialName
@@ -7,8 +7,8 @@ import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.data.core.model.GamePrice
-import saschpe.gameon.data.remote.Api
-import saschpe.gameon.data.remote.model.Meta
+import saschpe.gameon.data.remote.itad.Api
+import saschpe.gameon.data.remote.itad.model.Meta
 
 class GameRemoteRepository(
     private val api: Api

@@ -26,7 +26,7 @@ dependencies {
     // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
     api(project(":data:core"))
     implementation(project(":data:local"))
-    implementation(project(":data:remote"))
+    implementation(project(":data:remote-itad"))
 
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")

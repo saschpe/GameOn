@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
-import saschpe.gameon.data.remote.repository.GameRemoteRepository
+import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class GetGameInfoUseCase(
