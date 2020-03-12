@@ -11,12 +11,14 @@
       <w>keyline</w>
       <w>kotlinx</w>
       <w>ktor</w>
+      <w>livedata</w>
       <w>mockk</w>
       <w>multidex</w>
       <w>peilicke</w>
       <w>protondb</w>
       <w>saschpe</w>
       <w>versioninfo</w>
+      <w>viewmodel</w>
       <w>workmanager</w>
     </words>
   </dictionary>
