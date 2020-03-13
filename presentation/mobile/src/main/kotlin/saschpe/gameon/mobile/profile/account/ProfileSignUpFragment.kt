@@ -16,6 +16,8 @@ import androidx.transition.TransitionInflater
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
+import saschpe.gameon.common.app.disableScreenshots
+import saschpe.gameon.common.app.enableScreenshots
 import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.isValidEmail
 import saschpe.gameon.common.isValidPassword
@@ -79,11 +81,21 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
+        disableScreenshots()
+    }
+
     override fun onResume() {
         super.onResume()
         firebaseAnalytics.setCurrentScreen(
             requireActivity(), "Profile Sign-Up", "ProfileSignUpFragment"
         )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        enableScreenshots()
     }
 
     private fun validateForm(): Boolean {

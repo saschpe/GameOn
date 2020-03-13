@@ -22,6 +22,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
+import saschpe.gameon.common.app.disableScreenshots
+import saschpe.gameon.common.app.enableScreenshots
 import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.isValidEmail
 import saschpe.gameon.common.isValidPassword
@@ -97,11 +99,21 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
+        disableScreenshots()
+    }
+
     override fun onResume() {
         super.onResume()
         firebaseAnalytics.setCurrentScreen(
             requireActivity(), "Profile Sign-In", "ProfileSignInFragment"
         )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        enableScreenshots()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
