@@ -26,8 +26,8 @@ dependencies {
     api("com.google.firebase:firebase-auth:19.2.0") {
         // TODO: Introduce domain models and map accordingly
     }
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.5")
     implementation("saschpe.log4k:log4k:0.1.6")
 
     testImplementation(kotlin("test-junit"))
