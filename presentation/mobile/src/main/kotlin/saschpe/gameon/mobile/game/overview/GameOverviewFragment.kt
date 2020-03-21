@@ -115,12 +115,18 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         })
 
+        addFavoriteButton.setOnClickListener {
+            firebaseAnalytics.logEvent(
+                FirebaseAnalytics.Event.ADD_TO_WISHLIST,
+                bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
+            )
+            viewModel.addFavorite(argPlain)
+        }
+
         viewModel.favoriteLiveData.observe(viewLifecycleOwner, Observer { favorite ->
             requireContext().run {
                 if (favorite != null) {
-                    favoriteButton.icon = getDrawable(R.drawable.ic_favorite_24dp)
-                    favoriteButton.text = getString(R.string.remove_from_favorites)
-                    favoriteButton.setOnClickListener {
+                    removeFavoriteButton.setOnClickListener {
                         firebaseAnalytics.logEvent(
                             Analytics.Event.REMOVE_FROM_WISHLIST,
                             bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
@@ -128,6 +134,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                         viewModel.removeFavorite(favorite.plain)
                     }
 
+                    addFavoriteButton.visibility = View.GONE
                     priceAlertGroup.visibility = View.VISIBLE
                     if (!priceAlertInput.hasFocus()) {
                         favorite.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
@@ -135,17 +142,8 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
                     updatePriceAlertStartIcon()
                 } else {
-                    favoriteButton.icon = getDrawable(R.drawable.ic_favorite_border_24dp)
-                    favoriteButton.text = getString(R.string.add_to_favorites)
-                    favoriteButton.setOnClickListener {
-                        firebaseAnalytics.logEvent(
-                            FirebaseAnalytics.Event.ADD_TO_WISHLIST,
-                            bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
-                        )
-                        viewModel.addFavorite(argPlain)
-                    }
-
                     priceAlertGroup.visibility = View.GONE
+                    addFavoriteButton.visibility = View.VISIBLE
                 }
             }
         })
