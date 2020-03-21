@@ -49,6 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:animateLayoutChanges="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -104,7 +105,6 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/storeButton"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/keyline_4"
@@ -117,13 +117,28 @@
                         app:layout_constraintTop_toBottomOf="@+id/historicalLow" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/favoriteButton"
+                        android:id="@+id/addFavoriteButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/keyline_4"
+                        android:layout_marginTop="@dimen/keyline_1"
                         android:layout_marginEnd="@dimen/keyline_4"
                         android:text="@string/add_to_favorites"
                         app:icon="@drawable/ic_favorite_border_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/storeButton" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/removeFavoriteButton"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/keyline_4"
+                        android:layout_marginTop="@dimen/keyline_1"
+                        android:layout_marginEnd="@dimen/keyline_4"
+                        android:text="@string/remove_from_favorites"
+                        app:icon="@drawable/ic_favorite_24dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/storeButton" />
@@ -134,13 +149,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/keyline_4"
-                        android:layout_marginTop="@dimen/keyline_4"
                         android:layout_marginEnd="@dimen/keyline_4"
                         android:hint="@string/set_price_alert"
                         app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/favoriteButton"
+                        app:layout_constraintTop_toBottomOf="@+id/removeFavoriteButton"
                         app:startIconCheckable="true"
                         app:startIconDrawable="@drawable/ic_alarm_24dp">
 
@@ -172,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
-                        app:constraint_referenced_ids="priceAlertInputLayout,priceAlertDescription"
+                        app:constraint_referenced_ids="removeFavoriteButton,priceAlertInputLayout,priceAlertDescription"
                         tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
