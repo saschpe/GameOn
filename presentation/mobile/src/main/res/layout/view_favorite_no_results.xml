@@ -48,7 +48,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/searchNow"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyline_8"
         android:layout_marginTop="@dimen/keyline_8"
