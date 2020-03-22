@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.gms.ads.formats.UnifiedNativeAdView
+        android:id="@+id/nativeAdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/image_6"
+                android:layout_height="@dimen/image_6"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/headline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:textAppearance="?textAppearanceHeadline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/lorem_ipsum_short" />
+
+            <TextView
+                android:id="@+id/secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:textAppearance="?textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ad"
+                app:layout_constraintTop_toBottomOf="@+id/headline"
+                tools:text="@string/lorem_ipsum_short" />
+
+            <TextView
+                android:id="@+id/ad"
+                android:layout_width="@dimen/keyline_6"
+                android:layout_height="@dimen/keyline_6"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:background="@drawable/ad_note_background"
+                android:gravity="center"
+                android:text="@string/ad"
+                android:textAppearance="?textAppearanceCaption"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="@+id/secondary" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/keyline_10"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:numStars="3"
+                android:max="5"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ad"
+                app:layout_constraintTop_toBottomOf="@+id/headline" />
+
+            <TextView
+                android:id="@+id/body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon"
+                tools:text="@string/lorem_ipsum_short" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/callToAction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/keyline_2"
+                android:layout_marginTop="@dimen/keyline_2"
+                android:layout_marginEnd="@dimen/keyline_2"
+                android:layout_marginBottom="@dimen/keyline_2"
+                android:text="@string/lorem_ipsum_short"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/body" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.gms.ads.formats.UnifiedNativeAdView>
+
+</com.google.android.material.card.MaterialCardView>

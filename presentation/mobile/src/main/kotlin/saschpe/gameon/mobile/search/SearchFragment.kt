@@ -22,7 +22,9 @@ import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
+import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -34,13 +36,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             requireContext().hasScreenWidth(360) -> 2
             else -> 1
         }
+    private var lastSearch: String? = null
     private lateinit var offerAdapter: OfferAdapter
     private val viewModel: SearchViewModel by viewModels()
-    private var lastSearch: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         offerAdapter = OfferAdapter(requireContext())
+
+        loadAdvertisement(NativeAdUnit.Offers) {
+            offerAdapter.submitList(listOf(OfferAdapter.ViewModel.AdvertisementViewModel(it)))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int) =
                         when (offerAdapter.getItemViewType(position)) {
+                            OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
                             OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
                             else -> 1
                         }
