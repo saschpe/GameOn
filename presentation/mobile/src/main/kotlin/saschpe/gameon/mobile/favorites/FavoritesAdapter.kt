@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
@@ -57,6 +54,7 @@ class FavoritesAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class FavoriteViewModel(
+            val coroutineScope: CoroutineScope,
             val favorite: Favorite,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_FAVORITE)
@@ -77,7 +75,7 @@ class FavoritesAdapter(
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
             val plain = viewModel.favorite.plain
-            gameInfoJob = GlobalScope.launch(Dispatchers.Main) {
+            gameInfoJob = viewModel.coroutineScope.launch(Dispatchers.Main) {
                 when (val result = getGameInfoUseCase(plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->

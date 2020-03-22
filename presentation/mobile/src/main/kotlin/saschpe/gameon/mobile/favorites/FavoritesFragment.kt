@@ -84,24 +84,18 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
             val viewModels = if (favorites.isNotEmpty()) {
                 favorites.map { favorite ->
-                    FavoritesAdapter.ViewModel.FavoriteViewModel(
-                        favorite = favorite,
-                        onClick = {
-                            navController.navigate(
-                                R.id.action_favorites_to_game,
-                                bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
-                            )
-                        }
-                    )
+                    FavoritesAdapter.ViewModel.FavoriteViewModel(lifecycleScope, favorite) {
+                        navController.navigate(
+                            R.id.action_favorites_to_game,
+                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                        )
+                    }
                 }
             } else {
-                listOf(FavoritesAdapter.ViewModel.NoResultViewModel(
-                    onClick = {
-                        navController.navigate(R.id.action_favorites_to_search)
-                    }
-                ))
+                listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
+                    navController.navigate(R.id.action_favorites_to_search)
+                })
             }
-
             favoritesAdapter.submitList(viewModels)
         })
     }

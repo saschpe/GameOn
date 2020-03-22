@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
@@ -54,6 +54,7 @@ class OfferAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class OfferViewModel(
+            val coroutineScope: CoroutineScope,
             val offer: Offer,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_OFFER)
@@ -73,7 +74,7 @@ class OfferAdapter(
         fun bind(viewModel: ViewModel.OfferViewModel) {
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
-            gameInfoJob = GlobalScope.launch {
+            gameInfoJob = viewModel.coroutineScope.launch {
                 when (val result = getGameInfoUseCase(viewModel.offer.plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
