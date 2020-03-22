@@ -3,6 +3,7 @@
     <words>
       <w>cardview</w>
       <w>constraintlayout</w>
+      <w>coroutine</w>
       <w>coroutines</w>
       <w>crashlytics</w>
       <w>customtabs</w>

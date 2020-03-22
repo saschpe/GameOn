@@ -6,6 +6,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -57,15 +58,12 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
             progressBar.visibility = View.GONE
             offerAdapter.submitList(deals.map { offer ->
-                OfferAdapter.ViewModel.OfferViewModel(
-                    offer = offer,
-                    onClick = {
-                        findNavController().navigate(
-                            R.id.action_offers_to_game,
-                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                        )
-                    }
-                )
+                OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                    findNavController().navigate(
+                        R.id.action_offers_to_game,
+                        bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                    )
+                }
             })
         })
     }

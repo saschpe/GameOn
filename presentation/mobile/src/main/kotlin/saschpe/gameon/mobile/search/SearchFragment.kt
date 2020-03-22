@@ -79,28 +79,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS,
                 bundleOf(FirebaseAnalytics.Param.SEARCH_TERM to lastSearch)
             )
-            if (offers.isNotEmpty()) {
-                offerAdapter.submitList(offers.map { offer ->
-                    OfferAdapter.ViewModel.OfferViewModel(
-                        offer = offer,
-                        onClick = {
-                            findNavController().navigate(
-                                R.id.action_search_to_game,
-                                bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                            )
-                        }
-                    )
-                })
-            } else {
-                offerAdapter.submitList(listOf(
-                    OfferAdapter.ViewModel.NoResultsViewModel(
-                        onClick = {
-                            searchQuery.text?.clear()
-                            offerAdapter.submitList(listOf())
-                        }
-                    )
-                ))
+            val viewModels = when {
+                offers.isNotEmpty() -> offers.map { offer ->
+                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                        findNavController().navigate(
+                            R.id.action_search_to_game,
+                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                        )
+                    }
+                }
+                else -> listOf(
+                    OfferAdapter.ViewModel.NoResultsViewModel {
+                        searchQuery.text?.clear()
+                        offerAdapter.submitList(listOf())
+                    }
+                )
             }
+            offerAdapter.submitList(viewModels)
             progressBar.visibility = View.GONE
         })
     }
