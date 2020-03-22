@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController
         setupWithNavController(bottomNavigationView, navController)
+
+        initAdvertisements()
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()

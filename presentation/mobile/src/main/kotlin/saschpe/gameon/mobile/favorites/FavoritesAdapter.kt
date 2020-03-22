@@ -10,11 +10,11 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.*
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
@@ -34,6 +34,9 @@ class FavoritesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
+            VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
+                inflater.inflate(R.layout.view_favorite_advertisement, parent, false)
+            )
             VIEW_TYPE_FAVORITE -> FavoriteViewHolder(
                 inflater.inflate(R.layout.view_favorite_card, parent, false)
             )
@@ -45,18 +48,25 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = getItem(position)) {
+            is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
             is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
             is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
         }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
+            is AdvertisementViewHolder -> holder.detach()
             is FavoriteViewHolder -> holder.detach()
         }
     }
 
     sealed class ViewModel(val viewType: Int) {
+        data class AdvertisementViewModel(
+            val nativeAd: UnifiedNativeAd
+        ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
+
         data class FavoriteViewModel(
+            val coroutineScope: CoroutineScope,
             val favorite: Favorite,
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_FAVORITE)
@@ -64,6 +74,38 @@ class FavoritesAdapter(
         data class NoResultViewModel(
             val onClick: () -> Unit = {}
         ) : ViewModel(VIEW_TYPE_NO_RESULT)
+    }
+
+    private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val nativeAdView: UnifiedNativeAdView = view.findViewById(R.id.nativeAdView)
+        private val icon: ImageView = view.findViewById(R.id.icon)
+        private val headline: MaterialTextView = view.findViewById(R.id.headline)
+        private val secondary: MaterialTextView = view.findViewById(R.id.secondary)
+
+        fun bind(viewModel: ViewModel.AdvertisementViewModel) {
+            val nativeAd = viewModel.nativeAd
+
+            nativeAdView.setNativeAd(nativeAd)
+            nativeAdView.headlineView = headline.apply { text = nativeAd.headline }
+
+            if (nativeAd.icon != null) {
+                icon.visibility = View.VISIBLE
+                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAd.icon.drawable) }
+            } else {
+                icon.visibility = View.INVISIBLE
+            }
+
+            when {
+                nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser.isEmpty() ->
+                    nativeAdView.storeView = secondary.apply { text = nativeAd.store }
+                nativeAd.advertiser.isNotEmpty() ->
+                    nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
+                else -> secondary.text = ""
+            }
+            secondary.visibility = View.VISIBLE
+        }
+
+        fun detach() = nativeAdView.destroy()
     }
 
     private class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -77,7 +119,7 @@ class FavoritesAdapter(
             layout.setOnClickListener { viewModel.onClick.invoke() }
 
             val plain = viewModel.favorite.plain
-            gameInfoJob = GlobalScope.launch(Dispatchers.Main) {
+            gameInfoJob = viewModel.coroutineScope.launch(Dispatchers.Main) {
                 when (val result = getGameInfoUseCase(plain)) {
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->
@@ -130,8 +172,9 @@ class FavoritesAdapter(
     }
 
     companion object {
-        internal const val VIEW_TYPE_FAVORITE = 1
-        internal const val VIEW_TYPE_NO_RESULT = 2
+        internal const val VIEW_TYPE_ADVERTISEMENT = 1
+        internal const val VIEW_TYPE_FAVORITE = 2
+        internal const val VIEW_TYPE_NO_RESULT = 3
     }
 }
 
