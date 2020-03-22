@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000312
-        versionName = "0.3.12"
+        versionCode = 210000313
+        versionName = "0.3.13"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -91,6 +91,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
+    implementation("com.google.android.gms:play-services-ads:19.0.1")
     implementation("com.google.android.gms:play-services-auth:17.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics:17.2.3")

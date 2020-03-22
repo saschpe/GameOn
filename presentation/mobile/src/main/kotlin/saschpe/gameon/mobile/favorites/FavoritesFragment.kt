@@ -21,6 +21,8 @@ import saschpe.gameon.common.content.sharedPreferences
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.NativeAdUnit
+import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
@@ -35,10 +37,17 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             requireContext().hasScreenWidth(600) -> 2
             else -> 1
         }
+    private var adViewModels: List<FavoritesAdapter.ViewModel.AdvertisementViewModel> = listOf()
+    private var favoriteViewModels: List<FavoritesAdapter.ViewModel.FavoriteViewModel> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         favoritesAdapter = FavoritesAdapter(requireContext())
+
+        loadAdvertisement(NativeAdUnit.Favorites) {
+            adViewModels = listOf(FavoritesAdapter.ViewModel.AdvertisementViewModel(it))
+            favoritesAdapter.submitList(adViewModels + favoriteViewModels)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +69,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int) =
                     when (favoritesAdapter.getItemViewType(position)) {
+                        FavoritesAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
                         FavoritesAdapter.VIEW_TYPE_NO_RESULT -> gridLayoutSpanCount
                         else -> 1
                     }
@@ -82,27 +92,21 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
 
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
-            val viewModels = if (favorites.isNotEmpty()) {
-                favorites.map { favorite ->
-                    FavoritesAdapter.ViewModel.FavoriteViewModel(
-                        favorite = favorite,
-                        onClick = {
-                            navController.navigate(
-                                R.id.action_favorites_to_game,
-                                bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
-                            )
-                        }
-                    )
-                }
-            } else {
-                listOf(FavoritesAdapter.ViewModel.NoResultViewModel(
-                    onClick = {
-                        navController.navigate(R.id.action_favorites_to_search)
+            if (favorites.isNotEmpty()) {
+                favoriteViewModels = favorites.map { favorite ->
+                    FavoritesAdapter.ViewModel.FavoriteViewModel(lifecycleScope, favorite) {
+                        navController.navigate(
+                            R.id.action_favorites_to_game,
+                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                        )
                     }
-                ))
+                }
+                favoritesAdapter.submitList(adViewModels + favoriteViewModels)
+            } else {
+                favoritesAdapter.submitList(listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
+                    navController.navigate(R.id.action_favorites_to_search)
+                }))
             }
-
-            favoritesAdapter.submitList(viewModels)
         })
     }
 
