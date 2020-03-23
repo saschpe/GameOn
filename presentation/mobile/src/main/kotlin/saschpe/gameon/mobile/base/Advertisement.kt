@@ -25,19 +25,13 @@ private const val TEST_NATIVE_ADVANCED_AD_UNIT = "ca-app-pub-9045162269320751/18
 private const val TEST_NATIVE_ADVANCED_VIDEO_AD_UNIT = "ca-app-pub-3940256099942544/1044960115"
 
 sealed class NativeAdUnit(
-    private val _adUnit: String
+    val adUnit: String
 ) {
     object Favorites : NativeAdUnit("ca-app-pub-9045162269320751/1669513895")
     object Offers : NativeAdUnit("ca-app-pub-9045162269320751/1893886932")
     object Search : NativeAdUnit("ca-app-pub-9045162269320751/5590743342")
     object Test : NativeAdUnit(TEST_NATIVE_ADVANCED_AD_UNIT)
     object TestVideo : NativeAdUnit(TEST_NATIVE_ADVANCED_VIDEO_AD_UNIT)
-
-    val adUnit: String
-        get() = when {
-            BuildConfig.DEBUG -> TEST_NATIVE_ADVANCED_AD_UNIT
-            else -> _adUnit
-        }
 }
 
 fun Context.initAdvertisements() {
@@ -51,9 +45,8 @@ fun Context.initAdvertisements() {
     }
 }
 
-fun Fragment.loadAdvertisement(nativeAdUnit: NativeAdUnit, onLoad: (UnifiedNativeAd) -> Unit) {
+fun Fragment.loadAdvertisement(nativeAdUnit: NativeAdUnit, onLoad: (UnifiedNativeAd) -> Unit) =
     AdLoader.Builder(requireContext(), nativeAdUnit.adUnit)
         .forUnifiedNativeAd { onLoad.invoke(it) }
         .build()
         .loadAd(AdRequest.Builder().build())
-}
