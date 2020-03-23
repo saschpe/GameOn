@@ -36,7 +36,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             updatePriceAlertStartIcon()
 
             currentJob?.cancel() // Only have one, i.e. the latest, running...
-            currentJob = viewLifecycleOwner.lifecycleScope.launch {
+            currentJob = lifecycleScope.launch {
                 delay(200L) // Rate-limit to avoid an update on every key press...
 
                 viewModel.favoriteLiveData.value?.let {
@@ -80,9 +80,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     val priceString = if (cut == 0) {
                         getString(
                             R.string.price_on_store_colored_template,
-                            price_formatted,
-                            store,
-                            colors.green
+                            price_formatted, store, colors.green
                         )
                     } else {
                         getString(

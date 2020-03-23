@@ -74,7 +74,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchQuery.doAfterTextChanged { text ->
             if (text?.isNotBlank() == true && text.count() > 2) {
                 currentSearchJob?.cancel()
-                currentSearchJob = viewLifecycleOwner.lifecycleScope.launch {
+                currentSearchJob = lifecycleScope.launch {
                     delay(100L) // Rate-limit to avoid an update on every key press...
                     progressBar.visibility = View.VISIBLE
                     lastSearch = text.toString()

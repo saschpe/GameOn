@@ -76,7 +76,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             updateGridLayout(withContext(Dispatchers.IO) {
                 requireContext().sharedPreferences.getInt(
                     PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
