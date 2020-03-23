@@ -11,11 +11,11 @@
     kotlinx.serialization.KSerializer serializer(...);
 }
 
--keep,includedescriptorclasses class saschpe.gameon.data.remote.repository.**$$serializer { *; }
+-keep,includedescriptorclasses class saschpe.gameon.data.remote.**$$serializer { *; }
 -keepclassmembers class saschpe.gameon.data.remote.repository.** {
     *** Companion;
 }
--keepclasseswithmembers class saschpe.gameon.data.remote.repository.** {
+-keepclasseswithmembers class saschpe.gameon.data.remote.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 
