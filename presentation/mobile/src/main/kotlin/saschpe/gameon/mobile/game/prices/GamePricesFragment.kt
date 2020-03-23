@@ -10,10 +10,14 @@ import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_prices.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.base.errorLogged
+import saschpe.gameon.mobile.game.GameFragment
 
 class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
     private lateinit var pricesAdapter: GamePricesAdapter
@@ -28,9 +32,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
-
         pricesAdapter = GamePricesAdapter(requireContext())
-
         viewModel.getGamePrice(argPlain)
     }
 
@@ -44,19 +46,28 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
             setHasFixedSize(true)
         }
 
-        viewModel.gamePriceLiveData.observe(viewLifecycleOwner, Observer { gamePrice ->
-            pricesAdapter.submitList(gamePrice.list.map {
-                GamePricesAdapter.ViewModel.PriceViewModel(
-                    price = it,
-                    onClick = {
+        viewModel.gamePriceLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<GamePrice> -> pricesAdapter.submitList(result.data.list.map {
+                    GamePricesAdapter.ViewModel.PriceViewModel(it) {
                         firebaseAnalytics.logEvent(Analytics.Event.VISIT_EXTERNAL_SHOP) {
                             param(Analytics.Param.SHOP_NAME, it.shop.name)
                             param(Analytics.Param.SHOP_ITEM_URL, it.url)
                         }
                         openUrl(it.url)
                     }
-                )
-            })
+                })
+                is Result.Error -> {
+                    result.errorLogged()
+                    parentFragment?.let {
+                        if (it is GameFragment) {
+                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game_prices) {
+                                viewModel.getGamePrice(argPlain)
+                            }
+                        }
+                    }
+                }
+            }
         })
     }
 

@@ -21,12 +21,11 @@ import saschpe.gameon.common.app.hideSoftInput
 import saschpe.gameon.common.app.showSoftInput
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.Analytics
-import saschpe.gameon.mobile.base.NativeAdUnit
-import saschpe.gameon.mobile.base.OfferAdapter
-import saschpe.gameon.mobile.base.loadAdvertisement
+import saschpe.gameon.mobile.base.*
 import saschpe.gameon.mobile.game.GameFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -41,6 +40,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var lastSearch: String? = null
     private lateinit var offerAdapter: OfferAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private val noResultsViewModels = listOf(
+        OfferAdapter.ViewModel.NoResultsViewModel {
+            searchQuery.text?.clear()
+            offerAdapter.submitList(listOf())
+        }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,28 +88,33 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
-        viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { offers ->
-            firebaseAnalytics.logEvent(Analytics.Event.VIEW_SEARCH_RESULTS) {
-                lastSearch?.let { term -> param(FirebaseAnalytics.Param.SEARCH_TERM, term) }
-            }
-            val viewModels = when {
-                offers.isNotEmpty() -> offers.map { offer ->
-                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
-                        findNavController().navigate(
-                            R.id.action_search_to_game,
-                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                        )
+        viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { result ->
+            progressBar.visibility = View.GONE
+            val viewModels = when (result) {
+                is Result.Success<List<Offer>> -> {
+                    when {
+                        result.data.isNotEmpty() -> result.data.map { offer ->
+                            OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                                findNavController().navigate(
+                                    R.id.action_search_to_game,
+                                    bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                                )
+                            }
+                        }
+                        else -> noResultsViewModels
                     }
                 }
-                else -> listOf(
-                    OfferAdapter.ViewModel.NoResultsViewModel {
-                        searchQuery.text?.clear()
-                        offerAdapter.submitList(listOf())
-                    }
-                )
+                is Result.Error -> {
+                    result.errorLogged()
+                    noResultsViewModels
+                }
             }
+
             offerAdapter.submitList(viewModels)
-            progressBar.visibility = View.GONE
+            firebaseAnalytics.logEvent(Analytics.Event.VIEW_SEARCH_RESULTS) {
+                lastSearch?.let { term -> param(FirebaseAnalytics.Param.SEARCH_TERM, term) }
+                param(FirebaseAnalytics.Param.QUANTITY, viewModels.size.toLong())
+            }
         })
     }
 

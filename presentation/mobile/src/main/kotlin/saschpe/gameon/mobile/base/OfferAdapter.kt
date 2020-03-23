@@ -143,7 +143,7 @@ class OfferAdapter(
                                 crossfade(true)
                             }
                         }
-                    is Result.Error -> throw result.throwable
+                    is Result.Error -> result.errorLogged()
                 }
             }
 

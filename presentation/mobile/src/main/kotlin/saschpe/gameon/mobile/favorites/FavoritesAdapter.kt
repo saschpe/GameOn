@@ -24,6 +24,7 @@ import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.errorLogged
 
 class FavoritesAdapter(
     context: Context
@@ -120,7 +121,7 @@ class FavoritesAdapter(
                                 crossfade(true)
                             }
                         }
-                    is Result.Error -> throw result.throwable
+                    is Result.Error -> result.errorLogged()
                 }
             }
             gameOverviewJob = GlobalScope.launch(Dispatchers.Main) {
@@ -144,7 +145,10 @@ class FavoritesAdapter(
                                 }
                             }
                         }
-                    is Result.Error -> throw result.throwable
+                    is Result.Error -> {
+                        result.errorLogged()
+                        price.visibility = View.GONE
+                    }
                 }
             }
         }

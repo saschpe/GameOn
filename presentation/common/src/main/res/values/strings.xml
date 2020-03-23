@@ -77,6 +77,7 @@
     <string name="profile">Profile</string>
     <string name="rebate_colored_template"><![CDATA[<font color="%2$d">-%1$.0f%%</font>]]></string>
     <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="retry">Retry</string>
     <string name="reviews">Reviews</string>
     <string name="search">Search</string>
     <string name="search_for_your_game">Search for your game</string>
@@ -94,6 +95,10 @@
     <string name="theme">Theme</string>
     <string name="trading_cards">Trading cards</string>
     <string name="try_searching_for_another">Try searching for another game. Maybe this one isn\'t available or on sale yet.</string>
+    <string name="unable_to_load_favorites">Unable to load your favorites</string>
+    <string name="unable_to_load_game">Unable to load game</string>
+    <string name="unable_to_load_game_prices">Unable to load game prices</string>
+    <string name="unable_to_update_favorite">Unable to update favorite</string>
     <string name="unable_to_sign_in_with_google_template">Unable to sign-in with Google: %1$s</string>
     <string name="unable_to_sign_in_template">Unable to sign-in: %1$s</string>
     <string name="unable_to_sign_up_template">Unable to sign-up: %1$s</string>

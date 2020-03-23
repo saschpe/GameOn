@@ -9,13 +9,12 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 
 class GameViewModel : ViewModel() {
-    val gameInfoLiveData = MutableLiveData<GameInfo>()
+    val gameInfoLiveData = MutableLiveData<Result<GameInfo>>()
 
     fun getGameInfo(plain: String) = viewModelScope.launch {
-        when (val result = getGameInfoUseCase(plain)) {
-            is Result.Success<HashMap<String, GameInfo>> -> gameInfoLiveData.value =
-                result.data[plain]
-            is Result.Error -> throw result.throwable
+        gameInfoLiveData.value = when (val result = getGameInfoUseCase(plain)) {
+            is Result.Success<HashMap<String, GameInfo>> -> Result.Success(result.data[plain]!!)
+            is Result.Error -> result
         }
     }
 }

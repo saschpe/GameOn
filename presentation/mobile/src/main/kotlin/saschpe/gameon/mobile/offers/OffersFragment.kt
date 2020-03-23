@@ -10,15 +10,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
+import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 
@@ -75,16 +76,25 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
             setHasFixedSize(true)
         }
 
-        viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { deals ->
+        viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { result ->
             progressBar.visibility = View.GONE
-            offerAdapter.submitList(deals.map { offer ->
-                OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
-                    findNavController().navigate(
-                        R.id.action_offers_to_game,
-                        bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                    )
+            val viewModels = when (result) {
+                is Result.Success<List<Offer>> -> result.data.map { offer ->
+                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
+                        findNavController().navigate(
+                            R.id.action_offers_to_game,
+                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                        )
+                    }
                 }
-            })
+                is Result.Error -> {
+                    result.errorLogged()
+                    listOf(OfferAdapter.ViewModel.NoResultsViewModel {
+                        offerAdapter.submitList(listOf())
+                    })
+                }
+            }
+            offerAdapter.submitList(viewModels)
         })
     }
 
