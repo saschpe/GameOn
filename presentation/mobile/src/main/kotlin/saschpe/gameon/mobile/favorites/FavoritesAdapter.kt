@@ -96,9 +96,9 @@ class FavoritesAdapter(
             }
 
             when {
-                nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser.isEmpty() ->
+                nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser?.isEmpty() == true ->
                     nativeAdView.storeView = secondary.apply { text = nativeAd.store }
-                nativeAd.advertiser.isNotEmpty() ->
+                nativeAd.advertiser?.isNotEmpty() == true->
                     nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
                 else -> secondary.text = ""
             }
