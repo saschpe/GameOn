@@ -39,7 +39,7 @@
                 tools:text="@string/lorem_ipsum_short" />
 
             <TextView
-                android:id="@+id/secondary"
+                android:id="@+id/body"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_2"
@@ -62,9 +62,9 @@
                 android:gravity="center"
                 android:text="@string/ad"
                 android:textAppearance="?textAppearanceCaption"
-                app:layout_constraintBottom_toBottomOf="@+id/secondary"
+                app:layout_constraintBottom_toBottomOf="@+id/body"
                 app:layout_constraintStart_toEndOf="@+id/icon"
-                app:layout_constraintTop_toTopOf="@+id/secondary" />
+                app:layout_constraintTop_toTopOf="@+id/body" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
