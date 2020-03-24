@@ -104,12 +104,15 @@ class OfferAdapter(
             if (nativeAd.starRating != null && nativeAd.starRating > 0) {
                 secondary.visibility = View.INVISIBLE
                 rating.visibility = View.VISIBLE
-                nativeAdView.starRatingView = rating.apply { max = 5 }
+                nativeAdView.starRatingView = rating.apply {
+                    rating = nativeAd.starRating.toFloat()
+                    max = 5
+                }
             } else {
                 when {
-                    nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser.isEmpty() ->
+                    nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser?.isEmpty() == true ->
                         nativeAdView.storeView = secondary.apply { text = nativeAd.store }
-                    nativeAd.advertiser.isNotEmpty() ->
+                    nativeAd.advertiser?.isNotEmpty() == true ->
                         nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
                     else -> secondary.text = ""
                 }

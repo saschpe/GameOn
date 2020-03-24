@@ -7,7 +7,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.formats.UnifiedNativeAd
-import saschpe.gameon.mobile.BuildConfig
 
 
 private val CREATOR_DEVICE_IDS = listOf(
@@ -36,13 +35,11 @@ sealed class NativeAdUnit(
 
 fun Context.initAdvertisements() {
     MobileAds.initialize(this) { }
-    if (BuildConfig.DEBUG) {
-        MobileAds.setRequestConfiguration(
-            RequestConfiguration.Builder()
-                .setTestDeviceIds(TEST_DEVICE_IDS)
-                .build()
-        )
-    }
+    MobileAds.setRequestConfiguration(
+        RequestConfiguration.Builder()
+            .setTestDeviceIds(TEST_DEVICE_IDS)
+            .build()
+    )
 }
 
 fun Fragment.loadAdvertisement(nativeAdUnit: NativeAdUnit, onLoad: (UnifiedNativeAd) -> Unit) =
