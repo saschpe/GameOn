@@ -80,13 +80,14 @@ class FavoritesAdapter(
         private val nativeAdView: UnifiedNativeAdView = view.findViewById(R.id.nativeAdView)
         private val icon: ImageView = view.findViewById(R.id.icon)
         private val headline: MaterialTextView = view.findViewById(R.id.headline)
-        private val secondary: MaterialTextView = view.findViewById(R.id.secondary)
+        private val body: MaterialTextView = view.findViewById(R.id.body)
 
         fun bind(viewModel: ViewModel.AdvertisementViewModel) {
             val nativeAd = viewModel.nativeAd
 
             nativeAdView.setNativeAd(nativeAd)
             nativeAdView.headlineView = headline.apply { text = nativeAd.headline }
+            nativeAdView.bodyView = body.apply { text = nativeAd.body }
 
             if (nativeAd.icon != null) {
                 icon.visibility = View.VISIBLE
@@ -94,15 +95,6 @@ class FavoritesAdapter(
             } else {
                 icon.visibility = View.INVISIBLE
             }
-
-            when {
-                nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser?.isEmpty() == true ->
-                    nativeAdView.storeView = secondary.apply { text = nativeAd.store }
-                nativeAd.advertiser?.isNotEmpty() == true->
-                    nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
-                else -> secondary.text = ""
-            }
-            secondary.visibility = View.VISIBLE
         }
 
         fun detach() = nativeAdView.destroy()
