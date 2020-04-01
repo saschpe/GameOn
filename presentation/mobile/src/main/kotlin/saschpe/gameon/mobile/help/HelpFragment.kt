@@ -7,10 +7,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.fragment_help.*
+import kotlinx.coroutines.launch
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
 import saschpe.gameon.common.app.appNameTitle
 import saschpe.gameon.mobile.BuildConfig
@@ -29,8 +31,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
             val page = getString("page") ?: ""
             if (page.isNotBlank()) {
                 when (page) {
-                    "privacy" -> openPrivacyPolicy()
-                    "tos" -> openTermsOfService()
+                    "privacy" -> lifecycleScope.launch { openPrivacyPolicy() }
+                    "tos" -> lifecycleScope.launch { openTermsOfService() }
                 }
             }
         }
@@ -48,8 +50,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
                     "Sascha Peilicke",
                     R.mipmap.ic_launcher
                 ).show(childFragmentManager, "version_info")
-                R.id.privacyPolicy -> openPrivacyPolicy()
-                R.id.termsOfService -> openTermsOfService()
+                R.id.privacyPolicy -> lifecycleScope.launch { openPrivacyPolicy() }
+                R.id.termsOfService -> lifecycleScope.launch { openTermsOfService() }
                 R.id.openSourceLicenses -> startActivity(
                     Intent(requireActivity(), OssLicensesMenuActivity::class.java)
                 )

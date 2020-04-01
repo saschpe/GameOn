@@ -63,11 +63,11 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
                 viewModel.signUpWithEmail(this.email.text.toString(), password.text.toString())
             }
         }
+        signUpTerms.movementMethod = LinkMovementMethod()
         signUpTerms.text = HtmlCompat.fromHtml(
             getString(R.string.sign_up_terms_notice_template, Application.INTENT_SCHEME),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-        signUpTerms.movementMethod = LinkMovementMethod()
 
         viewModel.signUpLiveData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
