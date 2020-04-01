@@ -111,7 +111,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                             currentBest.text =
                                 HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                            storeButton.setOnClickListener { openUrl(url) }
+                            storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
                         }
                     } else {
                         currentBest.visibility = View.GONE
