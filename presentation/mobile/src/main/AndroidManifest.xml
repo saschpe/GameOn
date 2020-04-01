@@ -42,11 +42,6 @@
             android:resource="@array/preloaded_fonts" />
 
         <provider
-            android:name="saschpe.gameon.common.content.AppContentProvider"
-            android:authorities="${applicationId}.app_content_provider"
-            android:exported="false" />
-
-        <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
             android:exported="false"

@@ -1,1 +1,13 @@
-<manifest package="saschpe.gameon.common" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="saschpe.gameon.common">
+
+    <application>
+
+        <provider
+            android:name="saschpe.gameon.common.content.AppContentProvider"
+            android:authorities="${applicationId}.app_content_provider"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

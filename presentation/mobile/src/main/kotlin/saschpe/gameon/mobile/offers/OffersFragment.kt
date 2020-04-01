@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
