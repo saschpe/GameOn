@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game.*
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
@@ -34,16 +35,16 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         setupWithNavController(toolbar, findNavController())
 
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.adapter = GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager)
+        viewPager.adapter =
+            GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager)
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
             toolbar.title = gameInfo.title
 
-            firebaseAnalytics.logEvent(
-                FirebaseAnalytics.Event.VIEW_ITEM, bundleOf(
-                    FirebaseAnalytics.Param.ITEM_ID to argPlain, FirebaseAnalytics.Param.ITEM_NAME to gameInfo.title
-                )
-            )
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+                param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
+                param(FirebaseAnalytics.Param.ITEM_NAME, gameInfo.title)
+            }
         })
     }
 
