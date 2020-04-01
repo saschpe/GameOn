@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.res.ResourcesCompat.getDrawable
-import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import coil.api.load
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -44,12 +44,12 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     if (priceAlertString?.isBlank() == true) {
                         priceAlertString = null
                     }
-                    firebaseAnalytics.logEvent(
-                        Analytics.Event.UPDATE_ON_WISHLIST, bundleOf(
-                            FirebaseAnalytics.Param.ITEM_ID to argPlain,
-                            FirebaseAnalytics.Param.PRICE to priceAlertString
-                        )
-                    )
+                    firebaseAnalytics.logEvent(Analytics.Event.UPDATE_ON_WISHLIST) {
+                        param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
+                        priceAlertString?.let { price ->
+                            param(FirebaseAnalytics.Param.PRICE, price)
+                        }
+                    }
                     viewModel.updateFavorite(it.copy(priceThreshold = priceAlertString?.toDouble()))
                 }
             }
@@ -116,10 +116,9 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         })
 
         addFavoriteButton.setOnClickListener {
-            firebaseAnalytics.logEvent(
-                FirebaseAnalytics.Event.ADD_TO_WISHLIST,
-                bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
-            )
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST) {
+                param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
+            }
             viewModel.addFavorite(argPlain)
         }
 
@@ -127,10 +126,9 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             requireContext().run {
                 if (favorite != null) {
                     removeFavoriteButton.setOnClickListener {
-                        firebaseAnalytics.logEvent(
-                            Analytics.Event.REMOVE_FROM_WISHLIST,
-                            bundleOf(FirebaseAnalytics.Param.ITEM_ID to argPlain)
-                        )
+                        firebaseAnalytics.logEvent(Analytics.Event.REMOVE_FROM_WISHLIST) {
+                            param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
+                        }
                         viewModel.removeFavorite(favorite.plain)
                     }
 
