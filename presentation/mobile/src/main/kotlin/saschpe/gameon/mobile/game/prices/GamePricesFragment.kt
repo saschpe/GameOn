@@ -2,11 +2,11 @@ package saschpe.gameon.mobile.game.prices
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_prices.*
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
@@ -49,12 +49,10 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
                 GamePricesAdapter.ViewModel.PriceViewModel(
                     price = it,
                     onClick = {
-                        firebaseAnalytics.logEvent(
-                            Analytics.Event.VISIT_EXTERNAL_SHOP, bundleOf(
-                                Analytics.Param.SHOP_NAME to it.shop.name,
-                                Analytics.Param.SHOP_ITEM_URL to it.url
-                            )
-                        )
+                        firebaseAnalytics.logEvent(Analytics.Event.VISIT_EXTERNAL_SHOP) {
+                            param(Analytics.Param.SHOP_NAME, it.shop.name)
+                            param(Analytics.Param.SHOP_ITEM_URL, it.url)
+                        }
                         openUrl(it.url)
                     }
                 )

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -22,6 +23,7 @@ import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.base.loadAdvertisement
@@ -82,10 +84,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { offers ->
-            firebaseAnalytics.logEvent(
-                FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS,
-                bundleOf(FirebaseAnalytics.Param.SEARCH_TERM to lastSearch)
-            )
+            firebaseAnalytics.logEvent(Analytics.Event.VIEW_SEARCH_RESULTS) {
+                lastSearch?.let { term -> param(FirebaseAnalytics.Param.SEARCH_TERM, term) }
+            }
             val viewModels = when {
                 offers.isNotEmpty() -> offers.map { offer ->
                     OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
