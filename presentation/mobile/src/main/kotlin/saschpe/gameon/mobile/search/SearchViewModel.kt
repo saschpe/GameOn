@@ -9,13 +9,9 @@ import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.domain.Module.searchUseCase
 
 class SearchViewModel : ViewModel() {
-    val searchLiveData = MutableLiveData<List<Offer>>()
+    val searchLiveData = MutableLiveData<Result<List<Offer>>>()
 
     fun search(query: String) = viewModelScope.launch {
-        when (val result = searchUseCase(query)) {
-            is Result.Success<List<Offer>> -> searchLiveData.value =
-                result.data.sortedBy { it.plain }
-            is Result.Error -> throw result.throwable
-        }
+        searchLiveData.value = searchUseCase(query)
     }
 }

@@ -16,51 +16,40 @@ import saschpe.gameon.domain.Module.removeFavoritesUseCase
 import saschpe.gameon.domain.Module.updateFavoritesUseCase
 
 class GameOverviewViewModel : ViewModel() {
-    val gameInfoLiveData = MutableLiveData<GameInfo>()
-    val gameOverviewLiveData = MutableLiveData<GameOverview>()
-    val favoriteLiveData = MutableLiveData<Favorite?>()
+    val gameInfoLiveData = MutableLiveData<Result<GameInfo>>()
+    val gameOverviewLiveData = MutableLiveData<Result<GameOverview>>()
+    val favoriteLiveData = MutableLiveData<Result<Favorite>>()
 
     fun getGameInfo(plain: String) = viewModelScope.launch {
-        when (val result = getGameInfoUseCase(plain)) {
-            is Result.Success<HashMap<String, GameInfo>> -> gameInfoLiveData.value =
-                result.data[plain]
-            is Result.Error -> throw result.throwable
+        gameInfoLiveData.value = when (val result = getGameInfoUseCase(plain)) {
+            is Result.Success<HashMap<String, GameInfo>> -> Result.Success(result.data[plain]!!)
+            is Result.Error -> result
         }
     }
 
     fun getGameOverview(plain: String) = viewModelScope.launch {
-        when (val result = getGameOverviewUseCase(plain)) {
-            is Result.Success<HashMap<String, GameOverview>> -> gameOverviewLiveData.value =
-                result.data[plain]
-            is Result.Error -> throw result.throwable
+        gameOverviewLiveData.value = when (val result = getGameOverviewUseCase(plain)) {
+            is Result.Success<HashMap<String, GameOverview>> -> Result.Success(result.data[plain]!!)
+            is Result.Error -> result
         }
     }
 
     fun getFavorite(plain: String) = viewModelScope.launch {
-        when (val result = getFavoriteUseCase(plain)) {
-            is Result.Success<Favorite> -> favoriteLiveData.value = result.data
-            is Result.Error -> favoriteLiveData.value = null
-        }
+        favoriteLiveData.value = getFavoriteUseCase(plain)
     }
 
     fun addFavorite(plain: String) = viewModelScope.launch {
-        when (val result = addFavoritesUseCase(Favorite(plain = plain))) {
-            is Result.Success<Unit> -> getFavorite(plain)
-            is Result.Error -> throw result.throwable
-        }
+        addFavoritesUseCase(Favorite(plain = plain))
+        getFavorite(plain)
     }
 
     fun updateFavorite(favorite: Favorite) = viewModelScope.launch {
-        when (val result = updateFavoritesUseCase(favorite)) {
-            is Result.Success<Unit> -> getFavorite(favorite.plain)
-            is Result.Error -> throw result.throwable
-        }
+        updateFavoritesUseCase(favorite)
+        getFavorite(favorite.plain)
     }
 
     fun removeFavorite(plain: String) = viewModelScope.launch {
-        when (val result = removeFavoritesUseCase(plain)) {
-            is Result.Success<Unit> -> favoriteLiveData.value = null
-            is Result.Error -> throw result.throwable
-        }
+        removeFavoritesUseCase(plain)
+        getFavorite(plain)
     }
 }

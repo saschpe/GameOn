@@ -33,7 +33,7 @@ class HelpAboutFragmentTest {
     @Before
     fun beforeCustomTabs() {
         mockkObject(CustomTabs)
-        every { CustomTabs.openUrl(any(), any()) } returns Unit
+        coEvery { CustomTabs.openUrl(any(), any()) } returns Unit
     }
 
     @Test
@@ -42,7 +42,7 @@ class HelpAboutFragmentTest {
 
         onView(withText(R.string.privacy_policy)).perform(click())
 
-        verify { CustomTabs.openPrivacyPolicy(any()) }
+        coVerify { CustomTabs.openPrivacyPolicy(any()) }
     }
 
     @Test
@@ -51,7 +51,7 @@ class HelpAboutFragmentTest {
 
         onView(withText(R.string.terms_of_service)).perform(click())
 
-        verify { CustomTabs.openTermsOfService(any()) }
+        coVerify { CustomTabs.openTermsOfService(any()) }
     }
 
     @Test

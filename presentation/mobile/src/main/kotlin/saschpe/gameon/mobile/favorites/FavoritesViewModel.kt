@@ -9,12 +9,9 @@ import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.domain.Module.getFavoritesUseCase
 
 class FavoritesViewModel : ViewModel() {
-    val favoritesLiveData = MutableLiveData<List<Favorite>>()
+    val favoritesLiveData = MutableLiveData<Result<List<Favorite>>>()
 
     fun getFavorites() = viewModelScope.launch {
-        when (val result = getFavoritesUseCase()) {
-            is Result.Success<List<Favorite>> -> favoritesLiveData.value = result.data
-            is Result.Error -> throw result.throwable
-        }
+        favoritesLiveData.value = getFavoritesUseCase()
     }
 }
