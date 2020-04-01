@@ -43,14 +43,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         signOut.setOnClickListener { viewModel.signOut() }
 
         connectToSteam.setOnClickListener {
-            Snackbar.make(
-                coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG
-            ).show()
+            Snackbar.make(coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG)
+                .show()
         }
         connectToIsThereAnyDeals.setOnClickListener {
-            Snackbar.make(
-                coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG
-            ).show()
+            Snackbar.make(coordinatorLayout, getString(R.string.coming_soon), Snackbar.LENGTH_LONG)
+                .show()
         }
 
         viewModel.userLiveData.observe(viewLifecycleOwner, Observer { result ->

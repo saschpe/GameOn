@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.*
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -22,39 +23,39 @@ class CustomTabsTest {
     }
 
     @Test
-    fun openHomepage_callsStartUrl() {
+    fun openHomepage_callsStartUrl() = runBlocking {
         // Arrange
-        every { CustomTabs.openUrl(context, any()) } just runs
+        coEvery { CustomTabs.openUrl(context, any()) } just runs
 
         // Act
         CustomTabs.openHomepage(context)
 
         // Assert
-        verify { CustomTabs.openUrl(context, any()) }
+        coVerify { CustomTabs.openUrl(context, any()) }
     }
 
     @Test
-    fun openPrivacyPolicy_callsStartUrl() {
+    fun openPrivacyPolicy_callsStartUrl() = runBlocking {
         // Arrange
-        every { CustomTabs.openUrl(context, any()) } just runs
+        coEvery { CustomTabs.openUrl(context, any()) } just runs
 
         // Act
         CustomTabs.openPrivacyPolicy(context)
 
         // Assert
-        verify { CustomTabs.openUrl(context, any()) }
+        coVerify { CustomTabs.openUrl(context, any()) }
     }
 
     @Test
-    fun openTermsOfService_callsStartUrl() {
+    fun openTermsOfService_callsStartUrl() = runBlocking {
         // Arrange
-        every { CustomTabs.openUrl(context, any()) } just runs
+        coEvery { CustomTabs.openUrl(context, any()) } just runs
 
         // Act
         CustomTabs.openTermsOfService(context)
 
         // Assert
-        verify { CustomTabs.openUrl(context, any()) }
+        coVerify { CustomTabs.openUrl(context, any()) }
     }
 
     @After

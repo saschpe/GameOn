@@ -18,10 +18,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.Favorite
+import saschpe.gameon.data.core.model.GameInfo
+import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.base.errorLogged
+import saschpe.gameon.mobile.game.GameFragment
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     private lateinit var argPlain: String
@@ -36,21 +42,22 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             updatePriceAlertStartIcon()
 
             currentJob?.cancel() // Only have one, i.e. the latest, running...
-            currentJob = viewLifecycleOwner.lifecycleScope.launch {
+            currentJob = lifecycleScope.launch {
                 delay(200L) // Rate-limit to avoid an update on every key press...
-
-                viewModel.favoriteLiveData.value?.let {
-                    var priceAlertString = text?.toString()
-                    if (priceAlertString?.isBlank() == true) {
-                        priceAlertString = null
-                    }
-                    firebaseAnalytics.logEvent(Analytics.Event.UPDATE_ON_WISHLIST) {
-                        param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
-                        priceAlertString?.let { price ->
-                            param(FirebaseAnalytics.Param.PRICE, price)
+                viewModel.favoriteLiveData.value?.let { result ->
+                    if (result is Result.Success<Favorite>) {
+                        var priceAlertString = text?.toString()
+                        if (priceAlertString?.isBlank() == true) {
+                            priceAlertString = null
                         }
+                        firebaseAnalytics.logEvent(Analytics.Event.UPDATE_ON_WISHLIST) {
+                            param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
+                            priceAlertString?.let { price ->
+                                param(FirebaseAnalytics.Param.PRICE, price)
+                            }
+                        }
+                        viewModel.updateFavorite(result.data.copy(priceThreshold = priceAlertString?.toDouble()))
                     }
-                    viewModel.updateFavorite(it.copy(priceThreshold = priceAlertString?.toDouble()))
                 }
             }
         }
@@ -59,7 +66,6 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         argPlain = requireNotNull(arguments?.getString(ARG_PLAIN))
-
         viewModel.getGameInfo(argPlain)
         viewModel.getGameOverview(argPlain)
         viewModel.getFavorite(argPlain)
@@ -67,51 +73,75 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { gameInfo ->
-            cover.load(gameInfo.image) {
-                placeholder(R.drawable.placeholder)
-                crossfade(true)
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<GameInfo> -> cover.load(result.data.image) {
+                    placeholder(R.drawable.placeholder)
+                    crossfade(true)
+                }
+                is Result.Error -> {
+                    result.errorLogged()
+                    parentFragment?.let {
+                        if (it is GameFragment) {
+                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game) {
+                                viewModel.getGameInfo(argPlain)
+                            }
+                        }
+                    }
+                }
             }
         })
 
-        viewModel.gameOverviewLiveData.observe(viewLifecycleOwner, Observer { gameOverview ->
-            if (gameOverview.price != null) {
-                gameOverview.price?.run {
-                    val priceString = if (cut == 0) {
-                        getString(
-                            R.string.price_on_store_colored_template,
-                            price_formatted,
-                            store,
-                            colors.green
-                        )
+        viewModel.gameOverviewLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<GameOverview> -> {
+                    if (result.data.price != null) {
+                        result.data.price?.run {
+                            val priceString = if (cut == 0) {
+                                getString(
+                                    R.string.price_on_store_colored_template,
+                                    price_formatted, store, colors.green
+                                )
+                            } else {
+                                getString(
+                                    R.string.price_on_store_with_rebate_template,
+                                    price_formatted, store, cut, colors.green, colors.red
+                                )
+                            }
+                            currentBest.text =
+                                HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+                            storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
+                        }
                     } else {
-                        getString(
-                            R.string.price_on_store_with_rebate_template,
-                            price_formatted, store, cut, colors.green, colors.red
-                        )
+                        currentBest.visibility = View.GONE
+                        currentBestText.visibility = View.GONE
                     }
-                    currentBest.text =
-                        HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                    storeButton.setOnClickListener { openUrl(url) }
+                    if (result.data.lowest != null) {
+                        result.data.lowest?.apply {
+                            historicalLow.text = HtmlCompat.fromHtml(
+                                getString(
+                                    R.string.price_on_store_with_rebate_template,
+                                    price_formatted, store, cut, colors.green, colors.red
+                                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                            )
+                        }
+                    } else {
+                        historicalLow.visibility = View.GONE
+                        historicalLowText.visibility = View.GONE
+                    }
                 }
-            } else {
-                currentBest.visibility = View.GONE
-                currentBestText.visibility = View.GONE
-            }
-
-            if (gameOverview.lowest != null) {
-                gameOverview.lowest?.apply {
-                    historicalLow.text = HtmlCompat.fromHtml(
-                        getString(
-                            R.string.price_on_store_with_rebate_template,
-                            price_formatted, store, cut, colors.green, colors.red
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
-                    )
+                is Result.Error -> {
+                    result.errorLogged()
+                    parentFragment?.let {
+                        if (it is GameFragment) {
+                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game) {
+                                viewModel.getGameOverview(argPlain)
+                            }
+                        }
+                    }
                 }
-            } else {
-                historicalLow.visibility = View.GONE
-                historicalLowText.visibility = View.GONE
             }
         })
 
@@ -122,24 +152,25 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             viewModel.addFavorite(argPlain)
         }
 
-        viewModel.favoriteLiveData.observe(viewLifecycleOwner, Observer { favorite ->
-            requireContext().run {
-                if (favorite != null) {
+        viewModel.favoriteLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<Favorite> -> {
                     removeFavoriteButton.setOnClickListener {
                         firebaseAnalytics.logEvent(Analytics.Event.REMOVE_FROM_WISHLIST) {
                             param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
                         }
-                        viewModel.removeFavorite(favorite.plain)
+                        viewModel.removeFavorite(result.data.plain)
                     }
-
                     addFavoriteButton.visibility = View.GONE
                     priceAlertGroup.visibility = View.VISIBLE
                     if (!priceAlertInput.hasFocus()) {
-                        favorite.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
+                        result.data.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
                     }
                     priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
                     updatePriceAlertStartIcon()
-                } else {
+                }
+                is Result.Error -> {
+                    result.errorLogged()
                     priceAlertGroup.visibility = View.GONE
                     addFavoriteButton.visibility = View.VISIBLE
                 }

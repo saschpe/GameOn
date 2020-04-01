@@ -2,6 +2,7 @@ package saschpe.gameon.mobile.favorites
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.core.content.edit
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,9 +21,12 @@ import kotlinx.coroutines.withContext
 import saschpe.gameon.common.content.hasScreenWidth
 import saschpe.gameon.common.content.sharedPreferences
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.data.core.Result
+import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
+import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 
@@ -76,7 +81,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             updateGridLayout(withContext(Dispatchers.IO) {
                 requireContext().sharedPreferences.getInt(
                     PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
@@ -91,21 +96,36 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             setHasFixedSize(true)
         }
 
-        viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { favorites ->
-            if (favorites.isNotEmpty()) {
-                favoriteViewModels = favorites.map { favorite ->
-                    FavoritesAdapter.ViewModel.FavoriteViewModel(lifecycleScope, favorite) {
-                        navController.navigate(
-                            R.id.action_favorites_to_game,
-                            bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
-                        )
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success<List<Favorite>> -> {
+                    val viewModels = when {
+                        result.data.isNotEmpty() -> {
+                            favoriteViewModels = result.data.map { favorite ->
+                                FavoritesAdapter.ViewModel.FavoriteViewModel(
+                                    lifecycleScope,
+                                    favorite
+                                ) {
+                                    navController.navigate(
+                                        R.id.action_favorites_to_game,
+                                        bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                                    )
+                                }
+                            }
+                            adViewModels + favoriteViewModels
+                        }
+                        else -> listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
+                            navController.navigate(R.id.action_favorites_to_search)
+                        })
+                    }
+                    favoritesAdapter.submitList(viewModels)
+                }
+                is Result.Error -> {
+                    result.errorLogged()
+                    showSnackBarWithRetryAction(R.string.unable_to_load_favorites) {
+                        viewModel.getFavorites()
                     }
                 }
-                favoritesAdapter.submitList(adViewModels + favoriteViewModels)
-            } else {
-                favoritesAdapter.submitList(listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
-                    navController.navigate(R.id.action_favorites_to_search)
-                }))
             }
         })
     }
@@ -134,6 +154,12 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
         }
     }
+
+    private fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) =
+        Snackbar
+            .make(coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.retry) { retryCallback.invoke() }
+            .show()
 
     companion object {
         private const val GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE = 0
