@@ -2,12 +2,12 @@
 TODO
 
 # Development
-The project is based on Gradle, which can be invoked on the command-line or
+The project is using Gradle, which can be invoked on the command-line or
 with _Android Studio_ or _IntelliJ_. You should use [Jetbrains Toolbox][1]
 to install and keep them updated.
 
 ## Dependencies
-This project depend on Java on the host machine at build-time. Thus, install
+This project depends on Java on the host machine at build-time. Thus, install
 OpenJDK 9 or 11 on Linux or [Oracle JDK 11][2] on macOS or Windows. In case you
 already have a later version installed on macOS you can set the default version
 explicitly by setting the __JAVA_HOME__ environment variable:
@@ -25,7 +25,7 @@ and runs all unit tests in the project:
 ./gradlew build
 ```
 
-Running integration tests depends on either a physical device attached or a
+Running integration tests depends on either a physical device attached, or a
 running Android Emulator instance:
 
 ```bash
