@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.7.3"
+    id("com.github.triplet.play") version "2.7.5"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -81,8 +81,8 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.core:core-ktx:1.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.3")
-    implementation("androidx.fragment:fragment-testing:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.2.4")
+    implementation("androidx.fragment:fragment-testing:1.2.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.multidex:multidex:2.0.1")
@@ -92,7 +92,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-ads:19.0.1")
-    implementation("com.google.android.gms:play-services-auth:17.0.0")
+    implementation("com.google.android.gms:play-services-auth:18.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics-ktx:17.3.0")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta03")
