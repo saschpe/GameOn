@@ -8,22 +8,22 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 # Constants
 CERT_FILES=(
-    META-INF/CERT.RSA
-    META-INF/CERT.SF
+  META-INF/CERT.RSA
+  META-INF/CERT.SF
 )
 
 # Functions
-function usage {
-    echo -e "Usage: $0 [APK_OR_AAB]"
-    exit 1
+function usage() {
+  echo -e "Usage: $0 [APK_OR_AAB]"
+  exit 1
 }
 
 # Checks
-if [[ $# -ne 1 ]] || ! test -f $1 ; then
-    usage
+if [[ $# -ne 1 ]] || ! test -f $1; then
+  usage
 fi
 
 # Let's roll
-for file in ${CERT_FILES[@]} ; do
-    zip -d "$1" "${file}"
+for file in ${CERT_FILES[@]}; do
+  zip -d "$1" "${file}"
 done

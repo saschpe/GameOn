@@ -20,24 +20,24 @@ git_last_merge_commit=$(git log -1 --format=%H --merges)
 
 git_last_metadata_change_commit=$(git log -1 --format=format:%H ${PLAY_STORE_METADATA_DIR})
 
-if [[ ${git_head_commit} == ${git_last_merge_commit} ]] ; then
-    # HEAD is a merge commit, check commits on merged branch for a metadata change commit by
-    # finding common ancestor and by iterating all commits from that branch
-    git_branch_parent_commits=( $(git log -1 --merges --pretty=format:%P) )
-    git_branch_merge_base_commit=$(git merge-base --all ${git_branch_parent_commits[0]} ${git_branch_parent_commits[1]})
+if [[ ${git_head_commit} == ${git_last_merge_commit} ]]; then
+  # HEAD is a merge commit, check commits on merged branch for a metadata change commit by
+  # finding common ancestor and by iterating all commits from that branch
+  git_branch_parent_commits=($(git log -1 --merges --pretty=format:%P))
+  git_branch_merge_base_commit=$(git merge-base --all ${git_branch_parent_commits[0]} ${git_branch_parent_commits[1]})
 
-    # Iterate the merged branch and check if any commit matches git_last_metadata_change_commit...
-    for commit in $(git log --pretty=%H ${git_branch_merge_base_commit}..${git_branch_parent_commits[1]}) ; do
-        if [[ "${commit}" == "${git_last_metadata_change_commit}" ]]  ; then
-            approve "Play Store metadata commit found in branch at ${commit}, publishing..."
-            ./gradlew publishListing
-            exit 0
-        fi
-    done
-elif [[ "${git_head_commit}" == "${git_last_metadata_change_commit}" ]] ; then
-    approve "Play Store metadata commit found at HEAD (${git_head_commit}), publishing..."
-    ./gradlew publishListing
-    exit 0
+  # Iterate the merged branch and check if any commit matches git_last_metadata_change_commit...
+  for commit in $(git log --pretty=%H ${git_branch_merge_base_commit}..${git_branch_parent_commits[1]}); do
+    if [[ "${commit}" == "${git_last_metadata_change_commit}" ]]; then
+      approve "Play Store metadata commit found in branch at ${commit}, publishing..."
+      ./gradlew publishListing
+      exit 0
+    fi
+  done
+elif [[ "${git_head_commit}" == "${git_last_metadata_change_commit}" ]]; then
+  approve "Play Store metadata commit found at HEAD (${git_head_commit}), publishing..."
+  ./gradlew publishListing
+  exit 0
 fi
 
 warn "No metadata changes, skipping..."
