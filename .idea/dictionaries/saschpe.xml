@@ -1,6 +1,8 @@
 <component name="ProjectDictionaryState">
   <dictionary name="saschpe">
     <words>
+      <w>androiddebugkey</w>
+      <w>apksigner</w>
       <w>cardview</w>
       <w>constraintlayout</w>
       <w>coroutine</w>
@@ -9,6 +11,8 @@
       <w>customtabs</w>
       <w>diffplug</w>
       <w>gameon</w>
+      <w>jetbrains</w>
+      <w>kapt</w>
       <w>keyline</w>
       <w>kotlinx</w>
       <w>ktor</w>

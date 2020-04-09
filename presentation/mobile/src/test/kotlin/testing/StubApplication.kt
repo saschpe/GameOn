@@ -4,8 +4,8 @@ import androidx.multidex.MultiDexApplication
 import androidx.test.core.app.ApplicationProvider
 import coil.Coil
 import coil.ImageLoader
-import java.lang.reflect.Method
 import org.robolectric.TestLifecycleApplication
+import java.lang.reflect.Method
 
 class StubApplication : MultiDexApplication(), TestLifecycleApplication {
     override fun onCreate() {

@@ -3,7 +3,6 @@ package saschpe.gameon.mobile.profile.account
 import androidx.lifecycle.*
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.domain.Module.getUserUseCase
