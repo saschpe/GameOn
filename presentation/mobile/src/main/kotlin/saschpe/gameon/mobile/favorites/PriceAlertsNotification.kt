@@ -3,7 +3,9 @@ package saschpe.gameon.mobile.favorites
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -71,6 +73,7 @@ class PriceAlertsNotification(
                     )
                 )
                 .setContentTitle(gameInfo?.title ?: plain)
+                .setDeleteIntent(priceAlertDismissedPendingIntent(plain))
                 .setGroup(NOTIFICATION_GROUP_KEY)
                 .setSmallIcon(R.drawable.ic_notification)
                 .build()
@@ -94,6 +97,13 @@ class PriceAlertsNotification(
         .setDestination(R.id.gameFragment)
         .setArguments(bundleOf(GameFragment.ARG_PLAIN to plain))
         .createPendingIntent()
+
+    private fun priceAlertDismissedPendingIntent(plain: String) = PendingIntent.getBroadcast(
+        context, 0,
+        Intent(context, PriceAlertDismissedBroadcastReceiver::class.java)
+            .putExtra(PriceAlertDismissedBroadcastReceiver.ARG_PLAIN, plain),
+        PendingIntent.FLAG_CANCEL_CURRENT
+    )
 
     private fun showFavoritesPendingIntent() = NavDeepLinkBuilder(context)
         .setGraph(R.navigation.navigation_main)
