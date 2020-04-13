@@ -4,5 +4,6 @@ data class Favorite(
     val id: Int? = null,
     val plain: String,
     val createdAt: Long = System.currentTimeMillis(),
-    val priceThreshold: Double? = null
+    val priceThreshold: Double? = null,
+    val dismissed: Boolean = false
 )

@@ -47,6 +47,10 @@
             android:exported="false"
             tools:node="remove" />
 
+        <receiver
+            android:name=".favorites.PriceAlertDismissedBroadcastReceiver"
+            android:exported="false" />
+
     </application>
 
 </manifest>

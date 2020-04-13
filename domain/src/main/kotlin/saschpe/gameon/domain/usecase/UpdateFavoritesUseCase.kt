@@ -17,7 +17,7 @@ class UpdateFavoritesUseCase(
 
         arguments.forEach { favorite ->
             when (val result = withContext(Dispatchers.IO) {
-                favoritesLocalRepository.update(favorite.toFavoriteEntity())
+                favoritesLocalRepository.update(favorite.copy(dismissed = false).toFavoriteEntity())
             }) {
                 is Result.Success<Unit> -> Unit
                 is Result.Error -> exceptions.add(result.throwable)
