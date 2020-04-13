@@ -17,11 +17,11 @@ GRADLE_FILES=(
 
 # Functions
 function get_version_code() {
-  echo $(grep "versionCode = " $1 | xargs | cut -d"=" -f2)
+  grep "versionCode = " "$1" | xargs | cut -d"=" -f2
 }
 
 function get_version_name() {
-  echo $(grep "versionName = " $1 | xargs | cut -d"=" -f2)
+  grep "versionName = " "$1" | xargs | cut -d"=" -f2
 }
 
 function usage() {
