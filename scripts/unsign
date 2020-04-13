@@ -19,11 +19,11 @@ function usage() {
 }
 
 # Checks
-if [[ $# -ne 1 ]] || ! test -f $1; then
+if [[ $# -ne 1 ]] || ! test -f "$1"; then
   usage
 fi
 
 # Let's roll
-for file in ${CERT_FILES[@]}; do
+for file in "${CERT_FILES[@]}"; do
   zip -d "$1" "${file}"
 done

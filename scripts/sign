@@ -8,7 +8,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 . "${SCRIPT_DIR}/inc.functions.sh"
 
 # Constants
-DEFAULT_APP=$(ls */build/outputs/apk/*/*.apk | sort | tail -n1)
+DEFAULT_APP=$(find . -name \*.apk | sort | tail -n1)
 DEFAULT_KEY="androiddebugkey"
 DEFAULT_STORE=$HOME/.android/debug.store
 
@@ -30,7 +30,7 @@ function usage() {
 }
 
 # Command-line arguments
-app=${DEFAULT_APP}
+app=
 store=${DEFAULT_STORE}
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -78,6 +78,7 @@ case ${app} in
   approve "Signing APK '${app}'..."
   [ -n "${ANDROID_SDK_ROOT}" ] || die "ANDROID_SDK_ROOT not set, see https://developer.android.com/studio/command-line/variables"
   apksigner=$(find "${ANDROID_SDK_ROOT}/build-tools" -name apksigner | sort | tail -n1)
+  # shellcheck disable=SC2086
   "${apksigner}" sign \
     --ks "${store}" \
     --ks-pass pass:"${store_pass}" \
@@ -86,7 +87,6 @@ case ${app} in
     "${app}"
   ;;
 *)
-  warn "Unsupported file format: ${app}"
   usage
   ;;
 esac
