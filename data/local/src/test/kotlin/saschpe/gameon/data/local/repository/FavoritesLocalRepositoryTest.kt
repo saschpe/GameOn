@@ -85,7 +85,7 @@ class FavoritesLocalRepositoryTest {
         coEvery { favoritesDao.insert(any()) } just Runs
 
         // Act
-        val result = repository.insert(FavoriteEntity(plain = "foo", priceThreshold = 0))
+        val result = repository.insert(FavoriteEntity(plain = "foo", priceThreshold = 0, dismissed = true))
 
         // Assert
         coVerify { favoritesDao.insert(any()) }

@@ -40,4 +40,9 @@ class FavoritesLocalRepository(
         favoritesDao.deleteByPlain(plain)
         return Result.Success(Unit)
     }
+
+    suspend fun dismissByPlain(plain: String): Result<Unit> {
+        favoritesDao.dismissByPlain(plain)
+        return Result.Success(Unit)
+    }
 }

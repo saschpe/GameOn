@@ -25,4 +25,7 @@ interface FavoritesDao {
 
     @Query("DELETE FROM favorites WHERE plain = :plain")
     suspend fun deleteByPlain(plain: String)
+
+    @Query("UPDATE favorites SET dismissed = 1 WHERE plain = :plain")
+    suspend fun dismissByPlain(plain: String)
 }
