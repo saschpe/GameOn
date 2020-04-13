@@ -13,8 +13,7 @@ import saschpe.gameon.data.local.AppDatabase
 class MigrationTest {
     @get:Rule
     val migrationTestHelper = MigrationTestHelper(
-        InstrumentationRegistry.getInstrumentation(),
-        AppDatabase::class.java.canonicalName
+        InstrumentationRegistry.getInstrumentation(), AppDatabase::class.java.canonicalName
     )
 
     @Test
@@ -26,7 +25,7 @@ class MigrationTest {
                 """
                 INSERT INTO favorites (created_at, plain, title, price_threshold)
                 VALUES (123, 'foo', 'Foo', 1);
-                """.trimIndent()
+                """
             )
             // Prepare for the next version.
             close()
@@ -34,6 +33,28 @@ class MigrationTest {
 
         // Re-open the database with version 2 and provide Migration1to2 as the migration process.
         migrationTestHelper.runMigrationsAndValidate(TEST_DB, 2, true, Migration1to2)
+
+        // MigrationTestHelper automatically verifies the schema changes,
+        // but you need to validate that the data was migrated properly.
+    }
+
+    @Test
+    fun migrate2To3() {
+        migrationTestHelper.createDatabase(TEST_DB, 2).apply {
+            // db has schema version 1. insert some data using SQL queries.
+            // You cannot use DAO classes because they expect the latest schema.
+            execSQL(
+                """
+                INSERT INTO favorites (created_at, plain, price_threshold)
+                VALUES (123, 'foo', 1);
+                """
+            )
+            // Prepare for the next version.
+            close()
+        }
+
+        // Re-open the database with version 2 and provide Migration1to2 as the migration process.
+        migrationTestHelper.runMigrationsAndValidate(TEST_DB, 3, true, Migration2to3)
 
         // MigrationTestHelper automatically verifies the schema changes,
         // but you need to validate that the data was migrated properly.
@@ -49,9 +70,7 @@ class MigrationTest {
         // Open latest version of the database. Room will validate the schema
         // once all migrations execute.
         Room.databaseBuilder(
-            InstrumentationRegistry.getInstrumentation().targetContext,
-            AppDatabase::class.java,
-            TEST_DB
+            InstrumentationRegistry.getInstrumentation().targetContext, AppDatabase::class.java, TEST_DB
         ).addMigrations(*ALL_MIGRATIONS).build().apply {
             openHelper.writableDatabase
             close()
@@ -60,6 +79,6 @@ class MigrationTest {
 
     companion object {
         private const val TEST_DB = "migration-test.db"
-        private val ALL_MIGRATIONS = arrayOf(Migration1to2)
+        private val ALL_MIGRATIONS = arrayOf(Migration1to2, Migration2to3)
     }
 }
