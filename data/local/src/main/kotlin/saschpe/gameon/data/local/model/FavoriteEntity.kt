@@ -9,5 +9,6 @@ data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "plain") var plain: String,
-    @ColumnInfo(name = "price_threshold") val priceThreshold: Long?
+    @ColumnInfo(name = "price_threshold") val priceThreshold: Long?,
+    @ColumnInfo(name = "dismissed") val dismissed: Boolean = false
 )

@@ -27,6 +27,8 @@ android {
         it.java.srcDir("src/${it.name}/kotlin")
         it.assets.srcDir("src/${it.name}/schemas")
     }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {

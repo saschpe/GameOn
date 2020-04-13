@@ -40,7 +40,7 @@ class GetPriceAlertsUseCase(
                             val overview = overviews[favoriteEntity.plain]
                             overview?.price?.let { price ->
                                 favoriteEntity.priceThreshold?.let { priceThreshold ->
-                                    if (price.price < priceThreshold / PRICE_CONVERSION_FACTOR) {
+                                    if (price.price < priceThreshold / PRICE_CONVERSION_FACTOR && !favoriteEntity.dismissed) {
                                         priceAlerts[favoriteEntity.plain] = price
                                     }
                                 }

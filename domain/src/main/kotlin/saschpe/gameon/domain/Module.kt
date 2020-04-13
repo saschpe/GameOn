@@ -9,14 +9,14 @@ import saschpe.gameon.domain.usecase.*
 
 object Module {
     val addFavoritesUseCase = AddFavoritesUseCase(favoritesLocalRepository)
+    val dismissPriceAlertUseCase = DismissPriceAlertUseCase(favoritesLocalRepository)
     val getDealsUseCase = GetDealsUseCase(dealsRemoteRepository)
     val getGameInfoUseCase = GetGameInfoUseCase(gameRemoteRepository)
     val getGameOverviewUseCase = GetGameOverviewUseCase(gameRemoteRepository)
     val getGamePricesUseCase = GetGamePricesUseCase(gameRemoteRepository)
     val getFavoritesUseCase = GetFavoritesUseCase(favoritesLocalRepository)
-    val getPriceAlertsUseCase =
-        GetPriceAlertsUseCase(favoritesLocalRepository, gameRemoteRepository)
     val getFavoriteUseCase = GetFavoriteUseCase(favoritesLocalRepository)
+    val getPriceAlertsUseCase = GetPriceAlertsUseCase(favoritesLocalRepository, gameRemoteRepository)
     val getUserUseCase = GetUserUseCase(userRepository)
     val removeFavoritesUseCase = RemoveFavoritesUseCase(favoritesLocalRepository)
     val searchUseCase = SearchUseCase(searchRemoteRepository)

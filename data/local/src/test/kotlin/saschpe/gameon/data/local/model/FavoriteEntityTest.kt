@@ -21,8 +21,7 @@ class FavoriteEntityTest {
     @Before
     fun createDatabase() {
         database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java
+            ApplicationProvider.getApplicationContext(), AppDatabase::class.java
         ).build()
         favoritesDao = database.favoritesDao()
     }
@@ -71,7 +70,7 @@ class FavoriteEntityTest {
     }
 
     companion object {
-        private val TEST_ENTITY_ONE = FavoriteEntity(id = 1, plain = "Test", priceThreshold = 3)
-        private val TEST_ENTITY_TWO = FavoriteEntity(id = 2, plain = "Bar", priceThreshold = 5)
+        private val TEST_ENTITY_ONE = FavoriteEntity(id = 1, plain = "Test", priceThreshold = 3, dismissed = false)
+        private val TEST_ENTITY_TWO = FavoriteEntity(id = 2, plain = "Bar", priceThreshold = 5, dismissed = true)
     }
 }
