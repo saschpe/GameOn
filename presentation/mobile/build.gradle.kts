@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000318
-        versionName = "0.3.18"
+        versionCode = 210000320
+        versionName = "0.3.20"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -40,12 +40,6 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
         named("release") {
             isMinifyEnabled = true
