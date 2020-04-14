@@ -17,11 +17,11 @@ GRADLE_FILES=(
 
 # Functions
 function get_version_code() {
-  grep "versionCode = " "$1" | xargs | cut -d"=" -f2
+  grep "versionCode = " "$1" | cut -d"=" -f2 | xargs
 }
 
 function get_version_name() {
-  grep "versionName = " "$1" | xargs | cut -d"=" -f2
+  grep "versionName = " "$1" | cut -d"=" -f2 | xargs
 }
 
 function usage() {
