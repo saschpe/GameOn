@@ -38,13 +38,6 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         super.onCreate(savedInstanceState)
         offerAdapter = OfferAdapter(requireContext())
 
-        loadAdvertisement(NativeAdUnit.Search) {
-            if (progressBar.visibility == View.VISIBLE) {
-                // Only submit ad if we're still loading offers
-                offerAdapter.submitList(listOf(OfferAdapter.ViewModel.AdvertisementViewModel(it)))
-            }
-        }
-
         viewModel.getDeals()
     }
 
@@ -59,6 +52,13 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
                 R.id.settings -> findNavController().navigate(R.id.action_offers_to_settings)
             }
             true
+        }
+
+        loadAdvertisement(NativeAdUnit.Search) {
+            if (progressBar.visibility == View.VISIBLE) {
+                // Only submit ad if we're still loading offers
+                offerAdapter.submitList(listOf(OfferAdapter.ViewModel.AdvertisementViewModel(it)))
+            }
         }
 
         recyclerView.apply {
