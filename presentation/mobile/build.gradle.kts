@@ -40,6 +40,12 @@ android {
     buildTypes {
         named("debug") {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         named("release") {
             isMinifyEnabled = true
