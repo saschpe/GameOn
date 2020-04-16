@@ -55,7 +55,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         }
 
         loadAdvertisement(NativeAdUnit.Search) {
-            if (progressBar.visibility == View.VISIBLE) {
+            if (progressBar?.visibility == View.VISIBLE) {
                 // Only submit ad if we're still loading offers
                 offerAdapter.submitList(listOf(OfferAdapter.ViewModel.AdvertisementViewModel(it)))
             }
