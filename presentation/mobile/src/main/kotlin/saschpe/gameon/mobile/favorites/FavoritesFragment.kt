@@ -43,7 +43,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             else -> 1
         }
     private var adViewModels: List<FavoritesAdapter.ViewModel.AdvertisementViewModel> = listOf()
-    private var favoriteViewModels: List<FavoritesAdapter.ViewModel.FavoriteViewModel> = listOf()
+    private var favoriteViewModels: List<FavoritesAdapter.ViewModel> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,26 +99,20 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Success<List<Favorite>> -> {
-                    val viewModels = when {
-                        result.data.isNotEmpty() -> {
-                            favoriteViewModels = result.data.map { favorite ->
-                                FavoritesAdapter.ViewModel.FavoriteViewModel(
-                                    lifecycleScope,
-                                    favorite
-                                ) {
-                                    navController.navigate(
-                                        R.id.action_favorites_to_game,
-                                        bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
-                                    )
-                                }
+                    favoriteViewModels = when {
+                        result.data.isNotEmpty() -> result.data.map { favorite ->
+                            FavoritesAdapter.ViewModel.FavoriteViewModel(lifecycleScope, favorite) {
+                                navController.navigate(
+                                    R.id.action_favorites_to_game,
+                                    bundleOf(GameFragment.ARG_PLAIN to favorite.plain)
+                                )
                             }
-                            adViewModels + favoriteViewModels
                         }
                         else -> listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
                             navController.navigate(R.id.action_favorites_to_search)
                         })
                     }
-                    favoritesAdapter.submitList(viewModels)
+                    favoritesAdapter.submitList(adViewModels + favoriteViewModels)
                 }
                 is Result.Error -> {
                     result.errorLogged()
