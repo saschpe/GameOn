@@ -14,7 +14,9 @@
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface" />
 
     <!-- Bottom Navigation -->
-    <style name="Widget.App.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView" />
+    <style name="Widget.App.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemBackground">?colorSurface</item>
+    </style>
 
     <!--Bottom Sheets-->
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">

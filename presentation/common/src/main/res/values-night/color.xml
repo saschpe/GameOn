@@ -7,8 +7,8 @@
     <!--low-luminance UIs. These colors will be used by night/themes.xml.-->
 
     <color name="color_background">#263238</color>
-    <color name="color_surface">#121212</color>
-    <color name="color_surface_transparent">#dd121212</color>
+    <color name="color_surface">#102027</color>
+    <color name="color_surface_transparent">#dd102027</color>
 
     <color name="color_error">#cf6679</color>
 
