@@ -3,6 +3,21 @@
 
     <!--Components-->
 
+    <!--Navigation Drawer-->
+    <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?textAppearanceBody2</item>
+    </style>
+
+    <!-- App Bar -->
+    <style name="Widget.App.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
+
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface" />
+
+    <!-- Bottom Navigation -->
+    <style name="Widget.App.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemBackground">?colorSurface</item>
+    </style>
+
     <!--Bottom Sheets-->
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="android:windowIsFloating">false</item>
@@ -13,15 +28,5 @@
     </style>
 
     <style name="Widget.App.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal" />
-
-    <!--Navigation Drawer-->
-    <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
-        <item name="itemTextAppearance">?textAppearanceBody2</item>
-    </style>
-
-    <!-- App Bar -->
-    <style name="Widget.App.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
-
-    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface" />
 
 </resources>
