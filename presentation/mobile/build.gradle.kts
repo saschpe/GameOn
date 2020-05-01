@@ -96,7 +96,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics-ktx:17.4.0")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
-    implementation("com.google.firebase:firebase-perf:19.0.5")
+    implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.google.android.material:material:1.1.0")
     implementation("io.coil-kt:coil:0.9.5")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
