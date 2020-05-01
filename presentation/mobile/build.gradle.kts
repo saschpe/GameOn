@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000323
-        versionName = "0.3.23"
+        versionCode = 210000324
+        versionName = "0.3.24"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -91,14 +91,14 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
-    implementation("com.google.android.gms:play-services-ads:19.0.1")
+    implementation("com.google.android.gms:play-services-ads:19.1.0")
     implementation("com.google.android.gms:play-services-auth:18.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:17.3.0")
-    implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta03")
-    implementation("com.google.firebase:firebase-perf:19.0.5")
+    implementation("com.google.firebase:firebase-analytics-ktx:17.4.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.0")
+    implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.google.android.material:material:1.1.0")
-    implementation("io.coil-kt:coil:0.9.5")
+    implementation("io.coil-kt:coil:0.10.1")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
     implementation("saschpe.android:customtabs:3.0.2")
@@ -115,7 +115,7 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-web:3.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
     testImplementation("androidx.work:work-testing:2.3.4")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
         exclude(group = "com.google.auto.service", module = "auto-service")
@@ -127,7 +127,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-web:3.2.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
-    androidTestImplementation("io.mockk:mockk-android:1.9.2")
+    androidTestImplementation("io.mockk:mockk-android:1.10.0")
 }
 
 play {
