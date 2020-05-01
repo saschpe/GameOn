@@ -18,6 +18,6 @@ dependencies {
 
     testImplementation(kotlin("test-junit"))
     testImplementation("io.ktor:ktor-client-mock-jvm:1.3.2")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
     testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
 }
