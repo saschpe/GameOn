@@ -23,7 +23,7 @@ android {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(project(":data:core"))
-    api("com.google.firebase:firebase-auth:19.3.0") {
+    api("com.google.firebase:firebase-auth:19.3.1") {
         // TODO: Introduce domain models and map accordingly
     }
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
@@ -31,5 +31,5 @@ dependencies {
     implementation("saschpe.log4k:log4k:0.1.6")
 
     testImplementation(kotlin("test-junit"))
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
 }
