@@ -91,7 +91,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
-    implementation("com.google.android.gms:play-services-ads:19.0.1")
+    implementation("com.google.android.gms:play-services-ads:19.1.0")
     implementation("com.google.android.gms:play-services-auth:18.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.google.firebase:firebase-analytics-ktx:17.3.0")
