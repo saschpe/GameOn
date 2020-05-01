@@ -115,7 +115,7 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-web:3.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
     testImplementation("androidx.work:work-testing:2.3.4")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
         exclude(group = "com.google.auto.service", module = "auto-service")
@@ -127,7 +127,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-web:3.2.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
-    androidTestImplementation("io.mockk:mockk-android:1.9.2")
+    androidTestImplementation("io.mockk:mockk-android:1.10.0")
 }
 
 play {

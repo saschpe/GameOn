@@ -34,7 +34,7 @@ dependencies {
 
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
         exclude(group = "com.google.auto.service", module = "auto-service")

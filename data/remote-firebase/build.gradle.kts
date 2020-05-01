@@ -31,5 +31,5 @@ dependencies {
     implementation("saschpe.log4k:log4k:0.1.6")
 
     testImplementation(kotlin("test-junit"))
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.10.0")
 }
