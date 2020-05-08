@@ -12,7 +12,7 @@ buildscript {
 }
 
 plugins {
-    id("com.diffplug.gradle.spotless") version "3.28.1"
+    id("com.diffplug.gradle.spotless") version "3.29.0"
     id("com.github.ben-manes.versions") version "0.28.0"
     kotlin("jvm") version "1.3.72"
 }
