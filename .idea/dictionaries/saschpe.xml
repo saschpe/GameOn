@@ -11,21 +11,25 @@
       <w>customtabs</w>
       <w>diffplug</w>
       <w>gameon</w>
+      <w>getkeepsafe</w>
       <w>jetbrains</w>
       <w>kapt</w>
       <w>keyline</w>
       <w>kotlinx</w>
       <w>ktor</w>
       <w>livedata</w>
+      <w>materialprogressbar</w>
       <w>mockk</w>
       <w>multidex</w>
       <w>peilicke</w>
       <w>protondb</w>
       <w>saschpe</w>
+      <w>taptargetview</w>
       <w>versioninfo</w>
       <w>viewmodel</w>
       <w>wishlist</w>
       <w>workmanager</w>
+      <w>zhanghai</w>
     </words>
   </dictionary>
 </component>
