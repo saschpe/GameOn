@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000325
-        versionName = "0.3.25"
+        versionCode = 210000326
+        versionName = "0.3.26"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.browser:browser:1.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.core:core-ktx:1.2.0")
+    implementation("androidx.core:core-ktx:1.3.0")
     implementation("androidx.fragment:fragment-ktx:1.2.3")
     implementation("androidx.fragment:fragment-testing:1.2.3")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
@@ -94,13 +94,13 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:19.1.0")
     implementation("com.google.android.gms:play-services-auth:18.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:17.4.1")
+    implementation("com.google.firebase:firebase-analytics-ktx:17.4.2")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.google.android.material:material:1.1.0")
     implementation("io.coil-kt:coil:0.11.0")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
     implementation("saschpe.android:customtabs:3.0.2")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
