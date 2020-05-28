@@ -94,7 +94,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:19.1.0")
     implementation("com.google.android.gms:play-services-auth:18.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:17.4.1")
+    implementation("com.google.firebase:firebase-analytics-ktx:17.4.2")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.google.android.material:material:1.1.0")
