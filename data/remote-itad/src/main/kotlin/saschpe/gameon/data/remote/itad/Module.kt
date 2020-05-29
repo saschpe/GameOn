@@ -1,6 +1,9 @@
 package saschpe.gameon.data.remote.itad
 
-import saschpe.gameon.data.remote.itad.repository.*
+import saschpe.gameon.data.remote.itad.repository.DealsRemoteRepository
+import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
+import saschpe.gameon.data.remote.itad.repository.SearchRemoteRepository
+import saschpe.gameon.data.remote.itad.repository.WebRemoteRepository
 
 object Module {
     private val api = Api(
