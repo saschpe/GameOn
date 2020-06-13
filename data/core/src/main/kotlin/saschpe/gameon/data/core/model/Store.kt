@@ -8,3 +8,5 @@ data class Store(
     val name: String,
     val color: String
 )
+
+const val STEAM_STORE = "steam"
