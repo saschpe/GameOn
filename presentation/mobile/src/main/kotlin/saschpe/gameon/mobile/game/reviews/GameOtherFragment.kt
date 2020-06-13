@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import saschpe.gameon.common.recyclerview.SpacingItemDecoration
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
+import saschpe.gameon.data.core.model.STEAM_STORE
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openUrl
@@ -44,13 +45,23 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
                 is Result.Success<GameInfo> -> {
                     val gameInfo = result.data
                     val viewModels = gameInfo.reviews?.map { review ->
+                        val onClick: (() -> Unit)? = when (review.key) {
+                            STEAM_STORE -> {
+                                {
+                                    lifecycleScope.launch {
+                                        viewModel.getStreamReviewsUrl(argPlain)
+                                            ?.let { openUrl(it) }
+                                    }
+                                    Unit
+                                }
+                            }
+                            else -> null
+                        }
+
                         GameReviewsAdapter.ViewModel.ReviewViewModel(
                             store = review.key,
                             review = review.value,
-                            onClick = {
-                                // TODO: Add onClick handler to open steam page..
-                                // openUrl(requireContext(), gameInfo.urls.game)
-                            }
+                            onClick = onClick
                         )
                     } ?: listOf(GameReviewsAdapter.ViewModel.NoResultsViewModel())
 
