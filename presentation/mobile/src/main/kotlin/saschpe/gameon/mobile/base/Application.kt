@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import saschpe.gameon.common.content.defaultPreferences
+import saschpe.gameon.common.base.content.defaultPreferences
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.workManager
 import saschpe.gameon.mobile.R

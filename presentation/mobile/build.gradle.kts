@@ -123,7 +123,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-web:3.2.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
     androidTestImplementation("io.mockk:mockk-android:1.10.0")
 }
 

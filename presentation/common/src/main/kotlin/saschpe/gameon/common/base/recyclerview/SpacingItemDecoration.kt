@@ -1,4 +1,4 @@
-package saschpe.gameon.common.recyclerview
+package saschpe.gameon.common.base.recyclerview
 
 import android.content.Context
 import android.graphics.Rect

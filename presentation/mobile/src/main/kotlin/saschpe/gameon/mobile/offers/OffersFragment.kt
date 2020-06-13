@@ -11,15 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_offers.*
-import saschpe.gameon.common.content.hasScreenWidth
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.base.content.hasScreenWidth
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.offers.OffersViewModel
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 

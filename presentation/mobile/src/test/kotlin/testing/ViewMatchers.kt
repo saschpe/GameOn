@@ -19,8 +19,8 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.anyOf
 import org.hamcrest.TypeSafeMatcher
-import saschpe.gameon.common.tinted
-import saschpe.gameon.common.toColorInt
+import saschpe.gameon.common.base.tinted
+import saschpe.gameon.common.base.toColorInt
 
 /**
  * Custom view matchers not present in Espresso library.

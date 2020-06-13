@@ -18,15 +18,15 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import saschpe.gameon.common.content.hasScreenWidth
-import saschpe.gameon.common.content.sharedPreferences
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.base.content.hasScreenWidth
+import saschpe.gameon.common.base.content.sharedPreferences
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 

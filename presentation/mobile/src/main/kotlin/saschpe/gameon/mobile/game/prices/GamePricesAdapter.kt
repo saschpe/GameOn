@@ -10,7 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import saschpe.gameon.common.Module.colors
-import saschpe.gameon.common.recyclerview.DiffCallback
+import saschpe.gameon.common.base.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.data.core.model.GamePrice.Companion.GOOD_PRICE_CUT_THRESHOLD
 import saschpe.gameon.mobile.R

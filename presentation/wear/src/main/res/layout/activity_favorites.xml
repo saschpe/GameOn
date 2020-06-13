@@ -4,7 +4,6 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wear_color_background"
     tools:deviceIds="wear">
 
     <androidx.wear.widget.BoxInsetLayout
@@ -34,7 +33,6 @@
     <androidx.wear.widget.drawer.WearableNavigationDrawerView
         android:id="@+id/topNavigationDrawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/wear_color_surface" />
+        android:layout_height="match_parent" />
 
 </androidx.wear.widget.drawer.WearableDrawerLayout>
