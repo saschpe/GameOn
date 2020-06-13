@@ -5,7 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import saschpe.gameon.common.content.openAppNotificationSettings
+import saschpe.gameon.common.base.content.openAppNotificationSettings
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.settings.SettingsViewModel

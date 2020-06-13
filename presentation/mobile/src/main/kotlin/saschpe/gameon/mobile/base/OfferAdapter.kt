@@ -19,7 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
-import saschpe.gameon.common.recyclerview.DiffCallback
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer

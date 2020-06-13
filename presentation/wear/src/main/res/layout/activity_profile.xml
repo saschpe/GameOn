@@ -5,7 +5,6 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wear_color_background"
     tools:deviceIds="wear">
 
     <androidx.wear.widget.BoxInsetLayout
@@ -29,14 +28,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/app_name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:textAppearance="?textAppearanceBody2" />
 
                 <TextView
                     android:id="@+id/copyright"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textAppearance="?textAppearanceCaption"
                     tools:text="@string/lorem_ipsum_short" />
 
             </LinearLayout>
@@ -48,7 +47,6 @@
     <androidx.wear.widget.drawer.WearableNavigationDrawerView
         android:id="@+id/topNavigationDrawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/wear_color_surface" />
+        android:layout_height="match_parent" />
 
 </androidx.wear.widget.drawer.WearableDrawerLayout>

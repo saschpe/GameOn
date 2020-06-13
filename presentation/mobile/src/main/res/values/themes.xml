@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!--Top level DayNight theme to be used in AndroidManifest.xml-->
-    <style name="App.DayNight" parent="Base.App" />
+    <style name="App.DayNight" parent="Base.App">
+
+        <!--Component styles-->
+        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+        <item name="appBarLayoutStyle">@style/Widget.App.AppBar</item>
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigation</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
+
+    </style>
 
     <style name="App.DayNight.ActionBar">
         <item name="windowActionBar">true</item>
@@ -18,58 +28,6 @@
         <item name="android:navigationBarColor">@color/color_secondary</item>
         <item name="android:statusBarColor">@color/color_secondary</item>
         <item name="android:windowBackground">@drawable/splash_background</item>
-    </style>
-
-    <!--Base custom theme which will be shared between both light and dark theme variants-->
-    <style name="Base.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!--Material color attributes -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
-        <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_dark</item>
-
-        <item name="android:colorBackground">@color/color_background</item>
-        <item name="colorSurface">@color/color_surface</item>
-        <item name="colorError">@color/color_error</item>
-
-        <item name="colorOnPrimary">@color/color_on_primary</item>
-        <item name="colorOnSecondary">@color/color_on_secondary</item>
-        <item name="colorOnBackground">@color/color_on_background</item>
-        <item name="colorOnSurface">@color/color_on_surface</item>
-        <item name="colorOnError">@color/color_on_error</item>
-
-        <item name="android:statusBarColor">?colorSurface</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor">?colorSurface</item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-
-        <!--Material type attributes-->
-        <item name="textAppearanceHeadline1">@style/TextAppearance.App.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.App.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.App.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.App.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.App.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.App.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
-        <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.App.Overline</item>
-
-        <!--Material shape attributes-->
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
-
-        <!--Component styles-->
-        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
-        <item name="appBarLayoutStyle">@style/Widget.App.AppBar</item>
-        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigation</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
     </style>
 
 </resources>

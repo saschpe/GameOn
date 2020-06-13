@@ -9,14 +9,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game_other.*
 import kotlinx.coroutines.launch
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.STEAM_STORE
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openUrl
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.game.GameFragment
 
 class GameOtherFragment : Fragment(R.layout.fragment_game_other) {

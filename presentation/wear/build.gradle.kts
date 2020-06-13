@@ -15,7 +15,6 @@ repositories {
 
 android {
     compileSdkVersion(29)
-    buildToolsVersion("30.0.0")
 
     defaultConfig {
         applicationId = "saschpe.gameon"
@@ -75,6 +74,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.wear:wear:1.0.0")
     implementation("com.google.android.gms:play-services-wearable:17.0.0")
@@ -87,11 +87,8 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.2.0")
     testImplementation("androidx.test.espresso:espresso-contrib:3.2.0")
-    // testImplementation("androidx.test.espresso:espresso-idling-resource:3.2.0")
     testImplementation("androidx.test.espresso:espresso-intents:3.2.0")
-    // testImplementation("androidx.test.espresso:espresso-web:3.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    // testImplementation("androidx.work:work-testing:2.3.4")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
@@ -101,9 +98,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.2.0")
-    // androidTestImplementation("androidx.test.espresso:espresso-web:3.2.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    // androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
     androidTestImplementation("io.mockk:mockk-android:1.10.0")
 }
 

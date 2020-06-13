@@ -1,8 +1,9 @@
-package saschpe.gameon.common
+package saschpe.gameon.common.base
 
 import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import saschpe.gameon.common.R
 
 class Colors(context: Context) {
     @ColorInt

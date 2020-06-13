@@ -1,10 +1,10 @@
 package saschpe.gameon.wear.base
 
 import android.os.Bundle
-import android.support.wearable.activity.WearableActivity
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.wear.ambient.AmbientModeSupport
 import kotlinx.android.synthetic.main.activity_profile.*
-import saschpe.gameon.wear.R
 
 /**
  * Base wearable activity.
@@ -14,11 +14,14 @@ import saschpe.gameon.wear.R
 abstract class BaseActivity(
     @LayoutRes private val layoutId: Int,
     private val topNavigationDrawerPosition: Int
-) : WearableActivity() {
+) : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+    private lateinit var ambientController: AmbientModeSupport.AmbientController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
-        setAmbientEnabled()
+
+        ambientController = AmbientModeSupport.attach(this)
 
         topNavigationDrawer.setAdapter(TopNavigationDrawerAdapter(this))
         topNavigationDrawer.setCurrentItem(topNavigationDrawerPosition, false)
@@ -26,15 +29,5 @@ abstract class BaseActivity(
         topNavigationDrawer.controller.peekDrawer()
     }
 
-    override fun onEnterAmbient(ambientDetails: Bundle?) {
-        super.onEnterAmbient(ambientDetails)
-        topNavigationDrawer.controller.closeDrawer()
-        drawerLayout.setBackgroundColor(resources.getColor(R.color.wear_color_background_ambient, theme))
-    }
-
-    override fun onExitAmbient() {
-        super.onExitAmbient()
-        drawerLayout.setBackgroundColor(resources.getColor(R.color.wear_color_background, theme))
-        topNavigationDrawer.controller.closeDrawer()
-    }
+    override fun getAmbientCallback() = BaseAmbientCallback(drawerLayout, topNavigationDrawer, theme)
 }

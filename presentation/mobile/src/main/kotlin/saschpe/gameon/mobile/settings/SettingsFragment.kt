@@ -11,7 +11,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import kotlinx.android.synthetic.main.fragment_settings.*
-import saschpe.gameon.common.content.hasScreenWidth
+import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.settings.preferences.AppearancePreferenceFragment
