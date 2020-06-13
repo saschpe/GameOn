@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.7.5"
+    id("com.github.triplet.play") version "2.8.0"
     id("com.google.firebase.crashlytics")
     // id("com.google.firebase.firebase-perf")
     id("com.google.gms.google-services")
