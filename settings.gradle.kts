@@ -7,5 +7,6 @@ include(
     ":data:remote-itad",
     ":domain",
     ":presentation:common",
-    ":presentation:mobile"
+    ":presentation:mobile",
+    ":presentation:wear"
 )

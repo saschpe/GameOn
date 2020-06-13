@@ -1,4 +1,4 @@
-package saschpe.gameon.common.recyclerview
+package saschpe.gameon.common.base.recyclerview
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.drawer.WearableDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:deviceIds="wear">
+
+    <androidx.wear.widget.BoxInsetLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:boxedEdges="all">
+
+            <LinearLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/app_name"
+                    android:textAppearance="?textAppearanceBody1" />
+
+                <TextView
+                    android:id="@+id/copyright"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceCaption"
+                    tools:text="@string/lorem_ipsum_short" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.wear.widget.BoxInsetLayout>
+
+    <androidx.wear.widget.drawer.WearableNavigationDrawerView
+        android:id="@+id/topNavigationDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.wear.widget.drawer.WearableDrawerLayout>

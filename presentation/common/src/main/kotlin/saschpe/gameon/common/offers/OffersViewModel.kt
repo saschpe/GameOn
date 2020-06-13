@@ -1,4 +1,4 @@
-package saschpe.gameon.mobile.offers
+package saschpe.gameon.common.offers
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

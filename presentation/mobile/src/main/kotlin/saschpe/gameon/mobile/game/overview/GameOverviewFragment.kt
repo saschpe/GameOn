@@ -18,6 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
+import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
@@ -26,7 +27,6 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.game.GameFragment
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {

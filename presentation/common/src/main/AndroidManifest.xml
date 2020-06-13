@@ -4,7 +4,7 @@
     <application>
 
         <provider
-            android:name="saschpe.gameon.common.content.AppContentProvider"
+            android:name=".base.content.AppContentProvider"
             android:authorities="${applicationId}.app_content_provider"
             android:exported="false" />
 

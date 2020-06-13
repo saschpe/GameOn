@@ -10,15 +10,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_prices.*
 import kotlinx.coroutines.launch
-import saschpe.gameon.common.content.hasScreenWidth
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.base.content.hasScreenWidth
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.game.GameFragment
 
 class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {

@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric.setupContentProvider
-import saschpe.gameon.common.content.AppContentProvider
+import saschpe.gameon.common.base.content.AppContentProvider
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.help.contact.HelpContactFragment
