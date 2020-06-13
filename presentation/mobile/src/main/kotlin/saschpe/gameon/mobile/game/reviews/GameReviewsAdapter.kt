@@ -43,7 +43,7 @@ class GameReviewsAdapter(
         data class ReviewViewModel(
             val store: String,
             val review: GameInfo.Review,
-            val onClick: () -> Unit = {}
+            val onClick: (() -> Unit)? = null
         ) : ViewModel(VIEW_TYPE_REVIEW)
 
         class NoResultsViewModel : ViewModel(VIEW_TYPE_NO_RESULTS)
@@ -56,7 +56,14 @@ class GameReviewsAdapter(
         private val layout: View = view.findViewById(R.id.constraintLayout)
 
         fun bind(viewModel: ViewModel.ReviewViewModel) {
-            layout.setOnClickListener { viewModel.onClick.invoke() }
+            if (viewModel.onClick != null) {
+                layout.setOnClickListener { viewModel.onClick.invoke() }
+                layout.isClickable = true
+                layout.isFocusable = true
+            } else {
+                layout.isClickable = false
+                layout.isFocusable = false
+            }
 
             viewModel.review.let {
                 details.text = details.resources.getQuantityString(

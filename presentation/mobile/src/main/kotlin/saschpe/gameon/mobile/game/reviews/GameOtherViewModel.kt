@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.domain.Module.getGameInfoUseCase
+import saschpe.gameon.domain.Module.getSteamReviewUrlUseCase
 
 class GameOtherViewModel : ViewModel() {
     val gameInfoLiveData = MutableLiveData<Result<GameInfo>>()
@@ -17,4 +18,10 @@ class GameOtherViewModel : ViewModel() {
             is Result.Error -> result
         }
     }
+
+    suspend fun getStreamReviewsUrl(plain: String) =
+        when (val result = getSteamReviewUrlUseCase(plain)) {
+            is Result.Success<String> -> result.data
+            is Result.Error -> null
+        }
 }
