@@ -1,4 +1,4 @@
-package saschpe.gameon.common
+package saschpe.gameon.common.base
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -6,6 +6,8 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import saschpe.gameon.data.core.Result
+import saschpe.log4k.Log
 
 @ColorInt
 fun Int.toColorInt(context: Context) = ContextCompat.getColor(context, this)
@@ -24,3 +26,7 @@ private val EMAIL_REGEX =
 
 fun String.isValidEmail() = EMAIL_REGEX.matches(this)
 fun String.isValidPassword() = length > 7
+
+fun Result.Error.errorLogged() = apply {
+    Log.error(throwable.message.toString(), throwable)
+}

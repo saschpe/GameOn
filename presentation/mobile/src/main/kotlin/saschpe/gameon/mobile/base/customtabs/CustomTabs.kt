@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
 import saschpe.gameon.common.Module.colors
-import saschpe.gameon.common.content.defaultPreferences
+import saschpe.gameon.common.base.content.defaultPreferences
 import saschpe.gameon.mobile.R
 import saschpe.log4k.Log
 

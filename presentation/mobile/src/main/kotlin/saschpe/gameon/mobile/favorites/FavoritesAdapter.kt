@@ -16,7 +16,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.*
 import saschpe.gameon.common.Module.colors
-import saschpe.gameon.common.recyclerview.DiffCallback
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.DiffCallback
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
@@ -24,7 +25,6 @@ import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.errorLogged
 
 class FavoritesAdapter(
     context: Context

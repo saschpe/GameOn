@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.7.5"
+    id("com.github.triplet.play") version "2.8.0"
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -44,10 +44,7 @@ android {
         named("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("default")
         }
     }
@@ -126,7 +123,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-web:3.2.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
     androidTestImplementation("io.mockk:mockk-android:1.10.0")
 }
 

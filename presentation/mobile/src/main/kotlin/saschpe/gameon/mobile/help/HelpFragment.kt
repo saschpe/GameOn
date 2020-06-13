@@ -14,7 +14,7 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.coroutines.launch
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
-import saschpe.gameon.common.app.appNameTitle
+import saschpe.gameon.common.base.app.appNameTitle
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R

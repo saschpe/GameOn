@@ -7,8 +7,8 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import saschpe.gameon.common.content.dpToPx
-import saschpe.gameon.common.content.hasScreenWidth
+import saschpe.gameon.common.base.content.dpToPx
+import saschpe.gameon.common.base.content.hasScreenWidth
 
 @RunWith(AndroidJUnit4::class)
 class ContextTest {

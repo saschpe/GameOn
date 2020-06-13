@@ -1,0 +1,5 @@
+<resources>
+
+    <string name="copyright_text_template">%1$s\n%2$s</string>
+
+</resources>

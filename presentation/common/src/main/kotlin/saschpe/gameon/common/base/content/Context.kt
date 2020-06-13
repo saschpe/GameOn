@@ -1,4 +1,4 @@
-package saschpe.gameon.common.content
+package saschpe.gameon.common.base.content
 
 import android.content.Context
 import android.content.Intent

@@ -3,7 +3,7 @@ package saschpe.gameon.mobile
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.google.firebase.analytics.FirebaseAnalytics
-import saschpe.gameon.common.content.AppContentProvider.Companion.applicationContext
+import saschpe.gameon.common.base.content.AppContentProvider.Companion.applicationContext
 import saschpe.gameon.mobile.base.AppWorkerFactory
 import saschpe.gameon.mobile.favorites.PriceAlertsNotification
 

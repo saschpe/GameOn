@@ -16,11 +16,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game.*
+import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.errorLogged
 import saschpe.gameon.mobile.game.overview.GameOverviewFragment
 import saschpe.gameon.mobile.game.prices.GamePricesFragment
 import saschpe.gameon.mobile.game.reviews.GameOtherFragment

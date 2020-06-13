@@ -17,10 +17,11 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import saschpe.gameon.common.app.hideSoftInput
-import saschpe.gameon.common.app.showSoftInput
-import saschpe.gameon.common.content.hasScreenWidth
-import saschpe.gameon.common.recyclerview.SpacingItemDecoration
+import saschpe.gameon.common.base.app.hideSoftInput
+import saschpe.gameon.common.base.app.showSoftInput
+import saschpe.gameon.common.base.content.hasScreenWidth
+import saschpe.gameon.common.base.errorLogged
+import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.mobile.Module.firebaseAnalytics

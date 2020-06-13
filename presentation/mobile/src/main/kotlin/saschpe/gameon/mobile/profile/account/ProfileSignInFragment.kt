@@ -22,11 +22,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
-import saschpe.gameon.common.app.disableScreenshots
-import saschpe.gameon.common.app.enableScreenshots
-import saschpe.gameon.common.app.hideSoftInput
-import saschpe.gameon.common.isValidEmail
-import saschpe.gameon.common.isValidPassword
+import saschpe.gameon.common.base.app.disableScreenshots
+import saschpe.gameon.common.base.app.enableScreenshots
+import saschpe.gameon.common.base.app.hideSoftInput
+import saschpe.gameon.common.base.isValidEmail
+import saschpe.gameon.common.base.isValidPassword
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
