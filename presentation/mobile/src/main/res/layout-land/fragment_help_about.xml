@@ -126,7 +126,7 @@
                     android:layout_marginTop="@dimen/keyline_2"
                     android:layout_marginEnd="@dimen/keyline_4"
                     android:layout_marginBottom="@dimen/keyline_4"
-                    android:text="@string/copyright_notice"
+                    android:text="@string/copyright_notice_template"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
