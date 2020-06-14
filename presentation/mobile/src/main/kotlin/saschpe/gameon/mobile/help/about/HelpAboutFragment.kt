@@ -14,6 +14,7 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openPrivacyPolicy
 import saschpe.gameon.mobile.base.customtabs.openTermsOfService
+import java.time.LocalDate
 
 class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +30,8 @@ class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
         disclaimer.text = HtmlCompat.fromHtml(
             getString(R.string.disclaimer_text), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+
+        copyrightText.text = getString(R.string.copyright_notice_template, LocalDate.now().year)
     }
 
     override fun onResume() {
