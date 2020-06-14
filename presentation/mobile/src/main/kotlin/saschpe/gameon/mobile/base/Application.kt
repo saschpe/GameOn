@@ -1,8 +1,10 @@
 package saschpe.gameon.mobile.base
 
 import android.os.StrictMode
+import android.util.Log.*
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.multidex.MultiDexApplication
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,6 +16,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.favorites.PriceAlertsWorker
 import saschpe.log4k.ConsoleLogger
 import saschpe.log4k.Log
+import saschpe.log4k.Logger
 
 class Application : MultiDexApplication() {
     override fun onCreate() {
@@ -28,11 +31,10 @@ class Application : MultiDexApplication() {
     }
 
     private fun initLogging() {
-        Log.loggers.add(ConsoleLogger().apply {
-            if (!BuildConfig.DEBUG) {
-                minimumLogLevel = Log.Level.Info
-            }
-        })
+        Log.loggers += when {
+            BuildConfig.DEBUG -> ConsoleLogger()
+            else -> CrashlyticsLogger()
+        }
     }
 
     private fun initNightMode() = GlobalScope.launch {
@@ -46,6 +48,23 @@ class Application : MultiDexApplication() {
     private fun initWorkManager() {
         PriceAlertsWorker.enqueueOnce(workManager)
         PriceAlertsWorker.enqueuePeriodic(workManager)
+    }
+
+    private class CrashlyticsLogger : Logger() {
+        override fun print(level: Log.Level, tag: String, message: String?, throwable: Throwable?) {
+            val priority = when (level) {
+                Log.Level.Verbose -> VERBOSE
+                Log.Level.Debug -> DEBUG
+                Log.Level.Info -> INFO
+                Log.Level.Warning -> WARN
+                Log.Level.Error -> ERROR
+                Log.Level.Assert -> ASSERT
+            }
+            if (priority >= ERROR) {
+                FirebaseCrashlytics.getInstance().log("$priority $tag $message")
+                throwable?.let { FirebaseCrashlytics.getInstance().recordException(it) }
+            }
+        }
     }
 
     companion object {
