@@ -20,8 +20,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(28)
         targetSdkVersion(29)
-        versionCode = 210000326
-        versionName = "0.3.26"
+        versionCode = 211000326
+        versionName = "0.3.27"
         base.archivesBaseName = "$applicationId-wear-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

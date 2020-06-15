@@ -13,6 +13,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # Constants
 GRADLE_FILES=(
   presentation/mobile/build.gradle.kts
+  presentation/wear/build.gradle.kts
 )
 
 # Functions
