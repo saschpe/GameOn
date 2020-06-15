@@ -29,3 +29,9 @@
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
 -keep public class * extends java.lang.Exception
+
+# TODO: Remove once AS 4.0 / IntelliJ 2020.1 is used:
+# https://issuetracker.google.com/issues/154538242
+# https://issuetracker.google.com/issues/79667498
+# https://issuetracker.google.com/issues/79631818
+-keep class androidx.navigation.fragment.NavHostFragment
