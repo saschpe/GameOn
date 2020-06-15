@@ -19,7 +19,9 @@ class Api(
 ) {
     val client = HttpClient {
         install(JsonFeature) {
-            serializer = KotlinxSerializer(Json.nonstrict)
+            serializer = KotlinxSerializer(Json {
+                ignoreUnknownKeys = true
+            })
         }
         install(Logging) {
             logger = Logger.DEFAULT
@@ -31,23 +33,19 @@ class Api(
     fun fullUrl(path: String) = "$API_URL$API_BASE_PATH$path"
 
     suspend inline fun <reified T> get(
-        path: String,
-        block: HttpRequestBuilder.() -> Unit = {}
+        path: String, block: HttpRequestBuilder.() -> Unit = {}
     ): T = client.get(fullUrl(path)) { parameter("key", apiKey); block() }
 
     suspend inline fun <reified T> put(
-        path: String,
-        block: HttpRequestBuilder.() -> Unit = {}
+        path: String, block: HttpRequestBuilder.() -> Unit = {}
     ): T = client.put(fullUrl(path)) { parameter("key", apiKey); block() }
 
     suspend inline fun <reified T> post(
-        path: String,
-        block: HttpRequestBuilder.() -> Unit = {}
+        path: String, block: HttpRequestBuilder.() -> Unit = {}
     ): T = client.post(fullUrl(path)) { parameter("key", apiKey); block() }
 
     suspend inline fun <reified T> delete(
-        path: String,
-        block: HttpRequestBuilder.() -> Unit = {}
+        path: String, block: HttpRequestBuilder.() -> Unit = {}
     ): T = client.delete(fullUrl(path)) { parameter("key", apiKey); block() }
 
     companion object {

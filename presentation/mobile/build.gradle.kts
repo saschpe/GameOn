@@ -21,8 +21,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 210000327
-        versionName = "0.3.27"
+        versionCode = 210000328
+        versionName = "0.3.28"
         multiDexEnabled = true
         base.archivesBaseName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -101,7 +101,7 @@ dependencies {
     implementation("saschpe.android:customtabs:3.0.2")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
-    implementation("saschpe.log4k:log4k:0.1.6")
+    implementation("saschpe.log4k:log4k:0.1.7")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")

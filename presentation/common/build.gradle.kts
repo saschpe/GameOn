@@ -33,7 +33,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("com.google.android.material:material:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
-    implementation("saschpe.log4k:log4k:0.1.6")
+    implementation("saschpe.log4k:log4k:0.1.7")
 
     testImplementation("androidx.test:core-ktx:1.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
