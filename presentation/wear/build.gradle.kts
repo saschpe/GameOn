@@ -20,8 +20,8 @@ android {
         applicationId = "saschpe.gameon"
         minSdkVersion(28)
         targetSdkVersion(29)
-        versionCode = 211000326
-        versionName = "0.3.27"
+        versionCode = 211000328
+        versionName = "0.3.28"
         base.archivesBaseName = "$applicationId-wear-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -83,7 +83,7 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:17.0.1")
     implementation("io.coil-kt:coil:0.11.0")
     implementation("saschpe.android:versioninfo:2.1.2")
-    implementation("saschpe.log4k:log4k:0.1.6")
+    implementation("saschpe.log4k:log4k:0.1.7")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.2.0")
