@@ -15,6 +15,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openPrivacyPolicy
 import saschpe.gameon.mobile.base.customtabs.openTermsOfService
 import java.time.LocalDate
+import java.util.*
 
 class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
             getString(R.string.disclaimer_text), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
-        copyrightText.text = getString(R.string.copyright_notice_template, LocalDate.now().year)
+        copyrightText.text = getString(R.string.copyright_notice_template, Calendar.getInstance().get(Calendar.YEAR))
     }
 
     override fun onResume() {
