@@ -23,6 +23,7 @@ fun mockHttpClient(block: MockEngineConfig.() -> Unit = {}) = HttpClient(MockEng
 }
 
 private fun HttpClientConfig<MockEngineConfig>.installDefaultFeatures() {
+    @Suppress("EXPERIMENTAL_API_USAGE")
     install(JsonFeature) {
         serializer = KotlinxSerializer(Json {
             ignoreUnknownKeys = true

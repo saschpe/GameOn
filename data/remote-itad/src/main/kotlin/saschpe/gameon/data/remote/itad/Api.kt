@@ -17,6 +17,7 @@ class Api(
     userAgent: String,
     val apiKey: String
 ) {
+    @Suppress("EXPERIMENTAL_API_USAGE")
     val client = HttpClient {
         install(JsonFeature) {
             serializer = KotlinxSerializer(Json {
