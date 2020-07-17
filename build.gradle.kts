@@ -3,7 +3,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.0")
+        classpath("com.android.tools.build:gradle:4.0.1")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.2")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
@@ -12,8 +12,8 @@ buildscript {
 }
 
 plugins {
-    id("com.diffplug.gradle.spotless") version "4.3.0"
-    id("com.github.ben-manes.versions") version "0.28.0"
+    id("com.diffplug.spotless") version "5.1.0"
+    id("com.github.ben-manes.versions") version "0.29.0"
     kotlin("jvm") version "1.3.72"
 }
 
@@ -28,6 +28,7 @@ spotless {
         endWithNewline()
     }
     freshmark {
+        target("*.md")
         propertiesFile("gradle.properties")
     }
     kotlin {
