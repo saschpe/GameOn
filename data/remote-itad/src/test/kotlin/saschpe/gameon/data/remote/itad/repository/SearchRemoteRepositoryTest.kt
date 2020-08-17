@@ -47,12 +47,9 @@ class SearchRemoteRepositoryTest {
 
     @Test
     fun search_noResults() = runBlocking {
-        // Act
-        val result = repository.search("no-results")
-
-        // Assert
+        // Act, assert
         // TODO: coVerify { api.get(any(), any()) }
-        when (result) {
+        when (val result = repository.search("no-results")) {
             is Result.Success<SearchRemoteRepository.SearchResponse> -> {
                 assertEquals("USD", result.data.meta.currency)
                 assertTrue(result.data.data.offers.isEmpty())
@@ -63,12 +60,9 @@ class SearchRemoteRepositoryTest {
 
     @Test
     fun search_validResults() = runBlocking {
-        // Act
-        val result = repository.search("stellaris")
-
-        // Assert
+        // Act, assert
         // TODO: coVerify { api.get(any(), any()) }
-        when (result) {
+        when (val result = repository.search("stellaris")) {
             is Result.Success<SearchRemoteRepository.SearchResponse> -> {
                 assertEquals("USD", result.data.meta.currency)
                 assertEquals(1, result.data.data.offers.size)
