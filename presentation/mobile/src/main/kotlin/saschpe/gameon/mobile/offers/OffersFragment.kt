@@ -5,7 +5,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -79,7 +78,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
             setHasFixedSize(true)
         }
 
-        viewModel.dealLiveData.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.dealLiveData.observe(viewLifecycleOwner, { result ->
             progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> result.data.map { offer ->

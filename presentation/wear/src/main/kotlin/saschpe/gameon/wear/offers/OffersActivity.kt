@@ -1,9 +1,7 @@
 package saschpe.gameon.wear.offers
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.wear.widget.WearableLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_offers.*
 import kotlinx.coroutines.GlobalScope
@@ -34,15 +32,15 @@ class OffersActivity : BaseActivity(R.layout.activity_offers, TOP_NAVIGATION_SEA
         }
 
         viewModel = ViewModelProvider(this).get(OffersViewModel::class.java)
-        viewModel.dealLiveData.observe(this, Observer { result ->
+        viewModel.dealLiveData.observe(this, { result ->
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> result.data.map { offer ->
-                     OfferAdapter.ViewModel.OfferViewModel(GlobalScope, offer) {
-                         /*findNavController().navigate(
-                             R.id.action_offers_to_game,
-                             bundleOf(GameFragment.ARG_PLAIN to offer.plain)
-                         )*/
-                     }
+                    OfferAdapter.ViewModel.OfferViewModel(GlobalScope, offer) {
+                        /*findNavController().navigate(
+                            R.id.action_offers_to_game,
+                            bundleOf(GameFragment.ARG_PLAIN to offer.plain)
+                        )*/
+                    }
                 }
                 is Result.Error -> {
                     result.errorLogged()

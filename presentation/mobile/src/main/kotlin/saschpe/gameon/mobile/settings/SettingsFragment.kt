@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.Preference
@@ -33,7 +32,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             childFragmentManager.commit { replace(R.id.detailContainer, detailPreferenceFragment) }
         }
 
-        viewModel.selectedPreference.observe(viewLifecycleOwner, Observer {
+        viewModel.selectedPreference.observe(viewLifecycleOwner, {
             onPreferenceStartFragment(mainPreferenceFragment, it)
         })
     }

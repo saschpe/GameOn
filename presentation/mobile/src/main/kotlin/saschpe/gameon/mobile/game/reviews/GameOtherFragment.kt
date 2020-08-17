@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -42,7 +41,7 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
         }
 
-        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Success<GameInfo> -> {
                     val gameInfo = result.data
@@ -54,7 +53,6 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
                                         viewModel.getStreamReviewsUrl(argPlain)
                                             ?.let { openUrl(it) }
                                     }
-                                    Unit
                                 }
                             }
                             else -> null

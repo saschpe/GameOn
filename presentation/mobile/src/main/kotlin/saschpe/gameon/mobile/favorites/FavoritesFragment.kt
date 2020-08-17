@@ -7,7 +7,6 @@ import androidx.core.content.edit
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -98,7 +97,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             setHasFixedSize(true)
         }
 
-        viewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Success<List<Favorite>> -> {
                     favoriteViewModels = when {
