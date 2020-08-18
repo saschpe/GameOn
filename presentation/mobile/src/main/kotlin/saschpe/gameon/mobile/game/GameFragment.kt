@@ -88,7 +88,10 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game", "GameFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Game")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "GameFragment")
+        }
     }
 
     fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) =

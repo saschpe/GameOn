@@ -25,7 +25,7 @@ class HelpContactFragmentTest {
     fun beforeFirebaseAnalytics() {
         setupContentProvider(AppContentProvider::class.java)
         mockkObject(firebaseAnalytics)
-        every { firebaseAnalytics.setCurrentScreen(any(), any(), any()) } just Runs
+        every { firebaseAnalytics.logEvent(any(), any()) } just Runs
     }
 
     @Before

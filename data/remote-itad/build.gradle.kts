@@ -13,7 +13,7 @@ dependencies {
     implementation("io.ktor:ktor-client-android:1.3.2")
     implementation("io.ktor:ktor-client-logging-jvm:1.3.2")
     implementation("io.ktor:ktor-client-serialization-jvm:1.3.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 
     testImplementation(kotlin("test-junit"))

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_prices.*
 import kotlinx.coroutines.launch
@@ -75,7 +76,10 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Prices", "GamePricesFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Game Prices")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "GamePricesFragment")
+        }
     }
 
     companion object {

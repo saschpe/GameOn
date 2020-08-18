@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.common.base.errorLogged
@@ -101,6 +103,9 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Offers", "OffersFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Offers")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "OffersFragment")
+        }
     }
 }
