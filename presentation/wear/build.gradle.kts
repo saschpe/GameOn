@@ -78,7 +78,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.wear:wear:1.0.0")
     implementation("com.google.android.gms:play-services-wearable:17.0.0")
-    implementation("com.google.android.material:material:1.1.0")
+    implementation("com.google.android.material:material:1.2.0")
     implementation("com.google.android.support:wearable:2.7.0")
     implementation("com.google.firebase:firebase-crashlytics:17.1.1")
     implementation("io.coil-kt:coil:0.11.0")
