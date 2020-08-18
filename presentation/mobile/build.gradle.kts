@@ -97,7 +97,7 @@ dependencies {
     implementation("com.google.android.material:material:1.2.0")
     implementation("io.coil-kt:coil:0.11.0")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     implementation("saschpe.android:customtabs:3.0.2")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
