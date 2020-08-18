@@ -86,7 +86,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.work:work-runtime-ktx:2.3.4")
+    implementation("androidx.work:work-runtime-ktx:2.4.0")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
     implementation("com.google.android.gms:play-services-ads:19.3.0")
     implementation("com.google.android.gms:play-services-auth:18.1.0")
@@ -111,7 +111,7 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-intents:3.2.0")
     testImplementation("androidx.test.espresso:espresso-web:3.2.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    testImplementation("androidx.work:work-testing:2.3.4")
+    testImplementation("androidx.work:work-testing:2.4.0")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
