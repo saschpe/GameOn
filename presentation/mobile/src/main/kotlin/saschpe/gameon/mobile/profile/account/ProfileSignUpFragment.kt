@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.transition.TransitionInflater
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
 import saschpe.gameon.common.base.app.disableScreenshots
@@ -88,9 +90,10 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(
-            requireActivity(), "Profile Sign-Up", "ProfileSignUpFragment"
-        )
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile Sign-Up")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileSignUpFragment")
+        }
     }
 
     override fun onStop() {

@@ -7,6 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_game_other.*
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.base.errorLogged
@@ -100,7 +102,10 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Game Other", "GameOtherFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Game Other")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "GameOtherFragment")
+        }
     }
 
     companion object {

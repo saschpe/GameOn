@@ -8,6 +8,8 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_help_about.*
 import kotlinx.coroutines.launch
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -37,6 +39,9 @@ class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help About", "HelpAboutFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Help About")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "HelpAboutFragment")
+        }
     }
 }

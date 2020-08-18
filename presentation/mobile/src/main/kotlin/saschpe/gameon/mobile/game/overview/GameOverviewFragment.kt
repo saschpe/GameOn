@@ -180,9 +180,10 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(
-            requireActivity(), "Game Overview", "GameOverviewFragment"
-        )
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Game Overview")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "GameOverviewFragment")
+        }
     }
 
     private fun updatePriceAlertStartIcon() {

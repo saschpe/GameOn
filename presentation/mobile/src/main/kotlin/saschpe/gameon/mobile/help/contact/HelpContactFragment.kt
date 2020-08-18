@@ -3,6 +3,8 @@ package saschpe.gameon.mobile.help.contact
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -27,6 +29,9 @@ class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help Contact", "HelpContactFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Help Contact")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "HelpContactFragment")
+        }
     }
 }
