@@ -19,6 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
@@ -106,9 +108,10 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(
-            requireActivity(), "Profile Sign-In", "ProfileSignInFragment"
-        )
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile Sign-In")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileSignInFragment")
+        }
     }
 
     override fun onStop() {

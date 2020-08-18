@@ -11,6 +11,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_profile.*
 import saschpe.gameon.data.core.Result
@@ -65,6 +67,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onResume() {
         super.onResume()
         viewModel.getUser()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Profile", "ProfileFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Profile")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ProfileFragment")
+        }
     }
 }

@@ -121,7 +121,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Search", "SearchFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Search")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
+        }
         requireActivity().showSoftInput(searchQuery)
     }
 

@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.coroutines.launch
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
@@ -65,7 +67,10 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Help", "HelpFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Help")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "HelpFragment")
+        }
         requireActivity().appNameTitle(appName)
     }
 

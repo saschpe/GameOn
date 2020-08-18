@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.android.synthetic.main.fragment_settings.*
 import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.mobile.Module.firebaseAnalytics
@@ -38,7 +40,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalytics.setCurrentScreen(requireActivity(), "Settings", "SettingsFragment")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Settings")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "SettingsFragment")
+        }
     }
 
     // Workaround for https://issuetracker.google.com/issues/139995974
