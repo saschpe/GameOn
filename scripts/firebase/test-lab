@@ -9,15 +9,15 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # Constants
 FIREBASE_PROJECT_ID="gameon-2"
 FIREBASE_TEST_DEVICES=(
-  model=walleye,version=28,locale=en,orientation=portrait
+  "model=walleye,version=28,locale=en,orientation=portrait"
 )
 # Note: We can add more devices going forward to test more API versions,
 # locales and landscape vs portrait once we're on the proper billing plan.
 #model=OnePlus5,version=21,locale=de,orientation=landscape
 
-DEFAULT_APP=$(ls */build/outputs/apk/debug/*.apk | sort | tail -n1)
+DEFAULT_APP=$(find . -name "*mobile*.apk" | sort | tail -n1)
 DEFAULT_FIREBASE_TEST_TYPE="robo"
-DEFAULT_TEST_APP=$(ls */build/outputs/apk/androidTest/debug/*-androidTest.apk | sort | tail -n1)
+DEFAULT_TEST_APP=$(find . -name "*mobile*androidTest*.apk" | sort | tail -n1)
 DEFAULT_SERVICE_ACCOUNT_KEY="config/firebase-test-lab-ci.json"
 
 # Functions
@@ -85,7 +85,7 @@ if [[ "${test_type}" == "instrumentation" ]]; then
   extra_options="${extra_options} \
     --test ${test_app}"
 fi
-for device in ${FIREBASE_TEST_DEVICES[@]}; do
+for device in "${FIREBASE_TEST_DEVICES[@]}"; do
   device_options="${device_options} \
     --device ${device}"
 done
