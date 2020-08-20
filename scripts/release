@@ -47,13 +47,13 @@ version_name_new=$1
 # of six digits.
 IFS='.' read -r -a version_name_new_array <<<"${version_name_new}"
 
-for gradle_file in ${GRADLE_FILES[@]}; do
+for gradle_file in "${GRADLE_FILES[@]}" ; do
   version_name_old=$(get_version_name "${gradle_file}")
   # To be able to compare with the previous version, do the same for the old
   # version name.
   IFS='.' read -r -a version_name_old_array <<<"${version_name_old}"
 
-  if version_gt ${version_name_old} ${version_name_new}; then
+  if version_gt "${version_name_old}" "${version_name_new}"; then
     die "Already at version ${version_name_old}"
   fi
 
@@ -62,7 +62,8 @@ for gradle_file in ${GRADLE_FILES[@]}; do
 
   # Increment app version code for Google's Play Store
   version_code_old=$(get_version_code "${gradle_file}")
-  padded_sem_ver=$(printf "%02d%02d%02d\n" ${version_name_new_array[0]} ${version_name_new_array[1]} ${version_name_new_array[2]})
+  # shellcheck disable=SC2086
+  padded_sem_ver=$(printf "%02d%02d%02d\n" "${version_name_new_array[0]}" "${version_name_new_array[1]}" ${version_name_new_array[2]})
   # Replace the last six digits with the new padded semantic version
   version_code_new=${version_code_old::${#version_code_old}-6}${padded_sem_ver}
   sed2 "s/versionCode = ${version_code_old}/versionCode = ${version_code_new}/" "${gradle_file}"

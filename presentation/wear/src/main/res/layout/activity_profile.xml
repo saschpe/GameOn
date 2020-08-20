@@ -14,7 +14,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:boxedEdges="all">
+            app:boxedEdges="all"
+            tools:ignore="MissingPrefix">
 
             <LinearLayout
                 android:id="@+id/frameLayout"

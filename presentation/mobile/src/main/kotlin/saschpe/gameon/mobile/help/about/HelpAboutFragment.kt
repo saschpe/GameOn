@@ -16,7 +16,6 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openPrivacyPolicy
 import saschpe.gameon.mobile.base.customtabs.openTermsOfService
-import java.time.LocalDate
 import java.util.*
 
 class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {

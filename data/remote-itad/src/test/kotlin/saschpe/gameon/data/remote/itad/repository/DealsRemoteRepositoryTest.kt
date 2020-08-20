@@ -43,12 +43,9 @@ class DealsRemoteRepositoryTest {
 
     @Test
     fun deals() = runBlocking {
-        // Act
-        val result = repository.list()
-
-        // Assert
+        // Act, assert
         // TODO: coVerify { api.get(any(), any()) }
-        when (result) {
+        when (val result = repository.list()) {
             is Result.Success<DealsRemoteRepository.DealResponse> -> {
                 assertEquals("USD", result.data.meta.currency)
                 assertEquals(82239, result.data.data.count)
