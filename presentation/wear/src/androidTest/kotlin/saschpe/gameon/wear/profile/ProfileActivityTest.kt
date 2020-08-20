@@ -16,9 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import saschpe.gameon.wear.R
-import saschpe.gameon.wear.favorites.FavoriteActivityTest
 import saschpe.gameon.wear.favorites.FavoritesActivity
-import saschpe.gameon.wear.profile.ProfileActivity
 import saschpe.gameon.wear.search.SearchActivity
 
 @RunWith(AndroidJUnit4::class)

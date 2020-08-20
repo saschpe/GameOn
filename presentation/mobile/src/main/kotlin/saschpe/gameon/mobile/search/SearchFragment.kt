@@ -6,7 +6,6 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -26,7 +25,10 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
-import saschpe.gameon.mobile.base.*
+import saschpe.gameon.mobile.base.Analytics
+import saschpe.gameon.mobile.base.NativeAdUnit
+import saschpe.gameon.mobile.base.OfferAdapter
+import saschpe.gameon.mobile.base.loadAdvertisement
 import saschpe.gameon.mobile.game.GameFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -89,7 +91,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
-        viewModel.searchLiveData.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.searchLiveData.observe(viewLifecycleOwner, { result ->
             progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> {

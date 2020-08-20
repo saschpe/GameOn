@@ -8,7 +8,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 . "${SCRIPT_DIR}/../inc.functions.sh"
 
 # Constants
-PLAY_STORE_METADATA_DIR=*/src/main/play
+PLAY_STORE_METADATA_DIR="**/src/main/play"
 SECRET_FILE=config/play-publishing-api.json
 
 # Checks

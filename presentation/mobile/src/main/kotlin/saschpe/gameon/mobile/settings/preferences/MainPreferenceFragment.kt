@@ -12,7 +12,7 @@ import saschpe.gameon.mobile.settings.SettingsViewModel
 
 class MainPreferenceFragment : PreferenceFragmentCompat() {
     private val viewModel: SettingsViewModel by viewModels({ requireParentFragment() })
-    private val preferenceClickListener = { pref: Preference ->
+    private val preferenceClickListener = Preference.OnPreferenceClickListener { pref: Preference ->
         viewModel.selectedPreference.value = pref
         true
     }
@@ -39,9 +39,7 @@ class MainPreferenceFragment : PreferenceFragmentCompat() {
             R.string.pref_appearance_key,
             R.string.pref_developer_key
         ).forEach {
-            findPreference<Preference>(getString(it))?.setOnPreferenceClickListener(
-                preferenceClickListener
-            )
+            findPreference<Preference>(getString(it))?.onPreferenceClickListener = preferenceClickListener
         }
     }
 }

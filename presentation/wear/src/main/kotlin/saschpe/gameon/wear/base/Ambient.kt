@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.widget.drawer.WearableDrawerLayout
 import androidx.wear.widget.drawer.WearableNavigationDrawerView
-import saschpe.gameon.wear.R
 import java.text.SimpleDateFormat
 import java.util.*
 
