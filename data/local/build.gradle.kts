@@ -41,7 +41,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
 
     testImplementation("androidx.room:room-testing:2.2.5")
-    testImplementation("androidx.test.ext:junit-ktx:1.1.1")
+    testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.robolectric:robolectric:4.3.1") {
         // https://github.com/robolectric/robolectric/issues/4621
