@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import coil.load
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -64,7 +64,7 @@ class OfferAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class AdvertisementViewModel(
-            val nativeAd: UnifiedNativeAd
+            val nativeAd: NativeAd
         ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
         data class NoResultsViewModel(
@@ -79,7 +79,7 @@ class OfferAdapter(
     }
 
     private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val nativeAdView: UnifiedNativeAdView = view.findViewById(R.id.nativeAdView)
+        private val nativeAdView: NativeAdView = view.findViewById(R.id.nativeAdView)
         private val icon: ImageView = view.findViewById(R.id.icon)
         private val headline: MaterialTextView = view.findViewById(R.id.headline)
         private val secondary: MaterialTextView = view.findViewById(R.id.secondary)
