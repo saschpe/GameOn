@@ -28,7 +28,7 @@ dependencies {
     }
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.2")
-    implementation("saschpe.log4k:log4k:0.1.7")
+    implementation("saschpe.log4k:log4k:1.0.0")
 
     testImplementation(kotlin("test-junit"))
     testImplementation("io.mockk:mockk:1.10.6")
