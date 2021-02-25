@@ -32,15 +32,15 @@ android {
 }
 
 dependencies {
-    kapt("androidx.room:room-compiler:2.2.5")
+    kapt("androidx.room:room-compiler:2.2.6")
 
     implementation(kotlin("stdlib"))
     implementation(project(":data:core"))
-    implementation("androidx.room:room-runtime:2.2.5")
-    implementation("androidx.room:room-ktx:2.2.5")
+    implementation("androidx.room:room-runtime:2.2.6")
+    implementation("androidx.room:room-ktx:2.2.6")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 
-    testImplementation("androidx.room:room-testing:2.2.5")
+    testImplementation("androidx.room:room-testing:2.2.6")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("io.mockk:mockk:1.10.6")
     testImplementation("org.robolectric:robolectric:4.3.1") {
