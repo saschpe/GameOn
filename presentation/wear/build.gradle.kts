@@ -80,7 +80,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-wearable:17.0.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("com.google.android.support:wearable:2.8.1")
-    implementation("com.google.firebase:firebase-crashlytics:17.2.1")
+    implementation("com.google.firebase:firebase-crashlytics:17.3.1")
     implementation("io.coil-kt:coil:0.11.0")
     implementation("saschpe.android:versioninfo:2.1.2")
     implementation("saschpe.log4k:log4k:1.0.0")
