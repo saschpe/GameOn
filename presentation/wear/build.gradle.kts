@@ -14,12 +14,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         applicationId = "saschpe.gameon"
         minSdkVersion(28)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 211000332
         versionName = "0.3.32"
         base.archivesBaseName = "$applicationId-wear-$versionName"

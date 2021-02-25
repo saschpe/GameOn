@@ -15,12 +15,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 210000332
         versionName = "0.3.32"
         multiDexEnabled = true
