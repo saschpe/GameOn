@@ -43,7 +43,7 @@ class PriceAlertsWorkerTest {
         context = ApplicationProvider.getApplicationContext()
         worker = TestListenableWorkerBuilder<PriceAlertsWorker>(context)
             .setWorkerFactory(testWorkerFactory)
-            .build() as PriceAlertsWorker
+            .build()
     }
 
     @Test

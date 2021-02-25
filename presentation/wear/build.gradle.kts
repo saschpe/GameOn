@@ -91,10 +91,7 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-intents:3.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
     testImplementation("io.mockk:mockk:1.10.6")
-    testImplementation("org.robolectric:robolectric:4.3.1") {
-        // https://github.com/robolectric/robolectric/issues/4621
-        exclude(group = "com.google.auto.service", module = "auto-service")
-    }
+    testImplementation("org.robolectric:robolectric:4.5.1")
 
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
