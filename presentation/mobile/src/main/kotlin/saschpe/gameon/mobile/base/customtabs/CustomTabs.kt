@@ -44,7 +44,7 @@ object CustomTabs {
         }
 
         val builder = CustomTabsIntent.Builder()
-            .addDefaultShareMenuItem()
+            .setShareState(CustomTabsIntent.SHARE_STATE_ON)
             .setShowTitle(true)
             .setColorScheme(darkMode)
             .setColorSchemeParams(

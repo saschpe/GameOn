@@ -6,8 +6,7 @@ import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-
+import com.google.android.gms.ads.nativead.NativeAd
 
 private val CREATOR_DEVICE_IDS = listOf(
     "6017F914680B8E8A9B332558F8E53245", // Sascha's Galaxy S2
@@ -42,8 +41,8 @@ fun Context.initAdvertisements() {
     )
 }
 
-fun Fragment.loadAdvertisement(nativeAdUnit: NativeAdUnit, onLoad: (UnifiedNativeAd) -> Unit) =
+fun Fragment.loadAdvertisement(nativeAdUnit: NativeAdUnit, onLoad: (NativeAd) -> Unit) =
     AdLoader.Builder(requireContext(), nativeAdUnit.adUnit)
-        .forUnifiedNativeAd { onLoad.invoke(it) }
+        .forNativeAd { onLoad.invoke(it) }
         .build()
         .loadAd(AdRequest.Builder().build())

@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import coil.load
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.*
@@ -63,7 +63,7 @@ class FavoritesAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class AdvertisementViewModel(
-            val nativeAd: UnifiedNativeAd
+            val nativeAd: NativeAd
         ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
         data class FavoriteViewModel(
@@ -78,7 +78,7 @@ class FavoritesAdapter(
     }
 
     private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val nativeAdView: UnifiedNativeAdView = view.findViewById(R.id.nativeAdView)
+        private val nativeAdView: NativeAdView = view.findViewById(R.id.nativeAdView)
         private val icon: ImageView = view.findViewById(R.id.icon)
         private val headline: MaterialTextView = view.findViewById(R.id.headline)
         private val body: MaterialTextView = view.findViewById(R.id.body)
@@ -162,9 +162,7 @@ class FavoritesAdapter(
     private class NoResultViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val searchNow: MaterialButton = view.findViewById(R.id.searchNow)
 
-        fun bind(viewModel: ViewModel.NoResultViewModel) {
-            searchNow.setOnClickListener { viewModel.onClick.invoke() }
-        }
+        fun bind(viewModel: ViewModel.NoResultViewModel) = searchNow.setOnClickListener { viewModel.onClick.invoke() }
     }
 
     companion object {
