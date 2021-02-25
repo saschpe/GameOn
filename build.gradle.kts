@@ -6,8 +6,8 @@ buildscript {
         classpath("com.android.tools.build:gradle:4.0.2")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.2")
         classpath("com.google.gms:google-services:4.3.5")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
-        classpath("com.google.firebase:perf-plugin:1.3.1")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.0")
+        classpath("com.google.firebase:perf-plugin:1.3.4")
     }
 }
 
