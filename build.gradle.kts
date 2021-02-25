@@ -12,8 +12,8 @@ buildscript {
 }
 
 plugins {
-    id("com.diffplug.spotless") version "5.2.0"
-    id("com.github.ben-manes.versions") version "0.29.0"
+    id("com.diffplug.spotless") version "5.10.2"
+    id("com.github.ben-manes.versions") version "0.36.0"
     kotlin("jvm") version "1.4.31"
 }
 
