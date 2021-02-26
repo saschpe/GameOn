@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -95,7 +95,6 @@ class OfferAdapter(
                             R.string.price_colored_template, price_new, colors.green
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
-
                     rebate.text = HtmlCompat.fromHtml(
                         price.context.getString(
                             R.string.rebate_colored_template, price_cut, colors.red
@@ -116,9 +115,8 @@ class OfferAdapter(
     private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val clearButton: MaterialButton = view.findViewById(R.id.clearButton)
 
-        fun bind(viewModel: ViewModel.NoResultsViewModel) {
+        fun bind(viewModel: ViewModel.NoResultsViewModel) =
             clearButton.setOnClickListener { viewModel.onClick.invoke() }
-        }
     }
 
     companion object {

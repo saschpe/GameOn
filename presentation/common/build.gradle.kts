@@ -9,11 +9,11 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,15 +31,12 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("com.google.android.material:material:1.2.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
-    implementation("saschpe.log4k:log4k:0.1.7")
+    implementation("com.google.android.material:material:1.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("saschpe.log4k:log4k:1.0.0")
 
     testImplementation("androidx.test:core-ktx:1.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.0")
-    testImplementation("org.robolectric:robolectric:4.3.1") {
-        // https://github.com/robolectric/robolectric/issues/4621
-        exclude(group = "com.google.auto.service", module = "auto-service")
-    }
+    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("org.robolectric:robolectric:4.5.1")
 }
