@@ -15,12 +15,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         applicationId = "saschpe.gameon"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 210000332
         versionName = "0.3.32"
         multiDexEnabled = true
@@ -74,34 +74,34 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.browser:browser:1.2.0")
+    implementation("androidx.browser:browser:1.3.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
-    implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
-    implementation("androidx.fragment:fragment-testing:1.2.5")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
+    implementation("androidx.fragment:fragment-testing:1.3.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
     implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.3")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.work:work-runtime-ktx:2.4.0")
+    implementation("androidx.work:work-runtime-ktx:2.5.0")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.0")
-    implementation("com.google.android.gms:play-services-ads:19.3.0")
-    implementation("com.google.android.gms:play-services-auth:18.1.0")
+    implementation("com.google.android.gms:play-services-ads:19.7.0")
+    implementation("com.google.android.gms:play-services-auth:19.0.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:17.5.0")
-    implementation("com.google.firebase:firebase-crashlytics:17.2.1")
-    implementation("com.google.firebase:firebase-perf:19.0.8")
-    implementation("com.google.android.material:material:1.2.0")
-    implementation("io.coil-kt:coil:0.11.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:18.0.2")
+    implementation("com.google.firebase:firebase-crashlytics:17.3.1")
+    implementation("com.google.firebase:firebase-perf:19.1.1")
+    implementation("com.google.android.material:material:1.3.0")
+    implementation("io.coil-kt:coil:1.1.1")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
     implementation("saschpe.android:customtabs:3.0.2")
     implementation("saschpe.android:social-fragment:2.0.3")
     implementation("saschpe.android:versioninfo:2.1.2")
-    implementation("saschpe.log4k:log4k:0.1.7")
+    implementation("saschpe.log4k:log4k:1.0.0")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
@@ -111,19 +111,16 @@ dependencies {
     testImplementation("androidx.test.espresso:espresso-intents:3.3.0")
     testImplementation("androidx.test.espresso:espresso-web:3.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("androidx.work:work-testing:2.4.0")
-    testImplementation("io.mockk:mockk:1.10.0")
-    testImplementation("org.robolectric:robolectric:4.3.1") {
-        // https://github.com/robolectric/robolectric/issues/4621
-        exclude(group = "com.google.auto.service", module = "auto-service")
-    }
+    testImplementation("androidx.work:work-testing:2.5.0")
+    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("org.robolectric:robolectric:4.5.1")
 
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-web:3.3.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    androidTestImplementation("io.mockk:mockk-android:1.10.0")
+    androidTestImplementation("io.mockk:mockk-android:1.10.6")
 }
 
 play {

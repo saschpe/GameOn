@@ -9,7 +9,6 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.google.firebase.analytics.ktx.logEvent
 import io.mockk.*
 import org.junit.After
 import org.junit.Before

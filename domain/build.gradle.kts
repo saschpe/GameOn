@@ -9,11 +9,11 @@ repositories {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     api(project(":data:core")) {
         // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
     }
@@ -34,9 +34,6 @@ dependencies {
 
     testImplementation("androidx.test:core-ktx:1.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.0")
-    testImplementation("org.robolectric:robolectric:4.3.1") {
-        // https://github.com/robolectric/robolectric/issues/4621
-        exclude(group = "com.google.auto.service", module = "auto-service")
-    }
+    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("org.robolectric:robolectric:4.5.1")
 }
