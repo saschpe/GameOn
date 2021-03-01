@@ -52,7 +52,7 @@ class GameReviewsAdapter(
     private class ReviewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val rating: TextView = view.findViewById(R.id.rating)
         private val store: TextView = view.findViewById(R.id.store)
-        private val details: TextView = view.findViewById(R.id.priceAlertDescription)
+        private val details: TextView = view.findViewById(R.id.price_alert_description)
         private val layout: View = view.findViewById(R.id.constraintLayout)
 
         fun bind(viewModel: ViewModel.ReviewViewModel) {

@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.AuthResult
-import kotlinx.android.synthetic.main.fragment_profile_sign_up.*
 import saschpe.gameon.common.base.app.disableScreenshots
 import saschpe.gameon.common.base.app.enableScreenshots
 import saschpe.gameon.common.base.app.hideSoftInput
@@ -27,11 +26,13 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Application
 import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
+import saschpe.gameon.mobile.databinding.FragmentProfileSignUpBinding
 
-class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
+class ProfileSignUpFragment : Fragment() {
     private val viewModel: ProfileSignUpViewModel by viewModels()
     private var paramEmail: String? = null
     private var paramPassword: String? = null
+    private lateinit var binding: FragmentProfileSignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,33 +40,31 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         paramPassword = arguments?.getString(ARG_PASSWORD)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val transition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentProfileSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        setupWithNavController(toolbar, findNavController())
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setupWithNavController(binding.toolbar, findNavController())
 
-        email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(emailLayout))
-        paramEmail?.let { email.setText(it) }
-        password.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(passwordLayout))
-        paramPassword?.let { password.setText(it) }
+        binding.email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(binding.emailLayout))
+        paramEmail?.let { binding.email.setText(it) }
+        binding.password.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(binding.passwordLayout))
+        paramPassword?.let { binding.password.setText(it) }
 
-        signUp.setOnClickListener {
+        binding.signUp.setOnClickListener {
             if (validateForm()) {
-                viewModel.signUpWithEmail(this.email.text.toString(), password.text.toString())
+                viewModel.signUpWithEmail(binding.email.text.toString(), binding.password.text.toString())
             }
         }
-        signUpTerms.movementMethod = LinkMovementMethod()
-        signUpTerms.text = HtmlCompat.fromHtml(
+        binding.signUpTerms.movementMethod = LinkMovementMethod()
+        binding.signUpTerms.text = HtmlCompat.fromHtml(
             getString(R.string.sign_up_terms_notice_template, Application.INTENT_SCHEME),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
@@ -74,7 +73,7 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
             when (result) {
                 is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
                 is Result.Error -> Snackbar.make(
-                    coordinatorLayout,
+                    binding.coordinatorLayout,
                     getString(R.string.unable_to_sign_up_template, result.throwable.message),
                     Snackbar.LENGTH_LONG
                 ).show()
@@ -103,17 +102,17 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
     private fun validateForm(): Boolean {
         requireActivity().hideSoftInput()
         var isValidForm = true
-        if (!email.text.toString().isValidEmail()) {
-            emailLayout.error = getString(R.string.invalid_email_address)
+        if (!binding.email.text.toString().isValidEmail()) {
+            binding.emailLayout.error = getString(R.string.invalid_email_address)
             isValidForm = false
         } else {
-            emailLayout.isErrorEnabled = false
+            binding.emailLayout.isErrorEnabled = false
         }
-        if (!password.text.toString().isValidPassword()) {
-            passwordLayout.error = getString(R.string.invalid_password)
+        if (!binding.password.text.toString().isValidPassword()) {
+            binding.passwordLayout.error = getString(R.string.invalid_password)
             isValidForm = false
         } else {
-            passwordLayout.isErrorEnabled = false
+            binding.passwordLayout.isErrorEnabled = false
         }
         return isValidForm
     }

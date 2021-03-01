@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/disclaimerTitle"
+                    android:id="@+id/disclaimer_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -47,10 +47,10 @@
                     android:text="@string/disclaimer_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/disclaimerTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/disclaimer_title" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/legalTitle"
+                    android:id="@+id/legal_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -63,7 +63,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/privacyPolicy"
+                    android:id="@+id/privacy_policy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -72,10 +72,10 @@
                     android:text="@string/privacy_policy"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/legalTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/legal_title" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/termsOfService"
+                    android:id="@+id/terms_of_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -83,10 +83,10 @@
                     android:text="@string/terms_of_service"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/privacyPolicy" />
+                    app:layout_constraintTop_toBottomOf="@+id/privacy_policy" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/openSourceLicenses"
+                    android:id="@+id/open_source_licenses"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,10 +95,10 @@
                     android:text="@string/open_source_licenses"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/termsOfService" />
+                    app:layout_constraintTop_toBottomOf="@+id/terms_of_service" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/supportTitle"
+                    android:id="@+id/support_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -108,7 +108,7 @@
                     android:textAppearance="?textAppearanceHeadline5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/openSourceLicenses" />
+                    app:layout_constraintTop_toBottomOf="@+id/open_source_licenses" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/copyrightText"
@@ -122,7 +122,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supportTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/support_title" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

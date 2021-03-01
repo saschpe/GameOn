@@ -22,7 +22,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
 import saschpe.gameon.common.base.app.disableScreenshots
 import saschpe.gameon.common.base.app.enableScreenshots
 import saschpe.gameon.common.base.app.hideSoftInput
@@ -32,52 +31,51 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.text.TextInputLayoutDisableErrorTextWatcher
+import saschpe.gameon.mobile.databinding.FragmentProfileSignInBinding
 
-class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
+class ProfileSignInFragment : Fragment() {
     private val viewModel: ProfileSignInViewModel by viewModels()
+    private lateinit var binding: FragmentProfileSignInBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val transition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentProfileSignInBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        setupWithNavController(toolbar, findNavController())
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setupWithNavController(binding.toolbar, findNavController())
 
-        email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(emailLayout))
-        passwordLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-        password.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(passwordLayout))
+        binding.email.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(binding.emailLayout))
+        binding.passwordLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+        binding.password.addTextChangedListener(TextInputLayoutDisableErrorTextWatcher(binding.passwordLayout))
 
-        signInWithEmail.setOnClickListener {
+        binding.signInWithEmail.setOnClickListener {
             if (validateEmailAndPasswordForm()) {
-                viewModel.signInWithEmail(email.text.toString(), password.text.toString())
+                viewModel.signInWithEmail(binding.email.text.toString(), binding.password.text.toString())
             }
         }
-        signUp.setOnClickListener {
+        binding.signUp.setOnClickListener {
             findNavController().navigate(
                 R.id.action_signIn_to_signUp,
                 bundleOf(
-                    ProfileSignUpFragment.ARG_EMAIL to email.text.toString(),
-                    ProfileSignUpFragment.ARG_PASSWORD to password.text.toString()
+                    ProfileSignUpFragment.ARG_EMAIL to binding.email.text.toString(),
+                    ProfileSignUpFragment.ARG_PASSWORD to binding.password.text.toString()
                 ),
                 null,
                 FragmentNavigatorExtras(
-                    emailLayout to getString(R.string.shared_element_email),
-                    passwordLayout to getString(R.string.shared_element_password)
+                    binding.emailLayout to getString(R.string.shared_element_email),
+                    binding.passwordLayout to getString(R.string.shared_element_password)
                 )
             )
         }
-        signInWithGoogle.setOnClickListener {
+        binding.signInWithGoogle.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail().build()
+                .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
             val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
             startActivityForResult(googleSignInClient.signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
         }
@@ -91,7 +89,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             when (result) {
                 is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
                 is Result.Error -> Snackbar.make(
-                    coordinatorLayout,
+                    binding.coordinatorLayout,
                     getString(R.string.unable_to_sign_in_template, result.throwable.message),
                     Snackbar.LENGTH_LONG
                 ).show()
@@ -126,7 +124,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
                 account?.idToken?.let { viewModel.signInWithGoogle(it) }
             } catch (e: ApiException) {
                 Snackbar.make(
-                    coordinatorLayout,
+                    binding.coordinatorLayout,
                     getString(R.string.unable_to_sign_in_with_google_template, e.message),
                     Snackbar.LENGTH_LONG
                 ).show()
@@ -137,17 +135,17 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
     private fun validateEmailAndPasswordForm(): Boolean {
         requireActivity().hideSoftInput()
         var isValidForm = true
-        if (!email.text.toString().isValidEmail()) {
-            emailLayout.error = getString(R.string.invalid_email_address)
+        if (!binding.email.text.toString().isValidEmail()) {
+            binding.emailLayout.error = getString(R.string.invalid_email_address)
             isValidForm = false
         } else {
-            emailLayout.isErrorEnabled = false
+            binding.emailLayout.isErrorEnabled = false
         }
-        if (!password.text.toString().isValidPassword()) {
-            passwordLayout.error = getString(R.string.invalid_password)
+        if (!binding.password.text.toString().isValidPassword()) {
+            binding.passwordLayout.error = getString(R.string.invalid_password)
             isValidForm = false
         } else {
-            passwordLayout.isErrorEnabled = false
+            binding.passwordLayout.isErrorEnabled = false
         }
         return isValidForm
     }

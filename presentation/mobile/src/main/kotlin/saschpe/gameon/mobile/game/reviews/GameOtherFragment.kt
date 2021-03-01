@@ -1,14 +1,15 @@
 package saschpe.gameon.mobile.game.reviews
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_game_other.*
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
@@ -18,12 +19,14 @@ import saschpe.gameon.data.core.model.STEAM_STORE
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.databinding.FragmentGameOtherBinding
 import saschpe.gameon.mobile.game.GameFragment
 
-class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
+class GameOtherFragment : Fragment() {
     private lateinit var reviewsAdapter: GameReviewsAdapter
     private lateinit var argPlain: String
     private val viewModel: GameOtherViewModel by viewModels()
+    private lateinit var binding: FragmentGameOtherBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +35,15 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
         viewModel.getGameInfo(argPlain)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentGameOtherBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = reviewsAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
@@ -67,20 +75,16 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
 
                     reviewsAdapter.submitList(viewModels)
 
-                    isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
-                    achievementsChip.visibility =
-                        if (gameInfo.achievements) View.VISIBLE else View.GONE
-                    tradingCardsChip.visibility =
-                        if (gameInfo.trading_cards) View.VISIBLE else View.GONE
-                    earlyAccessChip.visibility =
-                        if (gameInfo.early_access) View.VISIBLE else View.GONE
-                    isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
+                    binding.isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
+                    binding.achievementsChip.visibility = if (gameInfo.achievements) View.VISIBLE else View.GONE
+                    binding.tradingCardsChip.visibility = if (gameInfo.trading_cards) View.VISIBLE else View.GONE
+                    binding.earlyAccessChip.visibility = if (gameInfo.early_access) View.VISIBLE else View.GONE
+                    binding.isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
                     if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
-                        perksDivider.visibility = View.GONE
-                        perksText.visibility = View.GONE
+                        binding.perksDivider.visibility = View.GONE
+                        binding.perksText.visibility = View.GONE
                     }
-
-                    checkOnProtonDB.setOnClickListener {
+                    binding.checkOnProtonDb.setOnClickListener {
                         lifecycleScope.launch { openUrl("$PROTON_DB_SEARCH_URL${gameInfo.title}") }
                     }
                 }

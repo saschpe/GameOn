@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -21,7 +21,7 @@
             android:fitsSystemWindows="true">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/appName"
+                android:id="@+id/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -32,18 +32,18 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/aboutTabItem"
+                android:id="@+id/about_tab_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/contactTabItem"
+                android:id="@+id/contact_tab_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/contact" />
@@ -53,7 +53,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

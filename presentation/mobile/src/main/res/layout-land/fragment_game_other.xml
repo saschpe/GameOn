@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reviewsText"
+                android:id="@+id/reviews_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_4"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/recycler_spacing"
@@ -44,7 +44,7 @@
                 android:paddingBottom="@dimen/keyline_2"
                 app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reviewsText"
+                app:layout_constraintTop_toBottomOf="@+id/reviews_text"
                 tools:itemCount="2"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/view_review_list_item" />
@@ -57,7 +57,7 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <View
-                android:id="@+id/perksDivider"
+                android:id="@+id/perks_divider"
                 android:layout_width="@dimen/divider_width"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/keyline_2"
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/perksText"
+                android:id="@+id/perks_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_4"
@@ -77,13 +77,13 @@
                 android:layout_marginEnd="@dimen/keyline_4"
                 android:text="@string/perks"
                 android:textAppearance="?textAppearanceHeadline6"
-                app:layout_constraintBottom_toTopOf="@+id/perksChipGroup"
+                app:layout_constraintBottom_toTopOf="@+id/perks_chip_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/perksChipGroup"
+                android:id="@+id/perks_chip_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_4"
@@ -92,10 +92,10 @@
                 android:layout_marginBottom="@dimen/keyline_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/perksText">
+                app:layout_constraintTop_toBottomOf="@+id/perks_text">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/isDlcChip"
+                    android:id="@+id/is_dlc_chip"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:text="@string/is_dlc" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/achievementsChip"
+                    android:id="@+id/achievements_chip"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     android:text="@string/achievements" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/tradingCardsChip"
+                    android:id="@+id/trading_cards_chip"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     android:text="@string/trading_cards" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/earlyAccessChip"
+                    android:id="@+id/early_access_chip"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -135,7 +135,7 @@
                     android:text="@string/early_access" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/isPackageChip"
+                    android:id="@+id/is_package_chip"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -147,7 +147,7 @@
             </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/miscText"
+                android:id="@+id/misc_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_4"
@@ -157,10 +157,10 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/perksChipGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/perks_chip_group" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/checkOnProtonDB"
+                android:id="@+id/check_on_proton_db"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 app:icon="@drawable/ic_react_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/miscText" />
+                app:layout_constraintTop_toBottomOf="@+id/misc_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

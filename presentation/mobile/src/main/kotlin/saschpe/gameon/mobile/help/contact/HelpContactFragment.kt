@@ -10,7 +10,7 @@ import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 
-class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
+class HelpContactFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

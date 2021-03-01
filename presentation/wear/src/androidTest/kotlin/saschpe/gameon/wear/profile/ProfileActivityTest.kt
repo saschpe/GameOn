@@ -38,7 +38,7 @@ class ProfileActivityTest {
     @Test
     fun topNavigationFavoriteButtonIntendedFavoriteActivity() {
         // Arrange
-        onView(withId(R.id.drawerLayout)).perform(DrawerActions.open(Gravity.TOP))
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open(Gravity.TOP))
 
         // Assert
         onView(withId(R.string.favorites)).check(matches(isDisplayed())).perform(ViewActions.click())
@@ -50,7 +50,7 @@ class ProfileActivityTest {
     @Test
     fun topNavigationSearchButtonIntendedSearchActivity() {
         // Arrange
-        onView(withId(R.id.drawerLayout)).perform(DrawerActions.open(Gravity.TOP))
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open(Gravity.TOP))
 
         // Assert
         onView(withId(R.string.search)).check(matches(isDisplayed())).perform(ViewActions.click())

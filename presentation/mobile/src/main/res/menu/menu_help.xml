@@ -2,21 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/privacyPolicy"
+        android:id="@+id/privacy_policy"
         android:icon="@drawable/ic_info_24dp"
         android:orderInCategory="100"
         android:title="@string/privacy_policy"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/termsOfService"
+        android:id="@+id/terms_of_service"
         android:icon="@drawable/ic_info_24dp"
         android:orderInCategory="101"
         android:title="@string/terms_of_service"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/openSourceLicenses"
+        android:id="@+id/open_source_licenses"
         android:icon="@drawable/ic_info_24dp"
         android:orderInCategory="102"
         android:title="@string/open_source_licenses"

@@ -1,7 +1,9 @@
 package saschpe.gameon.mobile.favorites
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.content.edit
 import androidx.core.os.bundleOf
@@ -15,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,9 +30,10 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.loadAdvertisement
+import saschpe.gameon.mobile.databinding.FragmentFavoritesBinding
 import saschpe.gameon.mobile.game.GameFragment
 
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+class FavoritesFragment : Fragment() {
     private val viewModel: FavoritesViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var favoritesAdapter: FavoritesAdapter
@@ -45,6 +47,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
     private var adViewModels: List<FavoritesAdapter.ViewModel.AdvertisementViewModel> = listOf()
     private var favoriteViewModels: List<FavoritesAdapter.ViewModel> = listOf()
+    private lateinit var binding: FragmentFavoritesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +59,18 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        setupWithNavController(toolbar, navController)
-        toolbar.inflateMenu(R.menu.menu_favorites)
-        toolbar.setOnMenuItemClickListener {
+
+        setupWithNavController(binding.toolbar, navController)
+        binding.toolbar.inflateMenu(R.menu.menu_favorites)
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.help -> navController.navigate(R.id.action_favorites_to_help)
                 R.id.view_comfy -> updateGridLayout(GRID_LAYOUT_SPAN_COUNT_INCREMENT_ONE)
@@ -90,7 +99,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             })
         }
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = favoritesAdapter
             layoutManager = gridLayoutManager
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
@@ -145,19 +154,16 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         gridLayoutSpanCountIncrement = spanCountIncrement
         gridLayoutManager.requestSimpleAnimationsInNextLayout()
         gridLayoutManager.spanCount = gridLayoutSpanCount
-        toolbar.menu.apply {
-            findItem(R.id.view_module).isVisible =
-                gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_ONE
-            findItem(R.id.view_comfy).isVisible =
-                gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
+        binding.toolbar.menu.apply {
+            findItem(R.id.view_module).isVisible = gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_ONE
+            findItem(R.id.view_comfy).isVisible = gridLayoutSpanCountIncrement == GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
         }
     }
 
-    private fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) =
-        Snackbar
-            .make(coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.retry) { retryCallback.invoke() }
-            .show()
+    private fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) = Snackbar
+        .make(binding.coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
+        .setAction(R.string.retry) { retryCallback.invoke() }
+        .show()
 
     companion object {
         private const val GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE = 0

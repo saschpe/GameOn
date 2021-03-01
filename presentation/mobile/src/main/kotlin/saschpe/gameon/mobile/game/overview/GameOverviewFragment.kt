@@ -3,7 +3,9 @@ package saschpe.gameon.mobile.game.overview
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -12,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_game_overview.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,9 +27,10 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.databinding.FragmentGameOverviewBinding
 import saschpe.gameon.mobile.game.GameFragment
 
-class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
+class GameOverviewFragment : Fragment() {
     private lateinit var argPlain: String
     private val viewModel: GameOverviewViewModel by viewModels()
     private var priceAlertTextWatcher = object : TextWatcher {
@@ -61,6 +63,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         }
     }
+    private lateinit var binding: FragmentGameOverviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +73,16 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         viewModel.getFavorite(argPlain)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentGameOverviewBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
-                is Result.Success<GameInfo> -> cover.load(result.data.image) {
+                is Result.Success<GameInfo> -> binding.cover.load(result.data.image) {
                     placeholder(R.drawable.placeholder)
                     crossfade(true)
                 }
@@ -107,19 +115,19 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                                     price_formatted, store, cut, colors.green, colors.red
                                 )
                             }
-                            currentBest.text =
+                            binding.currentBest.text =
                                 HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                            storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
+                            binding.storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
                         }
                     } else {
-                        currentBest.visibility = View.GONE
-                        currentBestText.visibility = View.GONE
+                        binding.currentBest.visibility = View.GONE
+                        binding.currentBestText.visibility = View.GONE
                     }
 
                     if (result.data.lowest != null) {
                         result.data.lowest?.apply {
-                            historicalLow.text = HtmlCompat.fromHtml(
+                            binding.historicalLow.text = HtmlCompat.fromHtml(
                                 getString(
                                     R.string.price_on_store_with_rebate_template,
                                     price_formatted, store, cut, colors.green, colors.red
@@ -127,8 +135,8 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                             )
                         }
                     } else {
-                        historicalLow.visibility = View.GONE
-                        historicalLowText.visibility = View.GONE
+                        binding.historicalLow.visibility = View.GONE
+                        binding.historicalLowText.visibility = View.GONE
                     }
                 }
                 is Result.Error -> {
@@ -144,7 +152,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         })
 
-        addFavoriteButton.setOnClickListener {
+        binding.addFavoriteButton.setOnClickListener {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST) {
                 param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
             }
@@ -154,24 +162,24 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         viewModel.favoriteLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Success<Favorite> -> {
-                    removeFavoriteButton.setOnClickListener {
+                    binding.removeFavoriteButton.setOnClickListener {
                         firebaseAnalytics.logEvent(Analytics.Event.REMOVE_FROM_WISHLIST) {
                             param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
                         }
                         viewModel.removeFavorite(result.data.plain)
                     }
-                    addFavoriteButton.visibility = View.GONE
-                    priceAlertGroup.visibility = View.VISIBLE
-                    if (!priceAlertInput.hasFocus()) {
-                        result.data.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
+                    binding.addFavoriteButton.visibility = View.GONE
+                    binding.priceAlertGroup.visibility = View.VISIBLE
+                    if (!binding.priceAlertInput.hasFocus()) {
+                        result.data.priceThreshold?.let { binding.priceAlertInput.setText(it.toString()) }
                     }
-                    priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
+                    binding.priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
                     updatePriceAlertStartIcon()
                 }
                 is Result.Error -> {
                     result.errorLogged()
-                    priceAlertGroup.visibility = View.GONE
-                    addFavoriteButton.visibility = View.VISIBLE
+                    binding.priceAlertGroup.visibility = View.GONE
+                    binding.addFavoriteButton.visibility = View.VISIBLE
                 }
             }
         })
@@ -186,7 +194,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     }
 
     private fun updatePriceAlertStartIcon() {
-        priceAlertInputLayout.startIconDrawable = if (priceAlertInput.text?.isEmpty() == true) {
+        binding.priceAlertInputLayout.startIconDrawable = if (binding.priceAlertInput.text?.isEmpty() == true) {
             getDrawable(resources, R.drawable.ic_alarm_24dp, null)
         } else {
             getDrawable(resources, R.drawable.ic_alarm_on_24dp, null)

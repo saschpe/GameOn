@@ -1,7 +1,9 @@
 package saschpe.gameon.mobile.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -11,19 +13,25 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_settings.*
 import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.databinding.FragmentSettingsBinding
 import saschpe.gameon.mobile.settings.preferences.AppearancePreferenceFragment
 import saschpe.gameon.mobile.settings.preferences.MainPreferenceFragment
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : Fragment() {
     private val viewModel: SettingsViewModel by viewModels()
+    private lateinit var binding: FragmentSettingsBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupWithNavController(toolbar, findNavController())
+        setupWithNavController(binding.toolbar, findNavController())
 
         val mainPreferenceFragment = MainPreferenceFragment()
         childFragmentManager.commit { replace(R.id.mainContainer, mainPreferenceFragment) }

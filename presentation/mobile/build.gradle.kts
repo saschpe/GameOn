@@ -6,7 +6,6 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.gms.google-services")
     kotlin("android")
-    kotlin("android.extensions")
 }
 
 repositories {
@@ -35,6 +34,10 @@ android {
             storeFile = Secrets.Signing.Store.file
             storePassword = Secrets.Signing.Store.password
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {

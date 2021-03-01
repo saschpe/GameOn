@@ -33,7 +33,7 @@ class HelpFragmentTest {
     fun topAppBarDisplaysLogo() {
         fragmentScenario()
 
-        onView(allOf(inActionBar(), withId(R.id.appName))).check(
+        onView(allOf(inActionBar(), withId(R.id.app_name))).check(
             matches(allOf(isDisplayed(), withText(R.string.app_name)))
         )
     }

@@ -51,7 +51,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/cover" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/currentBest"
+                    android:id="@+id/current_best"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -73,10 +73,10 @@
                     android:textAppearance="?textAppearanceCaption"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/currentBest" />
+                    app:layout_constraintTop_toBottomOf="@+id/current_best" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/historicalLow"
+                    android:id="@+id/historical_low"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -88,7 +88,7 @@
                     tools:text="@tools:sample/full_names" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/storeButton"
+                    android:id="@+id/store_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -98,10 +98,10 @@
                     app:icon="@drawable/ic_shop_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/historicalLow" />
+                    app:layout_constraintTop_toBottomOf="@+id/historical_low" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/addFavoriteButton"
+                    android:id="@+id/add_favorite_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -111,10 +111,10 @@
                     app:icon="@drawable/ic_favorite_border_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/storeButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/store_button" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/removeFavoriteButton"
+                    android:id="@+id/remove_favorite_button"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -125,10 +125,10 @@
                     app:icon="@drawable/ic_favorite_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/storeButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/store_button" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/priceAlertInputLayout"
+                    android:id="@+id/price_alert_input_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -138,12 +138,12 @@
                     app:endIconMode="clear_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/removeFavoriteButton"
+                    app:layout_constraintTop_toBottomOf="@+id/remove_favorite_button"
                     app:startIconCheckable="true"
                     app:startIconDrawable="@drawable/ic_alarm_24dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/priceAlertInput"
+                        android:id="@+id/price_alert_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal" />
@@ -151,7 +151,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/priceAlertDescription"
+                    android:id="@+id/price_alert_description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/keyline_4"
@@ -163,14 +163,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceAlertInputLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/price_alert_input_layout" />
 
                 <androidx.constraintlayout.widget.Group
-                    android:id="@+id/priceAlertGroup"
+                    android:id="@+id/price_alert_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:constraint_referenced_ids="removeFavoriteButton,priceAlertInputLayout,priceAlertDescription"
+                    app:constraint_referenced_ids="remove_favorite_button,price_alert_input_layout,price_alert_description"
                     tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

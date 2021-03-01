@@ -1,7 +1,9 @@
 package saschpe.gameon.mobile.offers
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,7 +13,6 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_offers.*
 import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
@@ -23,9 +24,10 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.base.loadAdvertisement
+import saschpe.gameon.mobile.databinding.FragmentOffersBinding
 import saschpe.gameon.mobile.game.GameFragment
 
-class OffersFragment : Fragment(R.layout.fragment_offers) {
+class OffersFragment : Fragment() {
     private val gridLayoutSpanCount
         get() = when {
             requireContext().hasScreenWidth(720) -> 4
@@ -35,6 +37,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         }
     private lateinit var offerAdapter: OfferAdapter
     private val viewModel: OffersViewModel by viewModels()
+    private lateinit var binding: FragmentOffersBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +46,16 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         viewModel.getDeals()
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentOffersBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupWithNavController(toolbar, findNavController())
-        toolbar.inflateMenu(R.menu.menu_offers)
-        toolbar.setOnMenuItemClickListener {
+        setupWithNavController(binding.toolbar, findNavController())
+        binding.toolbar.inflateMenu(R.menu.menu_offers)
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.search -> findNavController().navigate(R.id.action_offers_to_search)
                 R.id.help -> findNavController().navigate(R.id.action_offers_to_help)
@@ -57,13 +65,13 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         }
 
         loadAdvertisement(NativeAdUnit.Search) {
-            if (progressBar?.visibility == View.VISIBLE) {
+            if (binding.progressBar.visibility == View.VISIBLE) {
                 // Only submit ad if we're still loading offers
                 offerAdapter.submitList(listOf(OfferAdapter.ViewModel.AdvertisementViewModel(it)))
             }
         }
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = offerAdapter
             layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -79,7 +87,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
         }
 
         viewModel.dealLiveData.observe(viewLifecycleOwner, { result ->
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> result.data.map { offer ->
                     OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
