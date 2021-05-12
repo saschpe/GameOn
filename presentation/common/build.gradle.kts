@@ -4,7 +4,7 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
@@ -32,11 +32,11 @@ dependencies {
     implementation(project(":domain"))
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("com.google.android.material:material:1.3.0")
+    implementation("de.peilicke.sascha:log4k:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
-    implementation("saschpe.log4k:log4k:1.0.0")
 
     testImplementation("androidx.test:core-ktx:1.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("org.robolectric:robolectric:4.5.1")
 }
