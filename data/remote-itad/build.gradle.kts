@@ -8,7 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
     implementation(project(":data:core"))
     implementation("io.ktor:ktor-client-android:1.5.4")
     implementation("io.ktor:ktor-client-logging-jvm:1.5.4")

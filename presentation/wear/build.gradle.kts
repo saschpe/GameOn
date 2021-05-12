@@ -70,11 +70,10 @@ android {
 dependencies {
     compileOnly("com.google.android.wearable:wearable:2.8.1")
 
-    implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("androidx.wear:wear:1.1.0")
     implementation("com.google.android.gms:play-services-wearable:17.0.0")
     implementation("com.google.android.material:material:1.3.0")

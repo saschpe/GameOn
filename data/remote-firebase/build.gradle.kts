@@ -25,7 +25,6 @@ dependencies {
         // TODO: Introduce domain models and map accordingly
     }
 
-    implementation(kotlin("stdlib"))
     implementation(project(":data:core"))
     implementation("de.peilicke.sascha:log4k:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")

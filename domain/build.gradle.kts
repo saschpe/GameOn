@@ -28,7 +28,6 @@ dependencies {
         // TODO: Consider domain-specific models to hide underlying layers. Currently, considered overkill.
     }
 
-    implementation(kotlin("stdlib"))
     implementation(project(":data:local"))
     implementation(project(":data:remote-itad"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
