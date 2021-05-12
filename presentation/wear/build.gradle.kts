@@ -54,6 +54,7 @@ android {
     kotlinOptions.jvmTarget = "1.8"
     lintOptions {
         isAbortOnError = false
+        isCheckReleaseBuilds = false
         textReport = project.hasProperty("isCI")
         textOutput("stdout")
     }
@@ -81,7 +82,7 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:18.0.0")
     implementation("de.peilicke.sascha:android-versioninfo:2.2.0")
     implementation("de.peilicke.sascha:log4k:1.0.1")
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:1.2.1")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.3.0")

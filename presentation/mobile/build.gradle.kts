@@ -57,6 +57,7 @@ android {
     kotlinOptions.jvmTarget = "1.8"
     lintOptions {
         isAbortOnError = false
+        isCheckReleaseBuilds = false
         textReport = project.hasProperty("isCI")
         textOutput("stdout")
     }
@@ -66,7 +67,9 @@ android {
 
     testOptions {
         animationsDisabled = true
-        unitTests.isIncludeAndroidResources = true
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 }
 
@@ -98,7 +101,7 @@ dependencies {
     implementation("de.peilicke.sascha:android-social-fragment:2.1.1")
     implementation("de.peilicke.sascha:android-versioninfo:2.2.0")
     implementation("de.peilicke.sascha:log4k:1.0.1")
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:1.2.1")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
