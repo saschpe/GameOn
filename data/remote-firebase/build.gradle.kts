@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    api("com.google.firebase:firebase-auth:20.0.2") {
+    api("com.google.firebase:firebase-auth:21.0.0") {
         // TODO: Introduce domain models and map accordingly
     }
 
