@@ -82,12 +82,12 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
             startActivityForResult(googleSignInClient.signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
         }
 
-        viewModel.userLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.userLiveData.observe(viewLifecycleOwner) { result ->
             if (result is Result.Success<FirebaseUser> && !result.data.isAnonymous) {
                 findNavController().popBackStack() // Already logged in
             }
-        })
-        viewModel.signInLiveData.observe(viewLifecycleOwner, { result ->
+        }
+        viewModel.signInLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
                 is Result.Error -> Snackbar.make(
@@ -96,7 +96,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
-        })
+        }
     }
 
     override fun onStart() {

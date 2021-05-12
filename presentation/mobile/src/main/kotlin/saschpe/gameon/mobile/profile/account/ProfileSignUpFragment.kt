@@ -70,7 +70,7 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
-        viewModel.signUpLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.signUpLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<AuthResult> -> findNavController().popBackStack() // Success
                 is Result.Error -> Snackbar.make(
@@ -79,7 +79,7 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
-        })
+        }
     }
 
     override fun onStart() {
