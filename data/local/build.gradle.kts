@@ -5,7 +5,7 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
@@ -42,6 +42,6 @@ dependencies {
 
     testImplementation("androidx.room:room-testing:2.2.6")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("org.robolectric:robolectric:4.5.1")
 }

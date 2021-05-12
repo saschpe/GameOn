@@ -1,10 +1,10 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.4.31"
+    kotlin("plugin.serialization")
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
