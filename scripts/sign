@@ -30,8 +30,9 @@ function usage() {
 }
 
 # Command-line arguments
-app=
-store=${DEFAULT_STORE}
+app="${DEFAULT_APP}"
+key="${DEFAULT_KEY}"
+store="${DEFAULT_STORE}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
   -a | --app)
@@ -47,7 +48,8 @@ while [[ $# -gt 0 ]]; do
     shift # past argument
     ;;
   -k | --key)
-    key_param="--ks-key-alias $2"
+    key="$2"
+    key_param="--ks-key-alias $key"
     shift # past argument
     ;;
   -kp | --key-pass)
@@ -69,10 +71,10 @@ case ${app} in
     -verbose \
     -sigalg SHA256withRSA \
     -digestalg SHA-256 \
-    -store "${store}" \
+    -keystore "${store}" \
     -storepass "${store_pass}" \
     -keypass "${key_pass}" \
-    "${app}" release
+    "${app}" "${key}"
   ;;
 *.apk)
   approve "Signing APK '${app}'..."
