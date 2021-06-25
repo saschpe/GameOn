@@ -14,10 +14,9 @@ class FavoritesLocalRepository(
 
     suspend fun getByPlain(plain: String): Result<FavoriteEntity> {
         val result = favoritesDao.getByPlain(plain)
-        return if (result != null) {
-            Result.Success(result)
-        } else {
-            Result.Error.withMessage("Favorite with plain '${plain}' does not exist")
+        return when {
+            result != null -> Result.Success(result)
+            else -> Result.Error.withMessage("Favorite with plain '${plain}' does not exist")
         }
     }
 

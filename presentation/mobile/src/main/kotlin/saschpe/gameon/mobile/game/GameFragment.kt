@@ -42,7 +42,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         viewPager.adapter =
             GameFragmentPagerAdapter(requireContext(), argPlain, childFragmentManager)
 
-        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<GameInfo> -> {
                     toolbar.title = result.data.title
@@ -58,7 +58,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                     }
                 }
             }
-        })
+        }
     }
 
     private class GameFragmentPagerAdapter(

@@ -41,7 +41,7 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
             addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
         }
 
-        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<GameInfo> -> {
                     val gameInfo = result.data
@@ -95,7 +95,7 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
                     }
                 }
             }
-        })
+        }
     }
 
     override fun onResume() {

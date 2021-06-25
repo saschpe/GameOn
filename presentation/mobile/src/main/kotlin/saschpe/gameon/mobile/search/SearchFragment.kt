@@ -91,7 +91,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
-        viewModel.searchLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.searchLiveData.observe(viewLifecycleOwner) { result ->
             progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> {
@@ -118,7 +118,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 lastSearch?.let { term -> param(FirebaseAnalytics.Param.SEARCH_TERM, term) }
                 param(FirebaseAnalytics.Param.QUANTITY, viewModels.size.toLong())
             }
-        })
+        }
     }
 
     override fun onResume() {

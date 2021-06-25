@@ -1,15 +1,14 @@
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.8.0"
+    id("com.github.triplet.play")
     id("com.google.firebase.crashlytics")
-    // id("com.google.firebase.firebase-perf")
     id("com.google.gms.google-services")
     kotlin("android")
     kotlin("android.extensions")
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
@@ -55,6 +54,7 @@ android {
     kotlinOptions.jvmTarget = "1.8"
     lintOptions {
         isAbortOnError = false
+        isCheckReleaseBuilds = false
         textReport = project.hasProperty("isCI")
         textOutput("stdout")
     }
@@ -71,33 +71,32 @@ android {
 dependencies {
     compileOnly("com.google.android.wearable:wearable:2.8.1")
 
-    implementation(kotlin("stdlib-jdk8"))
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("androidx.wear:wear:1.1.0")
-    implementation("com.google.android.gms:play-services-wearable:17.0.0")
+    implementation("com.google.android.gms:play-services-wearable:17.1.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("com.google.android.support:wearable:2.8.1")
-    implementation("com.google.firebase:firebase-crashlytics:17.3.1")
-    implementation("io.coil-kt:coil:1.1.1")
-    implementation("saschpe.android:versioninfo:2.1.2")
-    implementation("saschpe.log4k:log4k:1.0.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.0.0")
+    implementation("de.peilicke.sascha:android-versioninfo:2.2.0")
+    implementation("de.peilicke.sascha:log4k:1.0.1")
+    implementation("io.coil-kt:coil:1.2.1")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.3.0")
     testImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
     testImplementation("androidx.test.espresso:espresso-intents:3.3.0")
     testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("org.robolectric:robolectric:4.5.1")
 
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.3.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    androidTestImplementation("io.mockk:mockk-android:1.10.6")
+    androidTestImplementation("io.mockk:mockk-android:1.11.0")
 }
 
 play {
