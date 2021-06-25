@@ -52,7 +52,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 .show()
         }
 
-        viewModel.userLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.userLiveData.observe(viewLifecycleOwner) { result ->
             if (result is Result.Success<FirebaseUser> && !result.data.isAnonymous) {
                 signIn.isVisible = false
                 signOut.isVisible = true
@@ -60,7 +60,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 signIn.isVisible = true
                 signOut.isVisible = false
             }
-        })
+        }
     }
 
     override fun onResume() {

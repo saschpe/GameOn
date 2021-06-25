@@ -72,7 +72,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.gameInfoLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.gameInfoLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<GameInfo> -> cover.load(result.data.image) {
                     placeholder(R.drawable.placeholder)
@@ -89,9 +89,9 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     }
                 }
             }
-        })
+        }
 
-        viewModel.gameOverviewLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.gameOverviewLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<GameOverview> -> {
                     if (result.data.price != null) {
@@ -142,7 +142,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     }
                 }
             }
-        })
+        }
 
         addFavoriteButton.setOnClickListener {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST) {
@@ -151,7 +151,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             viewModel.addFavorite(argPlain)
         }
 
-        viewModel.favoriteLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.favoriteLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<Favorite> -> {
                     removeFavoriteButton.setOnClickListener {
@@ -174,7 +174,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                     addFavoriteButton.visibility = View.VISIBLE
                 }
             }
-        })
+        }
     }
 
     override fun onResume() {

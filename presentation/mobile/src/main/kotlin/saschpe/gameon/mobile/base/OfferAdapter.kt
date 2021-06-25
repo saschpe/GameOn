@@ -34,19 +34,18 @@ class OfferAdapter(
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
-                inflater.inflate(R.layout.view_offer_advertisement, parent, false)
-            )
-            VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
-                inflater.inflate(R.layout.view_offer_no_results, parent, false)
-            )
-            VIEW_TYPE_OFFER -> OfferViewHolder(
-                inflater.inflate(R.layout.view_offer_card, parent, false)
-            )
-            else -> throw Exception("Unsupported view type '$viewType'!")
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
+            inflater.inflate(R.layout.view_offer_advertisement, parent, false)
+        )
+        VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
+            inflater.inflate(R.layout.view_offer_no_results, parent, false)
+        )
+        VIEW_TYPE_OFFER -> OfferViewHolder(
+            inflater.inflate(R.layout.view_offer_card, parent, false)
+        )
+        else -> throw Exception("Unsupported view type '$viewType'!")
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = getItem(position)) {

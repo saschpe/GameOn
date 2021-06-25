@@ -78,7 +78,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
             setHasFixedSize(true)
         }
 
-        viewModel.dealLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.dealLiveData.observe(viewLifecycleOwner) { result ->
             progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> result.data.map { offer ->
@@ -97,7 +97,7 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
                 }
             }
             offerAdapter.submitList(viewModels)
-        })
+        }
     }
 
     override fun onResume() {

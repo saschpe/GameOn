@@ -36,7 +36,7 @@ class GetPriceAlertsUseCase(
                         val overviews = getOverviewsResult.data.data
 
                         // Add to result if the fresh lowest price is below the user's price threshold..
-                        favorites.forEach { favoriteEntity ->
+                        for (favoriteEntity in favorites) {
                             val overview = overviews[favoriteEntity.plain]
                             overview?.price?.let { price ->
                                 favoriteEntity.priceThreshold?.let { priceThreshold ->

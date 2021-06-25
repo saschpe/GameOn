@@ -48,7 +48,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
             setHasFixedSize(true)
         }
 
-        viewModel.gamePriceLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.gamePriceLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<GamePrice> -> pricesAdapter.submitList(result.data.list.map {
                     GamePricesAdapter.ViewModel.PriceViewModel(it) {
@@ -70,7 +70,7 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
                     }
                 }
             }
-        })
+        }
     }
 
     override fun onResume() {

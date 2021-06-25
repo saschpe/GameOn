@@ -4,7 +4,7 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
@@ -21,15 +21,15 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation(project(":data:core"))
-    api("com.google.firebase:firebase-auth:20.0.2") {
+    api("com.google.firebase:firebase-auth:21.0.0") {
         // TODO: Introduce domain models and map accordingly
     }
+
+    implementation(project(":data:core"))
+    implementation("de.peilicke.sascha:log4k:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.2")
-    implementation("saschpe.log4k:log4k:1.0.0")
 
     testImplementation(kotlin("test-junit"))
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.11.0")
 }

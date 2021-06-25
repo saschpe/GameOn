@@ -97,7 +97,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             setHasFixedSize(true)
         }
 
-        viewModel.favoritesLiveData.observe(viewLifecycleOwner, { result ->
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<List<Favorite>> -> {
                     favoriteViewModels = when {
@@ -122,7 +122,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                     }
                 }
             }
-        })
+        }
     }
 
     override fun onResume() {
