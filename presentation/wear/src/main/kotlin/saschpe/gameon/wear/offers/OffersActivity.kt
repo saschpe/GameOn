@@ -3,9 +3,9 @@ package saschpe.gameon.wear.offers
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.widget.WearableLinearLayoutManager
-import kotlinx.coroutines.GlobalScope
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.common.offers.OffersViewModel
@@ -40,11 +40,11 @@ class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackPr
             setHasFixedSize(true)
         }
 
-        viewModel = ViewModelProvider(this).get(OffersViewModel::class.java)
-        viewModel.dealLiveData.observe(this, { result ->
+        viewModel = ViewModelProvider(this)[OffersViewModel::class.java]
+        viewModel.dealLiveData.observe(this) { result ->
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> result.data.map { offer ->
-                    OfferAdapter.ViewModel.OfferViewModel(GlobalScope, offer) {
+                    OfferAdapter.ViewModel.OfferViewModel(lifecycleScope, offer) {
                         /*findNavController().navigate(
                             R.id.action_offers_to_game,
                             bundleOf(GameFragment.ARG_PLAIN to offer.plain)
@@ -60,7 +60,7 @@ class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackPr
                 }
             }
             offerAdapter.submitList(viewModels)
-        })
+        }
 
         viewModel.getDeals()
     }

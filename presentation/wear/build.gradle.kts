@@ -59,10 +59,10 @@ android {
 
     signingConfigs {
         register("default") {
-            keyAlias = Secrets.Signing.Key.alias
-            keyPassword = Secrets.Signing.Key.password
+            keyAlias = Secrets.Signing.Key.ALIAS
+            keyPassword = Secrets.Signing.Key.PASSWORD
             storeFile = Secrets.Signing.Store.file
-            storePassword = Secrets.Signing.Store.password
+            storePassword = Secrets.Signing.Store.PASSWORD
         }
     }
 

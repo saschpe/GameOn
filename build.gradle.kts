@@ -17,6 +17,7 @@ spotless {
         ktlint(libs.versions.ktlint.get()).setEditorConfigPath("${project.rootDir}/.editorconfig")
     }
     kotlinGradle {
+        target("**/*.gradle.kts")
         ktlint(libs.versions.ktlint.get()).setEditorConfigPath("${project.rootDir}/.editorconfig")
     }
 }

@@ -8,6 +8,7 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import saschpe.log4k.Log
 
 class Api(
     userAgent: String,
@@ -19,13 +20,15 @@ class Api(
             json(Json { ignoreUnknownKeys = true })
         }
         install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.HEADERS
+            level = LogLevel.ALL
+            logger = object : Logger {
+                override fun log(message: String) = Log.info { message }
+            }
         }
         install(UserAgent) { agent = userAgent }
     }
 
-    fun fullUrl(path: String) = "$API_URL$API_BASE_PATH$path"
+    fun fullUrl(path: String) = "$API_URL$path"
 
     suspend inline fun <reified T> get(
         path: String, block: HttpRequestBuilder.() -> Unit = {}
@@ -37,6 +40,5 @@ class Api(
 
     companion object {
         private const val API_URL = "https://api.isthereanydeal.com/"
-        private const val API_BASE_PATH = "v01/"
     }
 }

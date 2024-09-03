@@ -19,7 +19,7 @@ class DealsRemoteRepository(
         offset: Int = 0,
         sort: String = "price:asc"
     ) = asResult {
-        api.get<DealResponse>("deals/list") {
+        api.get<DealResponse>("deals/v2") {
             parameter("offset", offset)
             parameter("limit", limit)
             parameter("region", region)

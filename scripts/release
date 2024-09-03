@@ -11,26 +11,26 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 . "${SCRIPT_DIR}/inc.functions.sh"
 
 # Constants
-GRADLE_FILES=(
+FILES=(
   presentation/mobile/build.gradle.kts
   presentation/wear/build.gradle.kts
 )
 
 # Functions
-function get_version_code() {
+get_version_code() {
   grep "versionCode = " "$1" | cut -d"=" -f2 | xargs
 }
 
-function get_version_name() {
-  grep "versionName = " "$1" | cut -d"=" -f2 | xargs
+get_version_name() {
+  grep "version = " "$1" | cut -d"=" -f2 | xargs
 }
 
-function usage() {
+usage() {
   echo -e "Usage: $0 [VERSION_NAME]\n\n  Example: $0 0.0.1"
   exit 1
 }
 
-function version_gt() {
+version_gt() {
   test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
 }
 
@@ -47,7 +47,7 @@ version_name_new=$1
 # of six digits.
 IFS='.' read -r -a version_name_new_array <<<"${version_name_new}"
 
-for gradle_file in "${GRADLE_FILES[@]}" ; do
+for gradle_file in "${FILES[@]}" ; do
   version_name_old=$(get_version_name "${gradle_file}")
   # To be able to compare with the previous version, do the same for the old
   # version name.
@@ -74,4 +74,4 @@ done
 # Create a commit with appropriate tag
 git_commit_message="Release version ${version_name_new}"
 safe git commit --signoff ${git_commit_files} -m "${git_commit_message}"
-safe git tag -f release/${version_name_new}
+safe git tag -f "release/${version_name_new}" -m "${git_commit_message}"

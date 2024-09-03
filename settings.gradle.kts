@@ -45,5 +45,5 @@ include(
     ":domain",
     ":presentation:common",
     ":presentation:mobile",
-    ":presentation:wear"
+    ":presentation:wear",
 )

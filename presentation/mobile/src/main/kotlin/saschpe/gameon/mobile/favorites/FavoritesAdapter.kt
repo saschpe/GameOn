@@ -14,11 +14,13 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.DiffCallback
-import saschpe.gameon.common.R as CommonR
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
@@ -26,6 +28,7 @@ import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
 class FavoritesAdapter(
     context: Context
@@ -38,12 +41,15 @@ class FavoritesAdapter(
         VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
             inflater.inflate(R.layout.view_favorite_advertisement, parent, false)
         )
+
         VIEW_TYPE_FAVORITE -> FavoriteViewHolder(
             inflater.inflate(R.layout.view_favorite_card, parent, false)
         )
+
         VIEW_TYPE_NO_RESULT -> NoResultViewHolder(
             inflater.inflate(R.layout.view_favorite_no_results, parent, false)
         )
+
         else -> throw Exception("Unsupported view type '$viewType'!")
     }
 
@@ -122,10 +128,11 @@ class FavoritesAdapter(
                                 crossfade(true)
                             }
                         }
+
                     is Result.Error -> result.errorLogged()
                 }
             }
-            gameOverviewJob = GlobalScope.launch(Dispatchers.Main) {
+            gameOverviewJob = CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main) {
                 when (val result = getGameOverviewUseCase(plain)) {
                     is Result.Success<HashMap<String, GameOverview>> ->
                         result.data[plain]?.let { gameOverview ->
@@ -146,6 +153,7 @@ class FavoritesAdapter(
                                 }
                             }
                         }
+
                     is Result.Error -> {
                         result.errorLogged()
                         price.visibility = View.GONE
