@@ -33,8 +33,7 @@ object Secrets {
         }
     }
 }
-
-""".trimIndent()
+                    """.trimIndent(),
                 )
             }
         }

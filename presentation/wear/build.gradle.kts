@@ -91,8 +91,8 @@ android {
 
 kotlin.jvmToolchain(libs.versions.java.get().toInt())
 
-//play {
+// play {
 //    defaultToAppBundles.set(true)
 //    serviceAccountCredentials.set(file("$rootDir/config/play-publishing-api.json"))
 //    track.set("alpha")
-//}
+// }

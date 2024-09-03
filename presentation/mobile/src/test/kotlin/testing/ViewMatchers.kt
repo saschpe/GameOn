@@ -23,7 +23,7 @@ import saschpe.gameon.common.base.tinted
 import saschpe.gameon.common.base.toColorInt
 
 /**
- * Custom view matchers not present in Espresso library.
+ * Custom view matchers are not present in the Espresso library.
  */
 
 fun withDrawable(
