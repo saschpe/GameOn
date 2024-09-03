@@ -24,7 +24,7 @@ class SearchRemoteRepository(
         limit: Int = 150,
         offset: Int = 0
     ) = asResult {
-        api.get<SearchResponse>("search/search") {
+        api.get("search/search") {
             parameter("q", query)
             parameter("offset", offset)
             parameter("limit", limit)

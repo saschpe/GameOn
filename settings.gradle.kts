@@ -1,7 +1,28 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
-    plugins {
-        id("com.github.triplet.play") version "2.8.0"
-        kotlin("plugin.serialization") version "1.4.31"
+    repositories {
+        gradlePluginPortal()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
     }
 }
 

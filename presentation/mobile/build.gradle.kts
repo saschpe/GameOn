@@ -1,30 +1,25 @@
 plugins {
-    id("com.android.application")
-    id("com.github.triplet.play")
-    id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
-    id("com.google.gms.google-services")
-    kotlin("android")
-    kotlin("android.extensions")
-}
-
-repositories {
-    mavenCentral()
-    google()
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.play)
+//    alias("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
-    compileSdkVersion(30)
+    namespace = "saschpe.gameon.mobile"
 
     defaultConfig {
         applicationId = "saschpe.gameon"
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 210000333
         versionName = "0.3.33"
         multiDexEnabled = true
-        base.archivesBaseName = "$applicationId-mobile-$versionName"
+        base.archivesName = "$applicationId-mobile-$versionName"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,10 +33,10 @@ android {
     }
 
     buildTypes {
-        named("debug") {
+        debug {
             applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
         }
-        named("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -50,83 +45,78 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 
-    kotlinOptions.jvmTarget = "1.8"
-    lintOptions {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
         textReport = project.hasProperty("isCI")
-        textOutput("stdout")
     }
-    packagingOptions.exclude("**/*.kotlin_*") // https://youtrack.jetbrains.com/issue/KT-9770
 
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
+    packagingOptions.resources.excludes.add("**/*.kotlin_*") // https://youtrack.jetbrains.com/issue/KT-9770
 
     testOptions {
         animationsDisabled = true
-        unitTests {
-            isIncludeAndroidResources = true
-        }
+        unitTests.isIncludeAndroidResources = true
     }
 }
 
 dependencies {
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.browser:browser:1.3.0")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
-    implementation("androidx.fragment:fragment-testing:1.3.3")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
-    implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.work:work-runtime-ktx:2.5.0")
-    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.2")
-    implementation("com.google.android.gms:play-services-ads:20.1.0")
-    implementation("com.google.android.gms:play-services-auth:19.0.0")
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:19.0.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.0.0")
-    implementation("com.google.firebase:firebase-perf:20.0.0")
-    implementation("com.google.android.material:material:1.3.0")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.cardview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment.testing)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.multidex)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.taptargetview)
+    implementation(libs.play.services.ads)
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.oss.licenses)
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.perf)
+    implementation(libs.google.material)
     implementation("de.peilicke.sascha:android-customtabs:3.0.3")
     implementation("de.peilicke.sascha:android-social-fragment:2.1.1")
     implementation("de.peilicke.sascha:android-versioninfo:2.2.0")
-    implementation("de.peilicke.sascha:log4k:1.0.1")
-    implementation("io.coil-kt:coil:1.2.1")
+    implementation(libs.log4k)
+    implementation(libs.coil)
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
-    debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
+    implementation(libs.kotlinx.coroutines.android)
 
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    testImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    testImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
-    testImplementation("androidx.test.espresso:espresso-idling-resource:3.3.0")
-    testImplementation("androidx.test.espresso:espresso-intents:3.3.0")
-    testImplementation("androidx.test.espresso:espresso-web:3.3.0")
-    testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("androidx.work:work-testing:2.5.0")
-    testImplementation("io.mockk:mockk:1.11.0")
-    testImplementation("org.robolectric:robolectric:4.5.1")
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.espresso.contrib)
+    testImplementation(libs.androidx.espresso.idling.resource)
+    testImplementation(libs.androidx.espresso.intents)
+    testImplementation(libs.androidx.espresso.web)
+    testImplementation(libs.androidx.junit.ktx)
+    testImplementation(libs.androidx.work.testing)
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
 
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.3.0")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.3.0")
-    androidTestImplementation("androidx.test.espresso:espresso-web:3.3.0")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    androidTestImplementation("io.mockk:mockk-android:1.11.0")
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.contrib)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation(libs.androidx.espresso.web)
+    androidTestImplementation(libs.androidx.junit.ktx)
+    androidTestImplementation(libs.mockk)
 }
 
 play {
-    defaultToAppBundles = true
-    serviceAccountCredentials = file("$rootDir/config/play-publishing-api.json")
-    track = "alpha"
+    defaultToAppBundles.set(true)
+    serviceAccountCredentials.set(file("$rootDir/config/play-publishing-api.json"))
+    track.set("alpha")
 }

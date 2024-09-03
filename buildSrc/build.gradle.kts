@@ -6,6 +6,8 @@ repositories {
     mavenCentral()
 }
 
+kotlin.jvmToolchain(21)
+
 tasks {
     val ensureSecretsExist by registering {
         val secretFile = File("$projectDir/src/main/kotlin/Secrets.kt")

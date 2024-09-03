@@ -14,12 +14,12 @@ class GameRemoteRepository(
     private val api: Api
 ) {
     /**
-     * Get info about game.
+     * Get info about a game.
      *
      * @see <a href="https://itad.docs.apiary.io/#reference/game/info/get-info-about-game">API documentation</a>
      */
     suspend fun info(plains: List<String>) = asResult {
-        api.get<GameInfoResponse>("game/info") {
+        api.get("game/info") {
             parameter("plains", plains.joinToString(separator = ","))
         }
     }
@@ -36,7 +36,7 @@ class GameRemoteRepository(
         shop: String = "stream",
         allowed: List<String> = listOf()
     ) = asResult {
-        api.get<GameOverviewResponse>("game/overview") {
+        api.get("game/overview") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)
@@ -57,7 +57,7 @@ class GameRemoteRepository(
         shops: List<String> = listOf(),
         added: Long = 0
     ) = asResult {
-        api.get<GamePricesResponse>("game/prices") {
+        api.get("game/prices") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)

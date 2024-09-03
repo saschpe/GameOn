@@ -11,11 +11,11 @@ class WebRemoteRepository(
     private val api: Api
 ) {
     suspend fun regions() = asResult {
-        api.get<RegionsResponse>("web/regions")
+        api.get("web/regions")
     }
 
     suspend fun stores(region: String = "eu1", country: String = "de") = asResult {
-        api.get<StoresResponse>("web/stores") {
+        api.get("web/stores") {
             parameter("region", region)
             parameter("country", country)
         }

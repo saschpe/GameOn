@@ -1,23 +1,6 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-}
-
-repositories {
-    mavenCentral()
-    google()
-}
-
-android {
-    compileSdkVersion(30)
-
-    defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 dependencies {
@@ -30,10 +13,20 @@ dependencies {
 
     implementation(project(":data:local"))
     implementation(project(":data:remote-itad"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation(libs.kotlinx.coroutines.core)
 
-    testImplementation("androidx.test:core-ktx:1.3.0")
-    testImplementation("androidx.test.ext:junit-ktx:1.1.2")
-    testImplementation("io.mockk:mockk:1.11.0")
-    testImplementation("org.robolectric:robolectric:4.5.1")
+    testImplementation(libs.androidx.core.ktx)
+    testImplementation(libs.androidx.junit.ktx)
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
+}
+
+android {
+    namespace = "saschpe.gameon.domain"
+
+    defaultConfig {
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
