@@ -3,7 +3,9 @@ package saschpe.gameon.mobile.game.overview
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -11,8 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_game_overview.*
+import com.google.firebase.analytics.logEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,11 +27,15 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.databinding.FragmentGameOverviewBinding
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.gameon.common.R as CommonR
 
 class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     private lateinit var argPlain: String
     private val viewModel: GameOverviewViewModel by viewModels()
+    private var _binding: FragmentGameOverviewBinding? = null
+    private val binding get() = _binding!!
     private var priceAlertTextWatcher = object : TextWatcher {
         private var currentJob: Job? = null
 
@@ -70,19 +75,25 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         viewModel.getFavorite(argPlain)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentGameOverviewBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Success<GameInfo> -> cover.load(result.data.image) {
-                    placeholder(R.drawable.placeholder)
+                is Result.Success<GameInfo> -> binding.cover.load(result.data.image) {
+                    placeholder(CommonR.drawable.placeholder)
                     crossfade(true)
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
                     parentFragment?.let {
                         if (it is GameFragment) {
-                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game) {
+                            it.showSnackBarWithRetryAction(CommonR.string.unable_to_load_game) {
                                 viewModel.getGameInfo(argPlain)
                             }
                         }
@@ -98,44 +109,45 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                         result.data.price?.run {
                             val priceString = if (cut == 0) {
                                 getString(
-                                    R.string.price_on_store_colored_template,
+                                    CommonR.string.price_on_store_colored_template,
                                     price_formatted, store, colors.green
                                 )
                             } else {
                                 getString(
-                                    R.string.price_on_store_with_rebate_template,
+                                    CommonR.string.price_on_store_with_rebate_template,
                                     price_formatted, store, cut, colors.green, colors.red
                                 )
                             }
-                            currentBest.text =
+                            binding.currentBest.text =
                                 HtmlCompat.fromHtml(priceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                            storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
+                            binding.storeButton.setOnClickListener { lifecycleScope.launch { openUrl(url) } }
                         }
                     } else {
-                        currentBest.visibility = View.GONE
-                        currentBestText.visibility = View.GONE
+                        binding.currentBest.visibility = View.GONE
+                        binding.currentBestText.visibility = View.GONE
                     }
 
                     if (result.data.lowest != null) {
                         result.data.lowest?.apply {
-                            historicalLow.text = HtmlCompat.fromHtml(
+                            binding.historicalLow.text = HtmlCompat.fromHtml(
                                 getString(
-                                    R.string.price_on_store_with_rebate_template,
+                                    CommonR.string.price_on_store_with_rebate_template,
                                     price_formatted, store, cut, colors.green, colors.red
                                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
                             )
                         }
                     } else {
-                        historicalLow.visibility = View.GONE
-                        historicalLowText.visibility = View.GONE
+                        binding.historicalLow.visibility = View.GONE
+                        binding.historicalLowText.visibility = View.GONE
                     }
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
                     parentFragment?.let {
                         if (it is GameFragment) {
-                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game) {
+                            it.showSnackBarWithRetryAction(CommonR.string.unable_to_load_game) {
                                 viewModel.getGameOverview(argPlain)
                             }
                         }
@@ -144,7 +156,7 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
             }
         }
 
-        addFavoriteButton.setOnClickListener {
+        binding.addFavoriteButton.setOnClickListener {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST) {
                 param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
             }
@@ -154,24 +166,25 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
         viewModel.favoriteLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success<Favorite> -> {
-                    removeFavoriteButton.setOnClickListener {
+                    binding.removeFavoriteButton.setOnClickListener {
                         firebaseAnalytics.logEvent(Analytics.Event.REMOVE_FROM_WISHLIST) {
                             param(FirebaseAnalytics.Param.ITEM_ID, argPlain)
                         }
                         viewModel.removeFavorite(result.data.plain)
                     }
-                    addFavoriteButton.visibility = View.GONE
-                    priceAlertGroup.visibility = View.VISIBLE
-                    if (!priceAlertInput.hasFocus()) {
-                        result.data.priceThreshold?.let { priceAlertInput.setText(it.toString()) }
+                    binding.addFavoriteButton.visibility = View.GONE
+                    binding.priceAlertGroup.visibility = View.VISIBLE
+                    if (!binding.priceAlertInput.hasFocus()) {
+                        result.data.priceThreshold?.let { binding.priceAlertInput.setText(it.toString()) }
                     }
-                    priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
+                    binding.priceAlertInput.addTextChangedListener(priceAlertTextWatcher)
                     updatePriceAlertStartIcon()
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
-                    priceAlertGroup.visibility = View.GONE
-                    addFavoriteButton.visibility = View.VISIBLE
+                    binding.priceAlertGroup.visibility = View.GONE
+                    binding.addFavoriteButton.visibility = View.VISIBLE
                 }
             }
         }
@@ -186,10 +199,10 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
     }
 
     private fun updatePriceAlertStartIcon() {
-        priceAlertInputLayout.startIconDrawable = if (priceAlertInput.text?.isEmpty() == true) {
-            getDrawable(resources, R.drawable.ic_alarm_24dp, null)
+        binding.priceAlertInputLayout.startIconDrawable = if (binding.priceAlertInput.text?.isEmpty() == true) {
+            getDrawable(resources, CommonR.drawable.ic_alarm_24dp, null)
         } else {
-            getDrawable(resources, R.drawable.ic_alarm_on_24dp, null)
+            getDrawable(resources, CommonR.drawable.ic_alarm_on_24dp, null)
         }
     }
 

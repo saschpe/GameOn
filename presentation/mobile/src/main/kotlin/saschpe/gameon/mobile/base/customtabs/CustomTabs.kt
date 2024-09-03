@@ -17,6 +17,8 @@ import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.base.content.defaultPreferences
 import saschpe.gameon.mobile.R
 import saschpe.log4k.Log
+import com.google.android.gms.base.R as GmsR
+import saschpe.gameon.common.R as CommonR
 
 object CustomTabs {
     private const val HOMEPAGE_URL = "https://sites.google.com/view/gameon-2"
@@ -54,9 +56,9 @@ object CustomTabs {
             .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
             .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
 
-        context.resources.getDrawable(R.drawable.ic_arrow_back_24dp, null)?.mutate()?.let {
+        context.resources.getDrawable(CommonR.drawable.ic_arrow_back_24dp, null)?.mutate()?.let {
             DrawableCompat.setTint(it, colors.onSurface)
-            R.styleable.SignInButton_colorScheme
+            GmsR.styleable.SignInButton_colorScheme
             builder.setCloseButtonIcon(it.toBitmap())
         }
 

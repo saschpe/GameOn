@@ -18,6 +18,7 @@ import org.junit.runner.RunWith
 import saschpe.gameon.wear.R
 import saschpe.gameon.wear.profile.ProfileActivity
 import saschpe.gameon.wear.search.SearchActivity
+import saschpe.gameon.common.R as CommonR
 
 @RunWith(AndroidJUnit4::class)
 class FavoriteActivityTest {
@@ -36,7 +37,7 @@ class FavoriteActivityTest {
         onView(withId(R.id.drawerLayout)).perform(open(Gravity.TOP))
 
         // Assert
-        onView(withId(R.string.search)).check(matches(isDisplayed())).perform(click())
+        onView(withId(CommonR.string.search)).check(matches(isDisplayed())).perform(click())
 
         // Assert
         intended(hasComponent(SearchActivity::class.java.name))
@@ -48,7 +49,7 @@ class FavoriteActivityTest {
         onView(withId(R.id.drawerLayout)).perform(open(Gravity.TOP))
 
         // Assert
-        onView(withId(R.string.profile)).check(matches(isDisplayed())).perform(click())
+        onView(withId(CommonR.string.profile)).check(matches(isDisplayed())).perform(click())
 
         // Assert
         intended(hasComponent(ProfileActivity::class.java.name))

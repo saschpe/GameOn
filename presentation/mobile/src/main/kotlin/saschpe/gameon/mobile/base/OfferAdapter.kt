@@ -26,6 +26,7 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
 class OfferAdapter(
     context: Context
@@ -38,12 +39,15 @@ class OfferAdapter(
         VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
             inflater.inflate(R.layout.view_offer_advertisement, parent, false)
         )
+
         VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
             inflater.inflate(R.layout.view_offer_no_results, parent, false)
         )
+
         VIEW_TYPE_OFFER -> OfferViewHolder(
             inflater.inflate(R.layout.view_offer_card, parent, false)
         )
+
         else -> throw Exception("Unsupported view type '$viewType'!")
     }
 
@@ -94,27 +98,29 @@ class OfferAdapter(
             nativeAdView.bodyView = body.apply { text = nativeAd.body }
             nativeAdView.callToActionView = callToAction.apply { text = nativeAd.callToAction }
 
-            if (nativeAd.icon != null) {
+            val nativeAdIcon = nativeAd.icon
+            if (nativeAdIcon != null) {
                 icon.visibility = View.VISIBLE
-                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAd.icon.drawable) }
+                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAdIcon.drawable) }
             } else {
                 icon.visibility = View.INVISIBLE
             }
 
-            if (nativeAd.starRating != null && nativeAd.starRating > 0) {
+            val nativeAdStarRating = nativeAd.starRating
+            if (nativeAdStarRating != null && nativeAdStarRating > 0) {
                 secondary.visibility = View.INVISIBLE
                 rating.visibility = View.VISIBLE
                 nativeAdView.starRatingView = rating.apply {
-                    rating = nativeAd.starRating.toFloat()
+                    rating = nativeAdStarRating.toFloat()
                     max = 5
                 }
             } else {
-                when {
-                    nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser?.isEmpty() == true ->
-                        nativeAdView.storeView = secondary.apply { text = nativeAd.store }
-                    nativeAd.advertiser?.isNotEmpty() == true ->
-                        nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
-                    else -> secondary.text = ""
+                if (nativeAd.store?.isNotEmpty() == true && nativeAd.advertiser?.isEmpty() == true) {
+                    nativeAdView.storeView = secondary.apply { text = nativeAd.store }
+                } else if (nativeAd.advertiser?.isNotEmpty() == true) {
+                    nativeAdView.advertiserView = secondary.apply { text = nativeAd.advertiser }
+                } else {
+                    secondary.text = ""
                 }
                 secondary.visibility = View.VISIBLE
                 rating.visibility = View.INVISIBLE
@@ -139,10 +145,11 @@ class OfferAdapter(
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
                             cover.load(it) {
-                                placeholder(R.drawable.placeholder)
+                                placeholder(CommonR.drawable.placeholder)
                                 crossfade(true)
                             }
                         }
+
                     is Result.Error -> result.errorLogged()
                 }
             }
@@ -151,18 +158,18 @@ class OfferAdapter(
                 if (price_cut > 0f) {
                     price.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.price_colored_template, price_new, colors.green
+                            CommonR.string.price_colored_template, price_new, colors.green
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
 
                     rebate.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.rebate_colored_template, price_cut, colors.red
+                            CommonR.string.rebate_colored_template, price_cut, colors.red
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     rebate.visibility = View.VISIBLE
                 } else {
-                    price.text = price.context.getString(R.string.price_template, price_new)
+                    price.text = price.context.getString(CommonR.string.price_template, price_new)
                 }
             }
         }

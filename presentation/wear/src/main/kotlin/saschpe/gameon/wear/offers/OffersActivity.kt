@@ -1,33 +1,42 @@
 package saschpe.gameon.wear.offers
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.widget.WearableLinearLayoutManager
-import kotlinx.android.synthetic.main.activity_offers.*
 import kotlinx.coroutines.GlobalScope
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
 import saschpe.gameon.common.offers.OffersViewModel
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Offer
-import saschpe.gameon.wear.R
-import saschpe.gameon.wear.base.BaseActivity
-import saschpe.gameon.wear.base.ClockAmbientCallback
-import saschpe.gameon.wear.base.OfferAdapter
-import saschpe.gameon.wear.base.TOP_NAVIGATION_SEARCH_POSITION
+import saschpe.gameon.wear.base.*
+import saschpe.gameon.wear.databinding.ActivityOffersBinding
+import saschpe.gameon.common.R as CommonR
 
-class OffersActivity : BaseActivity(R.layout.activity_offers, TOP_NAVIGATION_SEARCH_POSITION) {
+class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+    private lateinit var ambientController: AmbientModeSupport.AmbientController
+    private lateinit var binding: ActivityOffersBinding
     private lateinit var offerAdapter: OfferAdapter
     private lateinit var viewModel: OffersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityOffersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ambientController = AmbientModeSupport.attach(this)
         offerAdapter = OfferAdapter(this)
 
-        recyclerView.apply {
+        binding.topNavigationDrawer.setAdapter(TopNavigationDrawerAdapter(this))
+        binding.topNavigationDrawer.setCurrentItem(TOP_NAVIGATION_SEARCH_POSITION, false)
+        binding.topNavigationDrawer.addOnItemSelectedListener(TopNavigationItemSelectedListener(this))
+        binding.topNavigationDrawer.controller.peekDrawer()
+        binding.recyclerView.apply {
             adapter = offerAdapter
             layoutManager = WearableLinearLayoutManager(this@OffersActivity)
-            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
+            addItemDecoration(SpacingItemDecoration(context, CommonR.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
 
@@ -42,6 +51,7 @@ class OffersActivity : BaseActivity(R.layout.activity_offers, TOP_NAVIGATION_SEA
                         )*/
                     }
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
                     listOf(OfferAdapter.ViewModel.NoResultsViewModel {
@@ -55,5 +65,6 @@ class OffersActivity : BaseActivity(R.layout.activity_offers, TOP_NAVIGATION_SEA
         viewModel.getDeals()
     }
 
-    override fun getAmbientCallback() = ClockAmbientCallback(drawerLayout, topNavigationDrawer, theme, clock)
+    override fun getAmbientCallback() =
+        ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
 }

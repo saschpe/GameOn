@@ -30,3 +30,5 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
+
+kotlin.jvmToolchain(libs.versions.java.get().toInt())

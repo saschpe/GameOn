@@ -1,18 +1,11 @@
 package testing
 
-import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.mock.MockEngine
-import io.ktor.client.engine.mock.MockEngineConfig
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.DEFAULT
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logger
-import io.ktor.client.features.logging.Logging
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.headersOf
+import io.ktor.client.*
+import io.ktor.client.engine.mock.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 fun mockHttpClient(block: MockEngineConfig.() -> Unit = {}) = HttpClient(MockEngine) {
@@ -24,10 +17,8 @@ fun mockHttpClient(block: MockEngineConfig.() -> Unit = {}) = HttpClient(MockEng
 
 private fun HttpClientConfig<MockEngineConfig>.installDefaultFeatures() {
     @Suppress("EXPERIMENTAL_API_USAGE")
-    install(JsonFeature) {
-        serializer = KotlinxSerializer(Json {
-            ignoreUnknownKeys = true
-        })
+    install(ContentNegotiation) {
+        json(Json { ignoreUnknownKeys = true })
     }
     install(Logging) {
         logger = Logger.DEFAULT

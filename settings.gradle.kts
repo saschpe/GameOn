@@ -11,6 +11,15 @@ pluginManagement {
             }
         }
     }
+
+    resolutionStrategy {
+        eachPlugin {
+            // Custom resolution rules for Gradle plugins that don't support the `plugins {}` DSL.
+            if (requested.id.id == "com.google.android.gms.oss-licenses-plugin") {
+                useModule("com.google.android.gms:oss-licenses-plugin:${requested.version}")
+            }
+        }
+    }
 }
 
 dependencyResolutionManagement {

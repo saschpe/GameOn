@@ -20,6 +20,7 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
+import saschpe.gameon.common.R as CommonR
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
 
@@ -66,7 +67,7 @@ class PriceAlertsNotification(
                 .setContentText(
                     HtmlCompat.fromHtml(
                         context.getString(
-                            R.string.get_it_for_template,
+                            CommonR.string.get_it_for_template,
                             lowest.price_formatted,
                             lowest.store
                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -75,7 +76,7 @@ class PriceAlertsNotification(
                 .setContentTitle(gameInfo?.title ?: plain)
                 .setDeleteIntent(priceAlertDismissedPendingIntent(plain))
                 .setGroup(NOTIFICATION_GROUP_KEY)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(CommonR.drawable.ic_notification)
                 .build()
         }
 
@@ -88,7 +89,7 @@ class PriceAlertsNotification(
             .setContentIntent(showFavoritesPendingIntent())
             .setGroup(NOTIFICATION_GROUP_KEY)
             .setGroupSummary(true)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(CommonR.drawable.ic_notification)
             .build()
     }
 
@@ -114,10 +115,10 @@ class PriceAlertsNotification(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
-                context.getString(R.string.price_alerts),
+                context.getString(CommonR.string.price_alerts),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = context.getString(R.string.price_alert_description)
+                description = context.getString(CommonR.string.price_alert_description)
             })
         }
     }

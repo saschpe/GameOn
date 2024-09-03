@@ -18,6 +18,7 @@ import kotlinx.coroutines.*
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.DiffCallback
+import saschpe.gameon.common.R as CommonR
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.Favorite
 import saschpe.gameon.data.core.model.GameInfo
@@ -89,9 +90,10 @@ class FavoritesAdapter(
             nativeAdView.headlineView = headline.apply { text = nativeAd.headline }
             nativeAdView.bodyView = body.apply { text = nativeAd.body }
 
-            if (nativeAd.icon != null) {
+            val nativeAddIcon = nativeAd.icon
+            if (nativeAddIcon != null) {
                 icon.visibility = View.VISIBLE
-                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAd.icon.drawable) }
+                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAddIcon.drawable) }
             } else {
                 icon.visibility = View.INVISIBLE
             }
@@ -116,7 +118,7 @@ class FavoritesAdapter(
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->
                             cover.load(gameInfo.image) {
-                                placeholder(R.drawable.placeholder)
+                                placeholder(CommonR.drawable.placeholder)
                                 crossfade(true)
                             }
                         }
@@ -132,7 +134,7 @@ class FavoritesAdapter(
                                 if (gamePrice.cut > 0f) {
                                     price.text = HtmlCompat.fromHtml(
                                         price.context.getString(
-                                            R.string.formatted_price_colored_template,
+                                            CommonR.string.formatted_price_colored_template,
                                             gamePrice.price_formatted,
                                             colors.green
                                         ), HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -170,5 +172,3 @@ class FavoritesAdapter(
         internal const val VIEW_TYPE_NO_RESULT = 3
     }
 }
-
-

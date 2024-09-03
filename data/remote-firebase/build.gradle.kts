@@ -5,9 +5,7 @@ plugins {
 
 dependencies {
     api(platform(libs.firebase.bom))
-    api("com.google.firebase:firebase-auth") {
-        // TODO: Introduce domain models and map accordingly
-    }
+    api(libs.firebase.auth.ktx) // TODO: Introduce domain models and map accordingly
 
     implementation(project(":data:core"))
     implementation(libs.log4k)
@@ -28,5 +26,4 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
 }

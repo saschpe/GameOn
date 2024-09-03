@@ -18,6 +18,7 @@ import saschpe.gameon.common.base.content.AppContentProvider
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.help.contact.HelpContactFragment
+import saschpe.android.socialfragment.R as SocialFragmentR
 
 @RunWith(AndroidJUnit4::class)
 class HelpContactFragmentTest {
@@ -35,7 +36,7 @@ class HelpContactFragmentTest {
     fun clickOnRateUseInThePlayStore() {
         launchFragmentInContainer<HelpContactFragment>(themeResId = R.style.App_DayNight)
 
-        onView(withText(R.string.rate_us_in_the_play_store)).perform(click())
+        onView(withText(SocialFragmentR.string.rate_us_in_the_play_store)).perform(click())
 
         intended(hasAction("android.intent.action.VIEW"))
     }
@@ -44,7 +45,7 @@ class HelpContactFragmentTest {
     fun clickOnRecommendToAFriend() {
         launchFragmentInContainer<HelpContactFragment>(themeResId = R.style.App_DayNight)
 
-        onView(withText(R.string.recommend_to_a_friend)).perform(click())
+        onView(withText(SocialFragmentR.string.recommend_to_a_friend)).perform(click())
 
         intended(hasAction("android.intent.action.CHOOSER"))
     }
@@ -53,7 +54,7 @@ class HelpContactFragmentTest {
     fun clickOnProvideFeedback() {
         launchFragmentInContainer<HelpContactFragment>(themeResId = R.style.App_DayNight)
 
-        onView(withText(R.string.provide_feedback)).perform(click())
+        onView(withText(SocialFragmentR.string.provide_feedback)).perform(click())
 
         intended(hasAction("android.intent.action.CHOOSER"))
     }

@@ -14,6 +14,7 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameInfo.Review.Companion.NEUTRAL_REVIEW_THRESHOLD
 import saschpe.gameon.data.core.model.GameInfo.Review.Companion.POSITIVE_REVIEW_THRESHOLD
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
 class GameReviewsAdapter(
     context: Context
@@ -36,6 +37,7 @@ class GameReviewsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is ViewModel.ReviewViewModel -> (holder as ReviewViewHolder).bind(item)
+            is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind()
         }
     }
 
@@ -67,7 +69,7 @@ class GameReviewsAdapter(
 
             viewModel.review.let {
                 details.text = details.resources.getQuantityString(
-                    R.plurals.review_detail, it.total, it.text, it.total
+                    CommonR.plurals.review_detail, it.total, it.text, it.total
                 )
 
                 val ratingColor = when {
@@ -78,18 +80,20 @@ class GameReviewsAdapter(
 
                 rating.text = HtmlCompat.fromHtml(
                     rating.context.getString(
-                        R.string.colored_number_template,
+                        CommonR.string.colored_number_template,
                         it.perc_positive,
                         ratingColor
                     ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 
-            store.text = store.context.getString(R.string.on_template, viewModel.store)
+            store.text = store.context.getString(CommonR.string.on_template, viewModel.store)
         }
     }
 
-    private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind() = Unit
+    }
 
     companion object {
         private const val VIEW_TYPE_REVIEW = 1

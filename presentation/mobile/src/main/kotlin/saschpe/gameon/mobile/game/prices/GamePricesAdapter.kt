@@ -1,6 +1,5 @@
 package saschpe.gameon.mobile.game.prices
 
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import saschpe.gameon.common.base.recyclerview.DiffCallback
 import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.data.core.model.GamePrice.Companion.GOOD_PRICE_CUT_THRESHOLD
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
 class GamePricesAdapter(
     context: Context
@@ -60,7 +60,7 @@ class GamePricesAdapter(
             store.text = viewModel.price.shop.name
             price.text = HtmlCompat.fromHtml(
                 price.context.getString(
-                    R.string.price_colored_template, viewModel.price.price_new, priceColorInt
+                    CommonR.string.price_colored_template, viewModel.price.price_new, priceColorInt
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
 

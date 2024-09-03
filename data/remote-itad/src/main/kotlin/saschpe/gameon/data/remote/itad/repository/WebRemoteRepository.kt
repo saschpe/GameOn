@@ -1,6 +1,6 @@
 package saschpe.gameon.data.remote.itad.repository
 
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
 import saschpe.gameon.data.core.model.Currency
@@ -11,11 +11,11 @@ class WebRemoteRepository(
     private val api: Api
 ) {
     suspend fun regions() = asResult {
-        api.get("web/regions")
+        api.get<RegionsResponse>("web/regions")
     }
 
     suspend fun stores(region: String = "eu1", country: String = "de") = asResult {
-        api.get("web/stores") {
+        api.get<StoresResponse>("web/stores") {
             parameter("region", region)
             parameter("country", country)
         }

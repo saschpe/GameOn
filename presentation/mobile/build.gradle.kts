@@ -2,65 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.google.oss.licenses)
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.play)
-//    alias("com.google.android.gms.oss-licenses-plugin")
-}
-
-android {
-    namespace = "saschpe.gameon.mobile"
-
-    defaultConfig {
-        applicationId = "saschpe.gameon"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 210000333
-        versionName = "0.3.33"
-        multiDexEnabled = true
-        base.archivesName = "$applicationId-mobile-$versionName"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        register("default") {
-            keyAlias = Secrets.Signing.Key.alias
-            keyPassword = Secrets.Signing.Key.password
-            storeFile = Secrets.Signing.Store.file
-            storePassword = Secrets.Signing.Store.password
-        }
-    }
-
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
-        }
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("default")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility(libs.versions.java.get())
-        targetCompatibility(libs.versions.java.get())
-    }
-
-    lint {
-        abortOnError = false
-        checkReleaseBuilds = false
-        textReport = project.hasProperty("isCI")
-    }
-
-    packagingOptions.resources.excludes.add("**/*.kotlin_*") // https://youtrack.jetbrains.com/issue/KT-9770
-
-    testOptions {
-        animationsDisabled = true
-        unitTests.isIncludeAndroidResources = true
-    }
 }
 
 dependencies {
@@ -85,8 +30,8 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.play.services.oss.licenses)
     implementation(libs.firebase.analytics.ktx)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.perf)
+    implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.firebase.perf.ktx)
     implementation(libs.google.material)
     implementation("de.peilicke.sascha:android-customtabs:3.0.3")
     implementation("de.peilicke.sascha:android-social-fragment:2.1.1")
@@ -113,6 +58,60 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.web)
     androidTestImplementation(libs.androidx.junit.ktx)
     androidTestImplementation(libs.mockk)
+}
+
+kotlin.jvmToolchain(libs.versions.java.get().toInt())
+
+android {
+    namespace = "saschpe.gameon.mobile"
+
+    defaultConfig {
+        applicationId = "saschpe.gameon"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = 210000333
+        versionName = "0.3.33"
+        multiDexEnabled = true
+        base.archivesName = "$applicationId-mobile-$versionName"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
+
+    signingConfigs {
+        register("default") {
+            keyAlias = Secrets.Signing.Key.alias
+            keyPassword = Secrets.Signing.Key.password
+            storeFile = Secrets.Signing.Store.file
+            storePassword = Secrets.Signing.Store.password
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix = ".debug" // Allow installation in parallel to release builds
+        }
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("default")
+        }
+    }
+
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 play {

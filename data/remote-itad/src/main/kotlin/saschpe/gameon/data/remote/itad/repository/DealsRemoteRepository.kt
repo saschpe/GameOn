@@ -1,6 +1,6 @@
 package saschpe.gameon.data.remote.itad.repository
 
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
@@ -19,7 +19,7 @@ class DealsRemoteRepository(
         offset: Int = 0,
         sort: String = "price:asc"
     ) = asResult {
-        api.get("deals/list") {
+        api.get<DealResponse>("deals/list") {
             parameter("offset", offset)
             parameter("limit", limit)
             parameter("region", region)

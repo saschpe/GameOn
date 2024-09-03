@@ -30,3 +30,5 @@ android {
         targetCompatibility(libs.versions.java.get())
     }
 }
+
+kotlin.jvmToolchain(libs.versions.java.get().toInt())

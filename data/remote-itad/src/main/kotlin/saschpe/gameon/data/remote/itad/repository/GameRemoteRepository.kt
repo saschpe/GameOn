@@ -1,6 +1,6 @@
 package saschpe.gameon.data.remote.itad.repository
 
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
@@ -19,7 +19,7 @@ class GameRemoteRepository(
      * @see <a href="https://itad.docs.apiary.io/#reference/game/info/get-info-about-game">API documentation</a>
      */
     suspend fun info(plains: List<String>) = asResult {
-        api.get("game/info") {
+        api.get<GameInfoResponse>("game/info") {
             parameter("plains", plains.joinToString(separator = ","))
         }
     }
@@ -36,7 +36,7 @@ class GameRemoteRepository(
         shop: String = "stream",
         allowed: List<String> = listOf()
     ) = asResult {
-        api.get("game/overview") {
+        api.get<GameOverviewResponse>("game/overview") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)
@@ -57,7 +57,7 @@ class GameRemoteRepository(
         shops: List<String> = listOf(),
         added: Long = 0
     ) = asResult {
-        api.get("game/prices") {
+        api.get<GamePricesResponse>("game/prices") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)

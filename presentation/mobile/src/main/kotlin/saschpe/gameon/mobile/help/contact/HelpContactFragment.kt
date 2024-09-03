@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.analytics.logEvent
 import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
 class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -16,10 +17,10 @@ class HelpContactFragment : Fragment(R.layout.fragment_help_contact) {
 
         val socialFragment = SocialFragment.Builder()
             .setApplicationId(BuildConfig.APPLICATION_ID)
-            .setApplicationName(context?.getString(R.string.app_name))
+            .setApplicationName(context?.getString(CommonR.string.app_name))
             .setContactEmailAddress("sascha+gameon@peilicke.de")
-            .setHeaderTextAppearance(R.style.TextAppearance_App_Headline5)
-            .setIconTint(R.color.color_secondary)
+            .setHeaderTextAppearance(CommonR.style.TextAppearance_App_Headline5)
+            .setIconTint(CommonR.color.color_secondary)
             .build()
 
         childFragmentManager.beginTransaction()
