@@ -7,7 +7,7 @@ import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
 
 class DismissPriceAlertUseCase(
-    private val favoritesLocalRepository: FavoritesLocalRepository
+    private val favoritesLocalRepository: FavoritesLocalRepository,
 ) : UseCase<String, Unit> {
     /**
      * [arguments] Plain of favorite to remove

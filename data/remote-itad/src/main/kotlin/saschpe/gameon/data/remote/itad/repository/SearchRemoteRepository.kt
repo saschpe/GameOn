@@ -9,7 +9,7 @@ import saschpe.gameon.data.remote.itad.Api
 import saschpe.gameon.data.remote.itad.model.Meta
 
 class SearchRemoteRepository(
-    private val api: Api
+    private val api: Api,
 ) {
     /**
      * Find games
@@ -22,7 +22,7 @@ class SearchRemoteRepository(
         country: String = "de",
         shops: List<String> = DEFAULT_STORES,
         limit: Int = 150,
-        offset: Int = 0
+        offset: Int = 0,
     ) = asResult {
         api.get<SearchResponse>("games/search/v1") {
             parameter("q", query)
@@ -37,11 +37,11 @@ class SearchRemoteRepository(
     @Serializable
     data class SearchResponse(
         @SerialName(".meta") val meta: Meta,
-        val data: Data
+        val data: Data,
     ) {
         @Serializable
         data class Data(
-            @SerialName("list") val offers: List<Offer>
+            @SerialName("list") val offers: List<Offer>,
         )
     }
 

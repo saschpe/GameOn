@@ -8,7 +8,7 @@ import saschpe.gameon.data.remote.itad.repository.DealsRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class GetDealsUseCase(
-    private val dealsRemoteRepository: DealsRemoteRepository
+    private val dealsRemoteRepository: DealsRemoteRepository,
 ) : UseCase<String, List<Offer>> {
     override suspend fun invoke(vararg arguments: String): Result<List<Offer>> {
         // TODO: Pass down region, country, etc.

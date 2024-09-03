@@ -7,7 +7,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import saschpe.gameon.wear.R
 import saschpe.gameon.common.R as CommonR
 
 @RunWith(AndroidJUnit4::class)

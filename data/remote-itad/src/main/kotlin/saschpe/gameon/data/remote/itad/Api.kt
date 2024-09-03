@@ -12,7 +12,7 @@ import saschpe.log4k.Log
 
 class Api(
     userAgent: String,
-    val apiKey: String
+    val apiKey: String,
 ) {
     @Suppress("EXPERIMENTAL_API_USAGE")
     val client = HttpClient {

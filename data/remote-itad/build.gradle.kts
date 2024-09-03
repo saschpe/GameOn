@@ -16,7 +16,7 @@ dependencies {
     implementation(libs.ktor.client.serialization.kotlinx.json)
     implementation(libs.log4k)
 
-    testImplementation(kotlin("test-junit"))
+    testImplementation(kotlin("test"))
     testImplementation(libs.ktor.client.mock.jvm)
     testImplementation(libs.mockk)
 }

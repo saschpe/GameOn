@@ -26,6 +26,5 @@ class FavoritesActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbac
         binding.topNavigationDrawer.controller.peekDrawer()
     }
 
-    override fun getAmbientCallback() =
-        ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
+    override fun getAmbientCallback() = ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
 }

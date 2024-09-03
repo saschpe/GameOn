@@ -86,7 +86,12 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
                     binding.earlyAccessChip.visibility =
                         if (gameInfo.early_access) View.VISIBLE else View.GONE
                     binding.isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
-                    if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
+                    if (!gameInfo.is_dlc &&
+                        !gameInfo.achievements &&
+                        !gameInfo.trading_cards &&
+                        !gameInfo.early_access &&
+                        !gameInfo.is_package
+                    ) {
                         binding.perksDivider.visibility = View.GONE
                         binding.perksText.visibility = View.GONE
                     }

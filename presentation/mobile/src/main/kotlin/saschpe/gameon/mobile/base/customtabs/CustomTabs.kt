@@ -26,7 +26,9 @@ object CustomTabs {
     private const val TERMS_OF_SERVICE_URL = "https://sites.google.com/view/gameon-2/legal/terms"
 
     suspend fun openHomepage(context: Context) = openUrl(context, HOMEPAGE_URL)
+
     suspend fun openPrivacyPolicy(context: Context) = openUrl(context, PRIVACY_POLICY_URL)
+
     suspend fun openTermsOfService(context: Context) = openUrl(context, TERMS_OF_SERVICE_URL)
 
     suspend fun openUrl(context: Context, url: String) {
@@ -70,5 +72,7 @@ object CustomTabs {
 }
 
 suspend fun Fragment.openUrl(url: String) = CustomTabs.openUrl(requireContext(), url)
+
 suspend fun Fragment.openPrivacyPolicy() = CustomTabs.openPrivacyPolicy(requireContext())
+
 suspend fun Fragment.openTermsOfService() = CustomTabs.openTermsOfService(requireContext())

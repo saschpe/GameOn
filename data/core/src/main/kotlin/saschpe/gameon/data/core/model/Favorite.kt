@@ -5,5 +5,5 @@ data class Favorite(
     val plain: String,
     val createdAt: Long = System.currentTimeMillis(),
     val priceThreshold: Double? = null,
-    val dismissed: Boolean = false
+    val dismissed: Boolean = false,
 )

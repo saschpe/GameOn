@@ -9,7 +9,7 @@ import saschpe.gameon.domain.UseCase
 import saschpe.gameon.domain.mapper.toFavoriteEntity
 
 class AddFavoritesUseCase(
-    private val favoritesLocalRepository: FavoritesLocalRepository
+    private val favoritesLocalRepository: FavoritesLocalRepository,
 ) : UseCase<Favorite, Unit> {
     override suspend fun invoke(vararg arguments: Favorite): Result<Unit> {
         require(arguments.isNotEmpty())

@@ -39,9 +39,7 @@ class ProfileSignInFragment : Fragment(R.layout.fragment_profile_sign_in) {
     private var _binding: FragmentProfileSignInBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val transition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition

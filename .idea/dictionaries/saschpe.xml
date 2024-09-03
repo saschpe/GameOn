@@ -4,6 +4,7 @@
       <w>androiddebugkey</w>
       <w>apksigner</w>
       <w>cardview</w>
+      <w>codeql</w>
       <w>constraintlayout</w>
       <w>coroutine</w>
       <w>coroutines</w>
@@ -14,6 +15,7 @@
       <w>getkeepsafe</w>
       <w>itad</w>
       <w>jetbrains</w>
+      <w>jonasb</w>
       <w>kapt</w>
       <w>keyline</w>
       <w>kotlinx</w>

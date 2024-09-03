@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Store(
     val id: String,
     val name: String,
-    val color: String
+    val color: String,
 )
 
 const val STEAM_STORE = "steam"

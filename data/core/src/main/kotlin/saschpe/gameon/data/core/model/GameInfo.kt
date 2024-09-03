@@ -12,14 +12,14 @@ data class GameInfo(
     val trading_cards: Boolean,
     val early_access: Boolean,
     val reviews: HashMap<String, Review>?,
-    val urls: Urls
+    val urls: Urls,
 ) {
     @Serializable
     data class Review(
         val perc_positive: Int,
         val total: Int,
         val text: String,
-        val timestamp: Long
+        val timestamp: Long,
     ) {
         companion object {
             const val NEUTRAL_REVIEW_THRESHOLD = 60
@@ -30,6 +30,6 @@ data class GameInfo(
     @Serializable
     data class Urls(
         val game: String,
-        val history: String
+        val history: String,
     )
 }

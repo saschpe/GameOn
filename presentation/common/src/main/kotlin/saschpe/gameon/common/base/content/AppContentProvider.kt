@@ -35,7 +35,7 @@ class AppContentProvider : ContentProvider() {
         projection: Array<out String>?,
         selection: String?,
         args: Array<out String>?,
-        sortOrder: String?
+        sortOrder: String?,
     ): Cursor? = null
 
     override fun update(uri: Uri, values: ContentValues?, selection: String?, args: Array<out String>?): Int = 0

@@ -11,7 +11,7 @@ import saschpe.gameon.data.remote.itad.Api
 import saschpe.gameon.data.remote.itad.model.Meta
 
 class GameRemoteRepository(
-    private val api: Api
+    private val api: Api,
 ) {
     /**
      * Get info about a game.
@@ -34,7 +34,7 @@ class GameRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shop: String = "stream",
-        allowed: List<String> = listOf()
+        allowed: List<String> = listOf(),
     ) = asResult {
         api.get<GameOverviewResponse>("games/overview/v2") {
             parameter("plains", plains.joinToString(separator = ","))
@@ -55,7 +55,7 @@ class GameRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shops: List<String> = listOf(),
-        added: Long = 0
+        added: Long = 0,
     ) = asResult {
         api.get<GamePricesResponse>("games/prices/v2") {
             parameter("plains", plains.joinToString(separator = ","))
@@ -68,25 +68,25 @@ class GameRemoteRepository(
 
     @Serializable
     data class GameInfoResponse(
-        val data: HashMap<String, GameInfo>
+        val data: HashMap<String, GameInfo>,
     )
 
     @Serializable
     data class GameOverviewResponse(
         @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GameOverview>
+        val data: HashMap<String, GameOverview>,
     ) {
         @Serializable
         data class Meta(
             val region: String,
             val country: String,
-            val currency: String
+            val currency: String,
         )
     }
 
     @Serializable
     data class GamePricesResponse(
         @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GamePrice>
+        val data: HashMap<String, GamePrice>,
     )
 }

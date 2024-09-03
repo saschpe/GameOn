@@ -8,7 +8,7 @@ import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class GetGamePricesUseCase(
-    private val gameRemoteRepository: GameRemoteRepository
+    private val gameRemoteRepository: GameRemoteRepository,
 ) : UseCase<String, HashMap<String, GamePrice>> {
     override suspend fun invoke(vararg arguments: String) =
         when (val result = withContext(Dispatchers.IO) {

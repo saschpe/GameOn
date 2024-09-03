@@ -6,6 +6,6 @@ plugins {
 dependencies {
     implementation(libs.kotlinx.serialization.core)
 
-    testImplementation(kotlin("test-junit"))
+    testImplementation(kotlin("test"))
     testImplementation(libs.kotlinx.coroutines.core)
 }

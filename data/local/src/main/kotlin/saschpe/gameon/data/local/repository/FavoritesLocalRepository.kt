@@ -5,18 +5,17 @@ import saschpe.gameon.data.local.dao.FavoritesDao
 import saschpe.gameon.data.local.model.FavoriteEntity
 
 class FavoritesLocalRepository(
-    private val favoritesDao: FavoritesDao
+    private val favoritesDao: FavoritesDao,
 ) {
     suspend fun getAll(): Result<List<FavoriteEntity>> = Result.Success(favoritesDao.getAll())
 
-    suspend fun getAllByPlains(plains: List<String>): Result<List<FavoriteEntity>> =
-        Result.Success(favoritesDao.getAllByPlains(plains))
+    suspend fun getAllByPlains(plains: List<String>): Result<List<FavoriteEntity>> = Result.Success(favoritesDao.getAllByPlains(plains))
 
     suspend fun getByPlain(plain: String): Result<FavoriteEntity> {
         val result = favoritesDao.getByPlain(plain)
         return when {
             result != null -> Result.Success(result)
-            else -> Result.Error.withMessage("Favorite with plain '${plain}' does not exist")
+            else -> Result.Error.withMessage("Favorite with plain '$plain' does not exist")
         }
     }
 

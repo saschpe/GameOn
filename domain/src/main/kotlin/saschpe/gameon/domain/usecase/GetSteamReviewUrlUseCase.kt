@@ -7,7 +7,7 @@ import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class GetSteamReviewUrlUseCase(
-    private val gameRemoteRepository: GameRemoteRepository
+    private val gameRemoteRepository: GameRemoteRepository,
 ) : UseCase<String, String> {
     override suspend fun invoke(vararg arguments: String): Result<String> {
         require(arguments.size == 1)

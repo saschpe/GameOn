@@ -9,7 +9,7 @@ import saschpe.gameon.data.remote.itad.Api
 import saschpe.gameon.data.remote.itad.model.Meta
 
 class DealsRemoteRepository(
-    private val api: Api
+    private val api: Api,
 ) {
     suspend fun list(
         region: String = "eu1",
@@ -17,7 +17,7 @@ class DealsRemoteRepository(
         shops: List<String> = DEFAULT_STORES,
         limit: Int = 500,
         offset: Int = 0,
-        sort: String = "price:asc"
+        sort: String = "price:asc",
     ) = asResult {
         api.get<DealResponse>("deals/v2") {
             parameter("offset", offset)
@@ -32,12 +32,12 @@ class DealsRemoteRepository(
     @Serializable
     data class DealResponse(
         @SerialName(".meta") val meta: Meta,
-        val data: Data
+        val data: Data,
     ) {
         @Serializable
         data class Data(
             val count: Int,
-            @SerialName("list") val offers: List<Offer>
+            @SerialName("list") val offers: List<Offer>,
         )
     }
 

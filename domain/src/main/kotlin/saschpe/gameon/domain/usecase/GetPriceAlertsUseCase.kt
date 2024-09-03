@@ -13,7 +13,7 @@ import saschpe.gameon.domain.mapper.PRICE_CONVERSION_FACTOR
 
 class GetPriceAlertsUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository,
-    private val gameRemoteRepository: GameRemoteRepository
+    private val gameRemoteRepository: GameRemoteRepository,
 ) : UseCase<Void, FavoritePriceAlerts> {
     override suspend fun invoke(vararg arguments: Void): Result<FavoritePriceAlerts> {
         require(arguments.isEmpty())

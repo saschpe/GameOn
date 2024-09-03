@@ -8,7 +8,7 @@ import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class GetGameInfoUseCase(
-    private val gameRemoteRepository: GameRemoteRepository
+    private val gameRemoteRepository: GameRemoteRepository,
 ) : UseCase<String, HashMap<String, GameInfo>> {
     override suspend fun invoke(vararg arguments: String): Result<HashMap<String, GameInfo>> {
         // TODO: Persistence, check local cache first...

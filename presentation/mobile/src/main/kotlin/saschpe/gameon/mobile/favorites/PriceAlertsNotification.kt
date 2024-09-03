@@ -20,9 +20,9 @@ import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
-import saschpe.gameon.common.R as CommonR
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.gameon.common.R as CommonR
 
 class PriceAlertsNotification(
     private val context: Context

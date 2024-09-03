@@ -9,5 +9,5 @@ data class Currency(
     val delimiter: String,
     val left: Boolean,
     val name: String,
-    val html: String
+    val html: String,
 )

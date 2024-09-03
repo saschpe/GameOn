@@ -35,3 +35,6 @@
 # https://issuetracker.google.com/issues/79667498
 # https://issuetracker.google.com/issues/79631818
 -keep class androidx.navigation.fragment.NavHostFragment
+
+# See https://youtrack.jetbrains.com/issue/KTOR-5528/Missing-class-warning-when-using-R8-with-ktor-client-in-android-application
+-dontwarn org.slf4j.impl.StaticLoggerBinder

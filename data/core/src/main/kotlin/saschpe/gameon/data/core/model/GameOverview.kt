@@ -7,7 +7,7 @@ data class GameOverview(
     val price: Price?,
     val lowest: Lowest?,
     val bundles: Bundles,
-    val urls: Urls
+    val urls: Urls,
 ) {
     @Serializable
     data class Price(
@@ -16,7 +16,7 @@ data class GameOverview(
         val price: Float,
         val price_formatted: String,
         val url: String,
-        val drm: List<String>
+        val drm: List<String>,
     )
 
     @Serializable
@@ -27,12 +27,12 @@ data class GameOverview(
         val price_formatted: String,
         // TODO: val url
         val recorded: Int,
-        val recorded_formatted: String
+        val recorded_formatted: String,
     )
 
     @Serializable
     data class Bundles(
-        val count: Int
+        val count: Int,
         // TODO: val live
     )
 
@@ -40,6 +40,6 @@ data class GameOverview(
     data class Urls(
         val info: String,
         val history: String,
-        val bundles: String
+        val bundles: String,
     )
 }

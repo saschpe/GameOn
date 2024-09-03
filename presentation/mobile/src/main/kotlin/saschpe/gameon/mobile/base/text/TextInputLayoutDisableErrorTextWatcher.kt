@@ -5,7 +5,7 @@ import android.text.TextWatcher
 import com.google.android.material.textfield.TextInputLayout
 
 class TextInputLayoutDisableErrorTextWatcher(
-    private val inputLayout: TextInputLayout?
+    private val inputLayout: TextInputLayout?,
 ) : TextWatcher {
     override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
         inputLayout?.isErrorEnabled = false

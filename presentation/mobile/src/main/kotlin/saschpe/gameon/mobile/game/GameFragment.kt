@@ -72,7 +72,9 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     private class GameFragmentPagerAdapter(
-        val context: Context, val plain: String, fragmentManager: FragmentManager
+        val context: Context,
+        val plain: String,
+        fragmentManager: FragmentManager,
     ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = 3
 
@@ -105,11 +107,13 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
     }
 
-    fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) =
-        Snackbar
-            .make(binding.coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
-            .setAction(CommonR.string.retry) { retryCallback.invoke() }
-            .show()
+    fun showSnackBarWithRetryAction(
+        @StringRes resId: Int,
+        retryCallback: () -> Unit,
+    ) = Snackbar
+        .make(binding.coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
+        .setAction(CommonR.string.retry) { retryCallback.invoke() }
+        .show()
 
     companion object {
         const val ARG_PLAIN = "plain"

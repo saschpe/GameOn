@@ -11,9 +11,10 @@ import java.util.concurrent.TimeUnit
 import saschpe.gameon.data.core.Result as CoreResult
 
 class PriceAlertsWorker(
-    appContext: Context, params: WorkerParameters,
+    appContext: Context,
+    params: WorkerParameters,
     private val getPriceAlertsUseCase: GetPriceAlertsUseCase,
-    private val priceAlertsNotification: PriceAlertsNotification
+    private val priceAlertsNotification: PriceAlertsNotification,
 ) : CoroutineWorker(appContext, params) {
     override suspend fun doWork() = withContext(Dispatchers.IO) {
         when (val results = getPriceAlertsUseCase()) {

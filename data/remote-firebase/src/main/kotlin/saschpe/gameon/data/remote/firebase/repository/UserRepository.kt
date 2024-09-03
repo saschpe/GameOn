@@ -6,7 +6,7 @@ import kotlinx.coroutines.tasks.await
 import saschpe.gameon.data.core.asResult
 
 class UserRepository(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
 ) {
     suspend fun getUser() = asResult {
         firebaseAuth.currentUser ?: throw Exception("Unable to return user")

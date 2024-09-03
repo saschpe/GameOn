@@ -6,7 +6,7 @@ import saschpe.gameon.domain.UseCase
 
 // TODO: Map to proper user domain model
 class GetUserUseCase(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : UseCase<Void, FirebaseUser> {
     override suspend fun invoke(vararg arguments: Void) = userRepository.getUser()
 }

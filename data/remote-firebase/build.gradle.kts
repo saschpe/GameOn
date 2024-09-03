@@ -11,9 +11,6 @@ dependencies {
     implementation(libs.log4k)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)
-
-    testImplementation(kotlin("test-junit"))
-    testImplementation(libs.mockk)
 }
 
 kotlin.jvmToolchain(libs.versions.java.get().toInt())

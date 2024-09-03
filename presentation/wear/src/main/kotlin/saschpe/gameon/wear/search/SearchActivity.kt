@@ -28,6 +28,5 @@ class SearchActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackPr
         binding.recyclerView.layoutManager = WearableLinearLayoutManager(this)
     }
 
-    override fun getAmbientCallback() =
-        ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
+    override fun getAmbientCallback() = ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
 }

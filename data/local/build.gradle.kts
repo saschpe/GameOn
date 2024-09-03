@@ -34,9 +34,9 @@ android {
         schemaDirectory("$projectDir/src/main/schemas")
     }
 
-//    sourceSets.forEach {
-//        it.assets.srcDir("src/${it.name}/schemas")
-//    }
+    sourceSets.forEach {
+        it.assets.srcDir("src/${it.name}/schemas")
+    }
 
     testCoverage.jacocoVersion = libs.versions.jacoco.get()
     testOptions.unitTests.isIncludeAndroidResources = true

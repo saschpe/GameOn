@@ -31,7 +31,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
 class FavoritesAdapter(
-    context: Context
+    context: Context,
 ) : ListAdapter<FavoritesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
@@ -69,17 +69,17 @@ class FavoritesAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class AdvertisementViewModel(
-            val nativeAd: NativeAd
+            val nativeAd: NativeAd,
         ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
         data class FavoriteViewModel(
             val coroutineScope: CoroutineScope,
             val favorite: Favorite,
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_FAVORITE)
 
         data class NoResultViewModel(
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_NO_RESULT)
     }
 

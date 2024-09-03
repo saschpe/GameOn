@@ -47,8 +47,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.signIn.setOnClickListener {
             navController.navigate(
-                R.id.action_profile_to_signIn, null, null,
-                FragmentNavigatorExtras(binding.signIn to getString(CommonR.string.shared_element_signIn))
+                R.id.action_profile_to_signIn,
+                null,
+                null,
+                FragmentNavigatorExtras(binding.signIn to getString(CommonR.string.shared_element_signIn)),
             )
         }
         binding.signOut.setOnClickListener { viewModel.signOut() }

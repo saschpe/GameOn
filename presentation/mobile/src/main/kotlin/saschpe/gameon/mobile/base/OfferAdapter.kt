@@ -29,7 +29,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
 class OfferAdapter(
-    context: Context
+    context: Context,
 ) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
@@ -67,17 +67,17 @@ class OfferAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class AdvertisementViewModel(
-            val nativeAd: NativeAd
+            val nativeAd: NativeAd,
         ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
         data class NoResultsViewModel(
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_NO_RESULTS)
 
         data class OfferViewModel(
             val coroutineScope: CoroutineScope,
             val offer: Offer,
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_OFFER)
     }
 

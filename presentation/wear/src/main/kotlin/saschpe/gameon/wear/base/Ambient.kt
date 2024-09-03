@@ -15,7 +15,7 @@ val AMBIENT_DATE_FORMAT = SimpleDateFormat("HH:mm", Locale.US)
 open class BaseAmbientCallback(
     private val drawerLayout: WearableDrawerLayout,
     private val topNavigationDrawer: WearableNavigationDrawerView,
-    private val theme: Resources.Theme
+    private val theme: Resources.Theme,
 ) : AmbientModeSupport.AmbientCallback() {
     override fun onEnterAmbient(ambientDetails: Bundle?) {
         topNavigationDrawer.controller.closeDrawer()
@@ -34,7 +34,7 @@ class ClockAmbientCallback(
     drawerLayout: WearableDrawerLayout,
     topNavigationDrawer: WearableNavigationDrawerView,
     theme: Resources.Theme,
-    private val clock: TextView
+    private val clock: TextView,
 ) : BaseAmbientCallback(drawerLayout, topNavigationDrawer, theme) {
     override fun onEnterAmbient(ambientDetails: Bundle?) {
         super.onEnterAmbient(ambientDetails)

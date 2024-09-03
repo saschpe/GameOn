@@ -30,7 +30,6 @@ class ProfileActivityTest {
         val scenario = activityScenarioRule.scenario
 
         scenario.onActivity {
-
         }
 
         onView(withId(R.id.copyright)).check(matches(allOf(isDisplayed())))

@@ -25,7 +25,7 @@ import saschpe.gameon.wear.R
 import saschpe.gameon.common.R as CommonR
 
 class OfferAdapter(
-    context: Context
+    context: Context,
 ) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
@@ -58,13 +58,13 @@ class OfferAdapter(
 
     sealed class ViewModel(val viewType: Int) {
         data class NoResultsViewModel(
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_NO_RESULTS)
 
         data class OfferViewModel(
             val coroutineScope: CoroutineScope,
             val offer: Offer,
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_OFFER)
     }
 
@@ -119,8 +119,7 @@ class OfferAdapter(
     private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val clearButton: MaterialButton = view.findViewById(R.id.clearButton)
 
-        fun bind(viewModel: ViewModel.NoResultsViewModel) =
-            clearButton.setOnClickListener { viewModel.onClick.invoke() }
+        fun bind(viewModel: ViewModel.NoResultsViewModel) = clearButton.setOnClickListener { viewModel.onClick.invoke() }
     }
 
     companion object {

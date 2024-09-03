@@ -13,12 +13,16 @@ sealed class Result<out T : Any> {
     /**
      * Generic success type.
      */
-    data class Success<out T : Any>(val data: T) : Result<T>()
+    data class Success<out T : Any>(
+        val data: T,
+    ) : Result<T>()
 
     /**
      * Generic error type.
      */
-    data class Error(val throwable: Throwable) : Result<Nothing>() {
+    data class Error(
+        val throwable: Throwable,
+    ) : Result<Nothing>() {
         companion object {
             /**
              * Convenience function to create an Error with a [Throwable] and message
@@ -32,8 +36,7 @@ sealed class Result<out T : Any> {
              * with your own exception type to avoid third party code leaking into your
              * API interface.
              */
-            fun withCause(message: String?, throwable: Throwable) =
-                Error(Throwable(message, throwable))
+            fun withCause(message: String?, throwable: Throwable) = Error(Throwable(message, throwable))
         }
     }
 }

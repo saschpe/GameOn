@@ -17,7 +17,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
 class GameReviewsAdapter(
-    context: Context
+    context: Context,
 ) : ListAdapter<GameReviewsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
@@ -45,7 +45,7 @@ class GameReviewsAdapter(
         data class ReviewViewModel(
             val store: String,
             val review: GameInfo.Review,
-            val onClick: (() -> Unit)? = null
+            val onClick: (() -> Unit)? = null,
         ) : ViewModel(VIEW_TYPE_REVIEW)
 
         class NoResultsViewModel : ViewModel(VIEW_TYPE_NO_RESULTS)

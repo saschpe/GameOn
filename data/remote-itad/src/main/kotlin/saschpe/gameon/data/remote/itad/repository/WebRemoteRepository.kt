@@ -8,7 +8,7 @@ import saschpe.gameon.data.core.model.Store
 import saschpe.gameon.data.remote.itad.Api
 
 class WebRemoteRepository(
-    private val api: Api
+    private val api: Api,
 ) {
     suspend fun regions() = asResult {
         api.get<RegionsResponse>("web/regions")
@@ -23,15 +23,17 @@ class WebRemoteRepository(
 
     @Serializable
     data class RegionsResponse(
-        val data: HashMap<String, Region>
+        val data: HashMap<String, Region>,
     ) {
         @Serializable
         data class Region(
             val countries: List<String>,
-            val currency: Currency
+            val currency: Currency,
         )
     }
 
     @Serializable
-    data class StoresResponse(val data: List<Store>)
+    data class StoresResponse(
+        val data: List<Store>,
+    )
 }

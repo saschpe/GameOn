@@ -8,7 +8,7 @@ import saschpe.gameon.data.remote.itad.repository.SearchRemoteRepository
 import saschpe.gameon.domain.UseCase
 
 class SearchUseCase(
-    private val searchRemoteRepository: SearchRemoteRepository
+    private val searchRemoteRepository: SearchRemoteRepository,
 ) : UseCase<String, List<Offer>> {
     /**
      * [arguments] Exactly one search string

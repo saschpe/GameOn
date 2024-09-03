@@ -6,7 +6,7 @@ import saschpe.gameon.data.remote.firebase.repository.UserRepository
 import saschpe.gameon.domain.UseCase
 
 class SignInWithGoogleUseCase(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : UseCase<String, AuthResult> {
     override suspend fun invoke(vararg arguments: String): Result<AuthResult> {
         require(arguments.size == 1)

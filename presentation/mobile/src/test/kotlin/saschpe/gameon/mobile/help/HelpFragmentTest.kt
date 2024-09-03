@@ -47,12 +47,11 @@ class HelpFragmentTest {
         onView(allOf(inTabLayout(), withText(CommonR.string.contact))).check(matches(isDisplayed()))
     }
 
-    private fun fragmentScenario() =
-        launchFragmentInContainer(themeResId = R.style.App_DayNight) {
-            HelpFragment().apply {
-                viewLifecycleOwnerLiveData.observeForever {
-                    setViewNavController(requireView(), navController)
-                }
+    private fun fragmentScenario() = launchFragmentInContainer(themeResId = R.style.App_DayNight) {
+        HelpFragment().apply {
+            viewLifecycleOwnerLiveData.observeForever {
+                setViewNavController(requireView(), navController)
             }
         }
+    }
 }

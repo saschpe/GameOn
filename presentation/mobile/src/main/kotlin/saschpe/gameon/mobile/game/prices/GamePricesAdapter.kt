@@ -16,7 +16,7 @@ import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
 class GamePricesAdapter(
-    context: Context
+    context: Context,
 ) : ListAdapter<GamePricesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
@@ -38,7 +38,7 @@ class GamePricesAdapter(
     sealed class ViewModel(val viewType: Int) {
         data class PriceViewModel(
             val price: GamePrice.Price,
-            val onClick: () -> Unit = {}
+            val onClick: () -> Unit = {},
         ) : ViewModel(VIEW_TYPE_PRICE)
     }
 

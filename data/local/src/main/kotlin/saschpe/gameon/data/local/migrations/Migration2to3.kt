@@ -11,8 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * @see saschpe.gameon.data.local.model.FavoriteEntity
  */
 internal val Migration2to3 = object : Migration(2, 3) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
 ALTER TABLE favorites
     ADD COLUMN dismissed INTEGER NOT NULL DEFAULT 0

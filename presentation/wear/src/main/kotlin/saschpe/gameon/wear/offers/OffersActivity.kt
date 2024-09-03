@@ -65,6 +65,5 @@ class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackPr
         viewModel.getDeals()
     }
 
-    override fun getAmbientCallback() =
-        ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
+    override fun getAmbientCallback() = ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
 }
