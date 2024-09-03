@@ -174,7 +174,8 @@ replay_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -360,6 +361,7 @@ xcuserdata/
 *.xccheckout
 # Custom ignore rules, update with:
 # { gibo dump Android Gradle JetBrains Kotlin macOS Node Vim Xcode ; cat .gitignore-custom } > .gitignore
+!.idea/dictionaries/saschpe.xml
 .idea/compiler.xml
 .idea/encodings.xml
 .idea/misc.xml
@@ -367,6 +369,7 @@ xcuserdata/
 !.idea/dictionaries/saschpe.xml
 
 # Secret files, see ./scripts/secret
+.kotlin/
 buildSrc/src/main/kotlin/Secrets.kt
 config/*.json
 presentation/*/google-services.json
