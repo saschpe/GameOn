@@ -5,5 +5,8 @@
 .idea/misc.xml
 .idea/modules.xml
 !.idea/dictionaries/saschpe.xml
+
+# Secret files, see ./scripts/secret
 buildSrc/src/main/kotlin/Secrets.kt
 config/*.json
+presentation/*/google-services.json
