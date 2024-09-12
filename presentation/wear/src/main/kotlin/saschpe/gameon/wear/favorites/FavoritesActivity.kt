@@ -9,7 +9,9 @@ import saschpe.gameon.wear.base.TopNavigationDrawerAdapter
 import saschpe.gameon.wear.base.TopNavigationItemSelectedListener
 import saschpe.gameon.wear.databinding.ActivityFavoritesBinding
 
-class FavoritesActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class FavoritesActivity :
+    AppCompatActivity(),
+    AmbientModeSupport.AmbientCallbackProvider {
     private lateinit var ambientController: AmbientModeSupport.AmbientController
     private lateinit var binding: ActivityFavoritesBinding
 

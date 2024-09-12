@@ -41,7 +41,8 @@ class HelpAboutFragment : Fragment(R.layout.fragment_help_about) {
 
         binding.disclaimer.movementMethod = LinkMovementMethod()
         binding.disclaimer.text = HtmlCompat.fromHtml(
-            getString(CommonR.string.disclaimer_text), HtmlCompat.FROM_HTML_MODE_LEGACY
+            getString(CommonR.string.disclaimer_text),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
         binding.copyrightText.text =

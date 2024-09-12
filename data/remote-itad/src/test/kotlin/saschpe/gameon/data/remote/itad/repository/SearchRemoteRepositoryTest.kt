@@ -21,7 +21,7 @@ private fun MockEngineConfig.searchApiHandler() = addHandler {
         "/v01/search/search" -> {
             when (val query = it.url.parameters["q"]) {
                 null -> error("URL parameter 'q' missing")
-                else -> when (val json = getResourceString("/testing/search/${query}.json")) {
+                else -> when (val json = getResourceString("/testing/search/$query.json")) {
                     null -> error("Unhandled value for URL parameter 'q': $query")
                     else -> respond(json, HttpStatusCode.OK, headersContentTypeJson)
                 }

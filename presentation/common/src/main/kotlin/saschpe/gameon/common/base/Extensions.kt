@@ -12,10 +12,7 @@ import saschpe.log4k.Log
 @ColorInt
 fun Int.toColorInt(context: Context) = ContextCompat.getColor(context, this)
 
-fun Drawable.tinted(
-    @ColorInt tintColor: Int? = null,
-    tintMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN,
-) = apply {
+fun Drawable.tinted(@ColorInt tintColor: Int? = null, tintMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) = apply {
     setTintList(tintColor?.toColorStateList())
     setTintMode(tintMode)
 }

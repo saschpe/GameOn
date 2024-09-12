@@ -13,7 +13,8 @@ import saschpe.gameon.data.local.AppDatabase
 class MigrationTest {
     @get:Rule
     val migrationTestHelper = MigrationTestHelper(
-        InstrumentationRegistry.getInstrumentation(), AppDatabase::class.java.canonicalName
+        InstrumentationRegistry.getInstrumentation(),
+        AppDatabase::class.java.canonicalName
     )
 
     @Test
@@ -70,7 +71,9 @@ class MigrationTest {
         // Open latest version of the database. Room will validate the schema
         // once all migrations execute.
         Room.databaseBuilder(
-            InstrumentationRegistry.getInstrumentation().targetContext, AppDatabase::class.java, TEST_DB
+            InstrumentationRegistry.getInstrumentation().targetContext,
+            AppDatabase::class.java,
+            TEST_DB
         ).addMigrations(*ALL_MIGRATIONS).build().apply {
             openHelper.writableDatabase
             close()

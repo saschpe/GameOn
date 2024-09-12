@@ -10,10 +10,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import saschpe.log4k.Log
 
-class Api(
-    userAgent: String,
-    val apiKey: String,
-) {
+class Api(userAgent: String, val apiKey: String) {
     @Suppress("EXPERIMENTAL_API_USAGE")
     val client = HttpClient {
         install(ContentNegotiation) {
@@ -30,9 +27,7 @@ class Api(
 
     fun fullUrl(path: String) = "$API_URL$path"
 
-    suspend inline fun <reified T> get(
-        path: String, block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.get {
+    suspend inline fun <reified T> get(path: String, block: HttpRequestBuilder.() -> Unit = {}): T = client.get {
         url(fullUrl(path))
         parameter("key", apiKey)
         block()

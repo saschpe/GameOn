@@ -4,7 +4,9 @@ import androidx.multidex.MultiDexApplication
 import org.robolectric.TestLifecycleApplication
 import java.lang.reflect.Method
 
-class StubApplication : MultiDexApplication(), TestLifecycleApplication {
+class StubApplication :
+    MultiDexApplication(),
+    TestLifecycleApplication {
     override fun onCreate() = Unit
 
     override fun beforeTest(method: Method) = Unit

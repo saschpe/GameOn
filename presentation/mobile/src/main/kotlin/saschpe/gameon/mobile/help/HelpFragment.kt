@@ -86,9 +86,8 @@ open class HelpFragment : Fragment(R.layout.fragment_help) {
         requireActivity().appNameTitle(binding.appName)
     }
 
-    private class HelpFragmentPagerAdapter(
-        val context: Context, fragmentManager: FragmentManager
-    ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private class HelpFragmentPagerAdapter(val context: Context, fragmentManager: FragmentManager) :
+        FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = 2
 
         override fun getItem(position: Int) = when (position) {

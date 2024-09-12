@@ -50,7 +50,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     // Workaround for https://issuetracker.google.com/issues/139995974
     private fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference) {
         val fragment = childFragmentManager.fragmentFactory.instantiate(
-            requireContext().classLoader, pref.fragment!!
+            requireContext().classLoader,
+            pref.fragment!!
         ).apply {
             arguments = pref.extras
             setTargetFragment(caller, 0)

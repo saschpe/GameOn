@@ -42,9 +42,7 @@ class ProfileSignUpFragment : Fragment(R.layout.fragment_profile_sign_up) {
         paramPassword = arguments?.getString(ARG_PASSWORD)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val transition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition

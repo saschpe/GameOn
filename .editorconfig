@@ -16,5 +16,6 @@ ktlint_code_style = intellij_idea
 ktlint_function_naming_ignore_when_annotated_with = Composable
 ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = unset
 ktlint_standard_backing-property-naming = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_trailing-comma-on-call-site = disabled

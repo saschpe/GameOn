@@ -110,12 +110,18 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                             val priceString = if (cut == 0) {
                                 getString(
                                     CommonR.string.price_on_store_colored_template,
-                                    price_formatted, store, colors.green
+                                    price_formatted,
+                                    store,
+                                    colors.green
                                 )
                             } else {
                                 getString(
                                     CommonR.string.price_on_store_with_rebate_template,
-                                    price_formatted, store, cut, colors.green, colors.red
+                                    price_formatted,
+                                    store,
+                                    cut,
+                                    colors.green,
+                                    colors.red
                                 )
                             }
                             binding.currentBest.text =
@@ -133,8 +139,13 @@ class GameOverviewFragment : Fragment(R.layout.fragment_game_overview) {
                             binding.historicalLow.text = HtmlCompat.fromHtml(
                                 getString(
                                     CommonR.string.price_on_store_with_rebate_template,
-                                    price_formatted, store, cut, colors.green, colors.red
-                                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                                    price_formatted,
+                                    store,
+                                    cut,
+                                    colors.green,
+                                    colors.red
+                                ),
+                                HtmlCompat.FROM_HTML_MODE_LEGACY
                             )
                         }
                     } else {

@@ -45,7 +45,8 @@ class PriceAlertsWorker(
         )
 
         fun enqueuePeriodic(workManager: WorkManager) = workManager.enqueueUniquePeriodicWork(
-            WORK_UNIQUE_NAME, ExistingPeriodicWorkPolicy.KEEP,
+            WORK_UNIQUE_NAME,
+            ExistingPeriodicWorkPolicy.KEEP,
             PeriodicWorkRequestBuilder<PriceAlertsWorker>(WORK_REPEAT_INTERVAL, TimeUnit.MINUTES)
                 .setConstraints(constraints).addTag(WORK_TAG).build()
         )

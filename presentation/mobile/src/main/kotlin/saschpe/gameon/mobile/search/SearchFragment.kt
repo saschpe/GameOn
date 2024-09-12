@@ -77,12 +77,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             adapter = offerAdapter
             layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int) =
-                        when (offerAdapter.getItemViewType(position)) {
-                            OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
-                            OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
-                            else -> 1
-                        }
+                    override fun getSpanSize(position: Int) = when (offerAdapter.getItemViewType(position)) {
+                        OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
+                        OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
+                        else -> 1
+                    }
                 }
             }
             addItemDecoration(SpacingItemDecoration(context, CommonR.dimen.recycler_spacing))

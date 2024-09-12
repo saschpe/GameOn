@@ -3,12 +3,7 @@ package saschpe.gameon.data.core.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GameOverview(
-    val price: Price?,
-    val lowest: Lowest?,
-    val bundles: Bundles,
-    val urls: Urls,
-) {
+data class GameOverview(val price: Price?, val lowest: Lowest?, val bundles: Bundles, val urls: Urls) {
     @Serializable
     data class Price(
         val store: String,
@@ -37,9 +32,5 @@ data class GameOverview(
     )
 
     @Serializable
-    data class Urls(
-        val info: String,
-        val history: String,
-        val bundles: String,
-    )
+    data class Urls(val info: String, val history: String, val bundles: String)
 }

@@ -15,12 +15,7 @@ data class GameInfo(
     val urls: Urls,
 ) {
     @Serializable
-    data class Review(
-        val perc_positive: Int,
-        val total: Int,
-        val text: String,
-        val timestamp: Long,
-    ) {
+    data class Review(val perc_positive: Int, val total: Int, val text: String, val timestamp: Long) {
         companion object {
             const val NEUTRAL_REVIEW_THRESHOLD = 60
             const val POSITIVE_REVIEW_THRESHOLD = 80
@@ -28,8 +23,5 @@ data class GameInfo(
     }
 
     @Serializable
-    data class Urls(
-        val game: String,
-        val history: String,
-    )
+    data class Urls(val game: String, val history: String)
 }

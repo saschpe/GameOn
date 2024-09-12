@@ -60,15 +60,17 @@ class GamePricesFragment : Fragment(R.layout.fragment_game_prices) {
 
         viewModel.gamePriceLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Success<GamePrice> -> pricesAdapter.submitList(result.data.list.map {
-                    GamePricesAdapter.ViewModel.PriceViewModel(it) {
-                        firebaseAnalytics.logEvent(Analytics.Event.VISIT_EXTERNAL_SHOP) {
-                            param(Analytics.Param.SHOP_NAME, it.shop.name)
-                            param(Analytics.Param.SHOP_ITEM_URL, it.url)
+                is Result.Success<GamePrice> -> pricesAdapter.submitList(
+                    result.data.list.map {
+                        GamePricesAdapter.ViewModel.PriceViewModel(it) {
+                            firebaseAnalytics.logEvent(Analytics.Event.VISIT_EXTERNAL_SHOP) {
+                                param(Analytics.Param.SHOP_NAME, it.shop.name)
+                                param(Analytics.Param.SHOP_ITEM_URL, it.url)
+                            }
+                            lifecycleScope.launch { openUrl(it.url) }
                         }
-                        lifecycleScope.launch { openUrl(it.url) }
                     }
-                })
+                )
 
                 is Result.Error -> {
                     result.errorLogged()

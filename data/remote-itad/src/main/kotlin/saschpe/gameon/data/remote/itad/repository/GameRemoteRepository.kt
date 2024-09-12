@@ -10,9 +10,7 @@ import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.data.remote.itad.Api
 import saschpe.gameon.data.remote.itad.model.Meta
 
-class GameRemoteRepository(
-    private val api: Api,
-) {
+class GameRemoteRepository(private val api: Api) {
     /**
      * Get info about a game.
      *
@@ -67,26 +65,14 @@ class GameRemoteRepository(
     }
 
     @Serializable
-    data class GameInfoResponse(
-        val data: HashMap<String, GameInfo>,
-    )
+    data class GameInfoResponse(val data: HashMap<String, GameInfo>)
 
     @Serializable
-    data class GameOverviewResponse(
-        @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GameOverview>,
-    ) {
+    data class GameOverviewResponse(@SerialName(".meta") val meta: Meta, val data: HashMap<String, GameOverview>) {
         @Serializable
-        data class Meta(
-            val region: String,
-            val country: String,
-            val currency: String,
-        )
+        data class Meta(val region: String, val country: String, val currency: String)
     }
 
     @Serializable
-    data class GamePricesResponse(
-        @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GamePrice>,
-    )
+    data class GamePricesResponse(@SerialName(".meta") val meta: Meta, val data: HashMap<String, GamePrice>)
 }

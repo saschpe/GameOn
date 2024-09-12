@@ -77,11 +77,10 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
             adapter = offerAdapter
             layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int) =
-                        when (offerAdapter.getItemViewType(position)) {
-                            OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
-                            else -> 1
-                        }
+                    override fun getSpanSize(position: Int) = when (offerAdapter.getItemViewType(position)) {
+                        OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
+                        else -> 1
+                    }
                 }
             }
             addItemDecoration(SpacingItemDecoration(context, CommonR.dimen.recycler_spacing))
@@ -101,9 +100,11 @@ class OffersFragment : Fragment(R.layout.fragment_offers) {
                 }
                 is Result.Error -> {
                     result.errorLogged()
-                    listOf(OfferAdapter.ViewModel.NoResultsViewModel {
-                        offerAdapter.submitList(listOf())
-                    })
+                    listOf(
+                        OfferAdapter.ViewModel.NoResultsViewModel {
+                            offerAdapter.submitList(listOf())
+                        }
+                    )
                 }
             }
             offerAdapter.submitList(viewModels)

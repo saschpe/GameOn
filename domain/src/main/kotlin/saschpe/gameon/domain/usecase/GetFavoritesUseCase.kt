@@ -9,9 +9,7 @@ import saschpe.gameon.data.local.repository.FavoritesLocalRepository
 import saschpe.gameon.domain.UseCase
 import saschpe.gameon.domain.mapper.toFavorite
 
-class GetFavoritesUseCase(
-    private val favoritesLocalRepository: FavoritesLocalRepository,
-) : UseCase<String, List<Favorite>> {
+class GetFavoritesUseCase(private val favoritesLocalRepository: FavoritesLocalRepository) : UseCase<String, List<Favorite>> {
     override suspend fun invoke(vararg arguments: String): Result<List<Favorite>> {
         val result = withContext(Dispatchers.IO) {
             if (arguments.isEmpty()) {

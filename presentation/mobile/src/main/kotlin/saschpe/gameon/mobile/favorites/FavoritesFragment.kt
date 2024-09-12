@@ -84,21 +84,23 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         gridLayoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int) =
-                    when (favoritesAdapter.getItemViewType(position)) {
-                        FavoritesAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
-                        FavoritesAdapter.VIEW_TYPE_NO_RESULT -> gridLayoutSpanCount
-                        else -> 1
-                    }
+                override fun getSpanSize(position: Int) = when (favoritesAdapter.getItemViewType(position)) {
+                    FavoritesAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
+                    FavoritesAdapter.VIEW_TYPE_NO_RESULT -> gridLayoutSpanCount
+                    else -> 1
+                }
             }
         }
 
         lifecycleScope.launch {
-            updateGridLayout(withContext(Dispatchers.IO) {
-                requireContext().sharedPreferences.getInt(
-                    PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT, GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
-                )
-            })
+            updateGridLayout(
+                withContext(Dispatchers.IO) {
+                    requireContext().sharedPreferences.getInt(
+                        PREF_GRID_LAYOUT_SPAN_COUNT_INCREMENT,
+                        GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE
+                    )
+                }
+            )
         }
 
         binding.recyclerView.apply {
@@ -121,9 +123,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                             }
                         }
 
-                        else -> listOf(FavoritesAdapter.ViewModel.NoResultViewModel {
-                            navController.navigate(R.id.action_favorites_to_search)
-                        })
+                        else -> listOf(
+                            FavoritesAdapter.ViewModel.NoResultViewModel {
+                                navController.navigate(R.id.action_favorites_to_search)
+                            }
+                        )
                     }
                     favoritesAdapter.submitList(adViewModels + favoriteViewModels)
                 }
@@ -166,11 +170,10 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
     }
 
-    private fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) =
-        Snackbar
-            .make(binding.coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
-            .setAction(CommonR.string.retry) { retryCallback.invoke() }
-            .show()
+    private fun showSnackBarWithRetryAction(@StringRes resId: Int, retryCallback: () -> Unit) = Snackbar
+        .make(binding.coordinatorLayout, getString(resId), Snackbar.LENGTH_INDEFINITE)
+        .setAction(CommonR.string.retry) { retryCallback.invoke() }
+        .show()
 
     companion object {
         private const val GRID_LAYOUT_SPAN_COUNT_INCREMENT_NONE = 0

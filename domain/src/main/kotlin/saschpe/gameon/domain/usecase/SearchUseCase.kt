@@ -7,9 +7,7 @@ import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.data.remote.itad.repository.SearchRemoteRepository
 import saschpe.gameon.domain.UseCase
 
-class SearchUseCase(
-    private val searchRemoteRepository: SearchRemoteRepository,
-) : UseCase<String, List<Offer>> {
+class SearchUseCase(private val searchRemoteRepository: SearchRemoteRepository) : UseCase<String, List<Offer>> {
     /**
      * [arguments] Exactly one search string
      */
@@ -17,9 +15,11 @@ class SearchUseCase(
         require(arguments.size == 1)
         // TODO: Pass down region, country, etc.
 
-        return when (val result = withContext(Dispatchers.IO) {
-            searchRemoteRepository.search(arguments[0])
-        }) {
+        return when (
+            val result = withContext(Dispatchers.IO) {
+                searchRemoteRepository.search(arguments[0])
+            }
+        ) {
             is Result.Success<SearchRemoteRepository.SearchResponse> -> Result.Success(result.data.data.offers)
             is Result.Error -> result
         }

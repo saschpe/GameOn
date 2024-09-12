@@ -22,9 +22,7 @@ private val TEST_DEVICE_IDS = listOf(
 private const val TEST_NATIVE_ADVANCED_AD_UNIT = "ca-app-pub-9045162269320751/1893886932"
 private const val TEST_NATIVE_ADVANCED_VIDEO_AD_UNIT = "ca-app-pub-3940256099942544/1044960115"
 
-sealed class NativeAdUnit(
-    val adUnit: String,
-) {
+sealed class NativeAdUnit(val adUnit: String) {
     object Favorites : NativeAdUnit("ca-app-pub-9045162269320751/1669513895")
 
     object Offers : NativeAdUnit("ca-app-pub-9045162269320751/1893886932")

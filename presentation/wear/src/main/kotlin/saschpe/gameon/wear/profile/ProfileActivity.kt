@@ -14,7 +14,9 @@ import saschpe.gameon.wear.base.TopNavigationItemSelectedListener
 import saschpe.gameon.wear.databinding.ActivityProfileBinding
 import saschpe.gameon.common.R as CommonR
 
-class ProfileActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class ProfileActivity :
+    AppCompatActivity(),
+    AmbientModeSupport.AmbientCallbackProvider {
     private lateinit var ambientController: AmbientModeSupport.AmbientController
     private lateinit var binding: ActivityProfileBinding
 

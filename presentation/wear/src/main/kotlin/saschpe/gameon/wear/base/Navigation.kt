@@ -14,9 +14,7 @@ const val TOP_NAVIGATION_OFFERS_POSITION = 1
 const val TOP_NAVIGATION_SEARCH_POSITION = 2
 const val TOP_NAVIGATION_PROFILE_POSITION = 3
 
-class TopNavigationDrawerAdapter(
-    private val context: Context,
-) : WearableNavigationDrawerView.WearableNavigationDrawerAdapter() {
+class TopNavigationDrawerAdapter(private val context: Context) : WearableNavigationDrawerView.WearableNavigationDrawerAdapter() {
     override fun getItemText(position: Int) = when (position) {
         TOP_NAVIGATION_FAVORITES_POSITION -> context.getString(CommonR.string.favorites)
         TOP_NAVIGATION_OFFERS_POSITION -> context.getString(CommonR.string.offers)
@@ -36,9 +34,7 @@ class TopNavigationDrawerAdapter(
     override fun getCount() = 4
 }
 
-class TopNavigationItemSelectedListener(
-    private val context: Context,
-) : WearableNavigationDrawerView.OnItemSelectedListener {
+class TopNavigationItemSelectedListener(private val context: Context) : WearableNavigationDrawerView.OnItemSelectedListener {
     override fun onItemSelected(position: Int) = when (position) {
         TOP_NAVIGATION_FAVORITES_POSITION -> context.startActivity(Intent(context, FavoritesActivity::class.java))
         TOP_NAVIGATION_OFFERS_POSITION -> context.startActivity(Intent(context, OffersActivity::class.java))

@@ -30,9 +30,7 @@ import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
-class FavoritesAdapter(
-    context: Context,
-) : ListAdapter<FavoritesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+class FavoritesAdapter(context: Context) : ListAdapter<FavoritesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -53,12 +51,11 @@ class FavoritesAdapter(
         else -> throw Exception("Unsupported view type '$viewType'!")
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        when (val item = getItem(position)) {
-            is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
-            is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
-            is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
-        }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (val item = getItem(position)) {
+        is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
+        is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
+        is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
+    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
@@ -68,19 +65,12 @@ class FavoritesAdapter(
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class AdvertisementViewModel(
-            val nativeAd: NativeAd,
-        ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
+        data class AdvertisementViewModel(val nativeAd: NativeAd) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
-        data class FavoriteViewModel(
-            val coroutineScope: CoroutineScope,
-            val favorite: Favorite,
-            val onClick: () -> Unit = {},
-        ) : ViewModel(VIEW_TYPE_FAVORITE)
+        data class FavoriteViewModel(val coroutineScope: CoroutineScope, val favorite: Favorite, val onClick: () -> Unit = {}) :
+            ViewModel(VIEW_TYPE_FAVORITE)
 
-        data class NoResultViewModel(
-            val onClick: () -> Unit = {},
-        ) : ViewModel(VIEW_TYPE_NO_RESULT)
+        data class NoResultViewModel(val onClick: () -> Unit = {}) : ViewModel(VIEW_TYPE_NO_RESULT)
     }
 
     private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -144,11 +134,13 @@ class FavoritesAdapter(
                                             CommonR.string.formatted_price_colored_template,
                                             gamePrice.price_formatted,
                                             colors.green
-                                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                                        ),
+                                        HtmlCompat.FROM_HTML_MODE_LEGACY
                                     )
                                 } else {
                                     price.text = HtmlCompat.fromHtml(
-                                        gamePrice.price_formatted, HtmlCompat.FROM_HTML_MODE_LEGACY
+                                        gamePrice.price_formatted,
+                                        HtmlCompat.FROM_HTML_MODE_LEGACY
                                     )
                                 }
                             }

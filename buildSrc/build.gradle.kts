@@ -23,13 +23,13 @@ import java.io.File
 object Secrets {
     object Signing {
         object Key {
-            const val alias = "androiddebugkey"
-            const val password = "android"
+            const val ALIAS = "androiddebugkey"
+            const val PASSWORD = "android"
         }
 
         object Store {
             val file = File("${'$'}{System.getProperty("user.home")}/.android/debug.keystore")
-            const val password = "android"
+            const val PASSWORD = "android"
         }
     }
 }

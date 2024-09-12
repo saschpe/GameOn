@@ -6,9 +6,7 @@ import android.view.View
 import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 
-class SpacingItemDecoration(
-    private val spacing: Int,
-) : RecyclerView.ItemDecoration() {
+class SpacingItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
     constructor(
         context: Context,
         @DimenRes spacingId: Int,

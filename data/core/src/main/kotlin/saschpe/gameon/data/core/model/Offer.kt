@@ -15,14 +15,8 @@ data class Offer(
     val urls: Urls,
 ) {
     @Serializable
-    data class Shop(
-        val id: String,
-        val name: String,
-    )
+    data class Shop(val id: String, val name: String)
 
     @Serializable
-    data class Urls(
-        val buy: String,
-        val game: String,
-    )
+    data class Urls(val buy: String, val game: String)
 }

@@ -9,3 +9,5 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(libs.kotlinx.coroutines.core)
 }
+
+kotlin.jvmToolchain(libs.versions.java.get().toInt())

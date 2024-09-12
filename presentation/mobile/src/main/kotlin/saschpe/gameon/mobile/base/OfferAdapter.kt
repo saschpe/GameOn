@@ -28,9 +28,7 @@ import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
-class OfferAdapter(
-    context: Context,
-) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+class OfferAdapter(context: Context) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -51,12 +49,11 @@ class OfferAdapter(
         else -> throw Exception("Unsupported view type '$viewType'!")
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        when (val item = getItem(position)) {
-            is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
-            is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind(item)
-            is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
-        }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (val item = getItem(position)) {
+        is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
+        is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind(item)
+        is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
+    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
@@ -66,19 +63,12 @@ class OfferAdapter(
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class AdvertisementViewModel(
-            val nativeAd: NativeAd,
-        ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
+        data class AdvertisementViewModel(val nativeAd: NativeAd) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
-        data class NoResultsViewModel(
-            val onClick: () -> Unit = {},
-        ) : ViewModel(VIEW_TYPE_NO_RESULTS)
+        data class NoResultsViewModel(val onClick: () -> Unit = {}) : ViewModel(VIEW_TYPE_NO_RESULTS)
 
-        data class OfferViewModel(
-            val coroutineScope: CoroutineScope,
-            val offer: Offer,
-            val onClick: () -> Unit = {},
-        ) : ViewModel(VIEW_TYPE_OFFER)
+        data class OfferViewModel(val coroutineScope: CoroutineScope, val offer: Offer, val onClick: () -> Unit = {}) :
+            ViewModel(VIEW_TYPE_OFFER)
     }
 
     private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -158,14 +148,20 @@ class OfferAdapter(
                 if (price_cut > 0f) {
                     price.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            CommonR.string.price_colored_template, price_new, colors.green
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                            CommonR.string.price_colored_template,
+                            price_new,
+                            colors.green
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
 
                     rebate.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            CommonR.string.rebate_colored_template, price_cut, colors.red
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                            CommonR.string.rebate_colored_template,
+                            price_cut,
+                            colors.red
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     rebate.visibility = View.VISIBLE
                 } else {

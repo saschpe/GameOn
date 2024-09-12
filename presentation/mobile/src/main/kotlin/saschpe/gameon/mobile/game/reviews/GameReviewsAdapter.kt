@@ -16,23 +16,21 @@ import saschpe.gameon.data.core.model.GameInfo.Review.Companion.POSITIVE_REVIEW_
 import saschpe.gameon.mobile.R
 import saschpe.gameon.common.R as CommonR
 
-class GameReviewsAdapter(
-    context: Context,
-) : ListAdapter<GameReviewsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+class GameReviewsAdapter(context: Context) :
+    ListAdapter<GameReviewsAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            VIEW_TYPE_REVIEW -> ReviewViewHolder(
-                inflater.inflate(R.layout.view_review_list_item, parent, false)
-            )
-            VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
-                inflater.inflate(R.layout.view_review_no_results, parent, false)
-            )
-            else -> throw Exception("Unsupported view type '$viewType'!")
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
+        VIEW_TYPE_REVIEW -> ReviewViewHolder(
+            inflater.inflate(R.layout.view_review_list_item, parent, false)
+        )
+        VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
+            inflater.inflate(R.layout.view_review_no_results, parent, false)
+        )
+        else -> throw Exception("Unsupported view type '$viewType'!")
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
@@ -42,11 +40,8 @@ class GameReviewsAdapter(
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class ReviewViewModel(
-            val store: String,
-            val review: GameInfo.Review,
-            val onClick: (() -> Unit)? = null,
-        ) : ViewModel(VIEW_TYPE_REVIEW)
+        data class ReviewViewModel(val store: String, val review: GameInfo.Review, val onClick: (() -> Unit)? = null) :
+            ViewModel(VIEW_TYPE_REVIEW)
 
         class NoResultsViewModel : ViewModel(VIEW_TYPE_NO_RESULTS)
     }
@@ -69,7 +64,10 @@ class GameReviewsAdapter(
 
             viewModel.review.let {
                 details.text = details.resources.getQuantityString(
-                    CommonR.plurals.review_detail, it.total, it.text, it.total
+                    CommonR.plurals.review_detail,
+                    it.total,
+                    it.text,
+                    it.total
                 )
 
                 val ratingColor = when {
@@ -83,7 +81,8 @@ class GameReviewsAdapter(
                         CommonR.string.colored_number_template,
                         it.perc_positive,
                         ratingColor
-                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                    ),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 

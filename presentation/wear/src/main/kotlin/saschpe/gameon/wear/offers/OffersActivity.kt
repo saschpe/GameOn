@@ -15,7 +15,9 @@ import saschpe.gameon.wear.base.*
 import saschpe.gameon.wear.databinding.ActivityOffersBinding
 import saschpe.gameon.common.R as CommonR
 
-class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class OffersActivity :
+    AppCompatActivity(),
+    AmbientModeSupport.AmbientCallbackProvider {
     private lateinit var ambientController: AmbientModeSupport.AmbientController
     private lateinit var binding: ActivityOffersBinding
     private lateinit var offerAdapter: OfferAdapter
@@ -54,9 +56,11 @@ class OffersActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackPr
 
                 is Result.Error -> {
                     result.errorLogged()
-                    listOf(OfferAdapter.ViewModel.NoResultsViewModel {
-                        offerAdapter.submitList(listOf())
-                    })
+                    listOf(
+                        OfferAdapter.ViewModel.NoResultsViewModel {
+                            offerAdapter.submitList(listOf())
+                        }
+                    )
                 }
             }
             offerAdapter.submitList(viewModels)

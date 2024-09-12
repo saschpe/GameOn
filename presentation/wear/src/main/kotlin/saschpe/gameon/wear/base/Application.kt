@@ -16,10 +16,12 @@ class Application : android.app.Application() {
     }
 
     private fun initLogging() {
-        Log.loggers.add(ConsoleLogger().apply {
-            if (!BuildConfig.DEBUG) {
-                minimumLogLevel = Log.Level.Info
+        Log.loggers.add(
+            ConsoleLogger().apply {
+                if (!BuildConfig.DEBUG) {
+                    minimumLogLevel = Log.Level.Info
+                }
             }
-        })
+        )
     }
 }

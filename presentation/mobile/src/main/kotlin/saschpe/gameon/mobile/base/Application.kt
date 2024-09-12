@@ -37,11 +37,14 @@ class Application : MultiDexApplication() {
     }
 
     private fun initNightMode() = applicationScope.launch {
-        setDefaultNightMode(withContext(Dispatchers.IO) {
-            defaultPreferences.getString(
-                getString(R.string.pref_theme_key), resources.getString(R.string.pref_theme_default)
-            )?.toInt() ?: -1
-        })
+        setDefaultNightMode(
+            withContext(Dispatchers.IO) {
+                defaultPreferences.getString(
+                    getString(R.string.pref_theme_key),
+                    resources.getString(R.string.pref_theme_default)
+                )?.toInt() ?: -1
+            }
+        )
     }
 
     private fun initWorkManager() {

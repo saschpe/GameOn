@@ -19,9 +19,8 @@ class GameOtherViewModel : ViewModel() {
         }
     }
 
-    suspend fun getStreamReviewsUrl(plain: String) =
-        when (val result = getSteamReviewUrlUseCase(plain)) {
-            is Result.Success<String> -> result.data
-            is Result.Error -> null
-        }
+    suspend fun getStreamReviewsUrl(plain: String) = when (val result = getSteamReviewUrlUseCase(plain)) {
+        is Result.Success<String> -> result.data
+        is Result.Error -> null
+    }
 }

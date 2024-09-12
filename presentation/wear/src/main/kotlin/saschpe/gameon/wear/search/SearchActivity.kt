@@ -10,7 +10,9 @@ import saschpe.gameon.wear.base.TopNavigationDrawerAdapter
 import saschpe.gameon.wear.base.TopNavigationItemSelectedListener
 import saschpe.gameon.wear.databinding.ActivitySearchBinding
 
-class SearchActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class SearchActivity :
+    AppCompatActivity(),
+    AmbientModeSupport.AmbientCallbackProvider {
     private lateinit var ambientController: AmbientModeSupport.AmbientController
     private lateinit var binding: ActivitySearchBinding
 
