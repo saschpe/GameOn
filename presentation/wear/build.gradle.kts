@@ -73,7 +73,7 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":presentation:common"))
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("androidx.wear:wear:1.1.0")
     implementation("com.google.android.gms:play-services-wearable:17.1.0")
