@@ -103,7 +103,7 @@ dependencies {
     implementation("de.peilicke.sascha:log4k:1.0.1")
     implementation("io.coil-kt:coil:1.2.1")
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     debugRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")

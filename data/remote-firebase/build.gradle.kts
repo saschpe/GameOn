@@ -27,7 +27,7 @@ dependencies {
 
     implementation(project(":data:core"))
     implementation("de.peilicke.sascha:log4k:1.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.2")
 
     testImplementation(kotlin("test-junit"))
