@@ -32,8 +32,7 @@ sealed class Result<out T : Any> {
              * with your own exception type to avoid third party code leaking into your
              * API interface.
              */
-            fun withCause(message: String?, throwable: Throwable) =
-                Error(Throwable(message, throwable))
+            fun withCause(message: String?, throwable: Throwable) = Error(Throwable(message, throwable))
         }
     }
 }

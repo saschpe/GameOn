@@ -3,7 +3,7 @@ package saschpe.gameon.common.base.recyclerview
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 
-class DiffCallback<T> : DiffUtil.ItemCallback<T>() {
+class DiffCallback<T : Any> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem.hashCode() == newItem.hashCode()
 
     @SuppressLint("DiffUtilEquals")

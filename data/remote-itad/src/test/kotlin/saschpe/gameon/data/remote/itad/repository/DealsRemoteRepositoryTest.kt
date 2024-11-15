@@ -1,17 +1,16 @@
 package saschpe.gameon.data.remote.itad.repository
 
-import io.ktor.client.engine.mock.MockEngineConfig
-import io.ktor.client.engine.mock.respond
-import io.ktor.http.HttpStatusCode
+import io.ktor.client.engine.mock.*
+import io.ktor.http.*
 import io.mockk.every
 import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import saschpe.gameon.data.core.Result
 import saschpe.gameon.data.remote.itad.Api
 import testing.Resources.getResourceString
 import testing.headersContentTypeJson
 import testing.mockHttpClient
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
@@ -23,6 +22,7 @@ private fun MockEngineConfig.dealsApiHandler() = addHandler {
                 else -> respond(json, HttpStatusCode.OK, headersContentTypeJson)
             }
         }
+
         else -> error("Unhandled path: $path")
     }
 }
@@ -55,6 +55,7 @@ class DealsRemoteRepositoryTest {
                 assertEquals("steam", result.data.data.offers[0].shop.id)
                 assertEquals("Steam", result.data.data.offers[0].shop.name)
             }
+
             is Result.Error -> fail()
         }
     }

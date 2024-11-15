@@ -1,0 +1,34 @@
+name: Security
+on: [push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mobfs:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4.2.2
+      - uses: actions/setup-python@v5.3.0
+        with:
+          python-version: '3.12'
+      - name: mobsfscan
+        uses: MobSF/mobsfscan@main
+        with:
+          args: '. --sarif --output results.sarif || true'
+# Investigate https://github.com/saschpe/GameOn/actions/runs/11854976530/job/33038234259?pr=103 first
+#      - name: Upload mobsfscan report
+#        uses: github/codeql-action/upload-sarif@v3
+#        with:
+#          sarif_file: results.sarif
+
+  gradle-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/wrapper-validation-action@v1

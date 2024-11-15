@@ -11,9 +11,10 @@ import java.util.concurrent.TimeUnit
 import saschpe.gameon.data.core.Result as CoreResult
 
 class PriceAlertsWorker(
-    appContext: Context, params: WorkerParameters,
+    appContext: Context,
+    params: WorkerParameters,
     private val getPriceAlertsUseCase: GetPriceAlertsUseCase,
-    private val priceAlertsNotification: PriceAlertsNotification
+    private val priceAlertsNotification: PriceAlertsNotification,
 ) : CoroutineWorker(appContext, params) {
     override suspend fun doWork() = withContext(Dispatchers.IO) {
         when (val results = getPriceAlertsUseCase()) {
@@ -44,7 +45,8 @@ class PriceAlertsWorker(
         )
 
         fun enqueuePeriodic(workManager: WorkManager) = workManager.enqueueUniquePeriodicWork(
-            WORK_UNIQUE_NAME, ExistingPeriodicWorkPolicy.KEEP,
+            WORK_UNIQUE_NAME,
+            ExistingPeriodicWorkPolicy.KEEP,
             PeriodicWorkRequestBuilder<PriceAlertsWorker>(WORK_REPEAT_INTERVAL, TimeUnit.MINUTES)
                 .setConstraints(constraints).addTag(WORK_TAG).build()
         )

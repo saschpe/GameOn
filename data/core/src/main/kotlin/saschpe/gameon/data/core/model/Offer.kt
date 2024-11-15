@@ -12,7 +12,7 @@ data class Offer(
     val added: Long,
     val shop: Shop,
     val drm: Set<String>,
-    val urls: Urls
+    val urls: Urls,
 ) {
     @Serializable
     data class Shop(val id: String, val name: String)

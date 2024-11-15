@@ -1,0 +1,88 @@
+[versions]
+android-compileSdk = "34"
+android-minSdk = "24"
+android-targetSdk = "34"
+androidx-espresso = "3.6.1"
+androidx-fragment = "1.8.2"
+androidx-lifecycle = "2.8.4"
+androidx-navigation = "2.7.7"
+androidx-room = "2.6.1"
+androidx-work = "2.9.1"
+gradle-android = "8.6.1"
+jacoco = "0.8.11"
+java = "17"
+kotlin = "2.0.20"
+kotlinx-coroutines = "1.8.1"
+kotlinx-serialization = "1.7.2"
+ktlint = "1.3.1"
+ktor = "2.3.12"
+
+[libraries]
+androidx-browser = { module = "androidx.browser:browser", version = "1.8.0" }
+androidx-cardview = { module = "androidx.cardview:cardview", version = "1.0.0" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.13.1" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version = "2.2.0" }
+androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidx-espresso" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
+androidx-espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "androidx-espresso" }
+androidx-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidx-espresso" }
+androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version.ref = "androidx-espresso" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "androidx-fragment" }
+androidx-junit-ktx = { module = "androidx.test.ext:junit-ktx", version = "1.2.1" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.3.2" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
+androidx-wear = { module = "androidx.wear:wear", version = "1.3.0" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
+coil = "io.coil-kt:coil:2.7.0"
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-bom = "com.google.firebase:firebase-bom:33.2.0"
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-perf-ktx = { module = "com.google.firebase:firebase-perf-ktx" }
+google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+google-material = "com.google.android.material:material:1.12.0"
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
+ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "ktor" }
+ktor-client-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+log4k = "de.peilicke.sascha:log4k:1.3.3"
+mockk = "io.mockk:mockk:1.13.12"
+play-services-ads = "com.google.android.gms:play-services-ads:23.3.0"
+play-services-auth = "com.google.android.gms:play-services-auth:21.2.0"
+play-services-oss-licenses = "com.google.android.gms:play-services-oss-licenses:17.1.0"
+robolectric = "org.robolectric:robolectric:4.13"
+taptargetview = "com.getkeepsafe.taptargetview:taptargetview:1.14.0"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradle-android" }
+android-library = { id = "com.android.library", version.ref = "gradle-android" }
+androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.2"
+firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
+google-ksp = "com.google.devtools.ksp:2.0.20-1.0.24"
+google-oss-licenses = "com.google.android.gms.oss-licenses-plugin:0.10.6"
+google-services = "com.google.gms.google-services:4.4.2"
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+play = "com.github.triplet.play:3.11.0"
+spotless = "com.diffplug.spotless:6.25.0"
+versions = "com.github.ben-manes.versions:0.51.0"

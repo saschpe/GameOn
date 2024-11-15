@@ -6,6 +6,5 @@ import saschpe.gameon.mobile.R
 
 @Suppress("unused")
 class DeveloperPreferenceFragment : PreferenceFragmentCompat() {
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) =
-        addPreferencesFromResource(R.xml.pref_developer)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) = addPreferencesFromResource(R.xml.pref_developer)
 }

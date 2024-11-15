@@ -14,7 +14,10 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.DiffCallback
@@ -25,10 +28,9 @@ import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.domain.Module.getGameOverviewUseCase
 import saschpe.gameon.mobile.R
+import saschpe.gameon.common.R as CommonR
 
-class FavoritesAdapter(
-    context: Context
-) : ListAdapter<FavoritesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+class FavoritesAdapter(context: Context) : ListAdapter<FavoritesAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
@@ -37,21 +39,23 @@ class FavoritesAdapter(
         VIEW_TYPE_ADVERTISEMENT -> AdvertisementViewHolder(
             inflater.inflate(R.layout.view_favorite_advertisement, parent, false)
         )
+
         VIEW_TYPE_FAVORITE -> FavoriteViewHolder(
             inflater.inflate(R.layout.view_favorite_card, parent, false)
         )
+
         VIEW_TYPE_NO_RESULT -> NoResultViewHolder(
             inflater.inflate(R.layout.view_favorite_no_results, parent, false)
         )
+
         else -> throw Exception("Unsupported view type '$viewType'!")
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        when (val item = getItem(position)) {
-            is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
-            is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
-            is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
-        }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (val item = getItem(position)) {
+        is ViewModel.AdvertisementViewModel -> (holder as AdvertisementViewHolder).bind(item)
+        is ViewModel.FavoriteViewModel -> (holder as FavoriteViewHolder).bind(item)
+        is ViewModel.NoResultViewModel -> (holder as NoResultViewHolder).bind(item)
+    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
@@ -61,19 +65,12 @@ class FavoritesAdapter(
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class AdvertisementViewModel(
-            val nativeAd: NativeAd
-        ) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
+        data class AdvertisementViewModel(val nativeAd: NativeAd) : ViewModel(VIEW_TYPE_ADVERTISEMENT)
 
-        data class FavoriteViewModel(
-            val coroutineScope: CoroutineScope,
-            val favorite: Favorite,
-            val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_FAVORITE)
+        data class FavoriteViewModel(val coroutineScope: CoroutineScope, val favorite: Favorite, val onClick: () -> Unit = {}) :
+            ViewModel(VIEW_TYPE_FAVORITE)
 
-        data class NoResultViewModel(
-            val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_NO_RESULT)
+        data class NoResultViewModel(val onClick: () -> Unit = {}) : ViewModel(VIEW_TYPE_NO_RESULT)
     }
 
     private class AdvertisementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -89,9 +86,10 @@ class FavoritesAdapter(
             nativeAdView.headlineView = headline.apply { text = nativeAd.headline }
             nativeAdView.bodyView = body.apply { text = nativeAd.body }
 
-            if (nativeAd.icon != null) {
+            val nativeAddIcon = nativeAd.icon
+            if (nativeAddIcon != null) {
                 icon.visibility = View.VISIBLE
-                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAd.icon.drawable) }
+                nativeAdView.iconView = icon.apply { setImageDrawable(nativeAddIcon.drawable) }
             } else {
                 icon.visibility = View.INVISIBLE
             }
@@ -116,14 +114,15 @@ class FavoritesAdapter(
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[plain]?.let { gameInfo ->
                             cover.load(gameInfo.image) {
-                                placeholder(R.drawable.placeholder)
+                                placeholder(CommonR.drawable.placeholder)
                                 crossfade(true)
                             }
                         }
+
                     is Result.Error -> result.errorLogged()
                 }
             }
-            gameOverviewJob = GlobalScope.launch(Dispatchers.Main) {
+            gameOverviewJob = CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main) {
                 when (val result = getGameOverviewUseCase(plain)) {
                     is Result.Success<HashMap<String, GameOverview>> ->
                         result.data[plain]?.let { gameOverview ->
@@ -132,18 +131,21 @@ class FavoritesAdapter(
                                 if (gamePrice.cut > 0f) {
                                     price.text = HtmlCompat.fromHtml(
                                         price.context.getString(
-                                            R.string.formatted_price_colored_template,
+                                            CommonR.string.formatted_price_colored_template,
                                             gamePrice.price_formatted,
                                             colors.green
-                                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                                        ),
+                                        HtmlCompat.FROM_HTML_MODE_LEGACY
                                     )
                                 } else {
                                     price.text = HtmlCompat.fromHtml(
-                                        gamePrice.price_formatted, HtmlCompat.FROM_HTML_MODE_LEGACY
+                                        gamePrice.price_formatted,
+                                        HtmlCompat.FROM_HTML_MODE_LEGACY
                                     )
                                 }
                             }
                         }
+
                     is Result.Error -> {
                         result.errorLogged()
                         price.visibility = View.GONE
@@ -170,5 +172,3 @@ class FavoritesAdapter(
         internal const val VIEW_TYPE_NO_RESULT = 3
     }
 }
-
-

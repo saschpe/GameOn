@@ -20,6 +20,7 @@ import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.CustomTabs
 import saschpe.gameon.mobile.help.about.HelpAboutFragment
+import saschpe.gameon.common.R as CommonR
 
 @RunWith(AndroidJUnit4::class)
 class HelpAboutFragmentTest {
@@ -40,7 +41,7 @@ class HelpAboutFragmentTest {
     fun clickOnPrivacyPolicy() {
         launchFragmentInContainer<HelpAboutFragment>(themeResId = R.style.App_DayNight)
 
-        onView(withText(R.string.privacy_policy)).perform(click())
+        onView(withText(CommonR.string.privacy_policy)).perform(click())
 
         coVerify { CustomTabs.openPrivacyPolicy(any()) }
     }
@@ -49,7 +50,7 @@ class HelpAboutFragmentTest {
     fun clickOnTermsOfService() {
         launchFragmentInContainer<HelpAboutFragment>(themeResId = R.style.App_DayNight)
 
-        onView(withText(R.string.terms_of_service)).perform(click())
+        onView(withText(CommonR.string.terms_of_service)).perform(click())
 
         coVerify { CustomTabs.openTermsOfService(any()) }
     }
@@ -59,7 +60,7 @@ class HelpAboutFragmentTest {
         launchFragmentInContainer<HelpAboutFragment>(themeResId = R.style.App_DayNight)
         Intents.init()
 
-        onView(withText(R.string.open_source_licenses)).perform(click())
+        onView(withText(CommonR.string.open_source_licenses)).perform(click())
 
         intended(hasComponent(OssLicensesMenuActivity::class.java.name))
         Intents.release()

@@ -1,6 +1,6 @@
 package saschpe.gameon.data.remote.itad.repository
 
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import saschpe.gameon.data.core.asResult
@@ -10,16 +10,14 @@ import saschpe.gameon.data.core.model.GamePrice
 import saschpe.gameon.data.remote.itad.Api
 import saschpe.gameon.data.remote.itad.model.Meta
 
-class GameRemoteRepository(
-    private val api: Api
-) {
+class GameRemoteRepository(private val api: Api) {
     /**
-     * Get info about game.
+     * Get info about a game.
      *
      * @see <a href="https://itad.docs.apiary.io/#reference/game/info/get-info-about-game">API documentation</a>
      */
     suspend fun info(plains: List<String>) = asResult {
-        api.get<GameInfoResponse>("game/info") {
+        api.get<GameInfoResponse>("games/info/v2") {
             parameter("plains", plains.joinToString(separator = ","))
         }
     }
@@ -34,9 +32,9 @@ class GameRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shop: String = "stream",
-        allowed: List<String> = listOf()
+        allowed: List<String> = listOf(),
     ) = asResult {
-        api.get<GameOverviewResponse>("game/overview") {
+        api.get<GameOverviewResponse>("games/overview/v2") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)
@@ -55,9 +53,9 @@ class GameRemoteRepository(
         region: String = "eu1",
         country: String = "de",
         shops: List<String> = listOf(),
-        added: Long = 0
+        added: Long = 0,
     ) = asResult {
-        api.get<GamePricesResponse>("game/prices") {
+        api.get<GamePricesResponse>("games/prices/v2") {
             parameter("plains", plains.joinToString(separator = ","))
             parameter("region", region)
             parameter("country", country)
@@ -67,26 +65,14 @@ class GameRemoteRepository(
     }
 
     @Serializable
-    data class GameInfoResponse(
-        val data: HashMap<String, GameInfo>
-    )
+    data class GameInfoResponse(val data: HashMap<String, GameInfo>)
 
     @Serializable
-    data class GameOverviewResponse(
-        @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GameOverview>
-    ) {
+    data class GameOverviewResponse(@SerialName(".meta") val meta: Meta, val data: HashMap<String, GameOverview>) {
         @Serializable
-        data class Meta(
-            val region: String,
-            val country: String,
-            val currency: String
-        )
+        data class Meta(val region: String, val country: String, val currency: String)
     }
 
     @Serializable
-    data class GamePricesResponse(
-        @SerialName(".meta") val meta: Meta,
-        val data: HashMap<String, GamePrice>
-    )
+    data class GamePricesResponse(@SerialName(".meta") val meta: Meta, val data: HashMap<String, GamePrice>)
 }

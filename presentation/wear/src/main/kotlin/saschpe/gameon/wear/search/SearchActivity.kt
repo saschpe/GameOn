@@ -1,19 +1,34 @@
 package saschpe.gameon.wear.search
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.widget.WearableLinearLayoutManager
-import kotlinx.android.synthetic.main.activity_search.*
-import saschpe.gameon.wear.R
-import saschpe.gameon.wear.base.BaseActivity
 import saschpe.gameon.wear.base.ClockAmbientCallback
 import saschpe.gameon.wear.base.TOP_NAVIGATION_SEARCH_POSITION
+import saschpe.gameon.wear.base.TopNavigationDrawerAdapter
+import saschpe.gameon.wear.base.TopNavigationItemSelectedListener
+import saschpe.gameon.wear.databinding.ActivitySearchBinding
 
-class SearchActivity : BaseActivity(R.layout.activity_search, TOP_NAVIGATION_SEARCH_POSITION) {
+class SearchActivity :
+    AppCompatActivity(),
+    AmbientModeSupport.AmbientCallbackProvider {
+    private lateinit var ambientController: AmbientModeSupport.AmbientController
+    private lateinit var binding: ActivitySearchBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        recyclerView.layoutManager = WearableLinearLayoutManager(this)
+        ambientController = AmbientModeSupport.attach(this)
+
+        binding.topNavigationDrawer.setAdapter(TopNavigationDrawerAdapter(this))
+        binding.topNavigationDrawer.setCurrentItem(TOP_NAVIGATION_SEARCH_POSITION, false)
+        binding.topNavigationDrawer.addOnItemSelectedListener(TopNavigationItemSelectedListener(this))
+        binding.topNavigationDrawer.controller.peekDrawer()
+        binding.recyclerView.layoutManager = WearableLinearLayoutManager(this)
     }
 
-    override fun getAmbientCallback() = ClockAmbientCallback(drawerLayout, topNavigationDrawer, theme, clock)
+    override fun getAmbientCallback() = ClockAmbientCallback(binding.drawerLayout, binding.topNavigationDrawer, theme, binding.clock)
 }

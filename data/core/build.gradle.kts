@@ -1,15 +1,13 @@
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
-}
-
-repositories {
-    mavenCentral()
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.0")
+    implementation(libs.kotlinx.serialization.core)
 
-    testImplementation(kotlin("test-junit"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlinx.coroutines.core)
 }
+
+kotlin.jvmToolchain(libs.versions.java.get().toInt())

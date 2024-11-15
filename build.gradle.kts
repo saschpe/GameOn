@@ -1,56 +1,24 @@
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:4.1.3")
-        classpath("com.google.android.gms:oss-licenses-plugin:0.10.4")
-        classpath("com.google.gms:google-services:4.3.5")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.6.0")
-        classpath("com.google.firebase:perf-plugin:1.4.0")
-    }
-}
-
 plugins {
-    id("com.diffplug.spotless") version "5.12.4"
-    id("com.github.ben-manes.versions") version "0.38.0"
-    kotlin("jvm") version "1.4.31"
-}
-
-repositories {
-    mavenCentral()
-}
-
-subprojects {
-    tasks {
-        withType<JavaCompile> {
-            sourceCompatibility = "1.8"
-            targetCompatibility = "1.8"
-        }
-
-        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions.jvmTarget = "1.8"
-        }
-    }
+    alias(libs.plugins.android.application) apply false // Plugin does not allow being loaded multiple times
+    alias(libs.plugins.android.library) apply false // Plugin does not allow being loaded multiple times
+    alias(libs.plugins.kotlin.android) apply false // Plugin does not allow being loaded multiple times
+    alias(libs.plugins.kotlin.jvm) apply false // Plugin does not allow being loaded multiple times
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.versions)
 }
 
 spotless {
-    format("misc") {
-        target("**/*.gradle", "**/*.md", "**/.gitignore")
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
     freshmark {
         target("**/*.md")
         propertiesFile("gradle.properties")
     }
     kotlin {
-        target("*/src/**/*.kt")
-        ktlint().userData(mapOf("disabled_rules" to "no-wildcard-imports"))
+        target("**/*.kt")
+        ktlint(libs.versions.ktlint.get()).setEditorConfigPath("${project.rootDir}/.editorconfig")
     }
     kotlinGradle {
         target("**/*.gradle.kts")
-        ktlint()
+        ktlint(libs.versions.ktlint.get()).setEditorConfigPath("${project.rootDir}/.editorconfig")
     }
 }
 

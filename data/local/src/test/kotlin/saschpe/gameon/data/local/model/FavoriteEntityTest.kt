@@ -21,7 +21,8 @@ class FavoriteEntityTest {
     @Before
     fun createDatabase() {
         database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(), AppDatabase::class.java
+            ApplicationProvider.getApplicationContext(),
+            AppDatabase::class.java
         ).build()
         favoritesDao = database.favoritesDao()
     }

@@ -1,7 +1,37 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
-    plugins {
-        id("com.github.triplet.play") version "2.8.0"
-        kotlin("plugin.serialization") version "1.4.31"
+    repositories {
+        gradlePluginPortal()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            // Custom resolution rules for Gradle plugins that don't support the `plugins {}` DSL.
+            if (requested.id.id == "com.google.android.gms.oss-licenses-plugin") {
+                useModule("com.google.android.gms:oss-licenses-plugin:${requested.version}")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
     }
 }
 
@@ -15,5 +45,5 @@ include(
     ":domain",
     ":presentation:common",
     ":presentation:mobile",
-    ":presentation:wear"
+    ":presentation:wear",
 )

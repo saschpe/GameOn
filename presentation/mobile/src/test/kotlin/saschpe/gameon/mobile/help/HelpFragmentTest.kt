@@ -17,6 +17,7 @@ import org.junit.runner.RunWith
 import saschpe.gameon.mobile.R
 import testing.inActionBar
 import testing.inTabLayout
+import saschpe.gameon.common.R as CommonR
 
 @Ignore("Issues remain with mocking NavController")
 @RunWith(AndroidJUnit4::class)
@@ -26,7 +27,7 @@ class HelpFragmentTest {
 
     init {
         every { navController.graph } returns navGraph
-        every { navGraph.startDestination } returns mockk()
+        every { navGraph.startDestDisplayName } returns mockk()
     }
 
     @Test
@@ -34,7 +35,7 @@ class HelpFragmentTest {
         fragmentScenario()
 
         onView(allOf(inActionBar(), withId(R.id.appName))).check(
-            matches(allOf(isDisplayed(), withText(R.string.app_name)))
+            matches(allOf(isDisplayed(), withText(CommonR.string.app_name)))
         )
     }
 
@@ -42,16 +43,15 @@ class HelpFragmentTest {
     fun tabLayoutContainsAboutAndContacts() {
         fragmentScenario()
 
-        onView(allOf(inTabLayout(), withText(R.string.about))).check(matches(isDisplayed()))
-        onView(allOf(inTabLayout(), withText(R.string.contact))).check(matches(isDisplayed()))
+        onView(allOf(inTabLayout(), withText(CommonR.string.about))).check(matches(isDisplayed()))
+        onView(allOf(inTabLayout(), withText(CommonR.string.contact))).check(matches(isDisplayed()))
     }
 
-    private fun fragmentScenario() =
-        launchFragmentInContainer(themeResId = R.style.App_DayNight) {
-            HelpFragment().apply {
-                viewLifecycleOwnerLiveData.observeForever {
-                    setViewNavController(requireView(), navController)
-                }
+    private fun fragmentScenario() = launchFragmentInContainer(themeResId = R.style.App_DayNight) {
+        HelpFragment().apply {
+            viewLifecycleOwnerLiveData.observeForever {
+                setViewNavController(requireView(), navController)
             }
         }
+    }
 }

@@ -1,7 +1,9 @@
 package saschpe.gameon.mobile.search
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -11,8 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_search.*
+import com.google.firebase.analytics.logEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,7 +30,9 @@ import saschpe.gameon.mobile.base.Analytics
 import saschpe.gameon.mobile.base.NativeAdUnit
 import saschpe.gameon.mobile.base.OfferAdapter
 import saschpe.gameon.mobile.base.loadAdvertisement
+import saschpe.gameon.mobile.databinding.FragmentSearchBinding
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.gameon.common.R as CommonR
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private var currentSearchJob: Job? = null
@@ -43,9 +46,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var lastSearch: String? = null
     private lateinit var offerAdapter: OfferAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
     private val noResultsViewModels = listOf(
         OfferAdapter.ViewModel.NoResultsViewModel {
-            searchQuery.text?.clear()
+            binding.searchQuery.text?.clear()
             offerAdapter.submitList(listOf())
         }
     )
@@ -59,32 +64,36 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupWithNavController(toolbar, findNavController())
+        setupWithNavController(binding.toolbar, findNavController())
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = offerAdapter
             layoutManager = GridLayoutManager(context, gridLayoutSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int) =
-                        when (offerAdapter.getItemViewType(position)) {
-                            OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
-                            OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
-                            else -> 1
-                        }
+                    override fun getSpanSize(position: Int) = when (offerAdapter.getItemViewType(position)) {
+                        OfferAdapter.VIEW_TYPE_ADVERTISEMENT -> gridLayoutSpanCount
+                        OfferAdapter.VIEW_TYPE_NO_RESULTS -> gridLayoutSpanCount
+                        else -> 1
+                    }
                 }
             }
-            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
+            addItemDecoration(SpacingItemDecoration(context, CommonR.dimen.recycler_spacing))
             setHasFixedSize(true)
         }
 
-        searchQuery.doAfterTextChanged { text ->
+        binding.searchQuery.doAfterTextChanged { text ->
             if (text?.isNotBlank() == true && text.count() > 2) {
                 currentSearchJob?.cancel()
                 currentSearchJob = lifecycleScope.launch {
                     delay(100L) // Rate-limit to avoid an update on every key press...
-                    progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                     lastSearch = text.toString()
                     viewModel.search(text.toString())
                 }
@@ -92,7 +101,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         viewModel.searchLiveData.observe(viewLifecycleOwner) { result ->
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
             val viewModels = when (result) {
                 is Result.Success<List<Offer>> -> {
                     when {
@@ -104,9 +113,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                 )
                             }
                         }
+
                         else -> noResultsViewModels
                     }
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
                     noResultsViewModels
@@ -127,7 +138,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             param(FirebaseAnalytics.Param.SCREEN_NAME, "Search")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
         }
-        requireActivity().showSoftInput(searchQuery)
+        requireActivity().showSoftInput(binding.searchQuery)
     }
 
     override fun onPause() {

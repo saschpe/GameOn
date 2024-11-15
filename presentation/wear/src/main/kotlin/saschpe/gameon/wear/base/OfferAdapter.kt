@@ -22,30 +22,29 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.core.model.Offer
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.wear.R
+import saschpe.gameon.common.R as CommonR
 
-class OfferAdapter(
-    context: Context
-) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
+class OfferAdapter(context: Context) : ListAdapter<OfferAdapter.ViewModel, RecyclerView.ViewHolder>(DiffCallback<ViewModel>()) {
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
-                inflater.inflate(R.layout.view_offer_no_results, parent, false)
-            )
-            VIEW_TYPE_OFFER -> OfferViewHolder(
-                inflater.inflate(R.layout.view_offer_card, parent, false)
-            )
-            else -> throw Exception("Unsupported view type '$viewType'!")
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
+        VIEW_TYPE_NO_RESULTS -> NoResultsViewHolder(
+            inflater.inflate(R.layout.view_offer_no_results, parent, false)
+        )
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        when (val item = getItem(position)) {
-            is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind(item)
-            is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
-        }
+        VIEW_TYPE_OFFER -> OfferViewHolder(
+            inflater.inflate(R.layout.view_offer_card, parent, false)
+        )
+
+        else -> throw Exception("Unsupported view type '$viewType'!")
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (val item = getItem(position)) {
+        is ViewModel.NoResultsViewModel -> (holder as NoResultsViewHolder).bind(item)
+        is ViewModel.OfferViewModel -> (holder as OfferViewHolder).bind(item)
+    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         when (holder) {
@@ -54,15 +53,10 @@ class OfferAdapter(
     }
 
     sealed class ViewModel(val viewType: Int) {
-        data class NoResultsViewModel(
-            val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_NO_RESULTS)
+        data class NoResultsViewModel(val onClick: () -> Unit = {}) : ViewModel(VIEW_TYPE_NO_RESULTS)
 
-        data class OfferViewModel(
-            val coroutineScope: CoroutineScope,
-            val offer: Offer,
-            val onClick: () -> Unit = {}
-        ) : ViewModel(VIEW_TYPE_OFFER)
+        data class OfferViewModel(val coroutineScope: CoroutineScope, val offer: Offer, val onClick: () -> Unit = {}) :
+            ViewModel(VIEW_TYPE_OFFER)
     }
 
     private class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -80,10 +74,11 @@ class OfferAdapter(
                     is Result.Success<HashMap<String, GameInfo>> ->
                         result.data[viewModel.offer.plain]?.image?.let {
                             cover.load(it) {
-                                placeholder(R.drawable.placeholder)
+                                placeholder(CommonR.drawable.placeholder)
                                 crossfade(true)
                             }
                         }
+
                     is Result.Error -> result.errorLogged()
                 }
             }
@@ -92,17 +87,23 @@ class OfferAdapter(
                 if (price_cut > 0f) {
                     price.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.price_colored_template, price_new, colors.green
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                            CommonR.string.price_colored_template,
+                            price_new,
+                            colors.green
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     rebate.text = HtmlCompat.fromHtml(
                         price.context.getString(
-                            R.string.rebate_colored_template, price_cut, colors.red
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                            CommonR.string.rebate_colored_template,
+                            price_cut,
+                            colors.red
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     rebate.visibility = View.VISIBLE
                 } else {
-                    price.text = price.context.getString(R.string.price_template, price_new)
+                    price.text = price.context.getString(CommonR.string.price_template, price_new)
                 }
             }
         }
@@ -115,8 +116,7 @@ class OfferAdapter(
     private class NoResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val clearButton: MaterialButton = view.findViewById(R.id.clearButton)
 
-        fun bind(viewModel: ViewModel.NoResultsViewModel) =
-            clearButton.setOnClickListener { viewModel.onClick.invoke() }
+        fun bind(viewModel: ViewModel.NoResultsViewModel) = clearButton.setOnClickListener { viewModel.onClick.invoke() }
     }
 
     companion object {

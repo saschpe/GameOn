@@ -1,22 +1,22 @@
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
-repositories {
-    mavenCentral()
-}
+kotlin.jvmToolchain(libs.versions.java.get().toInt())
 
 dependencies {
     implementation(project(":data:core"))
-    implementation("io.ktor:ktor-client-android:1.5.4")
-    implementation("io.ktor:ktor-client-logging-jvm:1.5.4")
-    implementation("io.ktor:ktor-client-serialization-jvm:1.5.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.0")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.logging.jvm)
+    implementation(libs.ktor.client.serialization.kotlinx.json)
+    implementation(libs.log4k)
 
-    testImplementation(kotlin("test-junit"))
-    testImplementation("io.ktor:ktor-client-mock-jvm:1.5.4")
-    testImplementation("io.mockk:mockk:1.11.0")
-    testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
+    testImplementation(kotlin("test"))
+    testImplementation(libs.ktor.client.mock.jvm)
+    testImplementation(libs.mockk)
 }

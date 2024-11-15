@@ -1,14 +1,10 @@
 package saschpe.gameon.mobile.base
 
-import android.os.StrictMode
 import android.util.Log.*
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import saschpe.gameon.common.base.content.defaultPreferences
 import saschpe.gameon.mobile.BuildConfig
 import saschpe.gameon.mobile.Module.workManager
@@ -21,13 +17,16 @@ import saschpe.log4k.Logger
 class Application : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-            StrictMode.enableDefaults()
-        }
 
         initLogging()
         initNightMode()
         initWorkManager()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        applicationScope.cancel("onLowMemory() called by system")
+        applicationScope = MainScope()
     }
 
     private fun initLogging() {
@@ -37,12 +36,15 @@ class Application : MultiDexApplication() {
         }
     }
 
-    private fun initNightMode() = GlobalScope.launch {
-        setDefaultNightMode(withContext(Dispatchers.IO) {
-            defaultPreferences.getString(
-                getString(R.string.pref_theme_key), resources.getString(R.string.pref_theme_default)
-            )?.toInt() ?: -1
-        })
+    private fun initNightMode() = applicationScope.launch {
+        setDefaultNightMode(
+            withContext(Dispatchers.IO) {
+                defaultPreferences.getString(
+                    getString(R.string.pref_theme_key),
+                    resources.getString(R.string.pref_theme_default)
+                )?.toInt() ?: -1
+            }
+        )
     }
 
     private fun initWorkManager() {
@@ -72,5 +74,7 @@ class Application : MultiDexApplication() {
          * Any application-specific intent should use this scheme.
          */
         const val INTENT_SCHEME = "gameon"
+
+        private var applicationScope = MainScope()
     }
 }

@@ -8,12 +8,12 @@ to install and keep them updated.
 
 ## Dependencies
 This project depends on Java on the host machine at build-time. Thus, install
-OpenJDK 9 or 11 on Linux or [Oracle JDK 11][2] on macOS or Windows. In case you
+OpenJDK 17 on Linux or [Oracle JDK 17][2] on macOS or Windows. In case you
 already have a later version installed on macOS you can set the default version
 explicitly by setting the __JAVA_HOME__ environment variable:
 
 ```bash
-export JAVA_HOME=`/usr/libexec/java_home -v 11`
+export JAVA_HOME=`/usr/libexec/java_home -v 17`
 ```
 
 ## Building

@@ -7,15 +7,15 @@ import saschpe.gameon.data.core.model.GameInfo
 import saschpe.gameon.data.remote.itad.repository.GameRemoteRepository
 import saschpe.gameon.domain.UseCase
 
-class GetGameInfoUseCase(
-    private val gameRemoteRepository: GameRemoteRepository
-) : UseCase<String, HashMap<String, GameInfo>> {
+class GetGameInfoUseCase(private val gameRemoteRepository: GameRemoteRepository) : UseCase<String, HashMap<String, GameInfo>> {
     override suspend fun invoke(vararg arguments: String): Result<HashMap<String, GameInfo>> {
         // TODO: Persistence, check local cache first...
 
-        return when (val result = withContext(Dispatchers.IO) {
-            gameRemoteRepository.info(arguments.toList())
-        }) {
+        return when (
+            val result = withContext(Dispatchers.IO) {
+                gameRemoteRepository.info(arguments.toList())
+            }
+        ) {
             is Result.Success<GameRemoteRepository.GameInfoResponse> -> {
                 val gameInfos = result.data.data
                 if (gameInfos.isEmpty()) {

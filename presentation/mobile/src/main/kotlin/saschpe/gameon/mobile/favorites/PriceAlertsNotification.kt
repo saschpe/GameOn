@@ -22,62 +22,60 @@ import saschpe.gameon.data.core.model.GameOverview
 import saschpe.gameon.domain.Module.getGameInfoUseCase
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.gameon.common.R as CommonR
 
-class PriceAlertsNotification(
-    private val context: Context
-) {
+class PriceAlertsNotification(private val context: Context) {
     private val notificationManager by lazy {
         NotificationManagerCompat.from(context).apply { createNotificationChannel() }
     }
 
-    suspend fun notify(alerts: Map<String, GameOverview.Price>) =
-        withContext(Dispatchers.Default) {
-            if (alerts.isNotEmpty()) {
-                val notifications = buildNotifications(alerts)
-                buildSummaryNotification(notifications.size)?.let {
-                    notifications.add(it)
-                }
+    suspend fun notify(alerts: Map<String, GameOverview.Price>) = withContext(Dispatchers.Default) {
+        if (alerts.isNotEmpty()) {
+            val notifications = buildNotifications(alerts)
+            buildSummaryNotification(notifications.size)?.let {
+                notifications.add(it)
+            }
 
-                launch(Dispatchers.Main) {
-                    notifications.forEachIndexed { index: Int, notification: Notification ->
-                        notificationManager.notify(index, notification)
-                    }
+            launch(Dispatchers.Main) {
+                notifications.forEachIndexed { index: Int, notification: Notification ->
+                    notificationManager.notify(index, notification)
                 }
             }
         }
+    }
 
-    private suspend fun buildNotifications(alerts: Map<String, GameOverview.Price>) =
-        alerts.mapTo(mutableListOf()) {
-            val plain = it.key
-            val lowest = it.value
-            val gameInfo: GameInfo? = withContext(Dispatchers.IO) {
-                when (val result = getGameInfoUseCase(plain)) {
-                    is Result.Success<HashMap<String, GameInfo>> -> result.data[plain]
-                    is Result.Error -> null
-                }
+    private suspend fun buildNotifications(alerts: Map<String, GameOverview.Price>) = alerts.mapTo(mutableListOf()) {
+        val plain = it.key
+        val lowest = it.value
+        val gameInfo: GameInfo? = withContext(Dispatchers.IO) {
+            when (val result = getGameInfoUseCase(plain)) {
+                is Result.Success<HashMap<String, GameInfo>> -> result.data[plain]
+                is Result.Error -> null
             }
+        }
 
-            NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setAutoCancel(true)
-                .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                .setColor(colors.primary)
-                .setColorized(true)
-                .setContentIntent(showGamePendingIntent(plain))
-                .setContentText(
-                    HtmlCompat.fromHtml(
-                        context.getString(
-                            R.string.get_it_for_template,
-                            lowest.price_formatted,
-                            lowest.store
-                        ), HtmlCompat.FROM_HTML_MODE_LEGACY
-                    )
+        NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+            .setAutoCancel(true)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setColor(colors.primary)
+            .setColorized(true)
+            .setContentIntent(showGamePendingIntent(plain))
+            .setContentText(
+                HtmlCompat.fromHtml(
+                    context.getString(
+                        CommonR.string.get_it_for_template,
+                        lowest.price_formatted,
+                        lowest.store
+                    ),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
-                .setContentTitle(gameInfo?.title ?: plain)
-                .setDeleteIntent(priceAlertDismissedPendingIntent(plain))
-                .setGroup(NOTIFICATION_GROUP_KEY)
-                .setSmallIcon(R.drawable.ic_notification)
-                .build()
-        }
+            )
+            .setContentTitle(gameInfo?.title ?: plain)
+            .setDeleteIntent(priceAlertDismissedPendingIntent(plain))
+            .setGroup(NOTIFICATION_GROUP_KEY)
+            .setSmallIcon(CommonR.drawable.ic_notification)
+            .build()
+    }
 
     private fun buildSummaryNotification(count: Int): Notification? = when {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.N || count <= 1 -> null
@@ -88,7 +86,7 @@ class PriceAlertsNotification(
             .setContentIntent(showFavoritesPendingIntent())
             .setGroup(NOTIFICATION_GROUP_KEY)
             .setGroupSummary(true)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(CommonR.drawable.ic_notification)
             .build()
     }
 
@@ -99,7 +97,8 @@ class PriceAlertsNotification(
         .createPendingIntent()
 
     private fun priceAlertDismissedPendingIntent(plain: String) = PendingIntent.getBroadcast(
-        context, 0,
+        context,
+        0,
         Intent(context, PriceAlertDismissedBroadcastReceiver::class.java)
             .putExtra(PriceAlertDismissedBroadcastReceiver.ARG_PLAIN, plain),
         PendingIntent.FLAG_CANCEL_CURRENT
@@ -112,13 +111,15 @@ class PriceAlertsNotification(
 
     private fun NotificationManagerCompat.createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                context.getString(R.string.price_alerts),
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = context.getString(R.string.price_alert_description)
-            })
+            createNotificationChannel(
+                NotificationChannel(
+                    NOTIFICATION_CHANNEL_ID,
+                    context.getString(CommonR.string.price_alerts),
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = context.getString(CommonR.string.price_alert_description)
+                }
+            )
         }
     }
 

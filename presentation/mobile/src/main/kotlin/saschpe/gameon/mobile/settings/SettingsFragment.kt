@@ -10,20 +10,22 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_settings.*
+import com.google.firebase.analytics.logEvent
 import saschpe.gameon.common.base.content.hasScreenWidth
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
+import saschpe.gameon.mobile.databinding.FragmentSettingsBinding
 import saschpe.gameon.mobile.settings.preferences.AppearancePreferenceFragment
 import saschpe.gameon.mobile.settings.preferences.MainPreferenceFragment
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private val viewModel: SettingsViewModel by viewModels()
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupWithNavController(toolbar, findNavController())
+        setupWithNavController(binding.toolbar, findNavController())
 
         val mainPreferenceFragment = MainPreferenceFragment()
         childFragmentManager.commit { replace(R.id.mainContainer, mainPreferenceFragment) }
@@ -48,7 +50,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     // Workaround for https://issuetracker.google.com/issues/139995974
     private fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference) {
         val fragment = childFragmentManager.fragmentFactory.instantiate(
-            requireContext().classLoader, pref.fragment
+            requireContext().classLoader,
+            pref.fragment!!
         ).apply {
             arguments = pref.extras
             setTargetFragment(caller, 0)

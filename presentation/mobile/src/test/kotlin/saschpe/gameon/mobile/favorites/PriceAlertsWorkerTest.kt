@@ -26,14 +26,17 @@ class PriceAlertsWorkerTest {
     private val mockGetPriceAlertsUseCase = mockk<GetPriceAlertsUseCase>()
     private val mockPriceAlertsNotification = mockk<PriceAlertsNotification>()
     private val testWorkerFactory = object : WorkerFactory() {
-        override fun createWorker(context: Context, name: String, parameters: WorkerParameters) =
-            PriceAlertsWorker(
-                context, parameters, mockGetPriceAlertsUseCase, mockPriceAlertsNotification
-            )
+        override fun createWorker(context: Context, name: String, parameters: WorkerParameters) = PriceAlertsWorker(
+            context,
+            parameters,
+            mockGetPriceAlertsUseCase,
+            mockPriceAlertsNotification
+        )
     }
     private val testWorkManager by lazy {
         WorkManager.initialize(
-            context, Configuration.Builder().setWorkerFactory(testWorkerFactory).build()
+            context,
+            Configuration.Builder().setWorkerFactory(testWorkerFactory).build()
         )
         WorkManager.getInstance(context)
     }
@@ -71,7 +74,6 @@ class PriceAlertsWorkerTest {
 
         // Assert
         assertEquals(ListenableWorker.Result.failure(), result)
-
     }
 
     @Test
@@ -117,7 +119,8 @@ class PriceAlertsWorkerTest {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED).build()
         val request = PeriodicWorkRequestBuilder<PriceAlertsWorker>(
-            PriceAlertsWorker.WORK_REPEAT_INTERVAL, TimeUnit.MINUTES
+            PriceAlertsWorker.WORK_REPEAT_INTERVAL,
+            TimeUnit.MINUTES
         ).setConstraints(constraints).build()
         val testDriver = WorkManagerTestInitHelper.getTestDriver(context)
 

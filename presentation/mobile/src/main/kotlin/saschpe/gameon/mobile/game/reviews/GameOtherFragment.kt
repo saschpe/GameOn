@@ -1,14 +1,15 @@
 package saschpe.gameon.mobile.game.reviews
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.android.synthetic.main.fragment_game_other.*
+import com.google.firebase.analytics.logEvent
 import kotlinx.coroutines.launch
 import saschpe.gameon.common.base.errorLogged
 import saschpe.gameon.common.base.recyclerview.SpacingItemDecoration
@@ -18,12 +19,16 @@ import saschpe.gameon.data.core.model.STEAM_STORE
 import saschpe.gameon.mobile.Module.firebaseAnalytics
 import saschpe.gameon.mobile.R
 import saschpe.gameon.mobile.base.customtabs.openUrl
+import saschpe.gameon.mobile.databinding.FragmentGameOtherBinding
 import saschpe.gameon.mobile.game.GameFragment
+import saschpe.gameon.common.R as CommonR
 
 class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
     private lateinit var reviewsAdapter: GameReviewsAdapter
     private lateinit var argPlain: String
     private val viewModel: GameOtherViewModel by viewModels()
+    private var _binding: FragmentGameOtherBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +37,18 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
         viewModel.getGameInfo(argPlain)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentGameOtherBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = reviewsAdapter
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(SpacingItemDecoration(context, R.dimen.recycler_spacing))
+            addItemDecoration(SpacingItemDecoration(context, CommonR.dimen.recycler_spacing))
         }
 
         viewModel.gameInfoLiveData.observe(viewLifecycleOwner) { result ->
@@ -55,6 +65,7 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
                                     }
                                 }
                             }
+
                             else -> null
                         }
 
@@ -67,28 +78,34 @@ class GameOtherFragment : Fragment(R.layout.fragment_game_other) {
 
                     reviewsAdapter.submitList(viewModels)
 
-                    isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
-                    achievementsChip.visibility =
+                    binding.isDlcChip.visibility = if (gameInfo.is_dlc) View.VISIBLE else View.GONE
+                    binding.achievementsChip.visibility =
                         if (gameInfo.achievements) View.VISIBLE else View.GONE
-                    tradingCardsChip.visibility =
+                    binding.tradingCardsChip.visibility =
                         if (gameInfo.trading_cards) View.VISIBLE else View.GONE
-                    earlyAccessChip.visibility =
+                    binding.earlyAccessChip.visibility =
                         if (gameInfo.early_access) View.VISIBLE else View.GONE
-                    isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
-                    if (!gameInfo.is_dlc && !gameInfo.achievements && !gameInfo.trading_cards && !gameInfo.early_access && !gameInfo.is_package) {
-                        perksDivider.visibility = View.GONE
-                        perksText.visibility = View.GONE
+                    binding.isPackageChip.visibility = if (gameInfo.is_package) View.VISIBLE else View.GONE
+                    if (!gameInfo.is_dlc &&
+                        !gameInfo.achievements &&
+                        !gameInfo.trading_cards &&
+                        !gameInfo.early_access &&
+                        !gameInfo.is_package
+                    ) {
+                        binding.perksDivider.visibility = View.GONE
+                        binding.perksText.visibility = View.GONE
                     }
 
-                    checkOnProtonDB.setOnClickListener {
+                    binding.checkOnProtonDB.setOnClickListener {
                         lifecycleScope.launch { openUrl("$PROTON_DB_SEARCH_URL${gameInfo.title}") }
                     }
                 }
+
                 is Result.Error -> {
                     result.errorLogged()
                     parentFragment?.let {
                         if (it is GameFragment) {
-                            it.showSnackBarWithRetryAction(R.string.unable_to_load_game) {
+                            it.showSnackBarWithRetryAction(CommonR.string.unable_to_load_game) {
                                 viewModel.getGameInfo(argPlain)
                             }
                         }

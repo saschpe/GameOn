@@ -17,6 +17,8 @@ import saschpe.gameon.common.Module.colors
 import saschpe.gameon.common.base.content.defaultPreferences
 import saschpe.gameon.mobile.R
 import saschpe.log4k.Log
+import com.google.android.gms.base.R as GmsR
+import saschpe.gameon.common.R as CommonR
 
 object CustomTabs {
     private const val HOMEPAGE_URL = "https://sites.google.com/view/gameon-2"
@@ -24,7 +26,9 @@ object CustomTabs {
     private const val TERMS_OF_SERVICE_URL = "https://sites.google.com/view/gameon-2/legal/terms"
 
     suspend fun openHomepage(context: Context) = openUrl(context, HOMEPAGE_URL)
+
     suspend fun openPrivacyPolicy(context: Context) = openUrl(context, PRIVACY_POLICY_URL)
+
     suspend fun openTermsOfService(context: Context) = openUrl(context, TERMS_OF_SERVICE_URL)
 
     suspend fun openUrl(context: Context, url: String) {
@@ -54,9 +58,9 @@ object CustomTabs {
             .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
             .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
 
-        context.resources.getDrawable(R.drawable.ic_arrow_back_24dp, null)?.mutate()?.let {
+        context.resources.getDrawable(CommonR.drawable.ic_arrow_back_24dp, null)?.mutate()?.let {
             DrawableCompat.setTint(it, colors.onSurface)
-            R.styleable.SignInButton_colorScheme
+            GmsR.styleable.SignInButton_colorScheme
             builder.setCloseButtonIcon(it.toBitmap())
         }
 
@@ -68,5 +72,7 @@ object CustomTabs {
 }
 
 suspend fun Fragment.openUrl(url: String) = CustomTabs.openUrl(requireContext(), url)
+
 suspend fun Fragment.openPrivacyPolicy() = CustomTabs.openPrivacyPolicy(requireContext())
+
 suspend fun Fragment.openTermsOfService() = CustomTabs.openTermsOfService(requireContext())

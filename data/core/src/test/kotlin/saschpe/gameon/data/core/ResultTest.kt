@@ -66,8 +66,7 @@ class ResultTest {
     @Test
     fun asResult_withError() = runBlocking {
         // Arrange
-        suspend fun throwingFunction(): Result<String> =
-            asResult { throw ArithmeticException("Oops") }
+        suspend fun throwingFunction(): Result<String> = asResult { throw ArithmeticException("Oops") }
 
         // Act, assert
         when (val result = throwingFunction()) {

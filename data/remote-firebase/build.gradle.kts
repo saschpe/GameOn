@@ -1,35 +1,26 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-}
-
-repositories {
-    mavenCentral()
-    google()
-}
-
-android {
-    compileSdkVersion(30)
-
-    defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 dependencies {
-    api("com.google.firebase:firebase-auth:21.0.0") {
-        // TODO: Introduce domain models and map accordingly
-    }
+    api(platform(libs.firebase.bom))
+    api(libs.firebase.auth.ktx) // TODO: Introduce domain models and map accordingly
 
     implementation(project(":data:core"))
-    implementation("de.peilicke.sascha:log4k:1.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.2")
+    implementation(libs.log4k)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
+}
 
-    testImplementation(kotlin("test-junit"))
-    testImplementation("io.mockk:mockk:1.11.0")
+kotlin.jvmToolchain(libs.versions.java.get().toInt())
+
+android {
+    namespace = "saschpe.gameon.data.remote.firebase"
+
+    defaultConfig {
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }

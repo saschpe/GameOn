@@ -13,15 +13,17 @@ import saschpe.gameon.domain.mapper.PRICE_CONVERSION_FACTOR
 
 class GetPriceAlertsUseCase(
     private val favoritesLocalRepository: FavoritesLocalRepository,
-    private val gameRemoteRepository: GameRemoteRepository
+    private val gameRemoteRepository: GameRemoteRepository,
 ) : UseCase<Void, FavoritePriceAlerts> {
     override suspend fun invoke(vararg arguments: Void): Result<FavoritePriceAlerts> {
         require(arguments.isEmpty())
 
         // Load stored favorites...
-        when (val getFavoritesResult = withContext(Dispatchers.IO) {
-            favoritesLocalRepository.getAll()
-        }) {
+        when (
+            val getFavoritesResult = withContext(Dispatchers.IO) {
+                favoritesLocalRepository.getAll()
+            }
+        ) {
             is Result.Success<List<FavoriteEntity>> -> {
                 val favorites = getFavoritesResult.data
                 val priceAlerts = mutableMapOf<String, GameOverview.Price>()
@@ -29,9 +31,11 @@ class GetPriceAlertsUseCase(
                 val plains = favorites.map { it.plain }
 
                 // Check remote 'overview' API for lowest prices on favorites retrieved...
-                when (val getOverviewsResult = withContext(Dispatchers.IO) {
-                    gameRemoteRepository.overview(plains)
-                }) {
+                when (
+                    val getOverviewsResult = withContext(Dispatchers.IO) {
+                        gameRemoteRepository.overview(plains)
+                    }
+                ) {
                     is Result.Success<GameRemoteRepository.GameOverviewResponse> -> {
                         val overviews = getOverviewsResult.data.data
 
