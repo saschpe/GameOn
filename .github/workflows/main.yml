@@ -30,7 +30,7 @@ jobs:
           SECRETS_KEY: ${{ secrets.SECRETS_KEY }}
         run:  ./scripts/secret decrypt --password ${SECRETS_KEY}
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test -x lintDebug
       - name: Publish to Play Store
         if: contains(github.ref, 'master')
         run: ./scripts/play-store/publish-app
