@@ -25,16 +25,12 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Setup Android problem matchers
         uses: jonasb/android-problem-matchers-action@v1
-      - name: Build with Gradle
+      - name: Decrypt secrets
         env:
           SECRETS_KEY: ${{ secrets.SECRETS_KEY }}
-        run: |
-          ./scripts/secret decrypt --password ${SECRETS_KEY} --google-services
-          ./gradlew build
+        run:  ./scripts/secret decrypt --password ${SECRETS_KEY}
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Publish to Play Store
         if: contains(github.ref, 'master')
-        env:
-          SECRETS_KEY: ${{ secrets.SECRETS_KEY }}
-        run: |
-          ./scripts/secret decrypt --password ${SECRETS_KEY} --signing
-          ./scripts/play-store/publish-app
+        run: ./scripts/play-store/publish-app
